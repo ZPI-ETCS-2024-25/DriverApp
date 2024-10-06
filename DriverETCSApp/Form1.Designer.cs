@@ -26,6 +26,7 @@
             this.lblDebug = new System.Windows.Forms.Label();
             this.btnSendUnity = new System.Windows.Forms.Button();
             this.btnSendServer = new System.Windows.Forms.Button();
+            this.btnListen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDebug
@@ -33,9 +34,9 @@
             this.lblDebug.AutoSize = true;
             this.lblDebug.Location = new System.Drawing.Point(63, 89);
             this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(86, 13);
+            this.lblDebug.Size = new System.Drawing.Size(68, 13);
             this.lblDebug.TabIndex = 0;
-            this.lblDebug.Text = "HELLO WORLD";
+            this.lblDebug.Text = "Debug Label";
             // 
             // btnSendUnity
             // 
@@ -57,11 +58,22 @@
             this.btnSendServer.UseVisualStyleBackColor = true;
             this.btnSendServer.Click += new System.EventHandler(this.btnSendServer_Click);
             // 
+            // btnListen
+            // 
+            this.btnListen.Location = new System.Drawing.Point(213, 12);
+            this.btnListen.Name = "btnListen";
+            this.btnListen.Size = new System.Drawing.Size(172, 24);
+            this.btnListen.TabIndex = 3;
+            this.btnListen.Text = "start listening for messages";
+            this.btnListen.UseVisualStyleBackColor = true;
+            this.btnListen.Click += new System.EventHandler(this.btnListen_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 562);
+            this.Controls.Add(this.btnListen);
             this.Controls.Add(this.btnSendServer);
             this.Controls.Add(this.btnSendUnity);
             this.Controls.Add(this.lblDebug);
@@ -77,6 +89,7 @@
         private System.Windows.Forms.Label lblDebug;
         private System.Windows.Forms.Button btnSendUnity;
         private System.Windows.Forms.Button btnSendServer;
+        private System.Windows.Forms.Button btnListen;
     }
 }
 

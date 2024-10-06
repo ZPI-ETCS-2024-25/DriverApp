@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Communication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,13 @@ namespace DriverETCSApp {
             SenderHTTP senderHttp = new SenderHTTP("127.0.0.1");
             senderHttp.SendMessage("Hello From Driver", Port.Server);
             lblDebug.Text += "\nMessage sent to Server (see more info in console)";
+        }
+
+        private void btnListen_Click(object sender, EventArgs e) {
+            Console.WriteLine("started listening");
+            ReceiverHTTP receiverHTTP = new ReceiverHTTP("127.0.0.1");
+            receiverHTTP.StartListening();
+            lblDebug.Text += "\nstarted listening";
         }
     }
 }
