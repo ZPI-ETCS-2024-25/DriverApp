@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DriverETCSApp {
     internal enum Port {
-        DriverApp = 8000,
+        Server = 8000,
         Unity = 8001,
-        Server = 8002
+        DriverApp = 8002
     }
 }
