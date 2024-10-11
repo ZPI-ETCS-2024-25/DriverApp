@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DriverETCSApp.Forms
 {
-    public partial class Form2 : Form
+    public partial class YZForm : BorderLessForm
     {
-        public Form2()
+        public YZForm()
         {
             InitializeComponent();
         }

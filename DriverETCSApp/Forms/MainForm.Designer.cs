@@ -28,95 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.YPanel = new System.Windows.Forms.Panel();
-            this.ZPanel = new System.Windows.Forms.Panel();
-            this.FPanel = new System.Windows.Forms.Panel();
-            this.DPanel = new System.Windows.Forms.Panel();
-            this.GPanel = new System.Windows.Forms.Panel();
-            this.BPanel = new System.Windows.Forms.Panel();
-            this.CPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.yPanel = new System.Windows.Forms.Panel();
+            this.zPanel = new System.Windows.Forms.Panel();
+            this.fPanel = new System.Windows.Forms.Panel();
+            this.dPanel = new System.Windows.Forms.Panel();
+            this.gPanel = new System.Windows.Forms.Panel();
+            this.bPanel = new System.Windows.Forms.Panel();
+            this.cPanel = new System.Windows.Forms.Panel();
+            this.ePanel = new System.Windows.Forms.Panel();
+            this.aPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // YPanel
+            // yPanel
             // 
-            this.YPanel.Location = new System.Drawing.Point(0, 930);
-            this.YPanel.Name = "YPanel";
-            this.YPanel.Size = new System.Drawing.Size(1280, 30);
-            this.YPanel.TabIndex = 0;
+            this.yPanel.Location = new System.Drawing.Point(0, 930);
+            this.yPanel.Name = "yPanel";
+            this.yPanel.Size = new System.Drawing.Size(1280, 30);
+            this.yPanel.TabIndex = 0;
             // 
-            // ZPanel
+            // zPanel
             // 
-            this.ZPanel.Location = new System.Drawing.Point(0, 0);
-            this.ZPanel.Name = "ZPanel";
-            this.ZPanel.Size = new System.Drawing.Size(1280, 30);
-            this.ZPanel.TabIndex = 1;
+            this.zPanel.Location = new System.Drawing.Point(0, 0);
+            this.zPanel.Name = "zPanel";
+            this.zPanel.Size = new System.Drawing.Size(1280, 30);
+            this.zPanel.TabIndex = 1;
             // 
-            // FPanel
+            // fPanel
             // 
-            this.FPanel.Location = new System.Drawing.Point(1160, 30);
-            this.FPanel.Name = "FPanel";
-            this.FPanel.Size = new System.Drawing.Size(120, 900);
-            this.FPanel.TabIndex = 1;
+            this.fPanel.Location = new System.Drawing.Point(1160, 30);
+            this.fPanel.Name = "fPanel";
+            this.fPanel.Size = new System.Drawing.Size(120, 900);
+            this.fPanel.TabIndex = 1;
             // 
-            // DPanel
+            // dPanel
             // 
-            this.DPanel.Location = new System.Drawing.Point(668, 30);
-            this.DPanel.Name = "DPanel";
-            this.DPanel.Size = new System.Drawing.Size(492, 600);
-            this.DPanel.TabIndex = 2;
+            this.dPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.dPanel.Location = new System.Drawing.Point(668, 30);
+            this.dPanel.Name = "dPanel";
+            this.dPanel.Size = new System.Drawing.Size(492, 600);
+            this.dPanel.TabIndex = 2;
             // 
-            // GPanel
+            // gPanel
             // 
-            this.GPanel.Location = new System.Drawing.Point(668, 630);
-            this.GPanel.Name = "GPanel";
-            this.GPanel.Size = new System.Drawing.Size(492, 300);
-            this.GPanel.TabIndex = 3;
+            this.gPanel.Location = new System.Drawing.Point(668, 630);
+            this.gPanel.Name = "gPanel";
+            this.gPanel.Size = new System.Drawing.Size(492, 300);
+            this.gPanel.TabIndex = 3;
             // 
-            // BPanel
+            // bPanel
             // 
-            this.BPanel.Location = new System.Drawing.Point(108, 30);
-            this.BPanel.Name = "BPanel";
-            this.BPanel.Size = new System.Drawing.Size(560, 600);
-            this.BPanel.TabIndex = 3;
+            this.bPanel.Location = new System.Drawing.Point(108, 30);
+            this.bPanel.Name = "bPanel";
+            this.bPanel.Size = new System.Drawing.Size(560, 600);
+            this.bPanel.TabIndex = 3;
             // 
-            // CPanel
+            // cPanel
             // 
-            this.CPanel.Location = new System.Drawing.Point(0, 630);
-            this.CPanel.Name = "CPanel";
-            this.CPanel.Size = new System.Drawing.Size(668, 100);
-            this.CPanel.TabIndex = 4;
+            this.cPanel.Location = new System.Drawing.Point(0, 630);
+            this.cPanel.Name = "cPanel";
+            this.cPanel.Size = new System.Drawing.Size(668, 100);
+            this.cPanel.TabIndex = 4;
             // 
-            // panel1
+            // ePanel
             // 
-            this.panel1.Location = new System.Drawing.Point(0, 730);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(668, 200);
-            this.panel1.TabIndex = 5;
+            this.ePanel.Location = new System.Drawing.Point(0, 730);
+            this.ePanel.Name = "ePanel";
+            this.ePanel.Size = new System.Drawing.Size(668, 200);
+            this.ePanel.TabIndex = 5;
             // 
-            // panel2
+            // aPanel
             // 
-            this.panel2.Location = new System.Drawing.Point(0, 30);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(108, 600);
-            this.panel2.TabIndex = 4;
+            this.aPanel.Location = new System.Drawing.Point(0, 30);
+            this.aPanel.Name = "aPanel";
+            this.aPanel.Size = new System.Drawing.Size(108, 600);
+            this.aPanel.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 960);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.CPanel);
-            this.Controls.Add(this.BPanel);
-            this.Controls.Add(this.GPanel);
-            this.Controls.Add(this.DPanel);
-            this.Controls.Add(this.FPanel);
-            this.Controls.Add(this.ZPanel);
-            this.Controls.Add(this.YPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Controls.Add(this.aPanel);
+            this.Controls.Add(this.ePanel);
+            this.Controls.Add(this.cPanel);
+            this.Controls.Add(this.bPanel);
+            this.Controls.Add(this.gPanel);
+            this.Controls.Add(this.dPanel);
+            this.Controls.Add(this.fPanel);
+            this.Controls.Add(this.zPanel);
+            this.Controls.Add(this.yPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "ETCS";
             this.ResumeLayout(false);
@@ -125,14 +126,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel YPanel;
-        private System.Windows.Forms.Panel ZPanel;
-        private System.Windows.Forms.Panel FPanel;
-        private System.Windows.Forms.Panel DPanel;
-        private System.Windows.Forms.Panel GPanel;
-        private System.Windows.Forms.Panel BPanel;
-        private System.Windows.Forms.Panel CPanel;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel yPanel;
+        private System.Windows.Forms.Panel zPanel;
+        private System.Windows.Forms.Panel fPanel;
+        private System.Windows.Forms.Panel dPanel;
+        private System.Windows.Forms.Panel gPanel;
+        private System.Windows.Forms.Panel bPanel;
+        private System.Windows.Forms.Panel cPanel;
+        private System.Windows.Forms.Panel ePanel;
+        private System.Windows.Forms.Panel aPanel;
     }
 }

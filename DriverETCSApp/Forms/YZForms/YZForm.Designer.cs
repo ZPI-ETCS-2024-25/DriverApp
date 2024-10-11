@@ -1,6 +1,8 @@
-﻿namespace DriverETCSApp.Forms
+﻿using DriverETCSApp.Design;
+
+namespace DriverETCSApp.Forms
 {
-    partial class Form2
+    partial class YZForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +32,15 @@
         {
             this.SuspendLayout();
             // 
-            // Form2
+            // YZForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = DMIColors.DarkBlue;
+            this.ClientSize = new System.Drawing.Size(1280, 30);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form2";
-            this.Text = "Form2";
+            this.Name = "YZForm";
+            this.Text = "";
             this.ResumeLayout(false);
 
         }
