@@ -49,6 +49,7 @@
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
+    <Compile Include="Design\DMIColors.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,8 +103,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Design\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
