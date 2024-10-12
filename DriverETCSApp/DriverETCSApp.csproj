@@ -69,6 +69,12 @@
     <Compile Include="Forms\DForms\ETCSLevelForm.Designer.cs">
       <DependentUpon>ETCSLevelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DForms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DForms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DForms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,9 @@
     <EmbeddedResource Include="Forms\DForms\ETCSLevelForm.resx">
       <DependentUpon>ETCSLevelForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DForms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\IDDriverForm.resx">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FForms\ToolbarForm.resx">
+      <DependentUpon>ToolbarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FullScreenForms\CheckTrainDataForm.resx">
       <DependentUpon>CheckTrainDataForm.cs</DependentUpon>
@@ -208,6 +220,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Design\Icons\Modes\" />
     <Folder Include="Forms\AForms\" />
     <Folder Include="Forms\BForms\" />
     <Folder Include="Forms\CForms\" />
@@ -215,6 +228,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\Settings\Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Settings\Sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Settings\Language.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Settings\Brightness.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
