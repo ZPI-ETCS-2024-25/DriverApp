@@ -14,10 +14,12 @@ namespace DriverETCSApp.Forms.DForms
     public partial class ETCSLevelForm : BorderLessForm
     {
         private MainForm MainForm;
+        private bool IsBackActive;
 
-        public ETCSLevelForm(MainForm mainForm)
+        public ETCSLevelForm(MainForm mainForm, bool isBackActive)
         {
             InitializeComponent();
+            IsBackActive = isBackActive;
             MainForm = mainForm;
             label2.Text = TrainData.ETCSLevel;
             SetCloseButtonColor();
@@ -25,7 +27,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void SetCloseButtonColor()
         {
-            if (!string.IsNullOrEmpty(TrainData.ETCSLevel))
+            if (IsBackActive)
             {
                 closeButton.ForeColor = Design.DMIColors.Grey;
             }
@@ -56,7 +58,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TrainData.ETCSLevel))
+            if (IsBackActive)
             {
                 Close();
                 MainForm.DrawDFormMenu();

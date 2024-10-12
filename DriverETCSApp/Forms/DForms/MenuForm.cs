@@ -56,7 +56,7 @@ namespace DriverETCSApp.Forms.DForms
         private void button3_Click(object sender, EventArgs e)
         {
             Close();
-            //MainForm.
+            MainForm.DrawTrainDataCategoryForm();
         }
 
         private void button5_Click(object sender, EventArgs e)

@@ -18,53 +18,53 @@ namespace DriverETCSApp.Forms.DForms
         public TrainNumberForm(MainForm mainForm)
         {
             InitializeComponent();
-            this.MainForm = mainForm;
+            MainForm = mainForm;
             label2.Text = TrainData.TrainNumber;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label2.Text += "1";
+            AppendText("1");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            label2.Text += "2";
+            AppendText("2");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            label2.Text += "3";
+            AppendText("3");
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            label2.Text += "4";
+            AppendText("4");
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            label2.Text += "5";
+            AppendText("5");
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            label2.Text += "6";
+            AppendText("6");
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            label2.Text += "7";
+            AppendText("7");
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            label2.Text += "8";
+            AppendText("8");
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            label2.Text += "9";
+            AppendText("9");
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void button11_Click(object sender, EventArgs e)
         {
-            label2.Text += "0";
+            AppendText("0");
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -94,6 +94,14 @@ namespace DriverETCSApp.Forms.DForms
         {
             Close();
             MainForm.DrawDFormMenu();
+        }
+
+        private void AppendText(string s)
+        {
+            if(label2.Text.Length < 6)
+            {
+                label2.Text += s;
+            }
         }
     }
 }

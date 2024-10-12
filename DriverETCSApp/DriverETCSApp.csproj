@@ -81,6 +81,18 @@
     <Compile Include="Forms\DForms\IDDriverForm.Designer.cs">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FullScreenForms\TrainDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\TrainDataForm.Designer.cs">
+      <DependentUpon>TrainDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\TrainDataTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\TrainDataTypeForm.Designer.cs">
+      <DependentUpon>TrainDataTypeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TestForms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +126,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\IDDriverForm.resx">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FullScreenForms\TrainDataForm.resx">
+      <DependentUpon>TrainDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FullScreenForms\TrainDataTypeForm.resx">
+      <DependentUpon>TrainDataTypeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestForms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -153,7 +171,6 @@
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
     <Folder Include="Forms\FForms\" />
-    <Folder Include="Forms\FullScreenForms\" />
     <Folder Include="Forms\GForms\" />
   </ItemGroup>
   <ItemGroup>

@@ -37,7 +37,7 @@ namespace DriverETCSApp.Forms
 
         private void DrawDefaulFormsInPanels()
         {
-            DrawDFormIDDriver();
+            DrawDFormIDDriver(false);
             DrawYZFormDefault();
         }
 
@@ -47,6 +47,28 @@ namespace DriverETCSApp.Forms
             fPanel.Visible = false;
             dPanel.Width = 612;
             dPanel.Height = 900;
+        }
+
+        public void SetFullScreen()
+        {
+            aPanel.Visible = false;
+            bPanel.Visible = false;
+            cPanel.Visible = false;
+            ePanel.Visible = false;
+            dPanel.Width = 1280;
+            dPanel.Height = 900;
+            dPanel.Location = new Point(0, 30);
+        }
+
+        public void HideFullScreen()
+        {
+            aPanel.Visible = true;
+            bPanel.Visible = true;
+            cPanel.Visible = true;
+            ePanel.Visible = true;
+            dPanel.Width = 612;
+            dPanel.Height = 900;
+            dPanel.Location = new Point(668, 30);
         }
 
         public void DrawYZFormDefault()
@@ -62,19 +84,19 @@ namespace DriverETCSApp.Forms
             zForm.Show();
         }
 
-        public void DrawDFormIDDriver()
+        public void DrawDFormIDDriver(bool isActive = true)
         {
             HideGFPanels();
-            dForm = new IDDriverForm(this);
+            dForm = new IDDriverForm(this, isActive);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
         }
 
-        public void DrawDFormETCSLevel()
+        public void DrawDFormETCSLevel(bool isActive = true)
         {
             HideGFPanels();
-            dForm = new ETCSLevelForm(this);
+            dForm = new ETCSLevelForm(this, isActive);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -94,6 +116,24 @@ namespace DriverETCSApp.Forms
             HideGFPanels();
             dForm = new MenuForm(this);
             dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawTrainDataCategoryForm()
+        {
+            dForm = new TrainDataTypeForm(this);
+            dForm.TopLevel = false;
+            SetFullScreen();
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawTrainDataInput()
+        {
+            dForm = new TrainDataForm(this);
+            dForm.TopLevel = false;
+            SetFullScreen();
             dPanel.Controls.Add(dForm);
             dForm.Show();
         }

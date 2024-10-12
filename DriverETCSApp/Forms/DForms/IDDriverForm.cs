@@ -17,13 +17,15 @@ namespace DriverETCSApp.Forms.DForms
         private int ClickCounter;
         private DateTime LastClickDate;
         private Dictionary<char, List<char>> AlphaNumerickKeys;
-        MainForm MainForm;
+        private MainForm MainForm;
+        private bool IsBackActive;
 
-        public IDDriverForm(MainForm mainForm)
+        public IDDriverForm(MainForm mainForm, bool isActive)
         {
             InitializeComponent();
 
-            this.MainForm = mainForm;
+            MainForm = mainForm;
+            IsBackActive = isActive;
             label2.Text = TrainData.IDDriver;
             LastClick = ' ';
             ClickCounter = 0;
@@ -47,7 +49,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void SetCloseButtonColor()
         {
-            if (!string.IsNullOrEmpty(TrainData.IDDriver))
+            if (IsBackActive)
             {
                 closeButton.ForeColor = Design.DMIColors.Grey;
             }
@@ -123,7 +125,7 @@ namespace DriverETCSApp.Forms.DForms
                 if (string.IsNullOrEmpty(TrainData.ETCSLevel))
                 {
                     Close();
-                    MainForm.DrawDFormETCSLevel();
+                    MainForm.DrawDFormETCSLevel(false);
                 }
                 else
                 {
@@ -170,7 +172,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TrainData.ETCSLevel))
+            if (IsBackActive)
             {
                 Close();
                 MainForm.DrawDFormMenu();
@@ -184,7 +186,8 @@ namespace DriverETCSApp.Forms.DForms
 
         private void trainButton_Click(object sender, EventArgs e)
         {
-
+            Close();
+            MainForm.DrawTrainDataCategoryForm();
         }
     }
 }
