@@ -8,7 +8,7 @@
         public static string TrainType = "";
         public static string TrainCat = "";
         public static string Length = "";
-        public static string Weight = "";
+        public static string VMax = "";
         public static string BrakingMass = "";
     }
 }

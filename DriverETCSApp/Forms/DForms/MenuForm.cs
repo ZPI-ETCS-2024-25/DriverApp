@@ -27,7 +27,7 @@ namespace DriverETCSApp.Forms.DForms
             if(!string.IsNullOrEmpty(TrainData.TrainNumber) && !string.IsNullOrEmpty(TrainData.IDDriver) && !string.IsNullOrEmpty(TrainData.ETCSLevel))
             {
                 if(!string.IsNullOrEmpty(TrainData.TrainCat) && !string.IsNullOrEmpty(TrainData.BrakingMass) 
-                    && !string.IsNullOrEmpty(TrainData.Length) && !string.IsNullOrEmpty(TrainData.Weight))
+                    && !string.IsNullOrEmpty(TrainData.Length) && !string.IsNullOrEmpty(TrainData.VMax))
                 {
                     buttonStart.ForeColor = Design.DMIColors.Grey;
                 }

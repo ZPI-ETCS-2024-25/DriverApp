@@ -11,15 +11,15 @@ namespace DriverETCSApp.Data
         public string TrainName { get; set; }
         public string TrainCat { get; set; }
         public string Length { get; set; }
-        public string Weight { get; set; }
+        public string VMax { get; set; }
         public string BrakingMass { get; set; }
 
-        public PredefinedTrain(string trainName, string trainCat, string length, string weight, string brakingMass)
+        public PredefinedTrain(string trainName, string trainCat, string length, string vmax, string brakingMass)
         {
             TrainName = trainName;
             TrainCat = trainCat;
             Length = length;
-            Weight = weight;
+            VMax = vmax;
             BrakingMass = brakingMass;
         }
     }

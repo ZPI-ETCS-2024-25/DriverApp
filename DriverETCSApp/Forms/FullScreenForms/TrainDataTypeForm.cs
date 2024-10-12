@@ -58,23 +58,8 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (IsConfirmationActive)
             {
-                TrainData.TrainType = infoLabelData1.Text;
-                TrainData.TrainCat = trainData.TrainCat;
-                TrainData.Length = trainData.Length;
-                TrainData.Weight = trainData.Weight;
-                TrainData.BrakingMass = trainData.BrakingMass;
-
                 Close();
-                MainForm.HideFullScreen();
-
-                if (!string.IsNullOrEmpty(TrainData.TrainNumber))
-                {
-                    MainForm.DrawDFormMenu();
-                }
-                else
-                {
-                    MainForm.DrawDFromTrainNumer();
-                }
+                MainForm.DrawTrainDataTypeConfirm(trainData);
             }
         }
 

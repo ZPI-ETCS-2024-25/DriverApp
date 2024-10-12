@@ -1,4 +1,5 @@
-﻿using DriverETCSApp.Forms.DForms;
+﻿using DriverETCSApp.Data;
+using DriverETCSApp.Forms.DForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -134,6 +135,22 @@ namespace DriverETCSApp.Forms
             dForm = new TrainDataForm(this);
             dForm.TopLevel = false;
             SetFullScreen();
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawTrainDataTypeConfirm(PredefinedTrain trainData)
+        {
+            dForm = new CheckTrainTypeDataForm(this, trainData);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawTrainDataConfirm(string trainCat, string length, string vmax, string brakingMass)
+        {
+            dForm = new CheckTrainDataForm(this, trainCat, length, vmax, brakingMass);
+            dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
         }

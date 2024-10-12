@@ -33,14 +33,12 @@ namespace DriverETCSApp.Forms.DForms
             infoLabelData1.Text = TrainData.TrainCat;
             infoLabelData2.Text = TrainData.Length;
             infoLabelData3.Text = TrainData.BrakingMass;
-            infoLabelData4.Text = TrainData.Weight;
+            infoLabelData4.Text = TrainData.VMax;
             IsConfirmationActive = false;
 
             labelsList = new List<System.Windows.Forms.Label> { labelData1, labelData2, labelData3, labelData4 };
             infoLabelsList = new List<System.Windows.Forms.Label> { infoLabelData1, infoLabelData2, infoLabelData3, infoLabelData4 };
             confirmationChecks = new List<bool> { false, false, false, false };
-
-            System.Windows.Forms.Label activeLabel;
             ActivateLabel(0);
         }
 
@@ -72,22 +70,9 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (IsConfirmationActive)
             {
-                TrainData.TrainCat = infoLabelData1.Text;
-                TrainData.Length = infoLabelData2.Text;
-                TrainData.Weight = infoLabelData3.Text;
-                TrainData.BrakingMass = infoLabelData4.Text;
-
+                var tmp = (infoLabelData1.Text, infoLabelData2.Text, infoLabelData4.Text, infoLabelData3.Text);
                 Close();
-                MainForm.HideFullScreen();
-
-                if (!string.IsNullOrEmpty(TrainData.TrainNumber))
-                {
-                    MainForm.DrawDFormMenu();
-                }
-                else
-                {
-                    MainForm.DrawDFromTrainNumer();
-                }
+                MainForm.DrawTrainDataConfirm(tmp.Item1, tmp.Item2, tmp.Item3, tmp.Item4);
             }
         }
 

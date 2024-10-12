@@ -81,6 +81,18 @@
     <Compile Include="Forms\DForms\IDDriverForm.Designer.cs">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FullScreenForms\CheckTrainDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\CheckTrainDataForm.Designer.cs">
+      <DependentUpon>CheckTrainDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\CheckTrainTypeDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FullScreenForms\CheckTrainTypeDataForm.Designer.cs">
+      <DependentUpon>CheckTrainTypeDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FullScreenForms\TrainDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +138,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\IDDriverForm.resx">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FullScreenForms\CheckTrainDataForm.resx">
+      <DependentUpon>CheckTrainDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FullScreenForms\CheckTrainTypeDataForm.resx">
+      <DependentUpon>CheckTrainTypeDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FullScreenForms\TrainDataForm.resx">
       <DependentUpon>TrainDataForm.cs</DependentUpon>
