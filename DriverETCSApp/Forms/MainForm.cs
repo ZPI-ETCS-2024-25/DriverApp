@@ -29,6 +29,12 @@ namespace DriverETCSApp.Forms
             DrawDefaulFormsInPanels();
         }
 
+        //Block keyboards
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            return true;
+        }
+
         private void DrawDefaulFormsInPanels()
         {
             DrawDFormIDDriver();

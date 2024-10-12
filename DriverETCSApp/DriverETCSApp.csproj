@@ -153,6 +153,7 @@
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
     <Folder Include="Forms\FForms\" />
+    <Folder Include="Forms\FullScreenForms\" />
     <Folder Include="Forms\GForms\" />
   </ItemGroup>
   <ItemGroup>
