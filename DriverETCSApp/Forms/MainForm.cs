@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Forms.DForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,15 +31,19 @@ namespace DriverETCSApp.Forms
 
         private void DrawDefaulFormsInPanels()
         {
+            DrawDFormIDDriver();
+            DrawYZFormDefault();
+        }
+
+        private void HideGFPanels()
+        {
             gPanel.Visible = false;
             fPanel.Visible = false;
             dPanel.Width = 612;
             dPanel.Height = 900;
-
-            DrawYZFormDefault();
         }
 
-        private void DrawYZFormDefault()
+        public void DrawYZFormDefault()
         {
             yForm = new YZForm();
             yForm.TopLevel = false;
@@ -49,6 +54,42 @@ namespace DriverETCSApp.Forms
             zForm.TopLevel = false;
             zPanel.Controls.Add(zForm);
             zForm.Show();
+        }
+
+        public void DrawDFormIDDriver()
+        {
+            HideGFPanels();
+            dForm = new IDDriverForm(this);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawDFormETCSLevel()
+        {
+            HideGFPanels();
+            dForm = new ETCSLevelForm(this);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawDFromTrainNumer()
+        {
+            HideGFPanels();
+            dForm = new TrainNumberForm(this);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawDFormMenu()
+        {
+            HideGFPanels();
+            dForm = new MenuForm(this);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
         }
     }
 }
