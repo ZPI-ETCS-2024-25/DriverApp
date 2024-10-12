@@ -1,5 +1,5 @@
 ﻿using DriverETCSApp.Data;
-using DriverETCSApp.Forms.DForms;
+using DriverETCSApp.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,12 +42,20 @@ namespace DriverETCSApp.Forms
             DrawYZFormDefault();
         }
 
-        private void HideGFPanels()
+        public void HideGFPanels()
         {
             gPanel.Visible = false;
             fPanel.Visible = false;
             dPanel.Width = 612;
             dPanel.Height = 900;
+        }
+
+        public void ShowGFPanels()
+        {
+            gPanel.Visible = true;
+            fPanel.Visible = true;
+            dPanel.Width = 492;
+            dPanel.Height = 600;
         }
 
         public void SetFullScreen()
@@ -88,7 +96,7 @@ namespace DriverETCSApp.Forms
         public void DrawDFormIDDriver(bool isActive = true)
         {
             HideGFPanels();
-            dForm = new IDDriverForm(this, isActive);
+            dForm = new DForms.IDDriverForm(this, isActive);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -97,7 +105,7 @@ namespace DriverETCSApp.Forms
         public void DrawDFormETCSLevel(bool isActive = true)
         {
             HideGFPanels();
-            dForm = new ETCSLevelForm(this, isActive);
+            dForm = new DForms.ETCSLevelForm(this, isActive);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -106,7 +114,7 @@ namespace DriverETCSApp.Forms
         public void DrawDFromTrainNumer()
         {
             HideGFPanels();
-            dForm = new TrainNumberForm(this);
+            dForm = new DForms.TrainNumberForm(this);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -115,7 +123,7 @@ namespace DriverETCSApp.Forms
         public void DrawDFormMenu()
         {
             HideGFPanels();
-            dForm = new MenuForm(this);
+            dForm = new DForms.MenuForm(this);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -123,7 +131,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataCategoryForm()
         {
-            dForm = new TrainDataTypeForm(this);
+            dForm = new DForms.TrainDataTypeForm(this);
             dForm.TopLevel = false;
             SetFullScreen();
             dPanel.Controls.Add(dForm);
@@ -132,7 +140,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataInput()
         {
-            dForm = new TrainDataForm(this);
+            dForm = new DForms.TrainDataForm(this);
             dForm.TopLevel = false;
             SetFullScreen();
             dPanel.Controls.Add(dForm);
@@ -141,7 +149,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataTypeConfirm(PredefinedTrain trainData)
         {
-            dForm = new CheckTrainTypeDataForm(this, trainData);
+            dForm = new DForms.CheckTrainTypeDataForm(this, trainData);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -149,10 +157,26 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataConfirm(string trainCat, string length, string vmax, string brakingMass)
         {
-            dForm = new CheckTrainDataForm(this, trainCat, length, vmax, brakingMass);
+            dForm = new DForms.CheckTrainDataForm(this, trainCat, length, vmax, brakingMass);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
+        }
+
+        public void DrawEmptyDForm()
+        {
+            dForm = new DForms.EmptyDForm(this);
+            dForm.TopLevel = false;
+            dPanel.Controls.Add(dForm);
+            dForm.Show();
+        }
+
+        public void DrawGForm()
+        {
+            gForm = new GForms.ClockForm();
+            gForm.TopLevel = false;
+            gPanel.Controls.Add(gForm);
+            gForm.Show();
         }
     }
 }
