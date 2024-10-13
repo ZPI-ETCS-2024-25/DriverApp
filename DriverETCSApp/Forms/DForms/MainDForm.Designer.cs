@@ -30,43 +30,29 @@ namespace DriverETCSApp.Forms.DForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.chartBackLines = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartSpeed = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).BeginInit();
+            this.chartBackLines = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chartSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).BeginInit();
             this.SuspendLayout();
-            // 
-            // chartBackLines
-            // 
-            this.chartBackLines.BackColor = System.Drawing.Color.Transparent;
-            this.chartBackLines.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartBackLines.ChartAreas.Add(chartArea1);
-            this.chartBackLines.Location = new System.Drawing.Point(0, 30);
-            this.chartBackLines.Name = "chartBackLines";
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chartBackLines.Series.Add(series1);
-            this.chartBackLines.Size = new System.Drawing.Size(480, 540);
-            this.chartBackLines.TabIndex = 0;
             // 
             // chartSpeed
             // 
             this.chartSpeed.BackColor = System.Drawing.Color.Transparent;
             this.chartSpeed.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.chartSpeed.ChartAreas.Add(chartArea2);
             this.chartSpeed.Location = new System.Drawing.Point(294, 30);
             this.chartSpeed.Name = "chartSpeed";
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chartSpeed.Series.Add(series2);
             this.chartSpeed.Size = new System.Drawing.Size(186, 540);
             this.chartSpeed.TabIndex = 1;
+            // 
+            // chartBackLines
+            // 
+            this.chartBackLines.BackColor = System.Drawing.Color.Transparent;
+            this.chartBackLines.BorderlineColor = System.Drawing.Color.Transparent;
+            this.chartBackLines.Location = new System.Drawing.Point(0, 30);
+            this.chartBackLines.Name = "chartBackLines";
+            this.chartBackLines.Size = new System.Drawing.Size(480, 540);
+            this.chartBackLines.TabIndex = 0;
             // 
             // MainDForm
             // 
@@ -76,12 +62,13 @@ namespace DriverETCSApp.Forms.DForms
             this.ClientSize = new System.Drawing.Size(492, 600);
             this.Controls.Add(this.chartSpeed);
             this.Controls.Add(this.chartBackLines);
+            this.chartBackLines.BringToFront();
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainDForm";
             this.Text = "EmptyDForm";
-            ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -142,7 +142,7 @@ namespace DriverETCSApp.Forms.DForms
             this.infoLabel1.AutoSize = true;
             this.infoLabel1.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.infoLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
-            this.infoLabel1.Location = new System.Drawing.Point(119, 192);
+            this.infoLabel1.Location = new System.Drawing.Point(140, 190);
             this.infoLabel1.Name = "infoLabel1";
             this.infoLabel1.Size = new System.Drawing.Size(195, 29);
             this.infoLabel1.TabIndex = 17;
@@ -153,7 +153,7 @@ namespace DriverETCSApp.Forms.DForms
             // 
             this.infoLabelData1.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.infoLabelData1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
-            this.infoLabelData1.Location = new System.Drawing.Point(341, 192);
+            this.infoLabelData1.Location = new System.Drawing.Point(341, 190);
             this.infoLabelData1.Name = "infoLabelData1";
             this.infoLabelData1.Size = new System.Drawing.Size(327, 29);
             this.infoLabelData1.TabIndex = 18;
