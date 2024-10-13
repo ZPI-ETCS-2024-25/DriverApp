@@ -18,13 +18,16 @@ namespace DriverETCSApp.Forms.BForms {
         private const int speedPerLine = 10;
         private const int clockAngle = 270;
         private const int clockAngleOffset = -135;
+        private const int speedNumbersOffset = 20;
         private const int needleCircleRadius = 30;
-
+        
         private int clockSize;
         private int halfClockSize;
         private int needleLength;
 
         private int speed = 0;
+        private (int, int) speedCap = (0, 0); // orange
+        private (int, int) speedWarning = (0, 0); // yellow
 
         public SpeedmeterForm() {
             InitializeComponent();
@@ -39,7 +42,6 @@ namespace DriverETCSApp.Forms.BForms {
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            
 
             // Draw the dial background
             g.FillEllipse(Brushes.White, 0, 0, clockSize, clockSize);
@@ -59,8 +61,8 @@ namespace DriverETCSApp.Forms.BForms {
                 // Draw speed numbers
                 if (i % 2 == 0) {
                     string text = (i * speedPerLine).ToString();
-                    int xText = halfClockSize + (int)((halfClockSize - linesLength - 10) * Math.Cos(radians)) - 10;
-                    int yText = halfClockSize + (int)((halfClockSize - linesLength - 10) * Math.Sin(radians)) - 10;
+                    int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 10;
+                    int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 10;
                     g.DrawString(text, this.Font, Brushes.Black, xText, yText);
                 }
             }
@@ -87,10 +89,30 @@ namespace DriverETCSApp.Forms.BForms {
 
                 g.DrawString(speed.ToString(), largerFont, Brushes.Black, xText, yText);
             }
-        }
 
-        private void btnTest1_Click(object sender, EventArgs e) {
-            SetSpeed(this.GetSpeed() + 5);
+            // Draw Arc of Warning
+            if(speedWarning != (0,0)) {
+                Rectangle rect = new Rectangle(0, 0, clockSize, clockSize);
+
+                // Define the starting angle and the sweep angle
+                float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
+                float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine; // Sweep angle in degrees 
+
+                Pen pen = new Pen(Color.Yellow, 8);
+                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+            }
+
+            // Draw Arc of Cap
+            if (speedCap != (0, 0) && speedCap.Item1 < speed ) {
+                Rectangle rect = new Rectangle(0, 0, clockSize, clockSize);
+
+                // Define the starting angle and the sweep angle
+                float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine;
+                float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine; // Sweep angle in degrees 
+
+                Pen pen = new Pen(Color.Orange, 12);
+                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+            }
         }
 
         public int GetSpeed() {
@@ -101,6 +123,36 @@ namespace DriverETCSApp.Forms.BForms {
             speed = newSpeed;
             clockPanel.Invalidate();
         }
-        
+
+        public (int, int) GetSpeedWarning() {
+            return speedWarning;
+        }
+
+        public void SetSpeedWarning(int min, int max) {
+            speedWarning = (min, max);
+            clockPanel.Invalidate();
+        }
+
+        public (int, int) GetSpeedCap() {
+            return speedCap;
+        }
+
+        public void SetSpeedCap(int min, int max) {
+            speedCap = (min, max);
+            clockPanel.Invalidate();
+        }
+
+        private void btnTest1_Click(object sender, EventArgs e) {
+            SetSpeed(this.GetSpeed() + 5);
+        }
+
+        private void btnTest2_Click(object sender, EventArgs e) {
+            SetSpeed(this.GetSpeed() - 5);
+        }
+
+        private void btnTest3_Click(object sender, EventArgs e) {
+            SetSpeedWarning(0, 120);
+            SetSpeedCap(120, 147);
+        }
     }
 }
