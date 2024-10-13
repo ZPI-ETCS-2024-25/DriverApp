@@ -57,6 +57,18 @@
     <Compile Include="BorderLessForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\BForms\SpeedometerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BForms\SpeedometerForm.Designer.cs">
+      <DependentUpon>SpeedometerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BForms\EmptyBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BForms\EmptyBForm.Designer.cs">
+      <DependentUpon>EmptyBForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DForms\EmptyDForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +163,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Communication\Sender.cs" />
     <Compile Include="Communication\SenderHTTP.cs" />
+    <EmbeddedResource Include="Forms\BForms\SpeedometerForm.resx">
+      <DependentUpon>SpeedometerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BForms\EmptyBForm.resx">
+      <DependentUpon>EmptyBForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\EmptyDForm.resx">
       <DependentUpon>EmptyDForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,7 +240,6 @@
   <ItemGroup>
     <Folder Include="Design\Icons\Modes\" />
     <Folder Include="Forms\AForms\" />
-    <Folder Include="Forms\BForms\" />
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
   </ItemGroup>

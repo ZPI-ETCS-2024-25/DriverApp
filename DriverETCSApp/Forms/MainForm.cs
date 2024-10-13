@@ -39,6 +39,7 @@ namespace DriverETCSApp.Forms
         private void DrawDefaulFormsInPanels()
         {
             DrawDFormIDDriver(false);
+            DrawBFormSpeed();
             DrawYZFormDefault();
         }
 
@@ -91,6 +92,14 @@ namespace DriverETCSApp.Forms
             zForm.TopLevel = false;
             zPanel.Controls.Add(zForm);
             zForm.Show();
+        }
+
+        public void DrawBFormSpeed() {
+
+            bForm = new BForms.EmptyBForm();
+            bForm.TopLevel = false;
+            bPanel.Controls.Add(bForm);
+            bForm.Show();
         }
 
         public void DrawDFormIDDriver(bool isActive = true)
