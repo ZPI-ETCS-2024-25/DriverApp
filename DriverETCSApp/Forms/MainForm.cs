@@ -97,7 +97,6 @@ namespace DriverETCSApp.Forms
 
         public void DrawYZFormDefault()
         {
-            MainPanel.SuspendLayout();
             yForm = new YZForm();
             yForm.TopLevel = false;
             yPanel.Controls.Add(yForm);
@@ -107,7 +106,6 @@ namespace DriverETCSApp.Forms
             zForm.TopLevel = false;
             zPanel.Controls.Add(zForm);
             zForm.Show();
-            MainPanel.ResumeLayout(true);
         }
 
         public void DrawBFormSpeed() {
