@@ -41,8 +41,6 @@ namespace DriverETCSApp.Forms
             this.ePanel = new System.Windows.Forms.Panel();
             this.aPanel = new System.Windows.Forms.Panel();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.zPanel.SuspendLayout();
-            this.SuspendLayout();
             // 
             // yPanel
             // 
@@ -53,7 +51,6 @@ namespace DriverETCSApp.Forms
             // 
             // zPanel
             // 
-            this.zPanel.Controls.Add(this.MainPanel);
             this.zPanel.Location = new System.Drawing.Point(0, 0);
             this.zPanel.Name = "zPanel";
             this.zPanel.Size = new System.Drawing.Size(1280, 30);
@@ -133,8 +130,6 @@ namespace DriverETCSApp.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "ETCS";
-            this.zPanel.ResumeLayout(false);
-            this.ResumeLayout(false);
 
         }
 
