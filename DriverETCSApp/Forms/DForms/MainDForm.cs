@@ -30,7 +30,7 @@ namespace DriverETCSApp.Forms.DForms
             Scale = 30.3;
 
             ChartScaller = new ChartScaleDrawer(chartBackLines, Scale);
-            ChartPASPDrawer = new ChartDrawerPASP(chartBackLines, Scale);
+            ChartPASPDrawer = new ChartDrawerPASP(chartSpeed, Scale);
 
             InitalizeBasicChart();
             ChartScaller.Draw();
@@ -41,10 +41,12 @@ namespace DriverETCSApp.Forms.DForms
             if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))
             {
                 chartBackLines.Visible = false;
+                chartSpeed.Visible = false;
             }
             else
             {
                 chartBackLines.Visible = true;
+                chartSpeed.Visible = true;
             }
         }
     }

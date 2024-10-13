@@ -41,6 +41,7 @@ namespace DriverETCSApp.Forms.DForms
             Close();
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
+            MainForm.DrawBFormSpeed();
         }
 
         private void labelData1_Click(object sender, EventArgs e)
@@ -63,6 +64,7 @@ namespace DriverETCSApp.Forms.DForms
                 {
                     MainForm.DrawDFromTrainNumer();
                 }
+                MainForm.DrawBFormSpeed();
             }
             else
             {

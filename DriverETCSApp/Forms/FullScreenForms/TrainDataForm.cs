@@ -47,6 +47,7 @@ namespace DriverETCSApp.Forms.DForms
             Close();
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
+            MainForm.DrawBFormSpeed();
         }
 
         private void ActivateLabel(int index)

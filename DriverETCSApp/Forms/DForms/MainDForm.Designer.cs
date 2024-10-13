@@ -32,8 +32,12 @@ namespace DriverETCSApp.Forms.DForms
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartBackLines = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartSpeed = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // chartBackLines
@@ -50,18 +54,34 @@ namespace DriverETCSApp.Forms.DForms
             this.chartBackLines.Size = new System.Drawing.Size(480, 540);
             this.chartBackLines.TabIndex = 0;
             // 
+            // chartSpeed
+            // 
+            this.chartSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.chartSpeed.BorderlineColor = System.Drawing.Color.Transparent;
+            chartArea2.Name = "ChartArea1";
+            this.chartSpeed.ChartAreas.Add(chartArea2);
+            this.chartSpeed.Location = new System.Drawing.Point(294, 30);
+            this.chartSpeed.Name = "chartSpeed";
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chartSpeed.Series.Add(series2);
+            this.chartSpeed.Size = new System.Drawing.Size(186, 540);
+            this.chartSpeed.TabIndex = 1;
+            // 
             // MainDForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(492, 600);
+            this.Controls.Add(this.chartSpeed);
             this.Controls.Add(this.chartBackLines);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainDForm";
             this.Text = "EmptyDForm";
             ((System.ComponentModel.ISupportInitialize)(this.chartBackLines)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSpeed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -69,5 +89,6 @@ namespace DriverETCSApp.Forms.DForms
         #endregion
 
         private System.Windows.Forms.DataVisualization.Charting.Chart chartBackLines;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartSpeed;
     }
 }
