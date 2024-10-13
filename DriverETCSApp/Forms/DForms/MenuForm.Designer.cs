@@ -253,6 +253,7 @@ namespace DriverETCSApp.Forms.DForms
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Name = "MenuForm";
             this.Text = "BigDFormMenu";
             this.ResumeLayout(false);

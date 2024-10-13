@@ -14,6 +14,7 @@ namespace DriverETCSApp.Forms.DForms
     public partial class MenuForm : BorderLessForm
     {
         private MainForm MainForm;
+        private bool IsStartActive;
 
         public MenuForm(MainForm mainForm)
         {
@@ -29,26 +30,32 @@ namespace DriverETCSApp.Forms.DForms
                 if(!string.IsNullOrEmpty(TrainData.TrainCat) && !string.IsNullOrEmpty(TrainData.BrakingMass) 
                     && !string.IsNullOrEmpty(TrainData.Length) && !string.IsNullOrEmpty(TrainData.VMax))
                 {
+                    IsStartActive = true;
                     buttonStart.ForeColor = Design.DMIColors.Grey;
                 }
                 else
                 {
+                    IsStartActive = false;
                     buttonStart.ForeColor = Design.DMIColors.DarkGrey;
                 }
             }
             else
             {
+                IsStartActive = false;
                 buttonStart.ForeColor = Design.DMIColors.DarkGrey;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close();
-            MainForm.ShowGFPanels();
-            MainForm.DrawGForm();
-            MainForm.DrawFForm();
-            MainForm.DrawMainDForm();
+            if (IsStartActive)
+            {
+                Close();
+                MainForm.ShowGFPanels();
+                MainForm.DrawGForm();
+                MainForm.DrawFForm();
+                MainForm.DrawMainDForm();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
