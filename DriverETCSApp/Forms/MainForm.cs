@@ -111,8 +111,7 @@ namespace DriverETCSApp.Forms
         }
 
         public void DrawBFormSpeed() {
-
-            bForm = new BForms.EmptyBForm();
+            bForm = new BForms.SpeedmeterForm();
             bForm.TopLevel = false;
             bPanel.Controls.Add(bForm);
             bForm.Show();
