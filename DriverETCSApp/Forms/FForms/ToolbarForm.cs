@@ -12,9 +12,29 @@ namespace DriverETCSApp.Forms.FForms
 {
     public partial class ToolbarForm : BorderLessForm
     {
-        public ToolbarForm()
+        private MainForm MainForm;
+
+        public ToolbarForm(MainForm mainForm)
         {
             InitializeComponent();
+            MainForm = mainForm;
+        }
+
+        private void buttonMainMenu_Click(object sender, EventArgs e)
+        {
+            MainForm.HideGFPanels();
+            MainForm.DrawDFormMenu();
+        }
+
+        private void buttonDataView_Click(object sender, EventArgs e)
+        {
+            MainForm.DrawTrainDataInfoForm();
+        }
+
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            MainForm.HideGFPanels();
+            MainForm.DrawSettings(false);
         }
     }
 }

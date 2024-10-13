@@ -11,11 +11,11 @@ using System.Windows.Forms;
 namespace DriverETCSApp.Forms.DForms
 {
 
-    public partial class EmptyDForm : BorderLessForm
+    public partial class MainDForm : BorderLessForm
     {
         private MainForm MainForm;
 
-        public EmptyDForm(MainForm mainForm)
+        public MainDForm(MainForm mainForm)
         {
             InitializeComponent();
             MainForm = mainForm;

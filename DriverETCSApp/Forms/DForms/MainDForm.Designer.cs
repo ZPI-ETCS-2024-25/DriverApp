@@ -2,7 +2,7 @@
 
 namespace DriverETCSApp.Forms.DForms
 {
-    partial class EmptyDForm
+    partial class MainDForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,17 +32,18 @@ namespace DriverETCSApp.Forms.DForms
         {
             this.SuspendLayout();
             // 
-            // EmptyDForm
+            // MainDForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
+            this.ClientSize = new System.Drawing.Size(492, 600);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "EmptyDForm";
+            this.Name = "MainDForm";
             this.Text = "EmptyDForm";
-            this.BackColor = DMIColors.DarkBlue;
             this.ResumeLayout(false);
+
         }
 
         #endregion

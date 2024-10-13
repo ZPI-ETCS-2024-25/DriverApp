@@ -14,36 +14,33 @@ namespace DriverETCSApp.Forms.DForms
     public partial class SettingsForm : BorderLessForm
     {
         private MainForm MainForm;
+        private bool IsFromDriverID;
+        private bool DriverIDActiveFlag;
 
-        public SettingsForm(MainForm mainForm)
+        public SettingsForm(MainForm mainForm, bool isFromDriverID, bool driverIDActiveFlag = true)
         {
             InitializeComponent();
             MainForm = mainForm;
+            IsFromDriverID = isFromDriverID;
+            DriverIDActiveFlag = driverIDActiveFlag;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void closeButton_Click(object sender, EventArgs e)
         {
             Close();
-            MainForm.ShowGFPanels();
-            MainForm.DrawGForm();
-        }
+            switch (IsFromDriverID)
+            {
+                case true:
+                    MainForm.DrawDFormIDDriver(DriverIDActiveFlag);
+                    break;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Close();
-            MainForm.DrawDFormIDDriver();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Close();
-            MainForm.DrawDFormETCSLevel();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Close();
-            MainForm.DrawDFromTrainNumer();
+                case false:
+                    MainForm.ShowGFPanels();
+                    MainForm.DrawGForm();
+                    MainForm.DrawFForm();
+                    MainForm.DrawMainDForm();
+                    break;
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace DriverETCSApp.Forms
+﻿using System.Security.Cryptography;
+using System.Windows.Forms;
+
+namespace DriverETCSApp.Forms
 {
     partial class MainForm
     {
@@ -37,6 +40,8 @@
             this.cPanel = new System.Windows.Forms.Panel();
             this.ePanel = new System.Windows.Forms.Panel();
             this.aPanel = new System.Windows.Forms.Panel();
+            this.MainPanel = new System.Windows.Forms.Panel();
+            this.zPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // yPanel
@@ -48,6 +53,7 @@
             // 
             // zPanel
             // 
+            this.zPanel.Controls.Add(this.MainPanel);
             this.zPanel.Location = new System.Drawing.Point(0, 0);
             this.zPanel.Name = "zPanel";
             this.zPanel.Size = new System.Drawing.Size(1280, 30);
@@ -103,6 +109,13 @@
             this.aPanel.Size = new System.Drawing.Size(108, 600);
             this.aPanel.TabIndex = 4;
             // 
+            // MainPanel
+            // 
+            this.MainPanel.Location = new System.Drawing.Point(0, 0);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Size = new System.Drawing.Size(1280, 960);
+            this.MainPanel.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,20 +133,22 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "ETCS";
+            this.zPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel yPanel;
-        private System.Windows.Forms.Panel zPanel;
-        private System.Windows.Forms.Panel fPanel;
-        private System.Windows.Forms.Panel dPanel;
-        private System.Windows.Forms.Panel gPanel;
-        private System.Windows.Forms.Panel bPanel;
-        private System.Windows.Forms.Panel cPanel;
-        private System.Windows.Forms.Panel ePanel;
-        private System.Windows.Forms.Panel aPanel;
+        private Panel yPanel;
+        private Panel zPanel;
+        private Panel fPanel;
+        private Panel dPanel;
+        private Panel gPanel;
+        private Panel bPanel;
+        private Panel cPanel;
+        private Panel ePanel;
+        private Panel aPanel;
+        private Panel MainPanel;
     }
 }

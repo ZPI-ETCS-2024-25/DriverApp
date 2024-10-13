@@ -47,6 +47,8 @@ namespace DriverETCSApp.Forms.DForms
             Close();
             MainForm.ShowGFPanels();
             MainForm.DrawGForm();
+            MainForm.DrawFForm();
+            MainForm.DrawMainDForm();
         }
 
         private void button2_Click(object sender, EventArgs e)
