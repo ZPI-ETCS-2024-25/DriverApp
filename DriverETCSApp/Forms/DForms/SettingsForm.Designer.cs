@@ -72,6 +72,7 @@ namespace DriverETCSApp.Forms.DForms
             this.closeButton.Size = new System.Drawing.Size(164, 100);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "X";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // buttonDeleteVBC
             // 
@@ -119,7 +120,6 @@ namespace DriverETCSApp.Forms.DForms
             this.buttonBrightness.Size = new System.Drawing.Size(306, 100);
             this.buttonBrightness.TabIndex = 10;
             this.buttonBrightness.UseVisualStyleBackColor = true;
-            this.buttonBrightness.Click += new System.EventHandler(this.button5_Click);
             // 
             // buttonVersion
             // 
@@ -136,7 +136,6 @@ namespace DriverETCSApp.Forms.DForms
             this.buttonVersion.TabIndex = 9;
             this.buttonVersion.Text = "Wersja systemu";
             this.buttonVersion.UseVisualStyleBackColor = true;
-            this.buttonVersion.Click += new System.EventHandler(this.button6_Click);
             // 
             // buttonSound
             // 
@@ -152,7 +151,6 @@ namespace DriverETCSApp.Forms.DForms
             this.buttonSound.Size = new System.Drawing.Size(306, 100);
             this.buttonSound.TabIndex = 13;
             this.buttonSound.UseVisualStyleBackColor = true;
-            this.buttonSound.Click += new System.EventHandler(this.button2_Click);
             // 
             // buttonLanguage
             // 
@@ -168,7 +166,6 @@ namespace DriverETCSApp.Forms.DForms
             this.buttonLanguage.Size = new System.Drawing.Size(306, 100);
             this.buttonLanguage.TabIndex = 11;
             this.buttonLanguage.UseVisualStyleBackColor = true;
-            this.buttonLanguage.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox3
             // 

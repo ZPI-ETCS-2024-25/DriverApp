@@ -181,7 +181,8 @@ namespace DriverETCSApp.Forms.DForms
 
         private void pictureBoxSettings_Click(object sender, EventArgs e)
         {
-
+            Close();
+            MainForm.DrawSettings(true, IsBackActive);
         }
 
         private void trainButton_Click(object sender, EventArgs e)
