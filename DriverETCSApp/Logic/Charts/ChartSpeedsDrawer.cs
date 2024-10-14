@@ -16,7 +16,9 @@ namespace DriverETCSApp.Logic.Charts
         private Chart Chart;
         private ChartInterpolate Interpolator;
         private Pen Pen;
+        private Pen PenYellow;
         private SolidBrush SolidBrush;
+        private SolidBrush SolidBrushYellow;
         Font Font;
 
         private int LineLength;
@@ -26,6 +28,8 @@ namespace DriverETCSApp.Logic.Charts
             Chart = chart;
             Pen = new Pen(DMIColors.Grey, 2);
             SolidBrush = new SolidBrush(DMIColors.Grey);
+            PenYellow = new Pen(DMIColors.Yellow, 2);
+            SolidBrushYellow = new SolidBrush(DMIColors.Yellow);
             Interpolator = new ChartInterpolate();
             Font = new Font("Verdana", 8, FontStyle.Bold);
             LineLength = 20;

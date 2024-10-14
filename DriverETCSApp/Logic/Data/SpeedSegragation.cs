@@ -13,11 +13,16 @@ namespace DriverETCSApp.Logic.Data
 
         public void CalculateSpeeds()
         {
-            double actualSpeed = TrainSpeedsAndDistances.Speeds[0];
             TrainSpeedsAndDistances.LowerDistances.Clear();
             TrainSpeedsAndDistances.HigherDistances.Clear();
             TrainSpeedsAndDistances.LowerSpeed.Clear();
             TrainSpeedsAndDistances.HigherSpeed.Clear();
+            if(TrainSpeedsAndDistances.Speeds.Count == 0)
+            {
+                return;
+            }
+
+            double actualSpeed = TrainSpeedsAndDistances.Speeds[0];
 
             for (int i = 1; i < TrainSpeedsAndDistances.Speeds.Count; i++)
             {
