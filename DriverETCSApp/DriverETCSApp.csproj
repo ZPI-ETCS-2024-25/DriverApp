@@ -51,9 +51,11 @@
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
+    <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
     <Compile Include="Data\TrainLevels.cs" />
+    <Compile Include="Data\TrainSpeedsAndDistances.cs" />
     <Compile Include="Design\DMIColors.cs" />
     <Compile Include="BorderLessForm.cs">
       <SubType>Form</SubType>
@@ -161,7 +163,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Charts\ChartDrawerPASP.cs" />
+    <Compile Include="Logic\Charts\ChartInterpolate.cs" />
     <Compile Include="Logic\Charts\ChartScaleDrawer.cs" />
+    <Compile Include="Logic\Charts\ChartSpeedsDrawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Communication\Sender.cs" />

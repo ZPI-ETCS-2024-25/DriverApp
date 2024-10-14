@@ -21,20 +21,21 @@ namespace DriverETCSApp.Forms.DForms
         private MainForm MainForm;
         private ChartScaleDrawer ChartScaller;
         private ChartDrawerPASP ChartPASPDrawer;
-        private double ChartScale;
+        private ChartSpeedsDrawer ChartSpeedsDrawer;
 
         public MainDForm(MainForm mainForm)
         {
             InitializeComponent();
             MainForm = mainForm;
-            ChartScale = 30.3;
 
-            ChartScaller = new ChartScaleDrawer(chartBackLines, ChartScale);
-            ChartPASPDrawer = new ChartDrawerPASP(chartBackLines, ChartScale);
+            ChartScaller = new ChartScaleDrawer(chartBackLines);
+            ChartPASPDrawer = new ChartDrawerPASP(chartBackLines);
+            ChartSpeedsDrawer = new ChartSpeedsDrawer(chartBackLines);
 
             InitalizeBasicChart();
             ChartScaller.Draw();
-            ChartPASPDrawer.Draw(); 
+            ChartPASPDrawer.Draw();
+            ChartSpeedsDrawer.Draw();
         }
 
         private void InitalizeBasicChart()

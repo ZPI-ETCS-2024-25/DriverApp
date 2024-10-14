@@ -14,22 +14,10 @@ namespace DriverETCSApp.Logic
     public class ChartScaleDrawer
     {
         private Chart Chart;
-        double[] Distanses;
-        double[] Positions;
-        double[] Lines;
-        double[] LinesLabels;
-        int[] LinesThin;
-        double Scale;
 
-        public ChartScaleDrawer(Chart chart, double scale)
+        public ChartScaleDrawer(Chart chart)
         {
             Chart = chart;
-            Scale = scale;
-            Distanses = new double[] { 0, 200, 400, 600, 800, 1000, 2000, 4000, 8000 };
-            Lines = new double[] { 0.5, 33, 77, 102, 120, 134, 177, 220, 263 };
-            LinesLabels = new double[] { 1, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5 };
-            LinesThin = new int[] { 2, 1, 1, 1, 1, 2, 1, 1, 2 };
-            Positions = new double[] { 0, 33, 77, 102, 120, 134, 177, 220, 263 };
         }
 
         public void Draw()
@@ -41,8 +29,8 @@ namespace DriverETCSApp.Logic
             Chart.BackColor = Color.Transparent;
 
             //create area and set min and max values on axis X and Y
-            float[] width = new float[] { 100, 30, 7, 6, 37, 1};
-            float[] xPos = new float[] { 0, 16, 46, 56, 62, 99};
+            float[] width = new float[] { 100, 30, 7, 6, 37, 1 };
+            float[] xPos = new float[] { 0, 16, 46, 56, 62, 99 };
             for (int i = 0; i < 6; i++)
             {
                 ChartArea chartArea = new ChartArea(i.ToString() + "Area");
@@ -61,22 +49,22 @@ namespace DriverETCSApp.Logic
                 //create custom labels
                 chartArea.AxisX.CustomLabels.Clear();
                 chartArea.AxisY.CustomLabels.Clear();
-                    for (int j = 0; j < Lines.Length; j++)
+                for (int j = 0; j < ChartData.Lines.Length; j++)
+                {
+                    CustomLabel customLabel;
+                    if (j >= 1 && j <= 4)
                     {
-                        CustomLabel customLabel;
-                        if (j >= 1 && j <= 4)
-                        {
-                            customLabel = new CustomLabel((Lines[j] - LinesLabels[j]) * Scale, (Lines[j] + LinesLabels[j]) * Scale, "", 0, LabelMarkStyle.LineSideMark);
-                        }
-                        else
-                        {
-                            customLabel = new CustomLabel((Lines[j] - LinesLabels[j]) * Scale, (Lines[j] + LinesLabels[j]) * Scale, Distanses[j].ToString(), 0, LabelMarkStyle.LineSideMark);
-                        }
-                        customLabel.ForeColor = DMIColors.Grey;
-
-                        chartArea.AxisY.CustomLabels.Add(customLabel);
+                        customLabel = new CustomLabel((ChartData.Lines[j] - ChartData.LinesLabels[j]) * ChartData.Scale, (ChartData.Lines[j] + ChartData.LinesLabels[j]) * ChartData.Scale, "", 0, LabelMarkStyle.LineSideMark);
                     }
-                    chartArea.AxisY.LabelStyle.Font = new Font("Verdana", 16);
+                    else
+                    {
+                        customLabel = new CustomLabel((ChartData.Lines[j] - ChartData.LinesLabels[j]) * ChartData.Scale, (ChartData.Lines[j] + ChartData.LinesLabels[j]) * ChartData.Scale, ChartData.Distanses[j].ToString(), 0, LabelMarkStyle.LineSideMark);
+                    }
+                    customLabel.ForeColor = DMIColors.Grey;
+
+                    chartArea.AxisY.CustomLabels.Add(customLabel);
+                }
+                chartArea.AxisY.LabelStyle.Font = new Font("Verdana", 16);
             }
             Chart.ChartAreas[4].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
             Chart.ChartAreas[5].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
@@ -125,23 +113,19 @@ namespace DriverETCSApp.Logic
 
         private void DrawLines()
         {
-            for (int i = 0; i < Lines.Length; i++)
+            for (int i = 0; i < ChartData.Lines.Length; i++)
             {
-                //for (int j = 1; j < 6; j++)
-                //{
-                    StripLine stripLine = new StripLine
-                    {
-                        Interval = 0,
-                        IntervalOffset = Lines[i] * Scale,
-                        StripWidth = 0,
-                        BorderColor = Color.FromArgb(255, DMIColors.Grey),
-                        BorderWidth = LinesThin[i],
-                        BorderDashStyle = ChartDashStyle.Solid
-                    };
-                
-                    Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
-               //}
-                //Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+                StripLine stripLine = new StripLine
+                {
+                    Interval = 0,
+                    IntervalOffset = ChartData.Lines[i] * ChartData.Scale,
+                    StripWidth = 0,
+                    BorderColor = Color.FromArgb(255, DMIColors.Grey),
+                    BorderWidth = ChartData.LinesThin[i],
+                    BorderDashStyle = ChartDashStyle.Solid
+                };
+
+                Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
             }
         }
     }
