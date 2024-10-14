@@ -38,66 +38,87 @@ namespace DriverETCSApp.Logic
             Chart.Series.Clear();
             Chart.ChartAreas.Clear();
             Chart.Legends.Clear();
+            Chart.BackColor = Color.Transparent;
 
             //create area and set min and max values on axis X and Y
-            ChartArea chartArea = new ChartArea("Area");
-            chartArea.AxisX.Minimum = 0;
-            chartArea.AxisX.Maximum = 100;
-            chartArea.AxisX.MajorGrid.LineColor = Color.Gray;
-            chartArea.AxisY.Minimum = 0;
-            chartArea.AxisY.Maximum = 8000;
-            chartArea.BackColor = DMIColors.DarkBlue;
-
-            Chart.ChartAreas.Add(chartArea);
-
-            //create custom labels
-            Chart.ChartAreas[0].AxisX.CustomLabels.Clear();
-            Chart.ChartAreas[0].AxisY.CustomLabels.Clear();
-            for (int i = 0; i < Lines.Length; i++)
+            float[] width = new float[] { 100, 30, 7, 6, 37, 1};
+            float[] xPos = new float[] { 0, 16, 46, 56, 62, 99};
+            for (int i = 0; i < 6; i++)
             {
-                CustomLabel customLabel;
-                if (i >= 1 && i <= 4)
-                {
-                    customLabel = new CustomLabel((Lines[i] - LinesLabels[i]) * Scale, (Lines[i] + LinesLabels[i]) * Scale, "", 0, LabelMarkStyle.LineSideMark);
-                }
-                else
-                {
-                    customLabel = new CustomLabel((Lines[i] - LinesLabels[i]) * Scale, (Lines[i] + LinesLabels[i]) * Scale, Distanses[i].ToString(), 0, LabelMarkStyle.LineSideMark);
-                }
-                customLabel.ForeColor = DMIColors.Grey;
+                ChartArea chartArea = new ChartArea(i.ToString() + "Area");
+                chartArea.AxisX.Minimum = 0;
+                chartArea.AxisX.Maximum = 100;
+                chartArea.AxisX.MajorGrid.LineColor = Color.Gray;
+                chartArea.AxisY.Minimum = 0;
+                chartArea.AxisY.Maximum = 8000;
+                chartArea.BackColor = Color.Transparent;
+                chartArea.Position.Width = width[i];
+                chartArea.Position.Height = 95;
+                chartArea.Position.X = xPos[i];
+                chartArea.Position.Y = 3;
+                Chart.ChartAreas.Add(chartArea);
 
-                Chart.ChartAreas[0].AxisY.CustomLabels.Add(customLabel);
+                //create custom labels
+                chartArea.AxisX.CustomLabels.Clear();
+                chartArea.AxisY.CustomLabels.Clear();
+                    for (int j = 0; j < Lines.Length; j++)
+                    {
+                        CustomLabel customLabel;
+                        if (j >= 1 && j <= 4)
+                        {
+                            customLabel = new CustomLabel((Lines[j] - LinesLabels[j]) * Scale, (Lines[j] + LinesLabels[j]) * Scale, "", 0, LabelMarkStyle.LineSideMark);
+                        }
+                        else
+                        {
+                            customLabel = new CustomLabel((Lines[j] - LinesLabels[j]) * Scale, (Lines[j] + LinesLabels[j]) * Scale, Distanses[j].ToString(), 0, LabelMarkStyle.LineSideMark);
+                        }
+                        customLabel.ForeColor = DMIColors.Grey;
+
+                        chartArea.AxisY.CustomLabels.Add(customLabel);
+                    }
+                    chartArea.AxisY.LabelStyle.Font = new Font("Verdana", 16);
             }
-            Chart.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Verdana", 16);
+            Chart.ChartAreas[4].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
+            Chart.ChartAreas[5].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
 
             //add series
             Series series = new Series("BasicArea")
             {
                 ChartType = SeriesChartType.Area,
-                Color = DMIColors.PASPLight,
-                BorderColor = DMIColors.PASPLight,
+                Color = Color.Transparent,
+                BorderColor = Color.Transparent,
                 BorderWidth = 0
             };
             series.Points.AddXY(0, 0);
             Chart.Series.Add(series);
-            series.ChartArea = chartArea.Name;
+            series.ChartArea = Chart.ChartAreas[0].Name;
 
             //set axis X and Y settings
-            Chart.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
-            Chart.ChartAreas[0].AxisX.Interval = 0;
-            Chart.ChartAreas[0].AxisX.MajorTickMark.Enabled = false;
-            Chart.ChartAreas[0].AxisX.MinorTickMark.Enabled = false;
-            Chart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
-            Chart.ChartAreas[0].AxisX.LineWidth = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                Chart.ChartAreas[i].AxisX.LabelStyle.Enabled = false;
+                Chart.ChartAreas[i].AxisX.Interval = 0;
+                Chart.ChartAreas[i].AxisX.MajorTickMark.Enabled = false;
+                Chart.ChartAreas[i].AxisX.MinorTickMark.Enabled = false;
+                Chart.ChartAreas[i].AxisX.MajorGrid.Enabled = false;
+                Chart.ChartAreas[i].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
+                Chart.ChartAreas[i].AxisX.LineWidth = 0;
+
+                Chart.ChartAreas[i].AxisY.Interval = 0;
+                Chart.ChartAreas[i].AxisY.MajorTickMark.Enabled = false;
+                Chart.ChartAreas[i].AxisY.MinorTickMark.Enabled = false;
+                Chart.ChartAreas[i].AxisY.MajorGrid.Enabled = false;
+                Chart.ChartAreas[i].AxisY.MajorGrid.LineColor = Color.Gray;
+                Chart.ChartAreas[i].AxisY.MajorGrid.LineWidth = 1;
+                Chart.ChartAreas[i].AxisY.LineWidth = 0;
+            }
 
             Chart.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
-            Chart.ChartAreas[0].AxisY.Interval = 0;
-            Chart.ChartAreas[0].AxisY.MajorTickMark.Enabled = false;
-            Chart.ChartAreas[0].AxisY.MinorTickMark.Enabled = false;
-            Chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            Chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Gray;
-            Chart.ChartAreas[0].AxisY.MajorGrid.LineWidth = 1;
-            Chart.ChartAreas[0].AxisY.LineWidth = 0;
+            Chart.ChartAreas[1].AxisY.LabelStyle.Enabled = false;
+            Chart.ChartAreas[2].AxisY.LabelStyle.Enabled = false;
+            Chart.ChartAreas[3].AxisY.LabelStyle.Enabled = false;
+            Chart.ChartAreas[4].AxisY.LabelStyle.Enabled = false;
+            Chart.ChartAreas[5].AxisY.LabelStyle.Enabled = false;
 
             DrawLines();
         }
@@ -106,16 +127,21 @@ namespace DriverETCSApp.Logic
         {
             for (int i = 0; i < Lines.Length; i++)
             {
-                StripLine stripLine = new StripLine
-                {
-                    Interval = 0,
-                    IntervalOffset = Lines[i] * Scale,
-                    StripWidth = 0,
-                    BorderColor = Color.Gray,
-                    BorderWidth = LinesThin[i],
-                    BorderDashStyle = ChartDashStyle.Solid
-                };
-                Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+                //for (int j = 1; j < 6; j++)
+                //{
+                    StripLine stripLine = new StripLine
+                    {
+                        Interval = 0,
+                        IntervalOffset = Lines[i] * Scale,
+                        StripWidth = 0,
+                        BorderColor = Color.FromArgb(255, DMIColors.Grey),
+                        BorderWidth = LinesThin[i],
+                        BorderDashStyle = ChartDashStyle.Solid
+                    };
+                
+                    Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+               //}
+                //Chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
             }
         }
     }
