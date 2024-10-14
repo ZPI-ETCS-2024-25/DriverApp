@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DriverETCSApp.Data;
+using DriverETCSApp.Design;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,24 +13,35 @@ namespace DriverETCSApp.Logic.Charts
     public class ChartSpeedsDrawer
     {
         Chart Chart;
+        ChartInterpolate Interpolator;
 
         public ChartSpeedsDrawer(Chart chart)
         {
             Chart = chart;
+            Interpolator = new ChartInterpolate();
         }
 
         public void Draw()
         {
-            Series series1 = new Series("BasicArea")
+            if (TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
             {
-                ChartType = SeriesChartType.Area,
-                Color = Color.Transparent,
-                BorderColor = Color.Transparent,
-                BorderWidth = 0
+                return;
+            }
+
+            Series series = new Series("SeriesPoiontsSpeed")
+            {
+                ChartType = SeriesChartType.Point,
+                MarkerColor = Color.FromArgb(128, DMIColors.Grey),
+                MarkerSize = 10,
+                MarkerStyle = MarkerStyle.Circle
             };
-            series1.Points.AddXY(0, 0);
-            Chart.Series.Add(series1);
-            series1.ChartArea = Chart.ChartAreas[0].Name;
+
+            for (int i = 1; i < TrainSpeedsAndDistances.Speeds.Count; i++)
+            {
+                series.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.SpeedDistances[i]));
+            }
+            Chart.Series.Add(series);
+            series.ChartArea = Chart.ChartAreas[3].Name;
         }
     }
 }

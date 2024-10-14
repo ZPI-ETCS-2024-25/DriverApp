@@ -20,6 +20,21 @@ namespace DriverETCSApp.Logic
             Chart = chart;
         }
 
+        public void Clear()
+        {
+            Chart.Series.Clear();
+            Series series1 = new Series("BasicArea")
+            {
+                ChartType = SeriesChartType.Area,
+                Color = Color.Transparent,
+                BorderColor = Color.Transparent,
+                BorderWidth = 0
+            };
+            series1.Points.AddXY(0, 0);
+            Chart.Series.Add(series1);
+            series1.ChartArea = Chart.ChartAreas[0].Name;
+        }
+
         public void Draw()
         {
             //clear chart data
@@ -29,8 +44,8 @@ namespace DriverETCSApp.Logic
             Chart.BackColor = Color.Transparent;
 
             //create area and set min and max values on axis X and Y
-            float[] width = new float[] { 100, 30, 7, 6, 37, 1 };
-            float[] xPos = new float[] { 0, 16, 46, 56, 62, 99 };
+            float[] width = new float[] { 100, 30, 7, 7, 37, 1 };
+            float[] xPos = new float[] { 0, 16, 46, 57, 62, 99 };
             for (int i = 0; i < 6; i++)
             {
                 ChartArea chartArea = new ChartArea(i.ToString() + "Area");

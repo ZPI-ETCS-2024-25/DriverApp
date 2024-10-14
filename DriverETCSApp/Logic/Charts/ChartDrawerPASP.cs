@@ -29,7 +29,6 @@ namespace DriverETCSApp.Logic.Charts
             }
             (List<double> interpolateSpeeds, List<double> interpolateDistances) = Interpolator.Interpolate();
 
-            Chart.Series.Clear();
             Series series = new Series("SeriesZoneSpeed")
             {
                 ChartType = SeriesChartType.Area,
