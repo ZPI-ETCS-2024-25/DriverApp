@@ -2,6 +2,7 @@
 using DriverETCSApp.Design;
 using DriverETCSApp.Logic;
 using DriverETCSApp.Logic.Charts;
+using DriverETCSApp.Logic.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace DriverETCSApp.Forms.DForms
     public partial class MainDForm : BorderLessForm
     {
         private MainForm MainForm;
+        private SpeedSegragation SpeedSegragation;
         private ChartScaleDrawer ChartScaller;
         private ChartDrawerPASP ChartPASPDrawer;
         private ChartSpeedsDrawer ChartSpeedsDrawer;
@@ -27,15 +29,18 @@ namespace DriverETCSApp.Forms.DForms
         {
             InitializeComponent();
             MainForm = mainForm;
+            SpeedSegragation = new SpeedSegragation();
 
             ChartScaller = new ChartScaleDrawer(chartBackLines);
             ChartPASPDrawer = new ChartDrawerPASP(chartBackLines);
             ChartSpeedsDrawer = new ChartSpeedsDrawer(chartBackLines);
 
             InitalizeBasicChart();
+            SpeedSegragation.CalculateSpeeds();
+
             ChartScaller.Draw();
             ChartPASPDrawer.Draw();
-            ChartSpeedsDrawer.Draw();
+            ChartSpeedsDrawer.SetUp();
         }
 
         private void InitalizeBasicChart()

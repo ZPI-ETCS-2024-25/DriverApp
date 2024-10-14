@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Logic.Data;
 
 namespace DriverETCSApp.Logic
 {
@@ -45,7 +46,7 @@ namespace DriverETCSApp.Logic
 
             //create area and set min and max values on axis X and Y
             float[] width = new float[] { 100, 30, 7, 7, 37, 1 };
-            float[] xPos = new float[] { 0, 16, 46, 57, 62, 99 };
+            float[] xPos = new float[] { 0, 16, 46, 58.5f, 62, 99 };
             for (int i = 0; i < 6; i++)
             {
                 ChartArea chartArea = new ChartArea(i.ToString() + "Area");

@@ -6,42 +6,116 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace DriverETCSApp.Logic.Charts
 {
     public class ChartSpeedsDrawer
     {
-        Chart Chart;
-        ChartInterpolate Interpolator;
+        private Chart Chart;
+        private ChartInterpolate Interpolator;
+        private Pen Pen;
+        private SolidBrush SolidBrush;
+        Font Font;
+
+        private int LineLength;
 
         public ChartSpeedsDrawer(Chart chart)
         {
             Chart = chart;
+            Pen = new Pen(DMIColors.Grey, 2);
+            SolidBrush = new SolidBrush(DMIColors.Grey);
             Interpolator = new ChartInterpolate();
+            Font = new Font("Verdana", 8, FontStyle.Bold);
+            LineLength = 20;
         }
 
-        public void Draw()
+        public void SetUp()
         {
+            Series series = new Series("SeriesPointsSpeedLower")
+            {
+                MarkerSize = 1,
+                ChartType = SeriesChartType.Point
+            };
+
+            Chart.Series.Add(series);
+            series.ChartArea = Chart.ChartAreas[3].Name;
+
+            Series series1 = new Series("SeriesPointsSpeedHigher")
+            {
+                MarkerSize = 1,
+                ChartType = SeriesChartType.Point
+            };
+
+            Chart.Series.Add(series1);
+            series1.ChartArea = Chart.ChartAreas[3].Name;
+
+            Chart.Paint += new PaintEventHandler(DrawPoints);
+        }
+
+        public void DrawPoints(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+
+            for (int i = 0; i < TrainSpeedsAndDistances.HigherSpeed.Count; i++)
+            {
+                int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
+
+                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY, pixelX + LineLength / 2, pixelY);
+
+                Point[] triangleUp = new Point[]
+                {
+                    new Point(pixelX + 5, pixelY - 11),
+                    new Point(pixelX, pixelY - 2),
+                    new Point(pixelX + 10, pixelY - 2)
+                };
+                graphics.FillPolygon(SolidBrush, triangleUp);
+
+                graphics.DrawString(TrainSpeedsAndDistances.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
+            }
+
+            for (int i = 0; i < TrainSpeedsAndDistances.LowerSpeed.Count; i++)
+            {
+                int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
+
+                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY, pixelX + LineLength / 2, pixelY);
+
+                Point[] triangleDown = new Point[]
+                {
+                    new Point(pixelX + 5, pixelY + 11),
+                    new Point(pixelX, pixelY + 2),
+                    new Point(pixelX + 10, pixelY + 2)
+                };
+                graphics.FillPolygon(SolidBrush, triangleDown);
+
+                graphics.DrawString(TrainSpeedsAndDistances.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
+            }
+        }
+
+        public void Update()
+        {
+            Chart.Series["SeriesPointsSpeedLower"].Points.Clear();
+            Chart.Series["SeriesPointsSpeedHigher"].Points.Clear();
+
             if (TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
             {
                 return;
             }
 
-            Series series = new Series("SeriesPoiontsSpeed")
+            for (int i = 0; i < TrainSpeedsAndDistances.LowerSpeed.Count; i++)
             {
-                ChartType = SeriesChartType.Point,
-                MarkerColor = Color.FromArgb(128, DMIColors.Grey),
-                MarkerSize = 10,
-                MarkerStyle = MarkerStyle.Circle
-            };
-
-            for (int i = 1; i < TrainSpeedsAndDistances.Speeds.Count; i++)
-            {
-                series.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.SpeedDistances[i]));
+                Chart.Series["SeriesPointsSpeedLower"].Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
             }
-            Chart.Series.Add(series);
-            series.ChartArea = Chart.ChartAreas[3].Name;
+
+            for (int i = 0; i < TrainSpeedsAndDistances.HigherSpeed.Count; i++)
+            {
+                Chart.Series["SeriesPointsSpeedHigher"].Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
+            }
+
+            Chart.Invalidate();
         }
     }
 }
