@@ -51,6 +51,7 @@
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
+    <Compile Include="Design\ETCSBuffer.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />

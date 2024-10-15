@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Design;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,8 +32,6 @@ namespace DriverETCSApp.Forms.BForms {
 
         public SpeedmeterForm() {
             InitializeComponent();
-            this.DoubleBuffered = true;
-
             clockSize = (int)(clockPanel.Width * 0.99f);
             halfClockSize = (int)(clockSize / 2f);
 
@@ -40,7 +39,7 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
-            Graphics g = e.Graphics;
+            var g = ETCSBuffer.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             // Draw the dial background
@@ -151,8 +150,8 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
-            SetSpeedWarning(0, 120);
-            SetSpeedCap(120, 147);
+            SetSpeedWarning(50, 120);
+            SetSpeedCap(120, 137);
         }
     }
 }
