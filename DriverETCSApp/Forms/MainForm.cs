@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Data;
+using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,30 @@ namespace DriverETCSApp.Forms
         public MainForm()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            CreateBuffer();
             DrawDefaulFormsInPanels();
+        }
+
+        private void CreateBuffer()
+        {
+            ETCSBuffer.BufferedGraphicsContext = BufferedGraphicsManager.Current;
+            ETCSBuffer.BufferedGraphicsContext.MaximumBuffer = new Size(this.Width + 1, this.Height + 1);
+            ETCSBuffer.BufferedGraphics = ETCSBuffer.BufferedGraphicsContext.Allocate(this.CreateGraphics(),
+                 new Rectangle(0, 0, this.Width, this.Height));
+            ETCSBuffer.Graphics = ETCSBuffer.BufferedGraphics.Graphics;
+            ETCSBuffer.MainForm = this;
         }
 
         //Block keyboards
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             return true;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            ETCSBuffer.BufferedGraphics.Render(e.Graphics);
         }
 
         private void DrawDefaulFormsInPanels()
