@@ -11,7 +11,7 @@ namespace DriverETCSApp {
         public SenderHTTP(string ip) : base(ip) {
         }
 
-        public override async void SendMessage(string msg, Port destination) {
+        public override async Task<string> SendMessage(string msg, Port destination) {
             string url = "http://" + ip + ":" + (int)destination + "/";
 
             using (HttpClient client = new HttpClient()) {
@@ -21,7 +21,8 @@ namespace DriverETCSApp {
 
                     if (response.IsSuccessStatusCode) {
                         string responseMessage = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine("Response: " + responseMessage);
+                        return responseMessage;
+                        //Console.WriteLine("Response: " + responseMessage);
                     }
                     else {
                         Console.WriteLine("Failed to send message: " + response.StatusCode);
@@ -30,6 +31,7 @@ namespace DriverETCSApp {
                 catch (Exception e) {
                     Console.WriteLine("error while sending a message");
                 }
+                return null;
             }
         }
     }

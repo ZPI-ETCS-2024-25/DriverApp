@@ -13,6 +13,7 @@ namespace DriverETCSApp
         public BorderLessForm() : base()
         {
             FormBorderStyle = FormBorderStyle.None;
+            //DoubleBuffered = true;
         }
     }
 }
