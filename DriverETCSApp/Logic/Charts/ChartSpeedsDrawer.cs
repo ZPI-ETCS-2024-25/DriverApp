@@ -37,24 +37,6 @@ namespace DriverETCSApp.Logic.Charts
 
         public void SetUp()
         {
-            Series series = new Series("SeriesPointsSpeedLower")
-            {
-                MarkerSize = 1,
-                ChartType = SeriesChartType.Point
-            };
-
-            Chart.Series.Add(series);
-            series.ChartArea = Chart.ChartAreas[3].Name;
-
-            Series series1 = new Series("SeriesPointsSpeedHigher")
-            {
-                MarkerSize = 1,
-                ChartType = SeriesChartType.Point
-            };
-
-            Chart.Series.Add(series1);
-            series1.ChartArea = Chart.ChartAreas[3].Name;
-
             Chart.Paint += new PaintEventHandler(DrawPoints);
         }
 
@@ -99,10 +81,12 @@ namespace DriverETCSApp.Logic.Charts
             }
         }
 
-        public void Update()
+        /*public void Update()
         {
-            Chart.Series["SeriesPointsSpeedLower"].Points.Clear();
-            Chart.Series["SeriesPointsSpeedHigher"].Points.Clear();
+            var series = Chart.Series["SeriesPointsSpeedLower"];
+            series.Points.Clear();
+            var series1 = Chart.Series["SeriesPointsSpeedHigher"];
+            series1.Points.Clear();
 
             if (TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
             {
@@ -111,15 +95,15 @@ namespace DriverETCSApp.Logic.Charts
 
             for (int i = 0; i < TrainSpeedsAndDistances.LowerSpeed.Count; i++)
             {
-                Chart.Series["SeriesPointsSpeedLower"].Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
+                series.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
             }
 
             for (int i = 0; i < TrainSpeedsAndDistances.HigherSpeed.Count; i++)
             {
-                Chart.Series["SeriesPointsSpeedHigher"].Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
+                series1.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
             }
 
             Chart.Invalidate();
-        }
+        }*/
     }
 }

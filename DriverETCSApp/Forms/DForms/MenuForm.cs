@@ -59,7 +59,6 @@ namespace DriverETCSApp.Forms.DForms
                 MainForm.DrawFForm();
                 MainForm.DrawMainDForm();
                 //MainForm.ResumeLayout();
-                
             }
         }
 
