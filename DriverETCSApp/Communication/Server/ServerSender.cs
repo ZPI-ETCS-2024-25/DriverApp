@@ -33,5 +33,35 @@ namespace DriverETCSApp.Communication.Server
             //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
+
+        public async Task UpdateTrainData(string oldNumber)
+        {
+            //create data
+            var data = new
+            {
+                TrainNumer = oldNumber,
+                TrainId = TrainData.TrainNumber,
+                LengthMeters = TrainData.Length,
+                MaxSpeed = TrainData.VMax,
+                BrakeWeight = TrainData.BrakingMass
+            };
+            //serialize
+            string dataSerialized = JsonSerializer.Serialize(data);
+            //send
+            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+        }
+
+        public async Task UnregisterTrainData()
+        {
+            //create data
+            var data = new
+            {
+                TrainId = TrainData.TrainNumber
+            };
+            //serialize
+            string dataSerialized = JsonSerializer.Serialize(data);
+            //send
+            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+        }
     }
 }
