@@ -81,7 +81,7 @@ namespace DriverETCSApp.Forms.BForms {
                 }
             }
 
-            float needleTarget = speed / (float)speedPerLine;
+            float needleTarget = (Math.Min(speed, 80f) + Math.Max(speed - 80f, 0)/2f) / (float)speedPerLine;
 
             // Draw the needle
             int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
@@ -174,8 +174,8 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
-            SetSpeedWarning(50, 60);
-            SetSpeedCap(60, 90);
+            SetSpeedWarning(90, 110);
+            SetSpeedCap(100, 110);
         }
     }
 }
