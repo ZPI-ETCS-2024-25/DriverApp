@@ -1,4 +1,5 @@
-﻿using DriverETCSApp.Data;
+﻿using DriverETCSApp.Communication.Server;
+using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
 using System;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,10 +27,13 @@ namespace DriverETCSApp.Forms
         private BorderLessForm yForm;
         private BorderLessForm zForm;
 
+        private ServerSender ServerSender;
+
         public MainForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
+            ServerSender = new ServerSender("127.0.0.1", Port.Server);
             /*SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);*/
             //CreateBuffer();
