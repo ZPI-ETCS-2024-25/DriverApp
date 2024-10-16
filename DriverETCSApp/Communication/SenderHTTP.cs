@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Linq.Expressions;
 
 namespace DriverETCSApp {
     internal class SenderHTTP : Sender {
@@ -21,8 +19,9 @@ namespace DriverETCSApp {
 
                     if (response.IsSuccessStatusCode) {
                         string responseMessage = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("Response: " + responseMessage);
                         return responseMessage;
-                        //Console.WriteLine("Response: " + responseMessage);
+                        
                     }
                     else {
                         Console.WriteLine("Failed to send message: " + response.StatusCode);

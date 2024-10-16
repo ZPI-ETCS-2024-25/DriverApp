@@ -13,8 +13,8 @@ namespace DriverETCSApp.Logic.Charts
 {
     public class ChartDrawerPASP
     {
-        Chart Chart;
-        ChartInterpolate Interpolator;
+        private Chart Chart;
+        private ChartInterpolate Interpolator;
 
         public ChartDrawerPASP(Chart chart)
         {

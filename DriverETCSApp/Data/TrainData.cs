@@ -10,6 +10,7 @@
         public static string Length = "";
         public static string VMax = "";
         public static string BrakingMass = "";
+        public static string ActiveMode = "";
         public static bool IsETCSActive = false;
     }
 }

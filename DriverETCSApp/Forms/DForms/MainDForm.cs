@@ -25,6 +25,7 @@ namespace DriverETCSApp.Forms.DForms
         private ChartScaleDrawer ChartScaller;
         private ChartDrawerPASP ChartPASPDrawer;
         private ChartSpeedsDrawer ChartSpeedsDrawer;
+        private ChartGradientDrawer ChartGradientDrawer;
 
         public MainDForm(MainForm mainForm)
         {
@@ -35,6 +36,7 @@ namespace DriverETCSApp.Forms.DForms
             ChartScaller = new ChartScaleDrawer(chartBackLines);
             ChartPASPDrawer = new ChartDrawerPASP(chartBackLines);
             ChartSpeedsDrawer = new ChartSpeedsDrawer(chartBackLines);
+            ChartGradientDrawer = new ChartGradientDrawer(chartBackLines);
 
             InitalizeBasicChart();
             SpeedSegragation.CalculateSpeeds();
@@ -42,9 +44,8 @@ namespace DriverETCSApp.Forms.DForms
             ChartScaller.Draw();
             ChartPASPDrawer.SetUp();
             ChartSpeedsDrawer.SetUp();
+            ChartGradientDrawer.SetUp();
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
 
         private void InitalizeBasicChart()
         {

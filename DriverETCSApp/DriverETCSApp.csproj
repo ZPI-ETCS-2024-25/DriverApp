@@ -194,6 +194,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Charts\ChartDrawerPASP.cs" />
+    <Compile Include="Logic\Charts\ChartGradientDrawer.cs" />
     <Compile Include="Logic\Charts\ChartInterpolate.cs" />
     <Compile Include="Logic\Charts\ChartScaleDrawer.cs" />
     <Compile Include="Logic\Charts\ChartSpeedsDrawer.cs" />

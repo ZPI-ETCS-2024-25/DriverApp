@@ -63,5 +63,17 @@ namespace DriverETCSApp.Communication.Server
             //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
+
+        public async Task SendPositionData(string kilometer, string track)
+        {
+            var data = new
+            {
+                TrainId = TrainData.TrainNumber,
+                Kilometer = kilometer,
+                Track = track
+            };
+            string dataSerialized = JsonSerializer.Serialize(data);
+            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+        }
     }
 }
