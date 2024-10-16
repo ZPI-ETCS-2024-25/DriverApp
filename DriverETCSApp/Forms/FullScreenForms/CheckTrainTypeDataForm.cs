@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 
@@ -16,14 +17,16 @@ namespace DriverETCSApp.Forms.DForms
     public partial class CheckTrainTypeDataForm : BorderLessForm
     {
         private MainForm MainForm;
-        PredefinedTrain TrainData;
+        private PredefinedTrain TrainData;
+        private ServerSender ServerSender;
 
-        public CheckTrainTypeDataForm(MainForm mainForm, PredefinedTrain trainData)
+        public CheckTrainTypeDataForm(MainForm mainForm, PredefinedTrain trainData, ServerSender serverSender)
         {
             InitializeComponent();
             MainForm = mainForm;
             TrainData = trainData;
             infoLabelData1.Text = trainData.TrainName;
+            ServerSender = serverSender;
         }
 
         //protected override void PaintForm(object sender, PaintEventArgs e) { }
@@ -36,7 +39,7 @@ namespace DriverETCSApp.Forms.DForms
             MainForm.DrawBFormSpeed();
         }
 
-        private void labelData1_Click(object sender, EventArgs e)
+        private async void labelData1_Click(object sender, EventArgs e)
         {
             if (labelData1.Text.Equals("TAK"))
             {
@@ -45,6 +48,11 @@ namespace DriverETCSApp.Forms.DForms
                 Data.TrainData.Length = TrainData.Length;
                 Data.TrainData.VMax = TrainData.VMax;
                 Data.TrainData.BrakingMass = TrainData.BrakingMass;
+
+                if (Data.TrainData.IsETCSActive)
+                {
+                    await ServerSender.UpdateTrainData(Data.TrainData.TrainNumber);
+                }
 
                 Close();
                 MainForm.HideFullScreen();

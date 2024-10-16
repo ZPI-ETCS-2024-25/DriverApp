@@ -157,7 +157,7 @@ namespace DriverETCSApp.Forms
         public void DrawDFromTrainNumer()
         {
             HideGFPanels();
-            dForm = new DForms.TrainNumberForm(this);
+            dForm = new DForms.TrainNumberForm(this, ServerSender);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -193,7 +193,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataTypeConfirm(PredefinedTrain trainData)
         {
-            dForm = new DForms.CheckTrainTypeDataForm(this, trainData);
+            dForm = new DForms.CheckTrainTypeDataForm(this, trainData, ServerSender);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -201,7 +201,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawTrainDataConfirm(string trainCat, string length, string vmax, string brakingMass)
         {
-            dForm = new DForms.CheckTrainDataForm(this, trainCat, length, vmax, brakingMass);
+            dForm = new DForms.CheckTrainDataForm(this, trainCat, length, vmax, brakingMass, ServerSender);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();

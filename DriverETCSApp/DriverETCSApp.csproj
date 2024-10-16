@@ -79,6 +79,7 @@
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
+    <Compile Include="Data\ETCSModes.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
@@ -281,7 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\Unity\" />
-    <Folder Include="Design\Icons\Modes\" />
     <Folder Include="Forms\AForms\" />
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
@@ -297,6 +297,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\Settings\Brightness.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\ETCSConnection\ConnectionSet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\L2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\L2AckWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\L2AckYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\SHP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\SHPAckWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Levels\SHPAckYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\FS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\OS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\OSAck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\PostTrip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\SB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\STM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\STMAck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\Trip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Modes\TripAck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Design\Icons\Others\Brakes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

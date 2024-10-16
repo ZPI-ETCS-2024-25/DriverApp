@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 
 namespace DriverETCSApp.Forms.DForms
@@ -14,15 +15,15 @@ namespace DriverETCSApp.Forms.DForms
     public partial class TrainNumberForm : BorderLessForm
     {
         private MainForm MainForm;
+        private ServerSender ServerSender;
 
-        public TrainNumberForm(MainForm mainForm)
+        public TrainNumberForm(MainForm mainForm, ServerSender serverSender)
         {
             InitializeComponent();
             MainForm = mainForm;
+            ServerSender = serverSender;
             label2.Text = TrainData.TrainNumber;
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -82,11 +83,16 @@ namespace DriverETCSApp.Forms.DForms
             AppendText("0");
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private async void label2_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(label2.Text))
             {
+                var oldNumber = TrainData.TrainNumber;
                 TrainData.TrainNumber = label2.Text;
+                if (Data.TrainData.IsETCSActive)
+                {
+                    await ServerSender.UpdateTrainData(oldNumber);
+                }
                 Close();
                 MainForm.DrawDFormMenu();
             }

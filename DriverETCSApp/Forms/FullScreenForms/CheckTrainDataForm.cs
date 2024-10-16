@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 
@@ -16,12 +17,13 @@ namespace DriverETCSApp.Forms.DForms
     public partial class CheckTrainDataForm : BorderLessForm
     {
         private MainForm MainForm;
-        public string TrainCat;
-        public string Length;
-        public string VMax;
-        public string BrakingMass;
+        private string TrainCat;
+        private string Length;
+        private string VMax;
+        private string BrakingMass;
+        private ServerSender ServerSender;
 
-        public CheckTrainDataForm(MainForm mainForm, string trainCat, string length, string vmax, string brakingMass)
+        public CheckTrainDataForm(MainForm mainForm, string trainCat, string length, string vmax, string brakingMass, ServerSender serverSender)
         {
             InitializeComponent();
             MainForm = mainForm;
@@ -29,6 +31,7 @@ namespace DriverETCSApp.Forms.DForms
             Length = length;
             VMax = vmax;
             BrakingMass = brakingMass;
+            ServerSender = serverSender;
 
             infoLabelData1.Text = trainCat;
             infoLabelData2.Text = length;
@@ -46,7 +49,7 @@ namespace DriverETCSApp.Forms.DForms
             MainForm.DrawBFormSpeed();
         }
 
-        private void labelData1_Click(object sender, EventArgs e)
+        private async void labelData1_Click(object sender, EventArgs e)
         {
             if (labelData1.Text.Equals("TAK"))
             {
@@ -54,6 +57,11 @@ namespace DriverETCSApp.Forms.DForms
                 TrainData.Length = Length;
                 TrainData.BrakingMass = BrakingMass;
                 TrainData.VMax = VMax;
+
+                if (Data.TrainData.IsETCSActive)
+                {
+                    await ServerSender.UpdateTrainData(TrainData.TrainNumber);
+                }
 
                 Close();
                 MainForm.HideFullScreen();
