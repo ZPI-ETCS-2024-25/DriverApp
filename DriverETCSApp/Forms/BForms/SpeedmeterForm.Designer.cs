@@ -32,7 +32,7 @@
             // clockPanel
             // 
             this.clockPanel.BackColor = System.Drawing.Color.Transparent;
-            this.clockPanel.Location = new System.Drawing.Point(22, 12);
+            this.clockPanel.Location = new System.Drawing.Point(30, 12);
             this.clockPanel.Name = "clockPanel";
             this.clockPanel.Size = new System.Drawing.Size(500, 500);
             this.clockPanel.TabIndex = 2;
@@ -72,7 +72,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 561);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
+            this.ClientSize = new System.Drawing.Size(560, 600);
             this.Controls.Add(this.btnTest3);
             this.Controls.Add(this.btnTest2);
             this.Controls.Add(this.btnTest1);

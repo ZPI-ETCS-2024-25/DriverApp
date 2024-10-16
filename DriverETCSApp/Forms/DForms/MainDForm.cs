@@ -43,6 +43,8 @@ namespace DriverETCSApp.Forms.DForms
             ChartSpeedsDrawer.SetUp();
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void InitalizeBasicChart()
         {
             if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))

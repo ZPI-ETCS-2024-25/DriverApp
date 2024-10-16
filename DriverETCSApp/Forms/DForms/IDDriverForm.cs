@@ -35,6 +35,8 @@ namespace DriverETCSApp.Forms.DForms
             SetCloseButtonColor();
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void CreateDictionary()
         {
             AlphaNumerickKeys.Add('2', new List<char> { '2', 'a', 'b', 'c' });

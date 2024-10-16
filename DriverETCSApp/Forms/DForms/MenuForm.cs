@@ -23,6 +23,8 @@ namespace DriverETCSApp.Forms.DForms
             MainForm = mainForm;
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         public void SetStartButtonColor()
         {
             if(!string.IsNullOrEmpty(TrainData.TrainNumber) && !string.IsNullOrEmpty(TrainData.IDDriver) && !string.IsNullOrEmpty(TrainData.ETCSLevel))
@@ -51,10 +53,13 @@ namespace DriverETCSApp.Forms.DForms
             if (IsStartActive)
             {
                 Close();
+                //MainForm.SuspendLayout();
                 MainForm.ShowGFPanels();
                 MainForm.DrawGForm();
                 MainForm.DrawFForm();
                 MainForm.DrawMainDForm();
+                //MainForm.ResumeLayout();
+                
             }
         }
 

@@ -25,6 +25,8 @@ namespace DriverETCSApp.Forms.DForms
             DriverIDActiveFlag = driverIDActiveFlag;
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();

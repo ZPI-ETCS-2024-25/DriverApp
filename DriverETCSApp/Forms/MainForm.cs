@@ -28,20 +28,26 @@ namespace DriverETCSApp.Forms
         public MainForm()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            CreateBuffer();
+            DoubleBuffered = true;
+            /*SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);*/
+            //CreateBuffer();
             DrawDefaulFormsInPanels();
         }
 
-        private void CreateBuffer()
+        /*private void CreateBuffer()
         {
             ETCSBuffer.BufferedGraphicsContext = BufferedGraphicsManager.Current;
             ETCSBuffer.BufferedGraphicsContext.MaximumBuffer = new Size(this.Width + 1, this.Height + 1);
-            ETCSBuffer.BufferedGraphics = ETCSBuffer.BufferedGraphicsContext.Allocate(this.CreateGraphics(),
+            using (Pen pen = new Pen(DMIColors.DarkBlue, 1))
+            {
+                ETCSBuffer.BufferedGraphics = ETCSBuffer.BufferedGraphicsContext.Allocate(this.CreateGraphics(),
                  new Rectangle(0, 0, this.Width, this.Height));
+            }
             ETCSBuffer.Graphics = ETCSBuffer.BufferedGraphics.Graphics;
             ETCSBuffer.MainForm = this;
-        }
+            ETCSBuffer.Initialize();
+        }*/
 
         //Block keyboards
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -49,10 +55,10 @@ namespace DriverETCSApp.Forms
             return true;
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        /*protected override void OnPaint(PaintEventArgs e)
         {
             ETCSBuffer.BufferedGraphics.Render(e.Graphics);
-        }
+        }*/
 
         private void DrawDefaulFormsInPanels()
         {

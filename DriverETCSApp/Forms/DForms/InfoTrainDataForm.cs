@@ -24,6 +24,8 @@ namespace DriverETCSApp.Forms.DForms
             MainForm = mainForm;
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();

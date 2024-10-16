@@ -22,6 +22,8 @@ namespace DriverETCSApp.Forms.DForms
             label2.Text = TrainData.TrainNumber;
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void button1_Click(object sender, EventArgs e)
         {
             AppendText("1");

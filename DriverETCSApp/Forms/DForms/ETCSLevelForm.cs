@@ -25,6 +25,8 @@ namespace DriverETCSApp.Forms.DForms
             SetCloseButtonColor();
         }
 
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
+
         private void SetCloseButtonColor()
         {
             if (IsBackActive)

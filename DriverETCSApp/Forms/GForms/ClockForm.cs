@@ -32,5 +32,7 @@ namespace DriverETCSApp.Forms.GForms
         {
             clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
         }
+
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
     }
 }

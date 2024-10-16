@@ -30,6 +30,8 @@ namespace DriverETCSApp.Forms.BForms {
         private (int, int) speedCap = (0, 0); // orange
         private (int, int) speedWarning = (0, 0); // yellow
 
+        private Font NumbersFont;
+
         public SpeedmeterForm() {
             InitializeComponent();
             clockSize = (int)(clockPanel.Width * 0.99f);
@@ -38,31 +40,53 @@ namespace DriverETCSApp.Forms.BForms {
             needleLength = halfClockSize - 50;
         }
 
+        /*protected new void PaintForm(object sender, PaintEventArgs e) 
+        { 
+            base.PaintForm(sender, e);
+            clockPanel_Paint(sender, e);
+        }*/
+
+        /*protected override void OnPaint(PaintEventArgs e)
+        {
+            ETCSBuffer.BufferedGraphics.Render(e.Graphics);
+        }*/
+
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
-            var g = ETCSBuffer.Graphics;
+            //var g = ETCSBuffer.Graphics;
+            var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             // Draw the dial background
-            g.FillEllipse(Brushes.White, 0, 0, clockSize, clockSize);
+            /*using (var brush = new SolidBrush(DMIColors.DarkBlue))
+            {
+                g.FillEllipse(brush, 0, 0, clockSize, clockSize);
+            }*/
+
             g.DrawEllipse(Pens.Black, 0, 0, clockSize, clockSize);
 
-            // Draw the ticks and numbers            
-            for (int i = 0; i <= linesCount; i++) {
-                int angle = i * clockAngle / linesCount - clockAngleOffset;
-                double radians = angle * Math.PI / 180;
-                int x1 = halfClockSize + (int)(halfClockSize * Math.Cos(radians));
-                int y1 = halfClockSize + (int)(halfClockSize * Math.Sin(radians));
+            // Draw the ticks and numbers
+            using (var brush = new SolidBrush(DMIColors.Grey))
+            {
+                using (var pen = new Pen(DMIColors.Grey, 2))
+                {
+                    for (int i = 0; i <= linesCount; i++) {
+                        int angle = i * clockAngle / linesCount - clockAngleOffset;
+                        double radians = angle * Math.PI / 180;
+                        int x1 = halfClockSize + (int)(halfClockSize * Math.Cos(radians));
+                        int y1 = halfClockSize + (int)(halfClockSize * Math.Sin(radians));
 
-                int x2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Cos(radians));
-                int y2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Sin(radians));
-                g.DrawLine(Pens.Black, x1, y1, x2, y2);
+                        int x2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Cos(radians));
+                        int y2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Sin(radians));
+                        g.DrawLine(pen, x1, y1, x2, y2);
 
-                // Draw speed numbers
-                if (i % 2 == 0) {
-                    string text = (i * speedPerLine).ToString();
-                    int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 10;
-                    int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 10;
-                    g.DrawString(text, this.Font, Brushes.Black, xText, yText);
+                        // Draw speed numbers
+                        if (i % 2 == 0) {
+                            string text = (i * speedPerLine).ToString();
+                            int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 10;
+                            int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 10;
+                            g.DrawString(text, this.Font, brush, xText, yText);
+                        }
+                    }
                 }
             }
 
@@ -136,7 +160,8 @@ namespace DriverETCSApp.Forms.BForms {
             return speedCap;
         }
 
-        public void SetSpeedCap(int min, int max) {
+        public void SetSpeedCap(int min, int max)
+        {
             speedCap = (min, max);
             clockPanel.Invalidate();
         }

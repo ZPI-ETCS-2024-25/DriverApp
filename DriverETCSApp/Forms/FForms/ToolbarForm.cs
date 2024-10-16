@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Design;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,5 +37,7 @@ namespace DriverETCSApp.Forms.FForms
             MainForm.HideGFPanels();
             MainForm.DrawSettings(false);
         }
+
+        //protected override void PaintForm(object sender, PaintEventArgs e) { }
     }
 }
