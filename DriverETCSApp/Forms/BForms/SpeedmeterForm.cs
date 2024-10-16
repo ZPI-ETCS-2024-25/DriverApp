@@ -118,7 +118,7 @@ namespace DriverETCSApp.Forms.BForms {
             }
 
             // Draw Arc of Cap
-            if (speedCap != (0, 0) && speedCap.Item1 < speed ) {
+            if (speedCap != (0, 0) && Math.Min(80, speedCap.Item1) + Math.Max(0, speedCap.Item1 - 80) * 2f < speed ) {
                 Rectangle rect = new Rectangle(0, 0, clockSize, clockSize);
 
                 // Define the starting angle and the sweep angle
@@ -144,7 +144,10 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         public void SetSpeedWarning(int min, int max) {
-            if(max > 80) {
+            if (min > 80) {
+                min = 80 + (min - 80) / 2;
+            }
+            if (max > 80) {
                 max = 80 + (max - 80) / 2;
             }
 
@@ -158,6 +161,9 @@ namespace DriverETCSApp.Forms.BForms {
 
         public void SetSpeedCap(int min, int max)
         {
+            if (min > 80) {
+                min = 80 + (min - 80) / 2;
+            }
             if (max > 80) {
                 max = 80 + (max - 80) / 2;
             }
@@ -175,7 +181,7 @@ namespace DriverETCSApp.Forms.BForms {
 
         private void btnTest3_Click(object sender, EventArgs e) {
             SetSpeedWarning(90, 110);
-            SetSpeedCap(100, 110);
+            SetSpeedCap(110, 130);
         }
     }
 }
