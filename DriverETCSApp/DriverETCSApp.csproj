@@ -86,6 +86,12 @@
     <Compile Include="Communication\Unity\UnityReceiver.cs" />
     <Compile Include="Data\ETCSModes.cs" />
     <Compile Include="Data\MessageFromBalise.cs" />
+    <Compile Include="Forms\AForms\PIMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AForms\PIMForm.Designer.cs">
+      <DependentUpon>PIMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
@@ -212,6 +218,9 @@
     <EmbeddedResource Include="BorderLessForm.resx">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AForms\PIMForm.resx">
+      <DependentUpon>PIMForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BForms\SpeedmeterForm.resx">
       <DependentUpon>SpeedmeterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -288,7 +297,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\AForms\" />
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
     <Folder Include="Logic\Position\" />
