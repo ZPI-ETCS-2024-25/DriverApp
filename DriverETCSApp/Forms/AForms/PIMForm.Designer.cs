@@ -29,11 +29,12 @@
             // 
             // btnTest1
             // 
-            this.btnTest1.Location = new System.Drawing.Point(57, 703);
+            this.btnTest1.Location = new System.Drawing.Point(11, 520);
+            this.btnTest1.Margin = new System.Windows.Forms.Padding(2);
             this.btnTest1.Name = "btnTest1";
-            this.btnTest1.Size = new System.Drawing.Size(75, 23);
+            this.btnTest1.Size = new System.Drawing.Size(97, 26);
             this.btnTest1.TabIndex = 0;
-            this.btnTest1.Text = "test";
+            this.btnTest1.Text = "decrese distance";
             this.btnTest1.UseVisualStyleBackColor = true;
             this.btnTest1.Click += new System.EventHandler(this.btnTest1_Click);
             // 
@@ -41,20 +42,20 @@
             // 
             this.panelPIM.BackColor = System.Drawing.Color.Transparent;
             this.panelPIM.Location = new System.Drawing.Point(0, 0);
-            this.panelPIM.Margin = new System.Windows.Forms.Padding(4);
             this.panelPIM.Name = "panelPIM";
-            this.panelPIM.Size = new System.Drawing.Size(144, 638);
+            this.panelPIM.Size = new System.Drawing.Size(108, 477);
             this.panelPIM.TabIndex = 3;
             this.panelPIM.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             // 
             // PIMForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
-            this.ClientSize = new System.Drawing.Size(144, 738);
+            this.ClientSize = new System.Drawing.Size(108, 600);
             this.Controls.Add(this.panelPIM);
             this.Controls.Add(this.btnTest1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PIMForm";
             this.Text = "PIMForm";
             this.ResumeLayout(false);
