@@ -44,7 +44,7 @@ namespace DriverETCSApp.Forms.DForms
             ChartScaller.Draw();
             ChartPASPDrawer.SetUp();
             ChartSpeedsDrawer.SetUp();
-            ChartGradientDrawer.Draw();
+            ChartGradientDrawer.SetUp();
         }
 
         private void InitalizeBasicChart()
