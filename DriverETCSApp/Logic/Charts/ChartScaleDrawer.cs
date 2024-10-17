@@ -143,7 +143,7 @@ namespace DriverETCSApp.Logic
                     Interval = 0,
                     IntervalOffset = ChartData.Lines[i] * ChartData.Scale,
                     StripWidth = 0,
-                    BorderColor = Color.FromArgb(255, DMIColors.Grey),
+                    BorderColor = ChartData.Colors[i],
                     BorderWidth = ChartData.LinesThin[i],
                     BorderDashStyle = ChartDashStyle.Solid
                 };

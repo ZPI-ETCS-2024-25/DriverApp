@@ -13,62 +13,56 @@ namespace DriverETCSApp.Logic.Charts
     {
         private Chart Chart;
         private ChartInterpolate Interpolator;
+        private List<Series> Series;
 
         public ChartGradientDrawer(Chart chart)
         {
             Chart = chart;
             Interpolator = new ChartInterpolate();
-        }
-
-        public void SetUp()
-        {
-            Series series = new Series("SeriesGradientPositive")
-            {
-                ChartType = SeriesChartType.StackedColumn,
-                Color = DMIColors.Grey,
-                BorderWidth = 0,
-                BackSecondaryColor = Color.Transparent,
-            };
-            //series["PointWidth"] = "0.9";
-            Chart.Series.Add(series);
-            series.ChartArea = Chart.ChartAreas[2].Name;
-
-            Series series1 = new Series("SeriesGradientNegative")
-            {
-                ChartType = SeriesChartType.StackedColumn,
-                Color = DMIColors.Grey,
-                BorderWidth = 0,
-                BackSecondaryColor = Color.Transparent
-            };
-            //series1["PointWidth"] = "0.8";
-            Chart.Series.Add(series1);
-            series1.ChartArea = Chart.ChartAreas[2].Name;
-
-            Draw();
+            Series = new List<Series>();
         }
 
         public void Draw()
         {
+            foreach (Series series in Series)
+            {
+                series.Points.Clear();
+            }
+
             if (TrainSpeedsAndDistances.Gradients.Count == 0 || TrainSpeedsAndDistances.GradientsDistances.Count == 0)
             {
                 return;
             }
 
-            var series = Chart.Series["SeriesGradientPositive"];
-            var series1 = Chart.Series["SeriesGradientNegative"];
-            series.Points.Clear();
-            series1.Points.Clear();
-
-            for(int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
+            for (int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
             {
                 if (TrainSpeedsAndDistances.Gradients[i] >= 0)
                 {
-                    //series.Points.Add(0, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
-                    series.Points.Add(TrainSpeedsAndDistances.GradientsDistances[i], 90);
+                    Series series = new Series("Gradient" + i.ToString())
+                    {
+                        ChartType = SeriesChartType.StackedColumn,
+                        Color = DMIColors.Red,
+                        BorderWidth = 0,
+                        BackSecondaryColor = Color.Transparent,
+                    };
+                    Chart.Series.Add(series);
+                    series.ChartArea = Chart.ChartAreas[2].Name;
+                    var x = TrainSpeedsAndDistances.GradientsDistances[i + 1];
+                    series.Points.AddXY("All", x);
                 }
-                else // < 0
+                else
                 {
-                    //series1.Points.Add(0, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
+                    Series series = new Series("Gradient" + i.ToString())
+                    {
+                        ChartType = SeriesChartType.StackedColumn,
+                        Color = DMIColors.DarkGrey,
+                        BorderWidth = 0,
+                        BackSecondaryColor = Color.Transparent,
+                    };
+                    Chart.Series.Add(series);
+                    series.ChartArea = Chart.ChartAreas[2].Name;
+                    var x = TrainSpeedsAndDistances.GradientsDistances[i + 1];
+                    series.Points.AddXY("All", x);
                 }
             }
         }
