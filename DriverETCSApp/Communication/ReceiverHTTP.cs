@@ -16,7 +16,10 @@ namespace DriverETCSApp.Communication {
         private ServerReceiver serverReceiver;
         private UnityReceiver unityReceiver;
 
-        public ReceiverHTTP(string ip) : base(ip) {
+        public ReceiverHTTP(string ip) : base(ip) 
+        {
+            serverReceiver = new ServerReceiver();
+            unityReceiver = new UnityReceiver();
         }
 
         private bool IsServerSource(HttpListenerRequest request)
