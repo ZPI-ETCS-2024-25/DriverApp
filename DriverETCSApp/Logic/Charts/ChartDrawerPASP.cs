@@ -35,7 +35,6 @@ namespace DriverETCSApp.Logic.Charts
             Chart.Series.Add(series);
             series.ChartArea = Chart.ChartAreas[4].Name;
             Draw();
-            //Chart.Paint += new PaintEventHandler(Draw);
         }
         
         public void Draw()

@@ -50,8 +50,16 @@ namespace DriverETCSApp.Logic
             for (int i = 0; i < 6; i++)
             {
                 ChartArea chartArea = new ChartArea(i.ToString() + "Area");
-                chartArea.AxisX.Minimum = 0;
-                chartArea.AxisX.Maximum = 100;
+                if (i != 2)
+                {
+                    chartArea.AxisX.Minimum = 0;
+                    chartArea.AxisX.Maximum = 100;
+                }
+                else
+                {
+                    chartArea.AxisX.Minimum = 0.5;
+                    chartArea.AxisX.Maximum = 1.5;
+                }
                 chartArea.AxisX.MajorGrid.LineColor = Color.Gray;
                 chartArea.AxisY.Minimum = 0;
                 chartArea.AxisY.Maximum = 8000;
@@ -92,7 +100,7 @@ namespace DriverETCSApp.Logic
             Chart.ChartAreas[4].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
             Chart.ChartAreas[5].BackColor = Color.FromArgb(128, DMIColors.PASPDark.R, DMIColors.PASPDark.G, DMIColors.PASPDark.B);
 
-            //add series
+            //add series to area 0 -> just to show lines
             Series series = new Series("BasicArea")
             {
                 ChartType = SeriesChartType.Area,
