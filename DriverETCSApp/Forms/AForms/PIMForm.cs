@@ -37,9 +37,9 @@ namespace DriverETCSApp.Forms.AForms
         {
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            Brush brush = Brushes.White
+            Brush brush = Brushes.White;
             int x = (int)(panelPIM.Width * rectStartX);
-            int y = (int)(panelPIM.Height * rectStartY + panelPIM.Height * (1f - columnHeight)) ;
+            int y = (int)(panelPIM.Height * rectStartY + panelPIM.Height * (1f - columnHeight));
             int width = (int)(panelPIM.Width * rectWidth);
             int height = (int)(panelPIM.Height * rectHeight + panelPIM.Height * (1f - columnHeight)) ;
             Rectangle rect = new Rectangle(x, y, width, height);

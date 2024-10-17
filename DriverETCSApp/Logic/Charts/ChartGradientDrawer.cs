@@ -16,14 +16,20 @@ namespace DriverETCSApp.Logic.Charts
         private Chart Chart;
         private ChartInterpolate Interpolator;
         private List<Series> Series;
+        private SolidBrush Brush;
+        private SolidBrush BrushDark;
         private Pen Pen;
+        private Font Font;
 
         public ChartGradientDrawer(Chart chart)
         {
             Chart = chart;
             Interpolator = new ChartInterpolate();
             Series = new List<Series>();
-            Pen = new Pen(DMIColors.Black, 2);
+            Pen = new Pen(DMIColors.Black, 1);
+            Brush = new SolidBrush(DMIColors.Grey);
+            BrushDark = new SolidBrush(DMIColors.DarkGrey);
+            Font = new Font("Verdana", 8, FontStyle.Bold);
         }
 
         public void SetUp()
@@ -36,8 +42,9 @@ namespace DriverETCSApp.Logic.Charts
         {
             foreach (Series series in Series)
             {
-                series.Points.Clear();
+                Chart.Series.Remove(series);
             }
+            Series.Clear();
 
             if (TrainSpeedsAndDistances.Gradients.Count == 0 || TrainSpeedsAndDistances.GradientsDistances.Count == 0)
             {
@@ -58,6 +65,7 @@ namespace DriverETCSApp.Logic.Charts
                         BackSecondaryColor = Color.Transparent,
                     };
                     Chart.Series.Add(series);
+                    Series.Add(series);
                     series.ChartArea = Chart.ChartAreas[2].Name;
                     series.Points.AddXY("All", x);
                     series.Points.AddXY("All1", x);
@@ -72,6 +80,7 @@ namespace DriverETCSApp.Logic.Charts
                         BackSecondaryColor = Color.Transparent,
                     };
                     Chart.Series.Add(series);
+                    Series.Add(series);
                     series.ChartArea = Chart.ChartAreas[2].Name;
                     series.Points.AddXY("All", x);
                     series.Points.AddXY("All1", x);
@@ -89,17 +98,44 @@ namespace DriverETCSApp.Logic.Charts
             var graphics = e.Graphics;
             for (int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
             {
-                int pixelY = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]));
-                int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(0);
-                graphics.DrawLine(Pen, pixelX, pixelY - 1, pixelX + 15, pixelY - 1);
+                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]));
+                int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
+                int pixelX = (int)Chart.ChartAreas[2].AxisX.ValueToPixelPosition(0);
 
                 if (TrainSpeedsAndDistances.Gradients[i] >= 0)
                 {
-
+                    graphics.FillRectangle(Brushes.White, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
+                    if (pixelY1 - pixelY >= 40)
+                    {
+                        graphics.DrawString("+", Font, BrushDark, pixelX + 27, pixelY);
+                        graphics.DrawString("+", Font, BrushDark, pixelX + 27, pixelY1 - 13);
+                    }
+                    if (pixelY1 - pixelY >= 55)
+                    {
+                        var s = TrainSpeedsAndDistances.Gradients[i].ToString();
+                        int offset = s.Length == 1 ? 29 : 25;
+                        graphics.DrawString(s, Font, BrushDark, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
+                    }
                 }
                 else
                 {
-
+                    graphics.FillRectangle(Brush, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
+                    if (pixelY1 - pixelY >= 40)
+                    {
+                        graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY);
+                        graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY1 - 13);
+                    }
+                    if (pixelY1 - pixelY >= 55)
+                    {
+                        var s = TrainSpeedsAndDistances.Gradients[i].ToString().Remove(0, 1);
+                        int offset = s.Length == 1 ? 29 : 25;
+                        graphics.DrawString(s, Font, Brush, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
+                    }
+                }
+                if (i != 0)
+                {
+                    graphics.DrawLine(Pens.Black, pixelX + 20, pixelY1, pixelX + 48, pixelY1);
+                    graphics.DrawLine(Pens.Black, pixelX + 20, pixelY1 + 1, pixelX + 48, pixelY1 + 1);
                 }
             }
         }
