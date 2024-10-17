@@ -24,11 +24,10 @@ namespace DriverETCSApp.Forms.AForms {
         }; 
 
         int distanceLeft = 0;
-        int columnHeight = 100; // percent 0-100
+        float columnHeight = 1f; // percent 0-1
 
         public PIMForm() {
             InitializeComponent();
-
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
@@ -37,9 +36,9 @@ namespace DriverETCSApp.Forms.AForms {
 
             using(Brush brush = Brushes.White) {
                 int x = (int)(panelPIM.Width * rectStartX);
-                int y = (int)(panelPIM.Height * rectStartY);
+                int y = (int)(panelPIM.Height * rectStartY + panelPIM.Height * (1f - columnHeight)) ;
                 int width = (int)(panelPIM.Width * rectWidth);
-                int height = (int)(panelPIM.Height * rectHeight);
+                int height = (int)(panelPIM.Height * rectHeight + panelPIM.Height * (1f - columnHeight)) ;
                 Rectangle rect = new Rectangle(x, y, width, height);
 
                 g.FillRectangle(brush, rect);
