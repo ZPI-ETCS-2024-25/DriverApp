@@ -63,6 +63,7 @@ namespace DriverETCSApp.Forms.DForms
         {
             base.Invalidate();
             ChartPASPDrawer.Draw();
+            ChartGradientDrawer.Draw();
         }
 
         private async void button1_Click(object sender, EventArgs e)
