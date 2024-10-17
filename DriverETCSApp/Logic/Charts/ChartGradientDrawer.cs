@@ -22,15 +22,28 @@ namespace DriverETCSApp.Logic.Charts
 
         public void SetUp()
         {
-            Series series = new Series("SeriesGradient")
+            Series series = new Series("SeriesGradientPositive")
             {
-                ChartType = SeriesChartType.Area,
-                //Color = Color.FromArgb(128, DMIColors.PASPLight.R, DMIColors.PASPLight.G, DMIColors.PASPLight.B),
+                ChartType = SeriesChartType.StackedColumn,
+                Color = DMIColors.Grey,
+                BorderWidth = 0,
+                BackSecondaryColor = Color.Transparent,
+            };
+            //series["PointWidth"] = "0.9";
+            Chart.Series.Add(series);
+            series.ChartArea = Chart.ChartAreas[2].Name;
+
+            Series series1 = new Series("SeriesGradientNegative")
+            {
+                ChartType = SeriesChartType.StackedColumn,
+                Color = DMIColors.Grey,
                 BorderWidth = 0,
                 BackSecondaryColor = Color.Transparent
             };
-            Chart.Series.Add(series);
-            series.ChartArea = Chart.ChartAreas[2].Name;
+            //series1["PointWidth"] = "0.8";
+            Chart.Series.Add(series1);
+            series1.ChartArea = Chart.ChartAreas[2].Name;
+
             Draw();
         }
 
@@ -41,8 +54,23 @@ namespace DriverETCSApp.Logic.Charts
                 return;
             }
 
-            var series = Chart.Series["SeriesGradient"];
+            var series = Chart.Series["SeriesGradientPositive"];
+            var series1 = Chart.Series["SeriesGradientNegative"];
             series.Points.Clear();
+            series1.Points.Clear();
+
+            for(int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
+            {
+                if (TrainSpeedsAndDistances.Gradients[i] >= 0)
+                {
+                    //series.Points.Add(0, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
+                    series.Points.Add(TrainSpeedsAndDistances.GradientsDistances[i], 90);
+                }
+                else // < 0
+                {
+                    //series1.Points.Add(0, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
+                }
+            }
         }
     }
 }

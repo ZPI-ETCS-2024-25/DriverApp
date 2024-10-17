@@ -57,9 +57,16 @@ namespace DriverETCSApp.Logic
                 chartArea.AxisY.Maximum = 8000;
                 chartArea.BackColor = Color.Transparent;
                 chartArea.Position.Width = width[i];
-                chartArea.Position.Height = 95;
-                chartArea.Position.X = xPos[i];
                 chartArea.Position.Y = 3;
+                chartArea.Position.X = xPos[i];
+                if (i == 0)
+                {
+                    chartArea.Position.Height = 95;
+                }
+                else
+                {
+                    chartArea.Position.Height = 94.5f;
+                }
                 Chart.ChartAreas.Add(chartArea);
 
                 //create custom labels

@@ -49,13 +49,13 @@ namespace DriverETCSApp.Logic.Charts
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
                 int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
 
-                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY, pixelX + LineLength / 2, pixelY);
+                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
                 Point[] triangleUp = new Point[]
                 {
-                    new Point(pixelX + 5, pixelY - 11),
-                    new Point(pixelX, pixelY - 2),
-                    new Point(pixelX + 10, pixelY - 2)
+                    new Point(pixelX + 5, pixelY - 10),
+                    new Point(pixelX, pixelY - 1),
+                    new Point(pixelX + 10, pixelY - 1)
                 };
                 graphics.FillPolygon(SolidBrush, triangleUp);
 
@@ -67,13 +67,13 @@ namespace DriverETCSApp.Logic.Charts
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
                 int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
 
-                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY, pixelX + LineLength / 2, pixelY);
+                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
                 Point[] triangleDown = new Point[]
                 {
-                    new Point(pixelX + 5, pixelY + 11),
-                    new Point(pixelX, pixelY + 2),
-                    new Point(pixelX + 10, pixelY + 2)
+                    new Point(pixelX + 5, pixelY + 12),
+                    new Point(pixelX, pixelY + 3),
+                    new Point(pixelX + 10, pixelY + 3)
                 };
                 graphics.FillPolygon(SolidBrush, triangleDown);
 
