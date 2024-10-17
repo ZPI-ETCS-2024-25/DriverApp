@@ -14,14 +14,14 @@ using static System.Net.Mime.MediaTypeNames;
 namespace DriverETCSApp.Forms.BForms {
     public partial class SpeedmeterForm : BorderLessForm {
 
-        private const int linesCount = 24;
+        private const int linesCount = 18;
         private const int linesLength = 40;
-        private const int speedPerLine = 5;
+        private const int speedPerLine = 10;
         private const int clockAngle = 270;
         private const int clockAngleOffset = -135;
         private const int speedNumbersOffset = 35;
         private const int needleCircleRadius = 30;
-        
+
         private int clockSize;
         private int halfClockSize;
         private int needleLength;
@@ -45,34 +45,22 @@ namespace DriverETCSApp.Forms.BForms {
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // Draw the dial background
-            /*using (var brush = new SolidBrush(DMIColors.DarkBlue))
-            {
-                g.FillEllipse(brush, 0, 0, clockSize, clockSize);
-            }*/
-
-            //g.DrawEllipse(Pens.Black, 0, 0, clockSize, clockSize);
-
             // Draw the ticks and numbers
-            using (var brush = new SolidBrush(DMIColors.Grey))
-            {
-                using (var pen = new Pen(DMIColors.Grey, 2))
-                {
+            using (var brush = new SolidBrush(DMIColors.Grey)) {
+                using (var pen = new Pen(DMIColors.Grey, 3)) {
                     for (int i = 0; i <= linesCount; i++) {
-                        if (i < 16 && i % 2 != 0) continue;
-
                         int angle = i * clockAngle / linesCount - clockAngleOffset;
                         double radians = angle * Math.PI / 180;
                         int x1 = halfClockSize + (int)(halfClockSize * Math.Cos(radians));
                         int y1 = halfClockSize + (int)(halfClockSize * Math.Sin(radians));
 
-                        int x2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 4 == 0 ? 1 : 2)) * Math.Cos(radians));
-                        int y2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 4 == 0 ? 1 : 2)) * Math.Sin(radians));
+                        int x2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Cos(radians));
+                        int y2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Sin(radians));
                         g.DrawLine(pen, x1, y1, x2, y2);
 
                         // Draw speed numbers
-                        if (i % 4 == 0) {
-                            string text = (i * speedPerLine + (i>=16? (i-16)*speedPerLine:0)).ToString();
+                        if (i % 2 == 0) {
+                            string text = (i * speedPerLine).ToString();
                             int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 20;
                             int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 20;
                             g.DrawString(text, numbersFont, brush, xText, yText);
@@ -81,7 +69,7 @@ namespace DriverETCSApp.Forms.BForms {
                 }
             }
 
-            float needleTarget = (Math.Min(speed, 80f) + Math.Max(speed - 80f, 0)/2f) / (float)speedPerLine;
+            float needleTarget = speed / (float)speedPerLine;
 
             // Draw the needle
             int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
@@ -93,7 +81,7 @@ namespace DriverETCSApp.Forms.BForms {
 
             // Draw needle circle
             g.FillEllipse(Brushes.White, halfClockSize - needleCircleRadius, halfClockSize - needleCircleRadius, needleCircleRadius * 2, needleCircleRadius * 2);
-            { 
+            {
                 Font largerFont = new Font(this.Font.FontFamily, 20f, this.Font.Style, this.Font.Unit);
                 string text = speed.ToString();
                 SizeF textSize = e.Graphics.MeasureString(text, largerFont);
@@ -106,8 +94,8 @@ namespace DriverETCSApp.Forms.BForms {
             }
 
             // Draw Arc of Warning
-            if(speedWarning != (0,0)) {
-                Rectangle rect = new Rectangle(3, 3, clockSize-3, clockSize-3);
+            if (speedWarning != (0, 0)) {
+                Rectangle rect = new Rectangle(0, 0, clockSize, clockSize);
 
                 // Define the starting angle and the sweep angle
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
@@ -118,8 +106,8 @@ namespace DriverETCSApp.Forms.BForms {
             }
 
             // Draw Arc of Cap
-            if (speedCap != (0, 0) && Math.Min(80, speedCap.Item1) + Math.Max(0, speedCap.Item1 - 80) * 2f < speed ) {
-                Rectangle rect = new Rectangle(3, 3, clockSize - 3, clockSize - 3);
+            if (speedCap != (0, 0) && speedCap.Item1 < speed) {
+                Rectangle rect = new Rectangle(0, 0, clockSize, clockSize);
 
                 // Define the starting angle and the sweep angle
                 float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine;
@@ -144,13 +132,6 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         public void SetSpeedWarning(int min, int max) {
-            if (min > 80) {
-                min = 80 + (min - 80) / 2;
-            }
-            if (max > 80) {
-                max = 80 + (max - 80) / 2;
-            }
-
             speedWarning = (min, max);
             clockPanel.Invalidate();
         }
@@ -159,14 +140,7 @@ namespace DriverETCSApp.Forms.BForms {
             return speedCap;
         }
 
-        public void SetSpeedCap(int min, int max)
-        {
-            if (min > 80) {
-                min = 80 + (min - 80) / 2;
-            }
-            if (max > 80) {
-                max = 80 + (max - 80) / 2;
-            }
+        public void SetSpeedCap(int min, int max) {
             speedCap = (min, max);
             clockPanel.Invalidate();
         }
@@ -180,8 +154,8 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
-            SetSpeedWarning(0, 110);
-            SetSpeedCap(110, 130);
+            SetSpeedWarning(0, 60);
+            SetSpeedCap(60, 90);
         }
     }
 }
