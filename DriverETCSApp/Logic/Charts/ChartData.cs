@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DriverETCSApp.Design;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +17,6 @@ namespace DriverETCSApp.Data
         public static double[] Lines = new double[] { 0.5, 33, 77, 102, 120, 134, 177, 220, 263 };
         public static double[] LinesLabels = new double[] { 1, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5 };
         public static int[] LinesThin = new int[] { 2, 1, 1, 1, 1, 2, 1, 1, 2 };
+        public static List<Color> Colors = new List<Color> { DMIColors.Grey, DMIColors.DarkGrey, DMIColors.DarkGrey, DMIColors.DarkGrey, DMIColors.DarkGrey, DMIColors.Grey, DMIColors.DarkGrey, DMIColors.DarkGrey, DMIColors.Grey };
     }
 }
