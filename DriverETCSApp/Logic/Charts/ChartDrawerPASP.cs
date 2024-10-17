@@ -27,8 +27,8 @@ namespace DriverETCSApp.Logic.Charts
             Series series = new Series("SeriesZoneSpeed")
             {
                 ChartType = SeriesChartType.Area,
-                Color = Color.FromArgb(128, DMIColors.PASPLight.R, DMIColors.PASPLight.G, DMIColors.PASPLight.B),
-                BorderColor = Color.FromArgb(128, DMIColors.PASPLight.R, DMIColors.PASPLight.G, DMIColors.PASPLight.B),
+                Color = Color.FromArgb(128, DMIColors.PASPLight),
+                BorderColor = Color.FromArgb(128, DMIColors.PASPLight),
                 BorderWidth = 0,
                 BackSecondaryColor = Color.Transparent
             };

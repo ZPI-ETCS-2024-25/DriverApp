@@ -260,5 +260,10 @@ namespace DriverETCSApp.Forms
             fPanel.Controls.Add(fForm);
             fForm.Show();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ReceiverHTTP.StopListening();
+        }
     }
 }

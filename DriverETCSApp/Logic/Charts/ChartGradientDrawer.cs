@@ -47,8 +47,9 @@ namespace DriverETCSApp.Logic.Charts
                     };
                     Chart.Series.Add(series);
                     series.ChartArea = Chart.ChartAreas[2].Name;
-                    var x = TrainSpeedsAndDistances.GradientsDistances[i + 1];
+                    var x = Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]);
                     series.Points.AddXY("All", x);
+                    series["PointWidth"] = "0.9";
                 }
                 else
                 {
@@ -61,8 +62,9 @@ namespace DriverETCSApp.Logic.Charts
                     };
                     Chart.Series.Add(series);
                     series.ChartArea = Chart.ChartAreas[2].Name;
-                    var x = TrainSpeedsAndDistances.GradientsDistances[i + 1];
+                    var x = Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]);
                     series.Points.AddXY("All", x);
+                    series["PointWidth"] = "0.8";
                 }
             }
         }

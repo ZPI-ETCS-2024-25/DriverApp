@@ -10,6 +10,7 @@ namespace DriverETCSApp.Communication {
         protected Port port = Port.DriverApp;
 
         public abstract void StartListening();
+        public abstract void StopListening();
         protected abstract void HandleIncomingConnection();
 
         public Receiver(string ip) {
