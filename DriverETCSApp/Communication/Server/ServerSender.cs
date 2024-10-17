@@ -22,7 +22,8 @@ namespace DriverETCSApp.Communication.Server
         public async Task SendTrainData()
         {
             //create data
-            var data = new {
+            var data = new
+            {
                 TrainId = TrainData.TrainNumber,
                 LengthMeters = TrainData.Length,
                 MaxSpeed = TrainData.VMax,
@@ -71,6 +72,16 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber,
                 Kilometer = kilometer,
                 Track = track
+            };
+            string dataSerialized = JsonSerializer.Serialize(data);
+            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+        }
+
+        public async Task SendMARequest()
+        {
+            var data = new
+            {
+                TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);

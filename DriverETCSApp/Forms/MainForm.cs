@@ -1,4 +1,5 @@
-﻿using DriverETCSApp.Communication.Server;
+﻿using DriverETCSApp.Communication;
+using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
@@ -28,12 +29,15 @@ namespace DriverETCSApp.Forms
         private BorderLessForm zForm;
 
         private ServerSender ServerSender;
+        ReceiverHTTP ReceiverHTTP;
 
         public MainForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
             ServerSender = new ServerSender("127.0.0.1", Port.Server);
+            ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
+            ReceiverHTTP.StartListening();
             /*SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);*/
             //CreateBuffer();

@@ -79,6 +79,8 @@
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
+    <Compile Include="Communication\Server\ServerReceiver.cs" />
+    <Compile Include="Communication\Unity\UnityReceiver.cs" />
     <Compile Include="Data\ETCSModes.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
@@ -282,7 +284,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Communication\Unity\" />
     <Folder Include="Forms\AForms\" />
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Communication.Server;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,8 +13,15 @@ namespace DriverETCSApp.Communication {
 
         private HttpListener listener;
         private Thread listenerThread;
+        private ServerReceiver serverReceiver;
+        private UnityReceiver unityReceiver;
 
         public ReceiverHTTP(string ip) : base(ip) {
+        }
+
+        private bool IsServerSource(HttpListenerRequest request)
+        {
+            return request.RemoteEndPoint.Port == (int)Port.Server;
         }
 
         protected override void HandleIncomingConnection() {
@@ -28,6 +36,15 @@ namespace DriverETCSApp.Communication {
                         using (var reader = new System.IO.StreamReader(request.InputStream, request.ContentEncoding)) {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
+
+                            if(IsServerSource(request))
+                            {
+                                serverReceiver.Proccess(receivedMessage);
+                            }
+                            else
+                            {
+                                unityReceiver.Proccess(receivedMessage);
+                            }
                         }
                         
                         string responseMessage = "Driver received your message!";
