@@ -24,6 +24,7 @@ namespace DriverETCSApp.Communication.Server
             //create data
             var data = new
             {
+                Type = "Register",
                 TrainId = TrainData.TrainNumber,
                 LengthMeters = TrainData.Length,
                 MaxSpeed = TrainData.VMax,
@@ -40,6 +41,7 @@ namespace DriverETCSApp.Communication.Server
             //create data
             var data = new
             {
+                Type = "UpdateData",
                 TrainNumer = oldNumber,
                 TrainId = TrainData.TrainNumber,
                 LengthMeters = TrainData.Length,
@@ -57,6 +59,7 @@ namespace DriverETCSApp.Communication.Server
             //create data
             var data = new
             {
+                Type = "Unregister",
                 TrainId = TrainData.TrainNumber
             };
             //serialize
@@ -69,6 +72,7 @@ namespace DriverETCSApp.Communication.Server
         {
             var data = new
             {
+                Type = "UpdatePosition",
                 TrainId = TrainData.TrainNumber,
                 Kilometer = kilometer,
                 Track = track,
@@ -82,7 +86,20 @@ namespace DriverETCSApp.Communication.Server
         {
             var data = new
             {
+                Type = "MARequest",
                 TrainId = TrainData.TrainNumber
+            };
+            string dataSerialized = JsonSerializer.Serialize(data);
+            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+        }
+
+        public async Task SendSpeedUpdate(double currSpeed)
+        {
+            var data = new
+            {
+                Type = "SpeedUpdate",
+                TrainId = TrainData.TrainNumber,
+                Speed = currSpeed
             };
             string dataSerialized = JsonSerializer.Serialize(data);
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);

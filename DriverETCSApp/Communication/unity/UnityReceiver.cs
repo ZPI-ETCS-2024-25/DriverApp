@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -22,7 +23,32 @@ namespace DriverETCSApp.Communication.Server
         {
             MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
             decodedMessage.Kilometer = decodedMessage.Kilometer.Replace('.', ',');
-            Position(decodedMessage);
+
+            //normal balise with information about position
+            if (decodedMessage.MessageType.Contains("CBF"))
+            {
+                Position(decodedMessage);
+            }
+            //force to change level to L2
+            else if (decodedMessage.MessageType.Contains("CLT"))
+            {
+                Position(decodedMessage);
+            }
+            //ack to change level (form L2 to STM or STM to L2)
+            else if(decodedMessage.MessageType.Contains("LTA"))
+            {
+                Position(decodedMessage);
+            }
+            //start communication with RBC (server)
+            else if (decodedMessage.MessageType.Contains("RE"))
+            {
+                Position(decodedMessage);
+            }
+            //force to change level to STM
+            else if (decodedMessage.MessageType.Contains("LTO"))
+            {
+                EndOfETCSZone(decodedMessage);
+            }
         }
 
         private void Position(MessageFromBalise message)
@@ -47,6 +73,28 @@ namespace DriverETCSApp.Communication.Server
 
                 _ = ServerSender.SendPositionData(message.Kilometer, message.TrackNumber);
             }
+        }
+
+        private void EndOfETCSZone(MessageFromBalise message)
+        {
+            _ = ServerSender.UnregisterTrainData();
+        }
+
+        private async Task RegisterOnServer(MessageFromBalise message)
+        {
+            if (!TrainData.IsTrainRegisterOnServer)
+            {
+                await ServerSender.SendTrainData();
+            }
+            else
+            {
+
+            }
+        }
+
+        private void ForceToEnterETCSZone(MessageFromBalise message)
+        {
+
         }
     }
 }

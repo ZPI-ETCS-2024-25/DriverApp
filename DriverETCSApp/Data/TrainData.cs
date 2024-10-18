@@ -14,6 +14,7 @@
         public static string ETCSLevel = "";
         public static string ActiveMode = "";
         public static bool IsETCSActive = false;
+        public static bool IsTrainRegisterOnServer = false;
         //position data
         public static int CalculatedPosition = 0;
         public static string CalculatedDrivingDirection = "";

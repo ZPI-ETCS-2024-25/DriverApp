@@ -84,6 +84,7 @@
     <Compile Include="Communication\ReceiverHTTP.cs" />
     <Compile Include="Communication\Server\ServerReceiver.cs" />
     <Compile Include="Communication\Unity\UnityReceiver.cs" />
+    <Compile Include="Communication\Unity\UnitySender.cs" />
     <Compile Include="Data\ETCSModes.cs" />
     <Compile Include="Data\MessageFromBalise.cs" />
     <Compile Include="Forms\AForms\PIMForm.cs">
