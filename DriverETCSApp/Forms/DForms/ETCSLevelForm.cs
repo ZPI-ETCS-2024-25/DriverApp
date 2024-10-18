@@ -21,7 +21,9 @@ namespace DriverETCSApp.Forms.DForms
             InitializeComponent();
             IsBackActive = isBackActive;
             MainForm = mainForm;
+            Data.TrainData.TrainDataSemaphofe.WaitAsync();
             label2.Text = TrainData.ETCSLevel;
+            Data.TrainData.TrainDataSemaphofe.Release();
             SetCloseButtonColor();
         }
 
@@ -48,11 +50,13 @@ namespace DriverETCSApp.Forms.DForms
             label2.Text = ETCSLevel.SHP;
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private async void label2_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(label2.Text))
             {
+                await Data.TrainData.TrainDataSemaphofe.WaitAsync();
                 TrainData.ETCSLevel = label2.Text;
+                Data.TrainData.TrainDataSemaphofe.Release();
                 Close();
                 MainForm.DrawDFormMenu();
             }

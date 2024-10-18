@@ -76,7 +76,8 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber,
                 Kilometer = kilometer,
                 Track = track,
-                LineNumber = TrainData.BaliseLinePosition
+                LineNumber = TrainData.BaliseLinePosition,
+                Direction = TrainData.CalculatedDrivingDirection
             };
             string dataSerialized = JsonSerializer.Serialize(data);
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);

@@ -14,40 +14,49 @@ namespace DriverETCSApp.Communication.Server
     {
         private ServerSender ServerSender;
 
-        public UnityReceiver() 
+        public UnityReceiver()
         {
             ServerSender = new ServerSender("127.0.0.1", Port.Server);
         }
 
-        public void Proccess(string message) 
+        public async void Proccess(string message)
         {
             MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
             decodedMessage.Kilometer = decodedMessage.Kilometer.Replace('.', ',');
 
-            //normal balise with information about position
-            if (decodedMessage.MessageType.Contains("CBF"))
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
             {
-                Position(decodedMessage);
+                //normal balise with information about position
+                if (decodedMessage.MessageType.Contains("CBF"))
+                {
+                    Position(decodedMessage);
+                }
+                //force to change level to L2
+                else if (decodedMessage.MessageType.Contains("CLT"))
+                {
+                    Position(decodedMessage);
+                }
+                //ack to change level (form L2 to STM or STM to L2)
+                else if (decodedMessage.MessageType.Contains("LTA"))
+                {
+                    Position(decodedMessage);
+                }
+                //start communication with RBC (server)
+                else if (decodedMessage.MessageType.Contains("RE"))
+                {
+                    await RegisterOnServer(decodedMessage);
+                    Position(decodedMessage);
+                }
+                //force to change level to STM
+                else if (decodedMessage.MessageType.Contains("LTO"))
+                {
+                    await EndOfETCSZone(decodedMessage);
+                }
             }
-            //force to change level to L2
-            else if (decodedMessage.MessageType.Contains("CLT"))
+            finally
             {
-                Position(decodedMessage);
-            }
-            //ack to change level (form L2 to STM or STM to L2)
-            else if(decodedMessage.MessageType.Contains("LTA"))
-            {
-                Position(decodedMessage);
-            }
-            //start communication with RBC (server)
-            else if (decodedMessage.MessageType.Contains("RE"))
-            {
-                Position(decodedMessage);
-            }
-            //force to change level to STM
-            else if (decodedMessage.MessageType.Contains("LTO"))
-            {
-                EndOfETCSZone(decodedMessage);
+                Data.TrainData.TrainDataSemaphofe.Release();
             }
         }
 
@@ -56,28 +65,28 @@ namespace DriverETCSApp.Communication.Server
             if (!message.Kilometer.Equals(TrainData.BalisePosition))
             {
                 TrainData.BalisePosition = message.Kilometer;
-                TrainData.BaliseLinePosition = message.LineNumber;
+                TrainData.BaliseLinePosition = message.Line;
                 TrainData.CalculatedPosition = Convert.ToInt32(Convert.ToDouble(message.Kilometer) * 100);
 
-                if (message.NumberOfBalises != 1)
+                if (message.GroupSize != 1)
                 {
                     if (message.Number == 1)
                     {
                         TrainData.CalculatedDrivingDirection = "N";
                     }
-                    else if(message.Number == message.NumberOfBalises)
+                    else if (message.Number == message.GroupSize)
                     {
                         TrainData.CalculatedDrivingDirection = "P";
                     }
                 }
 
-                _ = ServerSender.SendPositionData(message.Kilometer, message.TrackNumber);
+                _ = ServerSender.SendPositionData(message.Kilometer, message.Track);
             }
         }
 
-        private void EndOfETCSZone(MessageFromBalise message)
+        private async Task EndOfETCSZone(MessageFromBalise message)
         {
-            _ = ServerSender.UnregisterTrainData();
+            await ServerSender.UnregisterTrainData();
         }
 
         private async Task RegisterOnServer(MessageFromBalise message)
@@ -85,14 +94,11 @@ namespace DriverETCSApp.Communication.Server
             if (!TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.SendTrainData();
-            }
-            else
-            {
-
+                TrainData.IsTrainRegisterOnServer = true;
             }
         }
 
-        private void ForceToEnterETCSZone(MessageFromBalise message)
+        private async Task ForceToEnterETCSZone(MessageFromBalise message)
         {
 
         }

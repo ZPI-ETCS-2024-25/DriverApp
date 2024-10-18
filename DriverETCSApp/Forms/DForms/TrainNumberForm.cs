@@ -87,11 +87,19 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (!string.IsNullOrEmpty(label2.Text))
             {
-                var oldNumber = TrainData.TrainNumber;
-                TrainData.TrainNumber = label2.Text;
-                if (Data.TrainData.IsETCSActive)
+                await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+                try
                 {
-                    await ServerSender.UpdateTrainData(oldNumber);
+                    var oldNumber = TrainData.TrainNumber;
+                    TrainData.TrainNumber = label2.Text;
+                    if (Data.TrainData.IsETCSActive)
+                    {
+                        await ServerSender.UpdateTrainData(oldNumber);
+                    }
+                }
+                finally
+                {
+                    Data.TrainData.TrainDataSemaphofe.Release();
                 }
                 Close();
                 MainForm.DrawDFormMenu();

@@ -32,13 +32,21 @@ namespace DriverETCSApp.Forms.DForms
             MainForm.DrawMainDForm();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            infoLabelData0.Text = TrainData.TrainType;
-            infoLabelData1.Text = TrainData.TrainCat;
-            infoLabelData2.Text = TrainData.Length;
-            infoLabelData3.Text = TrainData.BrakingMass;
-            infoLabelData4.Text = TrainData.VMax;
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
+            {
+                infoLabelData0.Text = TrainData.TrainType;
+                infoLabelData1.Text = TrainData.TrainCat;
+                infoLabelData2.Text = TrainData.Length;
+                infoLabelData3.Text = TrainData.BrakingMass;
+                infoLabelData4.Text = TrainData.VMax;
+            }
+            finally
+            {
+                Data.TrainData.TrainDataSemaphofe.Release();
+            }
         }
     }
 }

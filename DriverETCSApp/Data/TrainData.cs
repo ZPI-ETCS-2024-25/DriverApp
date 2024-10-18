@@ -1,4 +1,6 @@
-﻿namespace DriverETCSApp.Data
+﻿using System.Threading;
+
+namespace DriverETCSApp.Data
 {
     public static class TrainData
     {
@@ -21,5 +23,7 @@
 
         public static string BalisePosition = "";
         public static int BaliseLinePosition = 0;
+        //lock for this data
+        public static SemaphoreSlim TrainDataSemaphofe = new SemaphoreSlim(1, 1);
     }
 }

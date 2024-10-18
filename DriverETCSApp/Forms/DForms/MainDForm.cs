@@ -41,14 +41,18 @@ namespace DriverETCSApp.Forms.DForms
             InitalizeBasicChart();
             SpeedSegragation.CalculateSpeeds();
 
-            ChartScaller.Draw();
-            ChartPASPDrawer.SetUp();
-            ChartSpeedsDrawer.SetUp();
-            ChartGradientDrawer.SetUp();
+            lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock)
+            {
+                ChartScaller.Draw();
+                ChartPASPDrawer.SetUp();
+                ChartSpeedsDrawer.SetUp();
+                ChartGradientDrawer.SetUp();
+            }
         }
 
-        private void InitalizeBasicChart()
+        private async void InitalizeBasicChart()
         {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))
             {
                 chartBackLines.Visible = false;
@@ -57,13 +61,17 @@ namespace DriverETCSApp.Forms.DForms
             {
                 chartBackLines.Visible = true;
             }
+            Data.TrainData.TrainDataSemaphofe.Release();
         }
 
         public new void Invalidate()
         {
-            base.Invalidate();
-            ChartPASPDrawer.Draw();
-            ChartGradientDrawer.Draw();
+            lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock)
+            {
+                base.Invalidate();
+                ChartPASPDrawer.Draw();
+                ChartGradientDrawer.Draw();
+            }
         }
 
         private async void button1_Click(object sender, EventArgs e)

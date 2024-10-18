@@ -23,10 +23,13 @@ namespace DriverETCSApp.Communication.Server
 
         private void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            TrainSpeedsAndDistances.Speeds = decodedMessage.Speeds;
-            TrainSpeedsAndDistances.SpeedDistances = decodedMessage.SpeedDistances;
-            TrainSpeedsAndDistances.Gradients = decodedMessage.Gradients;
-            TrainSpeedsAndDistances.GradientsDistances = decodedMessage.GradientsDistances;
+            lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock) 
+            {
+                TrainSpeedsAndDistances.Speeds = decodedMessage.Speeds;
+                TrainSpeedsAndDistances.SpeedDistances = decodedMessage.SpeedDistances;
+                TrainSpeedsAndDistances.Gradients = decodedMessage.Gradients;
+                TrainSpeedsAndDistances.GradientsDistances = decodedMessage.GradientsDistances;
+            }
         }
     }
 }

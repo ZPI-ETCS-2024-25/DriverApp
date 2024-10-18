@@ -53,14 +53,22 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (labelData1.Text.Equals("TAK"))
             {
-                TrainData.TrainCat = TrainCat;
-                TrainData.Length = Length;
-                TrainData.BrakingMass = BrakingMass;
-                TrainData.VMax = VMax;
-
-                if (Data.TrainData.IsETCSActive)
+                await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+                try
                 {
-                    await ServerSender.UpdateTrainData(TrainData.TrainNumber);
+                    TrainData.TrainCat = TrainCat;
+                    TrainData.Length = Length;
+                    TrainData.BrakingMass = BrakingMass;
+                    TrainData.VMax = VMax;
+
+                    if (Data.TrainData.IsETCSActive)
+                    {
+                        await ServerSender.UpdateTrainData(TrainData.TrainNumber);
+                    }
+                }
+                finally
+                {
+                    Data.TrainData.TrainDataSemaphofe.Release();
                 }
 
                 Close();
