@@ -41,7 +41,7 @@ namespace DriverETCSApp.Forms.DForms
             InitalizeBasicChart();
             SpeedSegragation.CalculateSpeeds();
 
-            lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock)
+            lock (AuthorytiData.SpeedDistanceAndGradientLock)
             {
                 ChartScaller.Draw();
                 ChartPASPDrawer.SetUp();
@@ -66,7 +66,7 @@ namespace DriverETCSApp.Forms.DForms
 
         public new void Invalidate()
         {
-            lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock)
+            lock (AuthorytiData.SpeedDistanceAndGradientLock)
             {
                 base.Invalidate();
                 ChartPASPDrawer.Draw();
@@ -76,26 +76,26 @@ namespace DriverETCSApp.Forms.DForms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            TrainSpeedsAndDistances.Speeds = new List<double> { 40, 20, 40, 10, 20, 10, 20, 30, 40, 20, 0 };
-            TrainSpeedsAndDistances.SpeedDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
-            TrainSpeedsAndDistances.Gradients = new List<int> { 0 };
-            TrainSpeedsAndDistances.GradientsDistances = new List<double> { 0, 7000 };
+            AuthorytiData.Speeds = new List<double> { 40, 20, 40, 10, 20, 10, 20, 30, 40, 20, 0 };
+            AuthorytiData.SpeedDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
+            AuthorytiData.Gradients = new List<int> { 0 };
+            AuthorytiData.GradientsDistances = new List<double> { 0, 7000 };
             SpeedSegragation.CalculateSpeeds();
             this.Invalidate();
             await Task.Delay(3000);
 
-            TrainSpeedsAndDistances.Speeds = new List<double> { 40,  0 };
-            TrainSpeedsAndDistances.SpeedDistances = new List<double> { 0, 500 };
-            TrainSpeedsAndDistances.Gradients = new List<int> { 40, 20, 40, -10, 20, 10, 20, -30, 40, 20 };
-            TrainSpeedsAndDistances.GradientsDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
+            AuthorytiData.Speeds = new List<double> { 40,  0 };
+            AuthorytiData.SpeedDistances = new List<double> { 0, 500 };
+            AuthorytiData.Gradients = new List<int> { 40, 20, 40, -10, 20, 10, 20, -30, 40, 20 };
+            AuthorytiData.GradientsDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
             SpeedSegragation.CalculateSpeeds();
             this.Invalidate();
             await Task.Delay(3000);
 
-            TrainSpeedsAndDistances.Speeds = new List<double> { 160, 140, 120, 200, 60, 0 };
-            TrainSpeedsAndDistances.SpeedDistances = new List<double> { 0, 500, 750, 800, 1640, 2050 };
-            TrainSpeedsAndDistances.Gradients = new List<int> { 0, 10, 20 };
-            TrainSpeedsAndDistances.GradientsDistances = new List<double> { 0, 1000, 4000, 7000 };
+            AuthorytiData.Speeds = new List<double> { 160, 140, 120, 200, 60, 0 };
+            AuthorytiData.SpeedDistances = new List<double> { 0, 500, 750, 800, 1640, 2050 };
+            AuthorytiData.Gradients = new List<int> { 0, 10, 20 };
+            AuthorytiData.GradientsDistances = new List<double> { 0, 1000, 4000, 7000 };
             SpeedSegragation.CalculateSpeeds();
             this.Invalidate();
         }

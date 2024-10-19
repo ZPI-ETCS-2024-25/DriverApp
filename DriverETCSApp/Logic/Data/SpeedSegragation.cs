@@ -13,30 +13,30 @@ namespace DriverETCSApp.Logic.Data
 
         public void CalculateSpeeds()
         {
-            TrainSpeedsAndDistances.LowerDistances.Clear();
-            TrainSpeedsAndDistances.HigherDistances.Clear();
-            TrainSpeedsAndDistances.LowerSpeed.Clear();
-            TrainSpeedsAndDistances.HigherSpeed.Clear();
-            if(TrainSpeedsAndDistances.Speeds.Count == 0)
+            AuthorytiData.LowerDistances.Clear();
+            AuthorytiData.HigherDistances.Clear();
+            AuthorytiData.LowerSpeed.Clear();
+            AuthorytiData.HigherSpeed.Clear();
+            if(AuthorytiData.Speeds.Count == 0)
             {
                 return;
             }
 
-            double actualSpeed = TrainSpeedsAndDistances.Speeds[0];
+            double actualSpeed = AuthorytiData.Speeds[0];
 
-            for (int i = 1; i < TrainSpeedsAndDistances.Speeds.Count; i++)
+            for (int i = 1; i < AuthorytiData.Speeds.Count; i++)
             {
-                if(actualSpeed < TrainSpeedsAndDistances.Speeds[i])
+                if(actualSpeed < AuthorytiData.Speeds[i])
                 {
-                    TrainSpeedsAndDistances.HigherDistances.Add(TrainSpeedsAndDistances.SpeedDistances[i]);
-                    TrainSpeedsAndDistances.HigherSpeed.Add(TrainSpeedsAndDistances.Speeds[i]);
+                    AuthorytiData.HigherDistances.Add(AuthorytiData.SpeedDistances[i]);
+                    AuthorytiData.HigherSpeed.Add(AuthorytiData.Speeds[i]);
                 }
                 else
                 {
-                    TrainSpeedsAndDistances.LowerDistances.Add(TrainSpeedsAndDistances.SpeedDistances[i]);
-                    TrainSpeedsAndDistances.LowerSpeed.Add(TrainSpeedsAndDistances.Speeds[i]);
+                    AuthorytiData.LowerDistances.Add(AuthorytiData.SpeedDistances[i]);
+                    AuthorytiData.LowerSpeed.Add(AuthorytiData.Speeds[i]);
                 }
-                actualSpeed = TrainSpeedsAndDistances.Speeds[i];
+                actualSpeed = AuthorytiData.Speeds[i];
             }
         }
     }

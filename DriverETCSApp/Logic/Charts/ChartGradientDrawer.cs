@@ -46,16 +46,16 @@ namespace DriverETCSApp.Logic.Charts
             }
             Series.Clear();
 
-            if (TrainSpeedsAndDistances.Gradients.Count == 0 || TrainSpeedsAndDistances.GradientsDistances.Count == 0)
+            if (AuthorytiData.Gradients.Count == 0 || AuthorytiData.GradientsDistances.Count == 0)
             {
                 return;
             }
 
-            for (int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
+            for (int i = 0; i < AuthorytiData.Gradients.Count; i++)
             {
-                var x = Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]);
+                var x = Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i]);
 
-                if (TrainSpeedsAndDistances.Gradients[i] >= 0)
+                if (AuthorytiData.Gradients[i] >= 0)
                 {
                     Series series = new Series("Gradient" + i.ToString())
                     {
@@ -90,16 +90,16 @@ namespace DriverETCSApp.Logic.Charts
 
         public void DrawGraphics(object sender, PaintEventArgs e)
         {
-            if (TrainSpeedsAndDistances.Gradients.Count == 0 || TrainSpeedsAndDistances.GradientsDistances.Count == 0)
+            if (AuthorytiData.Gradients.Count == 0 || AuthorytiData.GradientsDistances.Count == 0)
             {
                 return;
             }
 
             var graphics = e.Graphics;
-            for (int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
+            for (int i = 0; i < AuthorytiData.Gradients.Count; i++)
             {
-                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(Math.Min(TrainSpeedsAndDistances.GradientsDistances[i + 1], 8000)));
-                int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(Math.Min(AuthorytiData.GradientsDistances[i + 1], 8000)));
+                int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i]));
                 int pixelX = (int)Chart.ChartAreas[2].AxisX.ValueToPixelPosition(0);
 
                 if(pixelY1 > 8000)
@@ -107,7 +107,7 @@ namespace DriverETCSApp.Logic.Charts
                     return;
                 }
 
-                if (TrainSpeedsAndDistances.Gradients[i] >= 0)
+                if (AuthorytiData.Gradients[i] >= 0)
                 {
                     graphics.FillRectangle(Brushes.White, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
                     if (pixelY1 - pixelY >= 40)
@@ -117,7 +117,7 @@ namespace DriverETCSApp.Logic.Charts
                     }
                     if (pixelY1 - pixelY >= 55)
                     {
-                        var s = TrainSpeedsAndDistances.Gradients[i].ToString();
+                        var s = AuthorytiData.Gradients[i].ToString();
                         int offset = s.Length == 1 ? 29 : 25;
                         graphics.DrawString(s, Font, BrushDark, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
                     }
@@ -132,7 +132,7 @@ namespace DriverETCSApp.Logic.Charts
                     }
                     if (pixelY1 - pixelY >= 55)
                     {
-                        var s = TrainSpeedsAndDistances.Gradients[i].ToString().Remove(0, 1);
+                        var s = AuthorytiData.Gradients[i].ToString().Remove(0, 1);
                         int offset = s.Length == 1 ? 29 : 25;
                         graphics.DrawString(s, Font, Brush, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
                     }
