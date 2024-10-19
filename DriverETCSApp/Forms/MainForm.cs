@@ -3,13 +3,12 @@ using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
+using DriverETCSApp.Logic.Position;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,7 +28,9 @@ namespace DriverETCSApp.Forms
         private BorderLessForm zForm;
 
         private ServerSender ServerSender;
-        ReceiverHTTP ReceiverHTTP;
+        private ReceiverHTTP ReceiverHTTP;
+
+        private PositionCalculator PositionCalculator;
 
         public MainForm()
         {

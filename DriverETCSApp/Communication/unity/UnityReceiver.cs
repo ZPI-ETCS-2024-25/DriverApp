@@ -30,28 +30,30 @@ namespace DriverETCSApp.Communication.Server
                 //normal balise with information about position
                 if (decodedMessage.MessageType.Contains("CBF"))
                 {
-                    Position(decodedMessage);
+                    await Position(decodedMessage);
                 }
                 //force to change level to L2
                 else if (decodedMessage.MessageType.Contains("CLT"))
                 {
-                    Position(decodedMessage);
+                    //await ForceToEnterETCSZone(decodedMessage);
+                    await Position(decodedMessage);
                 }
                 //ack to change level (form L2 to STM or STM to L2)
                 else if (decodedMessage.MessageType.Contains("LTA"))
                 {
-                    Position(decodedMessage);
+                    await SendMARequest(decodedMessage);
+                    await Position(decodedMessage);
                 }
                 //start communication with RBC (server)
                 else if (decodedMessage.MessageType.Contains("RE"))
                 {
                     await RegisterOnServer(decodedMessage);
-                    Position(decodedMessage);
+                    await Position(decodedMessage);
                 }
                 //force to change level to STM
                 else if (decodedMessage.MessageType.Contains("LTO"))
                 {
-                    await EndOfETCSZone(decodedMessage);
+                    await ForceToEndOfETCSZone(decodedMessage);
                 }
             }
             finally
@@ -60,9 +62,9 @@ namespace DriverETCSApp.Communication.Server
             }
         }
 
-        private void Position(MessageFromBalise message)
+        private async Task Position(MessageFromBalise message)
         {
-            if (!message.Kilometer.Equals(TrainData.BalisePosition))
+            if (!message.Kilometer.Equals(TrainData.BalisePosition) && TrainData.IsTrainRegisterOnServer)
             {
                 TrainData.BalisePosition = message.Kilometer;
                 TrainData.BaliseLinePosition = message.Line;
@@ -80,13 +82,13 @@ namespace DriverETCSApp.Communication.Server
                     }
                 }
 
-                _ = ServerSender.SendPositionData(message.Kilometer, message.Track);
+                await ServerSender.SendPositionData(message.Kilometer, message.Track);
             }
         }
 
-        private async Task EndOfETCSZone(MessageFromBalise message)
+        private async Task ForceToEndOfETCSZone(MessageFromBalise message)
         {
-            if (!TrainData.IsTrainRegisterOnServer)
+            if (TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.UnregisterTrainData();
             }
@@ -94,17 +96,17 @@ namespace DriverETCSApp.Communication.Server
 
         private async Task RegisterOnServer(MessageFromBalise message)
         {
-            if (TrainData.IsTrainRegisterOnServer)
+            if (!TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.SendTrainData();
             }
         }
 
-        private async Task ForceToEnterETCSZone(MessageFromBalise message)
+        private async Task SendMARequest(MessageFromBalise message)
         {
-            if (TrainData.IsTrainRegisterOnServer)
+            if (TrainData.IsTrainRegisterOnServer) //tutaj potem dodaæ sprawdzanie czy ETCS ju¿ nie jest aktywny
             {
-
+                await ServerSender.SendMARequest();
             }
         }
     }

@@ -213,6 +213,7 @@
     <Compile Include="Logic\Charts\ChartSpeedsDrawer.cs" />
     <Compile Include="Logic\Data\LoadNewDataFromServer.cs" />
     <Compile Include="Logic\Data\SpeedSegragation.cs" />
+    <Compile Include="Logic\Position\PositionCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Communication\Sender.cs" />
@@ -301,7 +302,6 @@
   <ItemGroup>
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
-    <Folder Include="Logic\Position\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\Settings\Settings.png" />
