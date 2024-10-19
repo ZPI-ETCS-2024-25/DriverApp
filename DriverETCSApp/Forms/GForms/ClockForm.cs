@@ -12,11 +12,11 @@ namespace DriverETCSApp.Forms.GForms
 {
     public partial class ClockForm : BorderLessForm
     {
-        private System.Threading.Timer clockTimer;
+        private System.Threading.Timer ClockTimer;
         public ClockForm()
         {
             InitializeComponent();
-            clockTimer = new System.Threading.Timer(PrintClock, null, 0, 1000);
+            ClockTimer = new System.Threading.Timer(PrintClock, null, 0, 1000);
         }
 
         private void PrintClock(object sender)

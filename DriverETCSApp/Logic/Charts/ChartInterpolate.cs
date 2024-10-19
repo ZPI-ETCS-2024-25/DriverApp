@@ -29,37 +29,37 @@ namespace DriverETCSApp.Logic.Charts
             List<double> interpolatedSpeeds = new List<double>();
             List<double> interpolatedDistances = new List<double>();
 
-            var actualMaxSpeed = AuthorytiData.Speeds[0];
+            var actualMaxSpeed = AuthoritiyData.Speeds[0];
             var actualSpeed = actualMaxSpeed;
-            var actualDistance = AuthorytiData.SpeedDistances[1];
+            var actualDistance = AuthoritiyData.SpeedDistances[1];
             interpolatedDistances.Add(0);
 
-            for (int i = 1; i < AuthorytiData.Speeds.Count; i++)
+            for (int i = 1; i < AuthoritiyData.Speeds.Count; i++)
             {
-                if (i == AuthorytiData.Speeds.Count - 1)
+                if (i == AuthoritiyData.Speeds.Count - 1)
                 {
                     interpolatedSpeeds.Add(CalculateQuaterForPASP(actualSpeed / actualMaxSpeed));
-                    interpolatedDistances.Add(AuthorytiData.SpeedDistances[i]);
-                    interpolatedSpeeds.Add(AuthorytiData.Speeds[i]);
+                    interpolatedDistances.Add(AuthoritiyData.SpeedDistances[i]);
+                    interpolatedSpeeds.Add(AuthoritiyData.Speeds[i]);
                 }
-                else if (actualSpeed <= AuthorytiData.Speeds[i])
+                else if (actualSpeed <= AuthoritiyData.Speeds[i])
                 {
-                    actualDistance = AuthorytiData.SpeedDistances[i + 1];
+                    actualDistance = AuthoritiyData.SpeedDistances[i + 1];
                 }
                 else
                 {
                     var actualScale = CalculateQuaterForPASP(actualSpeed / actualMaxSpeed);
-                    var newScale = CalculateQuaterForPASP(AuthorytiData.Speeds[i] / actualMaxSpeed);
+                    var newScale = CalculateQuaterForPASP(AuthoritiyData.Speeds[i] / actualMaxSpeed);
                     if (actualScale > newScale)
                     {
                         interpolatedSpeeds.Add(actualScale);
                         interpolatedDistances.Add(actualDistance);
-                        actualSpeed = AuthorytiData.Speeds[i];
-                        actualDistance = AuthorytiData.SpeedDistances[i + 1];
+                        actualSpeed = AuthoritiyData.Speeds[i];
+                        actualDistance = AuthoritiyData.SpeedDistances[i + 1];
                     }
                     else
                     {
-                        actualDistance = AuthorytiData.SpeedDistances[i + 1];
+                        actualDistance = AuthoritiyData.SpeedDistances[i + 1];
                     }
                 }
             }

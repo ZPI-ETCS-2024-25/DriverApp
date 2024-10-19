@@ -44,10 +44,10 @@ namespace DriverETCSApp.Logic.Charts
         {
             Graphics graphics = e.Graphics;
 
-            for (int i = 0; i < AuthorytiData.HigherSpeed.Count; i++)
+            for (int i = 0; i < AuthoritiyData.HigherSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.HigherDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthoritiyData.HigherDistances[i]));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -59,13 +59,13 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleUp);
 
-                graphics.DrawString(AuthorytiData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
+                graphics.DrawString(AuthoritiyData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
             }
 
-            for (int i = 0; i < AuthorytiData.LowerSpeed.Count; i++)
+            for (int i = 0; i < AuthoritiyData.LowerSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.LowerDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthoritiyData.LowerDistances[i]));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -77,7 +77,7 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleDown);
 
-                graphics.DrawString(AuthorytiData.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
+                graphics.DrawString(AuthoritiyData.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
             }
         }
 

@@ -85,22 +85,22 @@ namespace DriverETCSApp.Logic.Data
             }
             #endregion
 
-            AuthorytiData.Speeds = speeds;
-            AuthorytiData.SpeedDistances = speeddistances;
-            AuthorytiData.Gradients = gradients;
-            AuthorytiData.GradientsDistances = gradientsDistances;
-            AuthorytiData.Messages = messages;
-            AuthorytiData.MessagesDistances = messagesDistances;
+            AuthoritiyData.Speeds = speeds;
+            AuthoritiyData.SpeedDistances = speeddistances;
+            AuthoritiyData.Gradients = gradients;
+            AuthoritiyData.GradientsDistances = gradientsDistances;
+            AuthoritiyData.Messages = messages;
+            AuthoritiyData.MessagesDistances = messagesDistances;
         }
 
         private void ClearLists()
         {
-            AuthorytiData.Speeds.Clear();
-            AuthorytiData.SpeedDistances.Clear();
-            AuthorytiData.Gradients.Clear();
-            AuthorytiData.GradientsDistances.Clear();
-            AuthorytiData.Messages.Clear();
-            AuthorytiData.MessagesDistances.Clear();
+            AuthoritiyData.Speeds.Clear();
+            AuthoritiyData.SpeedDistances.Clear();
+            AuthoritiyData.Gradients.Clear();
+            AuthoritiyData.GradientsDistances.Clear();
+            AuthoritiyData.Messages.Clear();
+            AuthoritiyData.MessagesDistances.Clear();
         }
     }
 }

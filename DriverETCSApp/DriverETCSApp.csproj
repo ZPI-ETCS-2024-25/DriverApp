@@ -97,7 +97,7 @@
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
     <Compile Include="Data\TrainLevels.cs" />
-    <Compile Include="Data\AuthorytiData.cs" />
+    <Compile Include="Data\AuthoritiyData.cs" />
     <Compile Include="Design\DMIColors.cs" />
     <Compile Include="BorderLessForm.cs">
       <SubType>Form</SubType>
