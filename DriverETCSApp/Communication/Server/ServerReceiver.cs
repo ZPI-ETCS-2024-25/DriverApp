@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Data;
+using DriverETCSApp.Logic.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,12 @@ namespace DriverETCSApp.Communication.Server
 {
     public class ServerReceiver
     {
-        public ServerReceiver() { }
+        private LoadNewDataFromServer LoadNewDataFromServer;
+
+        public ServerReceiver() 
+        {
+            LoadNewDataFromServer = new LoadNewDataFromServer();
+        }
 
         public void Proccess(string message)
         {
@@ -25,10 +31,7 @@ namespace DriverETCSApp.Communication.Server
         {
             lock (TrainSpeedsAndDistances.SpeedDistanceAndGradientLock) 
             {
-                TrainSpeedsAndDistances.Speeds = decodedMessage.Speeds.ToObject<List<double>>();
-                TrainSpeedsAndDistances.SpeedDistances = decodedMessage.SpeedDistances.ToObject<List<double>>();
-                TrainSpeedsAndDistances.Gradients = decodedMessage.Gradients.ToObject<List<int>>();
-                TrainSpeedsAndDistances.GradientsDistances = decodedMessage.GradientsDistances.ToObject<List<double>>();
+                LoadNewDataFromServer.LoadNewData(decodedMessage);
             }
         }
     }

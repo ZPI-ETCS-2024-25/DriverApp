@@ -14,10 +14,10 @@ namespace DriverETCSApp.Data
         public static List<double> GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
         public static object SpeedDistanceAndGradientLock = new object();
 
-        /*public static List<double> speeds = new List<double>();
-        public static List<double> speedDistances = new List<double>();
-        public static List<int> gradients = new List<int>();
-        public static List<double> gradientsDistances = new List<double>();*/
+        /*public static List<double> Speeds = new List<double>();
+        public static List<double> SpeedDistances = new List<double>();
+        public static List<int> Gradients = new List<int>();
+        public static List<double> GradientsDistances = new List<double>();*/
 
         public static List<double> LowerSpeed = new List<double>();
         public static List<double> LowerDistances = new List<double>();
