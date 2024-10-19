@@ -86,21 +86,26 @@ namespace DriverETCSApp.Communication.Server
 
         private async Task EndOfETCSZone(MessageFromBalise message)
         {
-            await ServerSender.UnregisterTrainData();
+            if (!TrainData.IsTrainRegisterOnServer)
+            {
+                await ServerSender.UnregisterTrainData();
+            }
         }
 
         private async Task RegisterOnServer(MessageFromBalise message)
         {
-            if (!TrainData.IsTrainRegisterOnServer)
+            if (TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.SendTrainData();
-                TrainData.IsTrainRegisterOnServer = true;
             }
         }
 
         private async Task ForceToEnterETCSZone(MessageFromBalise message)
         {
+            if (TrainData.IsTrainRegisterOnServer)
+            {
 
+            }
         }
     }
 }

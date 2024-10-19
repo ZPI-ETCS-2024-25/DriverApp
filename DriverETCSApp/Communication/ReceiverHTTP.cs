@@ -40,14 +40,14 @@ namespace DriverETCSApp.Communication {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
 
-                            if(IsServerSource(request))
-                            {
+                            //if(IsServerSource(request))
+                            //{
                                 serverReceiver.Proccess(receivedMessage);
-                            }
-                            else
-                            {
-                                unityReceiver.Proccess(receivedMessage);
-                            }
+                            //}
+                            //else
+                            //{
+                            //    unityReceiver.Proccess(receivedMessage);
+                            //}
                         }
                         
                         string responseMessage = "Driver received your message!";

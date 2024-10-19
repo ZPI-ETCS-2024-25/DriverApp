@@ -21,7 +21,7 @@ namespace DriverETCSApp.Logic.Charts
                     return (ChartData.Positions[i] + ratio * (ChartData.Positions[i + 1] - ChartData.Positions[i])) * ChartData.Scale;
                 }
             }
-            return 8001;
+            return 9000;
         }
 
         public (List<double>, List<double>) Interpolate()

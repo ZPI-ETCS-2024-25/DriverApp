@@ -53,7 +53,7 @@ namespace DriverETCSApp.Forms.DForms
         private async void InitalizeBasicChart()
         {
             await TrainData.TrainDataSemaphofe.WaitAsync();
-            if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))
+            if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP) /*|| !TrainData.IsETCSActive*/)
             {
                 chartBackLines.Visible = false;
             }

@@ -98,9 +98,14 @@ namespace DriverETCSApp.Logic.Charts
             var graphics = e.Graphics;
             for (int i = 0; i < TrainSpeedsAndDistances.Gradients.Count; i++)
             {
-                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i + 1]));
+                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(Math.Min(TrainSpeedsAndDistances.GradientsDistances[i + 1], 8000)));
                 int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(TrainSpeedsAndDistances.GradientsDistances[i]));
                 int pixelX = (int)Chart.ChartAreas[2].AxisX.ValueToPixelPosition(0);
+
+                if(pixelY1 > 8000)
+                {
+                    return;
+                }
 
                 if (TrainSpeedsAndDistances.Gradients[i] >= 0)
                 {

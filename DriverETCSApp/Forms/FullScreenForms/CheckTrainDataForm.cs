@@ -61,7 +61,7 @@ namespace DriverETCSApp.Forms.DForms
                     TrainData.BrakingMass = BrakingMass;
                     TrainData.VMax = VMax;
 
-                    if (Data.TrainData.IsETCSActive)
+                    if (Data.TrainData.IsTrainRegisterOnServer)
                     {
                         await ServerSender.UpdateTrainData(TrainData.TrainNumber);
                     }

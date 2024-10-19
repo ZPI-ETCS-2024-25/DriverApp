@@ -92,7 +92,7 @@ namespace DriverETCSApp.Forms.DForms
                 {
                     var oldNumber = TrainData.TrainNumber;
                     TrainData.TrainNumber = label2.Text;
-                    if (Data.TrainData.IsETCSActive)
+                    if (Data.TrainData.IsTrainRegisterOnServer)
                     {
                         await ServerSender.UpdateTrainData(oldNumber);
                     }

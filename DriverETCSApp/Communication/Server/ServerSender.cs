@@ -32,6 +32,7 @@ namespace DriverETCSApp.Communication.Server
             };
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
+            TrainData.IsTrainRegisterOnServer = true;
             //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
@@ -64,6 +65,7 @@ namespace DriverETCSApp.Communication.Server
             };
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
+            TrainData.IsTrainRegisterOnServer = false;
             //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
