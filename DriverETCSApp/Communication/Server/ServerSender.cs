@@ -39,7 +39,6 @@ namespace DriverETCSApp.Communication.Server
 
         public async Task UpdateTrainData(string oldNumber)
         {
-            //create data
             var data = new
             {
                 Type = "UpdateData",
@@ -49,24 +48,19 @@ namespace DriverETCSApp.Communication.Server
                 MaxSpeed = TrainData.VMax,
                 BrakeWeight = TrainData.BrakingMass
             };
-            //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
-            //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
 
         public async Task UnregisterTrainData()
         {
-            //create data
             var data = new
             {
                 Type = "Unregister",
                 TrainId = TrainData.TrainNumber
             };
-            //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
             TrainData.IsTrainRegisterOnServer = false;
-            //send
             await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
 
@@ -98,14 +92,22 @@ namespace DriverETCSApp.Communication.Server
 
         public async Task SendSpeedUpdate(double currSpeed)
         {
-            var data = new
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
             {
-                Type = "SpeedUpdate",
-                TrainId = TrainData.TrainNumber,
-                Speed = currSpeed
-            };
-            string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+                var data = new
+                {
+                    Type = "SpeedUpdate",
+                    TrainId = TrainData.TrainNumber,
+                    Speed = currSpeed
+                };
+                string dataSerialized = JsonSerializer.Serialize(data);
+                await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            }
+            finally
+            {
+                Data.TrainData.TrainDataSemaphofe.Release();
+            }
         }
     }
 }

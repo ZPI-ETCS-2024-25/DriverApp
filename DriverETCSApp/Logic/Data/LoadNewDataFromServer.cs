@@ -11,14 +11,23 @@ namespace DriverETCSApp.Logic.Data
     {
         public LoadNewDataFromServer() { }
 
-        public void LoadNewData(dynamic decodedMessage)
+        public async void LoadNewData(dynamic decodedMessage)
         {
             List<double> speeds = decodedMessage.Speeds.ToObject<List<double>>();
             List<double> speeddistances = decodedMessage.SpeedDistances.ToObject<List<double>>();
             List<int> gradients = decodedMessage.Gradients.ToObject<List<int>>();
             List<double> gradientsDistances = decodedMessage.GradientsDistances.ToObject<List<double>>();
             int position = (int)(decodedMessage.Position * 1000);
-            int diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - position : TrainData.CalculatedPosition + position;
+            int diffrence;
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
+            {
+                diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - position : TrainData.CalculatedPosition + position;
+            }
+            finally
+            {
+                TrainData.TrainDataSemaphofe.Release();
+            }
             ClearLists();
 
             int lastIndex = -1;
@@ -33,6 +42,7 @@ namespace DriverETCSApp.Logic.Data
             if (lastIndex != -1)
             {
                 speeddistances.RemoveRange(0, lastIndex);
+                speeds.RemoveRange(0, lastIndex);
                 speeddistances[0] = 0;
             }
 
@@ -48,6 +58,7 @@ namespace DriverETCSApp.Logic.Data
             if (lastIndex != -1)
             {
                 gradientsDistances.RemoveRange(0, lastIndex);
+                gradients.RemoveRange(0, lastIndex);
                 gradientsDistances[0] = 0;
             }
 
