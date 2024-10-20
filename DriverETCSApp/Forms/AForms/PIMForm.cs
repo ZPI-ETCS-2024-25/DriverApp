@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,21 +23,23 @@ namespace DriverETCSApp.Forms.AForms
 
         List<(float percentage, bool isBold)> listOfLines = new List<(float, bool)> {
             (1f, true),
-            (0.03f, false),
-            (0.1f, false),
-            (0.17f, false),
-            (0.24f, false),
-            (0.3f, true),
-            (0.4f, false),
-            (0.5f, false),
-            (0.6f, false),
-            (0.8f, false),
+            (0.04f, false),
+            (0.09f, false),
+            (0.14f, false),
+            (0.19f, false),
+            (0.25f, true),
+            (0.33f, false),
+            (0.43f, false),
+            (0.57f, false),
+            (0.82f, false),
             (0f, true)
         };
 
-        const int maxShownDistance = 1243;
-        int distanceLeft = 1123;
-        float columnPercentage = 0.903f; // Percentage 0-1
+        const int maxShownDistance = 1000;
+        const float edge = 0.25f;
+        const float distanceForEdge = 500f;
+        int distanceLeft = 1010;
+        float columnPercentage = 1f; // Percentage 0-1
 
         public PIMForm()
         {
@@ -72,7 +75,7 @@ namespace DriverETCSApp.Forms.AForms
 
             foreach ((float percentage, bool isBold) in listOfLines)
             {
-                int x1 = panelPIM.Width / 4;
+                int x1 = panelPIM.Width / 4 + (!isBold ? panelPIM.Width / 8 : 0);
                 int x2 = (int)(panelPIM.Width * rectStartX * 0.9f);
                 int y1 = (int)(panelPIM.Height * rectStartY) + (int)(panelPIM.Height * rectHeight * percentage);
                 Pen pen = new Pen(Color.White, isBold ? 5f : 2f);
@@ -86,7 +89,14 @@ namespace DriverETCSApp.Forms.AForms
                 return;
 
             distanceLeft = newDistance;
-            columnPercentage = distanceLeft / (float)maxShownDistance;
+            if (distanceLeft < distanceForEdge) {
+                float a = ((1f-edge) * maxShownDistance) / distanceForEdge;
+                columnPercentage = a * distanceLeft / (float) maxShownDistance ;
+            }
+            else {
+                columnPercentage = ((1f - edge) * 100f + (float)Math.Pow(distanceLeft - distanceForEdge, 0.5f) *(edge*100/ (float)Math.Pow(distanceForEdge, 0.5f))) / 100f;
+            }
+
             panelPIM.Invalidate();
         }
 
