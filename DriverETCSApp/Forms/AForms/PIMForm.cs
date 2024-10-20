@@ -13,7 +13,6 @@ namespace DriverETCSApp.Forms.AForms
 {
     public partial class PIMForm : BorderLessForm
     {
-
         const float rectStartX = 0.6f; // Percentage 0-1
         const float rectStartY = 0.2f;
         const float rectWidth = 0.3f;
@@ -22,17 +21,17 @@ namespace DriverETCSApp.Forms.AForms
         Font numbersFont;
 
         List<(float percentage, bool isBold)> listOfLines = new List<(float, bool)> {
-            (1f, true),
-            (0.04f, false),
-            (0.09f, false),
-            (0.14f, false),
-            (0.19f, false),
+            (0f, true),
+            (0.05f, false),
+            (0.1f, false),
+            (0.15f, false),
+            (0.2f, false),
             (0.25f, true),
             (0.37f, false),
             (0.46f, false),
             (0.59f, false),
             (0.8f, false),
-            (0f, true)
+            (1f, true)
         };
 
         const int maxShownDistance = 1000;
