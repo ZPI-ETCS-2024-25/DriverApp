@@ -3,6 +3,7 @@ using DriverETCSApp.Design;
 using DriverETCSApp.Logic;
 using DriverETCSApp.Logic.Charts;
 using DriverETCSApp.Logic.Data;
+using DriverETCSApp.Logic.Position;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,11 +27,14 @@ namespace DriverETCSApp.Forms.DForms
         private ChartDrawerPASP ChartPASPDrawer;
         private ChartSpeedsDrawer ChartSpeedsDrawer;
         private ChartGradientDrawer ChartGradientDrawer;
+        DistancesCalculator DistancesCalculator;
 
-        public MainDForm(MainForm mainForm)
+        public MainDForm(MainForm mainForm, DistancesCalculator distancesCalculator)
         {
             InitializeComponent();
             MainForm = mainForm;
+            DistancesCalculator = distancesCalculator;
+            distancesCalculator.DistancesCalculationsCompleted += DistancesCalculationCompleted;
             SpeedSegragation = new SpeedSegragation();
 
             ChartScaller = new ChartScaleDrawer(chartBackLines);
@@ -41,12 +45,22 @@ namespace DriverETCSApp.Forms.DForms
             InitalizeBasicChart();
             SpeedSegragation.CalculateSpeeds();
 
-            lock (AuthoritiyData.SpeedDistanceAndGradientLock)
+            Init();
+        }
+
+        private async void Init()
+        {
+            await AuthoritiyData.AuthoritiyDataSemaphore.WaitAsync();
+            try
             {
                 ChartScaller.Draw();
                 ChartPASPDrawer.SetUp();
                 ChartSpeedsDrawer.SetUp();
                 ChartGradientDrawer.SetUp();
+            }
+            finally
+            {
+                AuthoritiyData.AuthoritiyDataSemaphore.Release();
             }
         }
 
@@ -64,13 +78,24 @@ namespace DriverETCSApp.Forms.DForms
             Data.TrainData.TrainDataSemaphofe.Release();
         }
 
-        public new void Invalidate()
+        private void DistancesCalculationCompleted(object sender, EventArgs e)
         {
-            lock (AuthoritiyData.SpeedDistanceAndGradientLock)
+            Invoke(new Action(() =>
             {
-                base.Invalidate();
-                ChartPASPDrawer.Draw();
-                ChartGradientDrawer.Draw();
+                Invalidate();
+            }));
+        }
+
+        public new async void Invalidate()
+        {
+            await AuthoritiyData.AuthoritiyDataSemaphore.WaitAsync();
+            try
+            {
+                chartBackLines.Invalidate();
+            }
+            finally
+            {
+                AuthoritiyData.AuthoritiyDataSemaphore.Release();
             }
         }
 

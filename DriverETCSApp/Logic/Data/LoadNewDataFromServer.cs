@@ -10,7 +10,12 @@ namespace DriverETCSApp.Logic.Data
 {
     public class LoadNewDataFromServer
     {
-        public LoadNewDataFromServer() { }
+        private SpeedSegragation SpeedSegragation;
+
+        public LoadNewDataFromServer() 
+        {
+            SpeedSegragation = new SpeedSegragation();
+        }
 
         public async void LoadNewData(dynamic decodedMessage)
         {
@@ -21,8 +26,8 @@ namespace DriverETCSApp.Logic.Data
             List<string> messages = decodedMessage.Messages.ToObject<List<string>>();
             List<double> messagesDistances = decodedMessage.MessagesDistances.ToObject<List<double>>();
 
-            int position = (int)(decodedMessage.Position * 1000);
-            int diffrence;
+            int position = decodedMessage.Position * 1000;
+            double diffrence;
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
@@ -32,7 +37,7 @@ namespace DriverETCSApp.Logic.Data
             {
                 TrainData.TrainDataSemaphofe.Release();
             }
-            ClearLists();
+
             #region load speeds and distances of speeds
             int lastIndex = -1;
             for (int i = 0; i < speeddistances.Count; i++)
@@ -91,16 +96,7 @@ namespace DriverETCSApp.Logic.Data
             AuthoritiyData.GradientsDistances = gradientsDistances;
             AuthoritiyData.Messages = messages;
             AuthoritiyData.MessagesDistances = messagesDistances;
-        }
-
-        private void ClearLists()
-        {
-            AuthoritiyData.Speeds.Clear();
-            AuthoritiyData.SpeedDistances.Clear();
-            AuthoritiyData.Gradients.Clear();
-            AuthoritiyData.GradientsDistances.Clear();
-            AuthoritiyData.Messages.Clear();
-            AuthoritiyData.MessagesDistances.Clear();
+            SpeedSegragation.CalculateSpeeds();
         }
     }
 }

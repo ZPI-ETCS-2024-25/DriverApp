@@ -34,11 +34,11 @@ namespace DriverETCSApp.Logic.Charts
 
         public void SetUp()
         {
+            Chart.Paint += new PaintEventHandler(Draw);
             Chart.Paint += new PaintEventHandler(DrawGraphics);
-            Draw();
         }
 
-        public void Draw()
+        public void Draw(object sender, PaintEventArgs e)
         {
             foreach (Series series in Series)
             {
@@ -125,12 +125,12 @@ namespace DriverETCSApp.Logic.Charts
                 else
                 {
                     graphics.FillRectangle(Brush, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
-                    if (pixelY1 - pixelY >= 40)
+                    if (pixelY1 - pixelY >= 35)
                     {
                         graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY);
                         graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY1 - 13);
                     }
-                    if (pixelY1 - pixelY >= 55)
+                    if (pixelY1 - pixelY >= 50)
                     {
                         var s = AuthoritiyData.Gradients[i].ToString().Remove(0, 1);
                         int offset = s.Length == 1 ? 29 : 25;

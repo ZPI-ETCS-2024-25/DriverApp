@@ -31,7 +31,7 @@ namespace DriverETCSApp.Logic.Charts
 
             var actualMaxSpeed = AuthoritiyData.Speeds[0];
             var actualSpeed = actualMaxSpeed;
-            var actualDistance = AuthoritiyData.SpeedDistances[1];
+            var actualDistance = AuthoritiyData.SpeedDistances[1]; //tutaj się wywala
             interpolatedDistances.Add(0);
 
             for (int i = 1; i < AuthoritiyData.Speeds.Count; i++)

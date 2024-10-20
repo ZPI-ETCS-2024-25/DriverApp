@@ -34,12 +34,12 @@ namespace DriverETCSApp.Logic.Charts
             };
             Chart.Series.Add(series);
             series.ChartArea = Chart.ChartAreas[4].Name;
-            Draw();
+            Chart.Paint += new PaintEventHandler(Draw);
         }
         
-        public void Draw()
+        public void Draw(object sender, PaintEventArgs e)
         {
-            if(AuthoritiyData.Speeds.Count == 0 || AuthoritiyData.SpeedDistances.Count == 0)
+            if(AuthoritiyData.Speeds.Count <= 1 || AuthoritiyData.SpeedDistances.Count <= 1)
             {
                 return;
             }

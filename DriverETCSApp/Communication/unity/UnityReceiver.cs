@@ -68,7 +68,8 @@ namespace DriverETCSApp.Communication.Server
             {
                 TrainData.BalisePosition = message.Kilometer;
                 TrainData.BaliseLinePosition = message.Line;
-                TrainData.CalculatedPosition = Convert.ToInt32(Convert.ToDouble(message.Kilometer) * 1000);
+                TrainData.CalculatedPosition = Convert.ToDouble(message.Kilometer) * 1000;
+                TrainData.LastCalculated = TrainData.CalculatedPosition;
 
                 if (message.GroupSize != 1)
                 {

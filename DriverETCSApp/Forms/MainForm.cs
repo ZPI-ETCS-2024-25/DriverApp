@@ -30,12 +30,13 @@ namespace DriverETCSApp.Forms
         private ServerSender ServerSender;
         private ReceiverHTTP ReceiverHTTP;
 
-        private PositionCalculator PositionCalculator;
+        private DistancesCalculator DystancesCalculator;
 
         public MainForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
+            DystancesCalculator = new DistancesCalculator();
             ServerSender = new ServerSender("127.0.0.1", Port.Server);
             ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
             ReceiverHTTP.StartListening();
@@ -231,7 +232,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawMainDForm()
         {
-            dForm = new DForms.MainDForm(this);
+            dForm = new DForms.MainDForm(this, DystancesCalculator);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();

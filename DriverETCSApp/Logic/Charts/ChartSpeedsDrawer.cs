@@ -65,7 +65,8 @@ namespace DriverETCSApp.Logic.Charts
             for (int i = 0; i < AuthoritiyData.LowerSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthoritiyData.LowerDistances[i]));
+                var x = AuthoritiyData.LowerDistances[i]; //tutaj się potrafi wywalić
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(x));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -80,30 +81,5 @@ namespace DriverETCSApp.Logic.Charts
                 graphics.DrawString(AuthoritiyData.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
             }
         }
-
-        /*public void Update()
-        {
-            var series = Chart.Series["SeriesPointsSpeedLower"];
-            series.Points.Clear();
-            var series1 = Chart.Series["SeriesPointsSpeedHigher"];
-            series1.Points.Clear();
-
-            if (TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
-            {
-                return;
-            }
-
-            for (int i = 0; i < TrainSpeedsAndDistances.LowerSpeed.Count; i++)
-            {
-                series.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
-            }
-
-            for (int i = 0; i < TrainSpeedsAndDistances.HigherSpeed.Count; i++)
-            {
-                series1.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
-            }
-
-            Chart.Invalidate();
-        }*/
     }
 }

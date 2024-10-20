@@ -16,7 +16,7 @@ namespace DriverETCSApp.Forms.GForms
         public ClockForm()
         {
             InitializeComponent();
-            ClockTimer = new System.Threading.Timer(PrintClock, null, 0, 1000);
+            ClockTimer = new System.Threading.Timer(PrintClock, null, 0, 500);
         }
 
         private void PrintClock(object sender)

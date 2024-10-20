@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DriverETCSApp.Data
@@ -14,7 +15,7 @@ namespace DriverETCSApp.Data
         public static List<double> GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };*/
 
         //lock
-        public static object SpeedDistanceAndGradientLock = new object();
+        public static SemaphoreSlim AuthoritiyDataSemaphore = new SemaphoreSlim(1, 1);
         //speed data
         public static List<double> Speeds = new List<double>();
         public static List<double> SpeedDistances = new List<double>();
