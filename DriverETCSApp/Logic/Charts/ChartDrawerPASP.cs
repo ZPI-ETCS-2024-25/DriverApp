@@ -39,7 +39,7 @@ namespace DriverETCSApp.Logic.Charts
         
         public void Draw()
         {
-            if(TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
+            if(AuthorytiData.Speeds.Count == 0 || AuthorytiData.SpeedDistances.Count == 0)
             {
                 return;
             }

@@ -30,10 +30,12 @@ namespace DriverETCSApp.Forms.DForms
             InitializeComponent();
             SetCategoryKeys();
             MainForm = mainForm;
+            Data.TrainData.TrainDataSemaphofe.WaitAsync();
             infoLabelData1.Text = TrainData.TrainCat;
             infoLabelData2.Text = TrainData.Length;
             infoLabelData3.Text = TrainData.BrakingMass;
             infoLabelData4.Text = TrainData.VMax;
+            Data.TrainData.TrainDataSemaphofe.Release();
             IsConfirmationActive = false;
 
             labelsList = new List<System.Windows.Forms.Label> { labelData1, labelData2, labelData3, labelData4 };
@@ -41,8 +43,6 @@ namespace DriverETCSApp.Forms.DForms
             confirmationChecks = new List<bool> { false, false, false, false };
             ActivateLabel(0);
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
 
         private void closeButton_Click(object sender, EventArgs e)
         {

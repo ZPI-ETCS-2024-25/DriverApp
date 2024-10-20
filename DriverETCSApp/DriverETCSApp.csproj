@@ -97,7 +97,7 @@
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
     <Compile Include="Data\TrainLevels.cs" />
-    <Compile Include="Data\TrainSpeedsAndDistances.cs" />
+    <Compile Include="Data\AuthorytiData.cs" />
     <Compile Include="Design\DMIColors.cs" />
     <Compile Include="BorderLessForm.cs">
       <SubType>Form</SubType>
@@ -211,6 +211,7 @@
     <Compile Include="Logic\Charts\ChartInterpolate.cs" />
     <Compile Include="Logic\Charts\ChartScaleDrawer.cs" />
     <Compile Include="Logic\Charts\ChartSpeedsDrawer.cs" />
+    <Compile Include="Logic\Data\LoadNewDataFromServer.cs" />
     <Compile Include="Logic\Data\SpeedSegragation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

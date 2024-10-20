@@ -119,11 +119,12 @@ namespace DriverETCSApp.Forms.DForms
             newAlphaNumericKeyClicked('0');
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private async void label2_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(label2.Text))
             {
                 TrainData.IDDriver = label2.Text;
+                await Data.TrainData.TrainDataSemaphofe.WaitAsync();
                 if (string.IsNullOrEmpty(TrainData.ETCSLevel))
                 {
                     Close();
@@ -134,6 +135,7 @@ namespace DriverETCSApp.Forms.DForms
                     Close();
                     MainForm.DrawDFormMenu();
                 }
+                Data.TrainData.TrainDataSemaphofe.Release();
             }
         }
 

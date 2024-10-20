@@ -4,20 +4,20 @@
     {
         public string Kilometer { get; set; }
         public int Number { get; set; }
-        public int NumberOfBalises { get; set; }
-        public string TrackNumber { get; set; }
-        public int LineNumber { get; set; }
+        public int GroupSize { get; set; }
+        public string Track { get; set; }
+        public int Line { get; set; }
         public string MessageType { get; set; }
 
         public MessageFromBalise() { }
 
-        public MessageFromBalise(string kilometer, int number, int numberOfBalises, string trackNumber, int lineNumber, string messageType)
+        public MessageFromBalise(string kilometer, int number, int groupSize, string trackNumber, int lineNumber, string messageType)
         {
             Kilometer = kilometer;
             Number = number;
-            NumberOfBalises = numberOfBalises;
-            TrackNumber = trackNumber;
-            LineNumber = lineNumber;
+            GroupSize = groupSize;
+            Track = trackNumber;
+            Line = lineNumber;
             MessageType = messageType;
         }
     }
