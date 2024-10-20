@@ -28,10 +28,10 @@ namespace DriverETCSApp.Forms.AForms
             (0.14f, false),
             (0.19f, false),
             (0.25f, true),
-            (0.33f, false),
-            (0.43f, false),
-            (0.57f, false),
-            (0.82f, false),
+            (0.37f, false),
+            (0.46f, false),
+            (0.59f, false),
+            (0.8f, false),
             (0f, true)
         };
 
@@ -89,13 +89,17 @@ namespace DriverETCSApp.Forms.AForms
                 return;
 
             distanceLeft = newDistance;
-            if (distanceLeft < distanceForEdge) {
-                float a = ((1f-edge) * maxShownDistance) / distanceForEdge;
-                columnPercentage = a * distanceLeft / (float) maxShownDistance ;
+            if (distanceLeft >= distanceForEdge) {
+                columnPercentage = ((25f / 500f) * distanceLeft + 50f) / 100f;
+            }
+            else if ( distanceLeft >= 60f){
+                columnPercentage = (int)(64.175f * Math.Log(distanceLeft) - 254.36f) / 143f * 0.7f;
             }
             else {
-                columnPercentage = ((1f - edge) * 100f + (float)Math.Pow(distanceLeft - distanceForEdge, 0.5f) *(edge*100/ (float)Math.Pow(distanceForEdge, 0.5f))) / 100f;
+                columnPercentage = 0.005f * distanceLeft/10f;
             }
+
+            lbltest.Text = columnPercentage.ToString();
 
             panelPIM.Invalidate();
         }
