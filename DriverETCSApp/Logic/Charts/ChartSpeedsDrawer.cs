@@ -44,10 +44,10 @@ namespace DriverETCSApp.Logic.Charts
         {
             Graphics graphics = e.Graphics;
 
-            for (int i = 0; i < AuthoritiyData.HigherSpeed.Count; i++)
+            for (int i = 0; i < AuthorityData.HigherSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthoritiyData.HigherDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.HigherDistances[i]));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -59,13 +59,13 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleUp);
 
-                graphics.DrawString(AuthoritiyData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
+                graphics.DrawString(AuthorityData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
             }
 
-            for (int i = 0; i < AuthoritiyData.LowerSpeed.Count; i++)
+            for (int i = 0; i < AuthorityData.LowerSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                var x = AuthoritiyData.LowerDistances[i]; //tutaj się potrafi wywalić
+                var x = AuthorityData.LowerDistances[i];
                 int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(x));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
@@ -78,7 +78,8 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleDown);
 
-                graphics.DrawString(AuthoritiyData.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
+                var y = AuthorityData.LowerSpeed[i].ToString();
+                graphics.DrawString(y, Font, SolidBrush, pixelX + 10, pixelY);
             }
         }
     }

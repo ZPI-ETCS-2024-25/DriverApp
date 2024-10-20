@@ -261,6 +261,7 @@ namespace DriverETCSApp.Forms
             fForm.TopLevel = false;
             fPanel.Controls.Add(fForm);
             fForm.Show();
+            fForm.Refresh();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -90,12 +90,12 @@ namespace DriverETCSApp.Logic.Data
             }
             #endregion
 
-            AuthoritiyData.Speeds = speeds;
-            AuthoritiyData.SpeedDistances = speeddistances;
-            AuthoritiyData.Gradients = gradients;
-            AuthoritiyData.GradientsDistances = gradientsDistances;
-            AuthoritiyData.Messages = messages;
-            AuthoritiyData.MessagesDistances = messagesDistances;
+            AuthorityData.Speeds = speeds;
+            AuthorityData.SpeedDistances = speeddistances;
+            AuthorityData.Gradients = gradients;
+            AuthorityData.GradientsDistances = gradientsDistances;
+            AuthorityData.Messages = messages;
+            AuthorityData.MessagesDistances = messagesDistances;
             SpeedSegragation.CalculateSpeeds();
         }
     }

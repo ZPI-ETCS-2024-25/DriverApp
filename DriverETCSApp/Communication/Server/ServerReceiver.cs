@@ -29,14 +29,14 @@ namespace DriverETCSApp.Communication.Server
 
         private void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            AuthoritiyData.AuthoritiyDataSemaphore.Wait();
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
             try
             {
                 LoadNewDataFromServer.LoadNewData(decodedMessage);
             }
             finally
             {
-                AuthoritiyData.AuthoritiyDataSemaphore.Release();
+                AuthorityData.AuthoritiyDataSemaphore.Release();
             }
         }
     }
