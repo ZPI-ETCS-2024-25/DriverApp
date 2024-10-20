@@ -10,7 +10,12 @@ namespace DriverETCSApp.Logic.Data
 {
     public class LoadNewDataFromServer
     {
-        public LoadNewDataFromServer() { }
+        private SpeedSegragation SpeedSegragation;
+
+        public LoadNewDataFromServer() 
+        {
+            SpeedSegragation = new SpeedSegragation();
+        }
 
         public async void LoadNewData(dynamic decodedMessage)
         {
@@ -21,8 +26,8 @@ namespace DriverETCSApp.Logic.Data
             List<string> messages = decodedMessage.Messages.ToObject<List<string>>();
             List<double> messagesDistances = decodedMessage.MessagesDistances.ToObject<List<double>>();
 
-            int position = (int)(decodedMessage.Position * 1000);
-            int diffrence;
+            int position = decodedMessage.Position * 1000;
+            double diffrence;
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
@@ -32,7 +37,7 @@ namespace DriverETCSApp.Logic.Data
             {
                 TrainData.TrainDataSemaphofe.Release();
             }
-            ClearLists();
+
             #region load speeds and distances of speeds
             int lastIndex = -1;
             for (int i = 0; i < speeddistances.Count; i++)
@@ -85,22 +90,13 @@ namespace DriverETCSApp.Logic.Data
             }
             #endregion
 
-            AuthorytiData.Speeds = speeds;
-            AuthorytiData.SpeedDistances = speeddistances;
-            AuthorytiData.Gradients = gradients;
-            AuthorytiData.GradientsDistances = gradientsDistances;
-            AuthorytiData.Messages = messages;
-            AuthorytiData.MessagesDistances = messagesDistances;
-        }
-
-        private void ClearLists()
-        {
-            AuthorytiData.Speeds.Clear();
-            AuthorytiData.SpeedDistances.Clear();
-            AuthorytiData.Gradients.Clear();
-            AuthorytiData.GradientsDistances.Clear();
-            AuthorytiData.Messages.Clear();
-            AuthorytiData.MessagesDistances.Clear();
+            AuthorityData.Speeds = speeds;
+            AuthorityData.SpeedDistances = speeddistances;
+            AuthorityData.Gradients = gradients;
+            AuthorityData.GradientsDistances = gradientsDistances;
+            AuthorityData.Messages = messages;
+            AuthorityData.MessagesDistances = messagesDistances;
+            SpeedSegragation.CalculateSpeeds();
         }
     }
 }

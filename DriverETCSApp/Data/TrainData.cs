@@ -19,8 +19,9 @@ namespace DriverETCSApp.Data
         public static bool IsETCSActive = false;
         public static bool IsTrainRegisterOnServer = false;
         //position data
-        public static int CalculatedPosition = 0;
+        public static double CalculatedPosition = 0;
         public static string CalculatedDrivingDirection = "";
+        public static double LastCalculated = 11.11;
         //public static int CalculatedPosition = 6150;
         //public static string CalculatedDrivingDirection = "N";
 

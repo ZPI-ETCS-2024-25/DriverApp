@@ -3,13 +3,12 @@ using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
+using DriverETCSApp.Logic.Position;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,12 +28,15 @@ namespace DriverETCSApp.Forms
         private BorderLessForm zForm;
 
         private ServerSender ServerSender;
-        ReceiverHTTP ReceiverHTTP;
+        private ReceiverHTTP ReceiverHTTP;
+
+        private DistancesCalculator DystancesCalculator;
 
         public MainForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
+            DystancesCalculator = new DistancesCalculator();
             ServerSender = new ServerSender("127.0.0.1", Port.Server);
             ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
             ReceiverHTTP.StartListening();
@@ -230,7 +232,7 @@ namespace DriverETCSApp.Forms
 
         public void DrawMainDForm()
         {
-            dForm = new DForms.MainDForm(this);
+            dForm = new DForms.MainDForm(this, DystancesCalculator);
             dForm.TopLevel = false;
             dPanel.Controls.Add(dForm);
             dForm.Show();
@@ -259,6 +261,7 @@ namespace DriverETCSApp.Forms
             fForm.TopLevel = false;
             fPanel.Controls.Add(fForm);
             fForm.Show();
+            fForm.Refresh();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

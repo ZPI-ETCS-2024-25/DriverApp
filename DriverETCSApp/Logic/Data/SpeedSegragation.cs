@@ -13,30 +13,30 @@ namespace DriverETCSApp.Logic.Data
 
         public void CalculateSpeeds()
         {
-            AuthorytiData.LowerDistances.Clear();
-            AuthorytiData.HigherDistances.Clear();
-            AuthorytiData.LowerSpeed.Clear();
-            AuthorytiData.HigherSpeed.Clear();
-            if(AuthorytiData.Speeds.Count == 0)
+            AuthorityData.LowerDistances.Clear();
+            AuthorityData.HigherDistances.Clear();
+            AuthorityData.LowerSpeed.Clear();
+            AuthorityData.HigherSpeed.Clear();
+            if(AuthorityData.Speeds.Count == 0)
             {
                 return;
             }
 
-            double actualSpeed = AuthorytiData.Speeds[0];
+            double actualSpeed = AuthorityData.Speeds[0];
 
-            for (int i = 1; i < AuthorytiData.Speeds.Count; i++)
+            for (int i = 1; i < AuthorityData.Speeds.Count; i++)
             {
-                if(actualSpeed < AuthorytiData.Speeds[i])
+                if(actualSpeed < AuthorityData.Speeds[i])
                 {
-                    AuthorytiData.HigherDistances.Add(AuthorytiData.SpeedDistances[i]);
-                    AuthorytiData.HigherSpeed.Add(AuthorytiData.Speeds[i]);
+                    AuthorityData.HigherDistances.Add(AuthorityData.SpeedDistances[i]);
+                    AuthorityData.HigherSpeed.Add(AuthorityData.Speeds[i]);
                 }
                 else
                 {
-                    AuthorytiData.LowerDistances.Add(AuthorytiData.SpeedDistances[i]);
-                    AuthorytiData.LowerSpeed.Add(AuthorytiData.Speeds[i]);
+                    AuthorityData.LowerDistances.Add(AuthorityData.SpeedDistances[i]);
+                    AuthorityData.LowerSpeed.Add(AuthorityData.Speeds[i]);
                 }
-                actualSpeed = AuthorytiData.Speeds[i];
+                actualSpeed = AuthorityData.Speeds[i];
             }
         }
     }

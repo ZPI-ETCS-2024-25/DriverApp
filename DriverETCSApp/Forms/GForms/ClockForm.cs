@@ -5,34 +5,39 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DriverETCSApp.Forms.GForms
 {
     public partial class ClockForm : BorderLessForm
     {
-        private Timer clockTimer;
+        private System.Threading.Timer ClockTimer;
+        private bool IsFormClosing;
+
         public ClockForm()
         {
             InitializeComponent();
-            CreateClock();
+            IsFormClosing = false;
+            ClockTimer = new System.Threading.Timer(PrintClock, null, 0, 500);
+            FormClosing += ClockFormClosing;
         }
 
-        private void CreateClock()
+        private void PrintClock(object sender)
         {
-            clockTimer = new Timer();
-            clockTimer.Interval = 1000;
-            clockTimer.Tick += new EventHandler(PrintClock);
-            clockTimer.Start();
-            PrintClock(this, EventArgs.Empty);
+            Invoke(new Action(() =>
+            {
+                if (!IsDisposed && !Disposing)
+                {
+                    clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
+                }
+            }));
         }
 
-        private void PrintClock(object sender, EventArgs e)
+        private void ClockFormClosing(object sender, FormClosingEventArgs e)
         {
-            clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
+            IsFormClosing = true;
+            ClockTimer?.Dispose();
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
     }
 }

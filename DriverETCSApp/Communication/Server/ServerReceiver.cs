@@ -29,9 +29,14 @@ namespace DriverETCSApp.Communication.Server
 
         private void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            lock (AuthorytiData.SpeedDistanceAndGradientLock) 
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            try
             {
                 LoadNewDataFromServer.LoadNewData(decodedMessage);
+            }
+            finally
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
             }
         }
     }

@@ -37,7 +37,5 @@ namespace DriverETCSApp.Forms.FForms
             MainForm.HideGFPanels();
             MainForm.DrawSettings(false);
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
     }
 }

@@ -34,8 +34,8 @@ namespace DriverETCSApp.Logic.Charts
 
         public void SetUp()
         {
+            //Chart.Paint += new PaintEventHandler(Draw);
             Chart.Paint += new PaintEventHandler(DrawGraphics);
-            Draw();
         }
 
         public void Draw()
@@ -46,16 +46,16 @@ namespace DriverETCSApp.Logic.Charts
             }
             Series.Clear();
 
-            if (AuthorytiData.Gradients.Count == 0 || AuthorytiData.GradientsDistances.Count == 0)
+            if (AuthorityData.Gradients.Count == 0 || AuthorityData.GradientsDistances.Count == 0)
             {
                 return;
             }
 
-            for (int i = 0; i < AuthorytiData.Gradients.Count; i++)
+            for (int i = 0; i < AuthorityData.Gradients.Count; i++)
             {
-                var x = Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i]);
+                var x = Interpolator.InterpolatePosition(AuthorityData.GradientsDistances[i + 1]) - Interpolator.InterpolatePosition(AuthorityData.GradientsDistances[i]);
 
-                if (AuthorytiData.Gradients[i] >= 0)
+                if (AuthorityData.Gradients[i] >= 0)
                 {
                     Series series = new Series("Gradient" + i.ToString())
                     {
@@ -90,16 +90,16 @@ namespace DriverETCSApp.Logic.Charts
 
         public void DrawGraphics(object sender, PaintEventArgs e)
         {
-            if (AuthorytiData.Gradients.Count == 0 || AuthorytiData.GradientsDistances.Count == 0)
+            if (AuthorityData.Gradients.Count == 0 || AuthorityData.GradientsDistances.Count == 0)
             {
                 return;
             }
 
             var graphics = e.Graphics;
-            for (int i = 0; i < AuthorytiData.Gradients.Count; i++)
+            for (int i = 0; i < AuthorityData.Gradients.Count; i++)
             {
-                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(Math.Min(AuthorytiData.GradientsDistances[i + 1], 8000)));
-                int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.GradientsDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(Math.Min(AuthorityData.GradientsDistances[i + 1], 8000)));
+                int pixelY1 = (int)Chart.ChartAreas[2].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.GradientsDistances[i]));
                 int pixelX = (int)Chart.ChartAreas[2].AxisX.ValueToPixelPosition(0);
 
                 if(pixelY1 > 8000)
@@ -107,7 +107,7 @@ namespace DriverETCSApp.Logic.Charts
                     return;
                 }
 
-                if (AuthorytiData.Gradients[i] >= 0)
+                if (AuthorityData.Gradients[i] >= 0)
                 {
                     graphics.FillRectangle(Brushes.White, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
                     if (pixelY1 - pixelY >= 40)
@@ -117,7 +117,7 @@ namespace DriverETCSApp.Logic.Charts
                     }
                     if (pixelY1 - pixelY >= 55)
                     {
-                        var s = AuthorytiData.Gradients[i].ToString();
+                        var s = AuthorityData.Gradients[i].ToString();
                         int offset = s.Length == 1 ? 29 : 25;
                         graphics.DrawString(s, Font, BrushDark, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
                     }
@@ -125,14 +125,14 @@ namespace DriverETCSApp.Logic.Charts
                 else
                 {
                     graphics.FillRectangle(Brush, pixelX + 20, pixelY, 1, pixelY1 - pixelY);
-                    if (pixelY1 - pixelY >= 40)
+                    if (pixelY1 - pixelY >= 35)
                     {
                         graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY);
                         graphics.DrawString("-", Font, Brush, pixelX + 29, pixelY1 - 13);
                     }
-                    if (pixelY1 - pixelY >= 55)
+                    if (pixelY1 - pixelY >= 50)
                     {
-                        var s = AuthorytiData.Gradients[i].ToString().Remove(0, 1);
+                        var s = AuthorityData.Gradients[i].ToString().Remove(0, 1);
                         int offset = s.Length == 1 ? 29 : 25;
                         graphics.DrawString(s, Font, Brush, pixelX + offset, ((pixelY + pixelY1) / 2) - 5);
                     }

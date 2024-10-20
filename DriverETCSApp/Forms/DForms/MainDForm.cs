@@ -3,6 +3,7 @@ using DriverETCSApp.Design;
 using DriverETCSApp.Logic;
 using DriverETCSApp.Logic.Charts;
 using DriverETCSApp.Logic.Data;
+using DriverETCSApp.Logic.Position;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,11 +27,16 @@ namespace DriverETCSApp.Forms.DForms
         private ChartDrawerPASP ChartPASPDrawer;
         private ChartSpeedsDrawer ChartSpeedsDrawer;
         private ChartGradientDrawer ChartGradientDrawer;
+        private DistancesCalculator DistancesCalculator;
+        private bool IsChartDrawing;
 
-        public MainDForm(MainForm mainForm)
+        public MainDForm(MainForm mainForm, DistancesCalculator distancesCalculator)
         {
             InitializeComponent();
             MainForm = mainForm;
+            IsChartDrawing = false;
+            DistancesCalculator = distancesCalculator;
+            DistancesCalculator.DistancesCalculationsCompleted += DistancesCalculationCompleted;
             SpeedSegragation = new SpeedSegragation();
 
             ChartScaller = new ChartScaleDrawer(chartBackLines);
@@ -39,14 +45,27 @@ namespace DriverETCSApp.Forms.DForms
             ChartGradientDrawer = new ChartGradientDrawer(chartBackLines);
 
             InitalizeBasicChart();
-            SpeedSegragation.CalculateSpeeds();
+            Init();
+        }
 
-            lock (AuthorytiData.SpeedDistanceAndGradientLock)
+        private async void Init()
+        {
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+            try
             {
+                SpeedSegragation.CalculateSpeeds();
+
                 ChartScaller.Draw();
                 ChartPASPDrawer.SetUp();
                 ChartSpeedsDrawer.SetUp();
                 ChartGradientDrawer.SetUp();
+
+                ChartPASPDrawer.Draw();
+                ChartGradientDrawer.Draw();
+            }
+            finally
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
             }
         }
 
@@ -64,40 +83,69 @@ namespace DriverETCSApp.Forms.DForms
             Data.TrainData.TrainDataSemaphofe.Release();
         }
 
-        public new void Invalidate()
+        private void DistancesCalculationCompleted(object sender, EventArgs e)
         {
-            lock (AuthorytiData.SpeedDistanceAndGradientLock)
+            if (IsHandleCreated)
             {
-                base.Invalidate();
+                Invoke(new Action(async () =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        await PASPInvalidate();
+                    }
+                }));
+            }
+        }
+
+        public async Task PASPInvalidate()
+        {
+            if(IsChartDrawing)
+            {
+                return;
+            }
+
+            IsChartDrawing = true;
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+            try
+            {
+                chartBackLines.Invalidate();
+                chartBackLines.Update();
                 ChartPASPDrawer.Draw();
                 ChartGradientDrawer.Draw();
+            }
+            finally
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
+                IsChartDrawing = false;
             }
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            AuthorytiData.Speeds = new List<double> { 40, 20, 40, 10, 20, 10, 20, 30, 40, 20, 0 };
-            AuthorytiData.SpeedDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
-            AuthorytiData.Gradients = new List<int> { 0 };
-            AuthorytiData.GradientsDistances = new List<double> { 0, 7000 };
+            /*await TrainData.TrainDataSemaphofe.WaitAsync();
+            AuthoritiyData.Speeds = new List<double> { 40, 20, 40, 10, 20, 10, 20, 30, 40, 20, 0 };
+            AuthoritiyData.SpeedDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
+            AuthoritiyData.Gradients = new List<int> { 0 };
+            AuthoritiyData.GradientsDistances = new List<double> { 0, 7000 };
             SpeedSegragation.CalculateSpeeds();
-            this.Invalidate();
+            await this.Invalidate();
             await Task.Delay(3000);
 
-            AuthorytiData.Speeds = new List<double> { 40,  0 };
-            AuthorytiData.SpeedDistances = new List<double> { 0, 500 };
-            AuthorytiData.Gradients = new List<int> { 40, 20, 40, -10, 20, 10, 20, -30, 40, 20 };
-            AuthorytiData.GradientsDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
+            AuthoritiyData.Speeds = new List<double> { 40,  0 };
+            AuthoritiyData.SpeedDistances = new List<double> { 0, 500 };
+            AuthoritiyData.Gradients = new List<int> { 40, 20, 40, -10, 20, 10, 20, -30, 40, 20 };
+            AuthoritiyData.GradientsDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
             SpeedSegragation.CalculateSpeeds();
-            this.Invalidate();
+            await this.Invalidate();
             await Task.Delay(3000);
 
-            AuthorytiData.Speeds = new List<double> { 160, 140, 120, 200, 60, 0 };
-            AuthorytiData.SpeedDistances = new List<double> { 0, 500, 750, 800, 1640, 2050 };
-            AuthorytiData.Gradients = new List<int> { 0, 10, 20 };
-            AuthorytiData.GradientsDistances = new List<double> { 0, 1000, 4000, 7000 };
+            AuthoritiyData.Speeds = new List<double> { 160, 140, 120, 200, 60, 0 };
+            AuthoritiyData.SpeedDistances = new List<double> { 0, 500, 750, 800, 1640, 2050 };
+            AuthoritiyData.Gradients = new List<int> { 0, 10, 20 };
+            AuthoritiyData.GradientsDistances = new List<double> { 0, 1000, 4000, 7000 };
             SpeedSegragation.CalculateSpeeds();
-            this.Invalidate();
+            await this.Invalidate();
+            Data.TrainData.TrainDataSemaphofe.Release();*/
         }
     }
 }

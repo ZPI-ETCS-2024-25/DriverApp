@@ -44,10 +44,10 @@ namespace DriverETCSApp.Logic.Charts
         {
             Graphics graphics = e.Graphics;
 
-            for (int i = 0; i < AuthorytiData.HigherSpeed.Count; i++)
+            for (int i = 0; i < AuthorityData.HigherSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.HigherDistances[i]));
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.HigherDistances[i]));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -59,13 +59,14 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleUp);
 
-                graphics.DrawString(AuthorytiData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
+                graphics.DrawString(AuthorityData.HigherSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY - 10);
             }
 
-            for (int i = 0; i < AuthorytiData.LowerSpeed.Count; i++)
+            for (int i = 0; i < AuthorityData.LowerSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorytiData.LowerDistances[i]));
+                var x = AuthorityData.LowerDistances[i];
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(x));
 
                 graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
@@ -77,33 +78,9 @@ namespace DriverETCSApp.Logic.Charts
                 };
                 graphics.FillPolygon(SolidBrush, triangleDown);
 
-                graphics.DrawString(AuthorytiData.LowerSpeed[i].ToString(), Font, SolidBrush, pixelX + 10, pixelY);
+                var y = AuthorityData.LowerSpeed[i].ToString();
+                graphics.DrawString(y, Font, SolidBrush, pixelX + 10, pixelY);
             }
         }
-
-        /*public void Update()
-        {
-            var series = Chart.Series["SeriesPointsSpeedLower"];
-            series.Points.Clear();
-            var series1 = Chart.Series["SeriesPointsSpeedHigher"];
-            series1.Points.Clear();
-
-            if (TrainSpeedsAndDistances.Speeds.Count == 0 || TrainSpeedsAndDistances.SpeedDistances.Count == 0)
-            {
-                return;
-            }
-
-            for (int i = 0; i < TrainSpeedsAndDistances.LowerSpeed.Count; i++)
-            {
-                series.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.LowerDistances[i]));
-            }
-
-            for (int i = 0; i < TrainSpeedsAndDistances.HigherSpeed.Count; i++)
-            {
-                series1.Points.AddXY(50, Interpolator.InterpolatePosition(TrainSpeedsAndDistances.HigherDistances[i]));
-            }
-
-            Chart.Invalidate();
-        }*/
     }
 }
