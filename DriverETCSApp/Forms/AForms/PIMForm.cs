@@ -36,8 +36,6 @@ namespace DriverETCSApp.Forms.AForms
         };
 
         const int maxShownDistance = 1000;
-        const float edge = 0.25f;
-        const float distanceForEdge = 500f;
         int distanceLeft = 1010;
         float columnPercentage = 1f; // Percentage 0-1
 
@@ -89,7 +87,7 @@ namespace DriverETCSApp.Forms.AForms
                 return;
 
             distanceLeft = newDistance;
-            if (distanceLeft >= distanceForEdge) {
+            if (distanceLeft >= 500f) {
                 columnPercentage = ((25f / 500f) * distanceLeft + 50f) / 100f;
             }
             else if ( distanceLeft >= 60f){
