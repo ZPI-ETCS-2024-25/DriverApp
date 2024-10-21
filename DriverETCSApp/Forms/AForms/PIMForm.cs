@@ -22,11 +22,11 @@ namespace DriverETCSApp.Forms.AForms
 
         List<(float percentage, bool isBold)> listOfLines = new List<(float, bool)> {
             (0f, true),
-            (0.05f, false),
-            (0.1f, false),
-            (0.15f, false),
-            (0.2f, false),
-            (0.25f, true),
+            (0.065f, false),
+            (0.125f, false),
+            (0.185f, false),
+            (0.245f, false),
+            (0.3f, true),
             (0.37f, false),
             (0.46f, false),
             (0.59f, false),
@@ -86,8 +86,8 @@ namespace DriverETCSApp.Forms.AForms
                 return;
 
             distanceLeft = newDistance;
-            if (distanceLeft >= 500f) {
-                columnPercentage = ((25f / 500f) * distanceLeft + 50f) / 100f;
+            if (distanceLeft > 500f) {
+                columnPercentage = ((0.06f) * distanceLeft + 40f) / 100f;
             }
             else if ( distanceLeft >= 60f){
                 columnPercentage = (int)(64.175f * Math.Log(distanceLeft) - 254.36f) / 143f * 0.7f;
@@ -95,8 +95,6 @@ namespace DriverETCSApp.Forms.AForms
             else {
                 columnPercentage = 0.005f * distanceLeft/10f;
             }
-
-            lbltest.Text = columnPercentage.ToString();
 
             panelPIM.Invalidate();
         }
