@@ -109,16 +109,23 @@ namespace DriverETCSApp.Forms.BForms {
 
                 Pen pen = new Pen(Color.Yellow, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+
+                int offset = 10;
+                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - offset, clockSize - offset);
+                float pointerBoldness = 2f;
+                float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
+                e.Graphics.DrawArc(new Pen(Color.Yellow, 32), insideRect, pointer, pointerBoldness);
             }
 
             // Draw Arc of Cap
             if (speedCap != (0, 0) && speedCap.Item1 < speed) {
-                Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
+                int offset = 10;
+                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - offset, clockSize - offset);
 
-                float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine;
+                float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine - 0.2f;
                 float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine;
 
-                Pen pen = new Pen(speed > speedCap.Item2 ? Color.Red : Color.Orange, 12);
+                Pen pen = new Pen(speed > speedCap.Item2 ? Color.Red : Color.Orange, 32);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
         }
