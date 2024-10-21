@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriverETCSApp.Data;
+using DriverETCSApp.Design;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -21,12 +22,17 @@ namespace DriverETCSApp.Forms.DForms
             InitializeComponent();
             SetStartButtonColor();
             MainForm = mainForm;
+            closeButton.ForeColor = TrainData.IsMisionStarted ? DMIColors.Grey : DMIColors.DarkGrey;
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
 
         public void SetStartButtonColor()
         {
+            if(TrainData.IsMisionStarted)
+            {
+                IsStartActive = false;
+                buttonStart.ForeColor = Design.DMIColors.DarkGrey;
+                return;
+            }
             if(!string.IsNullOrEmpty(TrainData.TrainNumber) && !string.IsNullOrEmpty(TrainData.IDDriver) && !string.IsNullOrEmpty(TrainData.ETCSLevel))
             {
                 if(!string.IsNullOrEmpty(TrainData.TrainCat) && !string.IsNullOrEmpty(TrainData.BrakingMass) 
@@ -50,15 +56,14 @@ namespace DriverETCSApp.Forms.DForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (IsStartActive)
+            if (IsStartActive && !TrainData.IsMisionStarted)
             {
+                TrainData.IsMisionStarted = true;
                 Close();
-                //MainForm.SuspendLayout();
                 MainForm.ShowGFPanels();
                 MainForm.DrawGForm();
                 MainForm.DrawFForm();
                 MainForm.DrawMainDForm();
-                //MainForm.ResumeLayout();
             }
         }
 
@@ -84,6 +89,18 @@ namespace DriverETCSApp.Forms.DForms
         {
             Close();
             MainForm.DrawDFromTrainNumer();
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            if(TrainData.IsMisionStarted)
+            {
+                Close();
+                MainForm.ShowGFPanels();
+                MainForm.DrawGForm();
+                MainForm.DrawFForm();
+                MainForm.DrawMainDForm();
+            }
         }
     }
 }

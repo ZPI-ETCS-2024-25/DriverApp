@@ -302,6 +302,7 @@
   <ItemGroup>
     <Folder Include="Forms\CForms\" />
     <Folder Include="Forms\EForms\" />
+    <Folder Include="UnitTests\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\Settings\Settings.png" />

@@ -70,6 +70,7 @@ namespace DriverETCSApp.Forms.DForms
             this.closeButton.Size = new System.Drawing.Size(164, 100);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "X";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // button10
             // 

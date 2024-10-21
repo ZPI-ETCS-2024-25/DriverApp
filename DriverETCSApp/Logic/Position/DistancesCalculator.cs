@@ -16,7 +16,7 @@ namespace DriverETCSApp.Logic.Position
 
         public DistancesCalculator()
         {
-            ClockTimer = new Timer(Calculate, null, 0, 10);
+            ClockTimer = new Timer(Calculate, null, 0, 500);
             SpeedSegragation = new SpeedSegragation();
         }
 
