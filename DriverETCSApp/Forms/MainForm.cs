@@ -15,8 +15,7 @@ using System.Windows.Forms;
 
 namespace DriverETCSApp.Forms
 {
-    public partial class MainForm : Form
-    {
+    public partial class MainForm : Form {
         private BorderLessForm aForm;
         private BorderLessForm bForm;
         private BorderLessForm cForm;
@@ -32,8 +31,7 @@ namespace DriverETCSApp.Forms
 
         private DistancesCalculator DystancesCalculator;
 
-        public MainForm()
-        {
+        public MainForm() {
             InitializeComponent();
             DoubleBuffered = true;
             DystancesCalculator = new DistancesCalculator();
@@ -61,8 +59,7 @@ namespace DriverETCSApp.Forms
         }*/
 
         //Block keyboards
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
             return true;
         }
 
@@ -71,16 +68,16 @@ namespace DriverETCSApp.Forms
             ETCSBuffer.BufferedGraphics.Render(e.Graphics);
         }*/
 
-        private void DrawDefaulFormsInPanels()
-        {
+        private void DrawDefaulFormsInPanels() {
             DrawDFormIDDriver(false);
             DrawAFormPIM();
             DrawBFormSpeed();
+            DrawCForm();
+            DrawEFormMessages();
             DrawYZFormDefault();
         }
 
-        public void HideGFPanels()
-        {
+        public void HideGFPanels() {
             gPanel.Visible = false;
             fPanel.Visible = false;
             gForm?.Close();
@@ -89,16 +86,14 @@ namespace DriverETCSApp.Forms
             dPanel.Height = 900;
         }
 
-        public void ShowGFPanels()
-        {
+        public void ShowGFPanels() {
             gPanel.Visible = true;
             fPanel.Visible = true;
             dPanel.Width = 492;
             dPanel.Height = 600;
         }
 
-        public void SetFullScreen()
-        {
+        public void SetFullScreen() {
             aPanel.Visible = false;
             bPanel.Visible = false;
             cPanel.Visible = false;
@@ -112,8 +107,7 @@ namespace DriverETCSApp.Forms
             dPanel.Location = new Point(0, 30);
         }
 
-        public void HideFullScreen()
-        {
+        public void HideFullScreen() {
             aPanel.Visible = true;
             bPanel.Visible = true;
             cPanel.Visible = true;
@@ -123,8 +117,7 @@ namespace DriverETCSApp.Forms
             dPanel.Location = new Point(668, 30);
         }
 
-        public void DrawYZFormDefault()
-        {
+        public void DrawYZFormDefault() {
             yForm = new YZForm();
             yForm.TopLevel = false;
             yPanel.Controls.Add(yForm);
@@ -141,6 +134,19 @@ namespace DriverETCSApp.Forms
             aForm.TopLevel = false;
             aPanel.Controls.Add(aForm);
             aForm.Show();
+        }
+        public void DrawCForm() {
+            cForm = new CForms.EmptyCForm();
+            cForm.TopLevel = false;
+            cPanel.Controls.Add(cForm);
+            cForm.Show();
+        }
+
+        public void DrawEFormMessages() {
+            eForm = new EForms.MessagesForm();
+            eForm.TopLevel = false;
+            ePanel.Controls.Add(eForm);
+            eForm.Show();
         }
 
         public void DrawBFormSpeed() {

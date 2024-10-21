@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CForms\EmptyCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CForms\EmptyCForm.Designer.cs">
+      <DependentUpon>EmptyCForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Communication\Port.cs" />
     <Compile Include="Communication\Receiver.cs" />
     <Compile Include="Communication\ReceiverHTTP.cs" />
@@ -92,6 +98,12 @@
     </Compile>
     <Compile Include="Forms\AForms\PIMForm.Designer.cs">
       <DependentUpon>PIMForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EForms\MessagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EForms\MessagesForm.Designer.cs">
+      <DependentUpon>MessagesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
@@ -221,6 +233,9 @@
     <EmbeddedResource Include="BorderLessForm.resx">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CForms\EmptyCForm.resx">
+      <DependentUpon>EmptyCForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AForms\PIMForm.resx">
       <DependentUpon>PIMForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DForms\IDDriverForm.resx">
       <DependentUpon>IDDriverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EForms\MessagesForm.resx">
+      <DependentUpon>MessagesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FForms\ToolbarForm.resx">
       <DependentUpon>ToolbarForm.cs</DependentUpon>
@@ -300,8 +318,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\CForms\" />
-    <Folder Include="Forms\EForms\" />
     <Folder Include="UnitTests\" />
   </ItemGroup>
   <ItemGroup>
