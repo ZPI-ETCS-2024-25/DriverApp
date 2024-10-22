@@ -22,8 +22,8 @@ namespace DriverETCSApp.UnitTests.Logic
 
         private void SetData()
         {
-            AuthorityData.Speeds = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
-            AuthorityData.SpeedDistances = new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 150, 500, 800, 1000, 1550, 2000, 2540, 3500, 5810, 7000 };
+            AuthorityData.Speeds = new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             AuthorityData.Messages = new List<string> { "Test 1", "Test 2" };
@@ -34,13 +34,14 @@ namespace DriverETCSApp.UnitTests.Logic
         [Fact]
         public void TestCalculatorWithoutRemoveElementsInNDirection()
         {
+            Calculator.TurnOffClock();
             TrainData.CalculatedPosition = 100;
             TrainData.LastCalculated = 0;
             TrainData.CalculatedDrivingDirection = "N";
             SetData();
             Calculator.Calculate(this);
-            Assert.Equal(AuthorityData.Speeds, new List<double> { 0, 50, 400, 700, 900, 1450, 1900, 2440, 3400, 5710, 6900 });
-            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
+            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 0, 50, 400, 700, 900, 1450, 1900, 2440, 3400, 5710, 6900 });
+            Assert.Equal(AuthorityData.Speeds, new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
             Assert.Equal(AuthorityData.Gradients, new List<int> { 10, 0, -2, 1, 5, -3 });
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 400, 950, 2400, 3400, 3900, 6900 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
@@ -52,11 +53,11 @@ namespace DriverETCSApp.UnitTests.Logic
         {
             TrainData.CalculatedPosition = 0;
             TrainData.LastCalculated = 100;
-            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedDrivingDirection = "P";
             SetData();
             Calculator.Calculate(this);
-            Assert.Equal(AuthorityData.Speeds, new List<double> { 0, 50, 400, 700, 900, 1450, 1900, 2440, 3400, 5710, 6900 });
-            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
+            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 0, 50, 400, 700, 900, 1450, 1900, 2440, 3400, 5710, 6900 });
+            Assert.Equal(AuthorityData.Speeds, new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
             Assert.Equal(AuthorityData.Gradients, new List<int> { 10, 0, -2, 1, 5, -3 });
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 400, 950, 2400, 3400, 3900, 6900 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
@@ -71,10 +72,10 @@ namespace DriverETCSApp.UnitTests.Logic
             TrainData.CalculatedDrivingDirection = "N";
             SetData();
             Calculator.Calculate(this);
-            Assert.Equal(AuthorityData.Speeds, new List<double> { 0, 300, 500, 1050, 1500, 2040, 3000, 5310, 6500 });
-            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 90, 80, 50, 100, 120, 50, 40, 20, 0 });
-            Assert.Equal(AuthorityData.Gradients, new List<int> { 0, -2, 1, 5, -3 });
-            Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 550, 2000, 3000, 3500, 6500 });
+            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 0, 0, 300, 500, 1050, 1500, 2040, 3000, 5310, 6500 });
+            Assert.Equal(AuthorityData.Speeds, new List<double> { 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
+            Assert.Equal(AuthorityData.Gradients, new List<int> { 10, 0, -2, 1, 5, -3 });
+            Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 0, 550, 2000, 3000, 3500, 6500 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 500 });
         }
@@ -84,13 +85,13 @@ namespace DriverETCSApp.UnitTests.Logic
         {
             TrainData.CalculatedPosition = 0;
             TrainData.LastCalculated = 500;
-            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedDrivingDirection = "P";
             SetData();
             Calculator.Calculate(this);
-            Assert.Equal(AuthorityData.Speeds, new List<double> { 0, 300, 500, 1050, 1500, 2040, 3000, 5310, 6500 });
-            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 90, 80, 50, 100, 120, 50, 40, 20, 0 });
-            Assert.Equal(AuthorityData.Gradients, new List<int> { 0, -2, 1, 5, -3 });
-            Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 550, 2000, 3000, 3500, 6500 });
+            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 0, 0, 300, 500, 1050, 1500, 2040, 3000, 5310, 6500 });
+            Assert.Equal(AuthorityData.Speeds, new List<double> { 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
+            Assert.Equal(AuthorityData.Gradients, new List<int> { 10, 0, -2, 1, 5, -3 });
+            Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 0, 550, 2000, 3000, 3500, 6500 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 500 });
         }

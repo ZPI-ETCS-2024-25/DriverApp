@@ -76,9 +76,8 @@ namespace DriverETCSApp.Logic.Position
                 }
                 if (lastIndex != -1)
                 {
-                    AuthorityData.MessagesDistances.RemoveRange(0, lastIndex);
-                    AuthorityData.Messages.RemoveRange(0, lastIndex);
-                    AuthorityData.MessagesDistances[0] = 0;
+                    AuthorityData.MessagesDistances.RemoveRange(0, lastIndex + 1);
+                    AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
                 }
                 #endregion
             }
@@ -91,7 +90,7 @@ namespace DriverETCSApp.Logic.Position
 
         public void TurnOffClock()
         {
-            ClockTimer = null;
+            ClockTimer.Dispose();
         }
     }
 }

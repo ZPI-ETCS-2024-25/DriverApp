@@ -22,7 +22,8 @@ namespace DriverETCSApp.Data
         //position data
         public static double CalculatedPosition = 0;
         public static string CalculatedDrivingDirection = "";
-        public static double LastCalculated = 11.11;
+        public static double LastCalculated = 0;
+        //public static double LastCalculated = 11.11;
         //public static int CalculatedPosition = 6150;
         //public static string CalculatedDrivingDirection = "N";
 
