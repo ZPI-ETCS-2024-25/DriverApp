@@ -35,7 +35,7 @@ namespace DriverETCSApp.Forms.AForms
         };
 
         const int maxShownDistance = 1000;
-        int distanceLeft = 150;
+        int distanceLeft = 1000;
         float columnPercentage = 1f; // Percentage 0-1
 
         public PIMForm()
@@ -101,7 +101,7 @@ namespace DriverETCSApp.Forms.AForms
                 columnPercentage = (int)(64.175f * Math.Log(distanceLeft) - 254.36f) / 143f * 0.7f;
             }
             else {
-                columnPercentage = 0.005f * distanceLeft/10f;
+                columnPercentage = 0.02f * distanceLeft/10f;
             }
 
             panelPIM.Invalidate();
@@ -112,6 +112,10 @@ namespace DriverETCSApp.Forms.AForms
         private void btnTest1_Click(object sender, EventArgs e)
         {
             SetDistanceLeft(GetDistanceLeft() - 10);
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            SetDistanceLeft(GetDistanceLeft() - 100);
         }
     }
 }
