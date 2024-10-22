@@ -183,7 +183,7 @@ namespace DriverETCSApp.Forms.BForms {
 
         private void btnTest3_Click(object sender, EventArgs e) {
             SetSpeedWarning(0, 60);
-            SetSpeedCap(60, 95);
+            SetSpeedCap(60, 70);
         }
     }
 }
