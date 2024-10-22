@@ -34,12 +34,14 @@ namespace DriverETCSApp.Forms.EForms {
             InitializeComponent();
 
             messages = new List<Message>();
-            messages.Add(new Message("17:31", "Test "));
-            messages.Add(new Message("16:01", "123456789012345678901234567890123456789012345678901234567890"));
-            messages.Add(new Message("15:24", "Najechano na balisę! \nWysłano informację do serwera"));
-            messages.Add(new Message("15:21", "Test 2"));
-            messages.Add(new Message("13:20", "☺"));
+
             messages.Add(new Message("13:11", "Test 3"));
+            messages.Add(new Message("13:20", "☺"));
+            messages.Add(new Message("15:21", "Test 2"));
+            messages.Add(new Message("17:31", "Test "));
+            messages.Add(new Message("15:24", "Najechano na balisę! \nWysłano informację do serwera"));
+            messages.Add(new Message("16:01", "123456789012345678901234567890123456789012345678901234567890"));
+
             RefreshMessages();
         }
 
@@ -87,7 +89,11 @@ namespace DriverETCSApp.Forms.EForms {
         }
 
         private void buttonTest_Click(object sender, EventArgs e) {
-            AddMessage("12:03", "You've got new Message!!!");
+            AddMessage("19:10", "You've got new Message!!!");
+        }
+
+        private void buttonTest2_Click(object sender, EventArgs e) {
+            PopOldestMessage();
         }
 
         private void buttonDown_Click(object sender, EventArgs e) {
@@ -103,6 +109,11 @@ namespace DriverETCSApp.Forms.EForms {
         }
 
         public void RefreshMessages() {
+            if(messages.Count == 0) {
+                messagebox.Text = "";
+                return;
+            }
+
             List<string> linesOfMessages = ConvertToLinesOfStrings(messages.Skip(messageIndex).ToList());
             string result = "";
             for (int i = 0; i < maxLinesShown && i < linesOfMessages.Count; i++) {
@@ -114,6 +125,13 @@ namespace DriverETCSApp.Forms.EForms {
 
         public void AddMessage(string time, string contents) {
             messages.Add(new Message(time, contents));
+            RefreshMessages();
+        }
+
+        public void PopOldestMessage() {
+            if (messages.Count == 0)
+                return;
+            messages.RemoveAt(0);
             RefreshMessages();
         }
 
