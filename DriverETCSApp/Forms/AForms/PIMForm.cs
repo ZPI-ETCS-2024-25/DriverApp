@@ -35,7 +35,7 @@ namespace DriverETCSApp.Forms.AForms
         };
 
         const int maxShownDistance = 1000;
-        int distanceLeft = 1010;
+        int distanceLeft = 150;
         float columnPercentage = 1f; // Percentage 0-1
 
         public PIMForm()
@@ -60,16 +60,17 @@ namespace DriverETCSApp.Forms.AForms
             g.FillRectangle(columnBrush, rect);
 
             // Top Text
-            Brush brush = Brushes.White;
-            string text = distanceLeft.ToString();
-            SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
+            if (columnPercentage != 0f) {
+                Brush brush = Brushes.White;
+                string text = distanceLeft.ToString();
+                SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
 
-            int xText = (int)(panelPIM.Width * rectStartX - textSize.Width/2 + columnWidth/2) ;
-            int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
-            g.DrawString(text, numbersFont, brush, xText, yText);
-           
+                int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 + columnWidth / 2);
+                int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
+                g.DrawString(text, numbersFont, brush, xText, yText);
+            }
+
             // Lines
-
             foreach ((float percentage, bool isBold) in listOfLines)
             {
                 int x1 = panelPIM.Width / 4 + (!isBold ? panelPIM.Width / 8 : 0);
@@ -80,16 +81,23 @@ namespace DriverETCSApp.Forms.AForms
                 g.DrawLine(pen, x1, y1, x2, y1);
             }
         }
-        
+
         public void SetDistanceLeft(int newDistance) {
-            if (newDistance < 0f || newDistance > maxShownDistance)
-                return;
+            if (newDistance <= 0)
+                newDistance = 0;
 
             distanceLeft = newDistance;
-            if (distanceLeft > 500f) {
+
+            if(distanceLeft <= 0f) {
+                columnPercentage = 0f;
+            }
+            if (distanceLeft > 1000f) {
+                columnPercentage = 1f;
+            }
+            else if (distanceLeft > 500f) {
                 columnPercentage = ((0.06f) * distanceLeft + 40f) / 100f;
             }
-            else if ( distanceLeft >= 60f){
+            else if ( distanceLeft >= 100f){
                 columnPercentage = (int)(64.175f * Math.Log(distanceLeft) - 254.36f) / 143f * 0.7f;
             }
             else {
