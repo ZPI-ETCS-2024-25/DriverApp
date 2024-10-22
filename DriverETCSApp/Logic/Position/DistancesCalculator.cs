@@ -20,14 +20,14 @@ namespace DriverETCSApp.Logic.Position
             SpeedSegragation = new SpeedSegragation();
         }
 
-        private void Calculate(object sender)
+        public void Calculate(object sender)
         {
             AuthorityData.AuthoritiyDataSemaphore.Wait();
             TrainData.TrainDataSemaphofe.Wait();
             try
             {
                 var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
-                //TrainData.LastCalculated = TrainData.CalculatedPosition;
+                TrainData.LastCalculated = TrainData.CalculatedPosition;
                 TrainData.TrainDataSemaphofe.Release();
                 #region speeds and distances of speeds
                 int lastIndex = -1;
@@ -87,6 +87,11 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.AuthoritiyDataSemaphore.Release();
                 DistancesCalculationsCompleted?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void TurnOffClock()
+        {
+            ClockTimer = null;
         }
     }
 }
