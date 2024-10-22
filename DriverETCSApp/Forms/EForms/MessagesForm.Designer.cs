@@ -37,16 +37,17 @@
             this.buttonDown.TabIndex = 0;
             this.buttonDown.Text = "\\/";
             this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // messagebox
             // 
             this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.messagebox.Location = new System.Drawing.Point(77, 3);
             this.messagebox.Name = "messagebox";
             this.messagebox.Size = new System.Drawing.Size(514, 185);
             this.messagebox.TabIndex = 3;
-            this.messagebox.Text = "textbox";
+            this.messagebox.Text = "";
             // 
             // buttonUp
             // 
@@ -56,14 +57,15 @@
             this.buttonUp.TabIndex = 4;
             this.buttonUp.Text = "/\\";
             this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(12, 44);
+            this.buttonTest.Location = new System.Drawing.Point(12, 76);
             this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(59, 23);
+            this.buttonTest.Size = new System.Drawing.Size(59, 44);
             this.buttonTest.TabIndex = 5;
-            this.buttonTest.Text = "test";
+            this.buttonTest.Text = "add message";
             this.buttonTest.UseVisualStyleBackColor = true;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
