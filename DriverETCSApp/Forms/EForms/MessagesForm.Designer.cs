@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.buttonDown = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.messagebox = new System.Windows.Forms.RichTextBox();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -37,15 +37,16 @@
             this.buttonDown.TabIndex = 0;
             this.buttonDown.Text = "\\/";
             this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.button1_Click);
             // 
-            // richTextBox1
+            // messagebox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(86, 34);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(495, 124);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.messagebox.Location = new System.Drawing.Point(77, 3);
+            this.messagebox.Name = "messagebox";
+            this.messagebox.Size = new System.Drawing.Size(514, 185);
+            this.messagebox.TabIndex = 3;
+            this.messagebox.Text = "textbox";
             // 
             // buttonUp
             // 
@@ -64,6 +65,7 @@
             this.buttonTest.TabIndex = 5;
             this.buttonTest.Text = "test";
             this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // MessagesForm
             // 
@@ -73,7 +75,7 @@
             this.ClientSize = new System.Drawing.Size(668, 200);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.buttonUp);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.messagebox);
             this.Controls.Add(this.buttonDown);
             this.Name = "MessagesForm";
             this.Text = "MessagesForm";
@@ -84,7 +86,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonDown;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox messagebox;
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Button buttonUp;
     }
