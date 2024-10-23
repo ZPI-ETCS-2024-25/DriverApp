@@ -27,6 +27,7 @@
             this.messagebox = new System.Windows.Forms.RichTextBox();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
+            this.buttonTest2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonDown
@@ -37,16 +38,19 @@
             this.buttonDown.TabIndex = 0;
             this.buttonDown.Text = "\\/";
             this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // messagebox
             // 
+            this.messagebox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.messagebox.ForeColor = System.Drawing.Color.White;
             this.messagebox.Location = new System.Drawing.Point(77, 3);
             this.messagebox.Name = "messagebox";
             this.messagebox.Size = new System.Drawing.Size(514, 185);
             this.messagebox.TabIndex = 3;
-            this.messagebox.Text = "textbox";
+            this.messagebox.Text = "";
             // 
             // buttonUp
             // 
@@ -56,16 +60,27 @@
             this.buttonUp.TabIndex = 4;
             this.buttonUp.Text = "/\\";
             this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(12, 44);
+            this.buttonTest.Location = new System.Drawing.Point(12, 33);
             this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(59, 23);
+            this.buttonTest.Size = new System.Drawing.Size(59, 44);
             this.buttonTest.TabIndex = 5;
-            this.buttonTest.Text = "test";
+            this.buttonTest.Text = "add message";
             this.buttonTest.UseVisualStyleBackColor = true;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
+            // buttonTest2
+            // 
+            this.buttonTest2.Location = new System.Drawing.Point(12, 111);
+            this.buttonTest2.Name = "buttonTest2";
+            this.buttonTest2.Size = new System.Drawing.Size(59, 44);
+            this.buttonTest2.TabIndex = 6;
+            this.buttonTest2.Text = "delete message";
+            this.buttonTest2.UseVisualStyleBackColor = true;
+            this.buttonTest2.Click += new System.EventHandler(this.buttonTest2_Click);
             // 
             // MessagesForm
             // 
@@ -73,6 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(668, 200);
+            this.Controls.Add(this.buttonTest2);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.messagebox);
@@ -89,5 +105,6 @@
         private System.Windows.Forms.RichTextBox messagebox;
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Button buttonUp;
+        private System.Windows.Forms.Button buttonTest2;
     }
 }
