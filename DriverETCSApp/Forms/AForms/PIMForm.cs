@@ -35,7 +35,7 @@ namespace DriverETCSApp.Forms.AForms
         };
 
         const int maxShownDistance = 1000;
-        int distanceLeft = 1000;
+        int distanceLeft = 2000;
         float columnPercentage = 1f; // Percentage 0-1
 
         public PIMForm()
@@ -60,7 +60,7 @@ namespace DriverETCSApp.Forms.AForms
             g.FillRectangle(columnBrush, rect);
 
             // Top Text
-            if (columnPercentage != 0f) {
+            /*if (columnPercentage != 0f) {*/
                 Brush brush = Brushes.White;
                 string text = distanceLeft.ToString();
                 SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
@@ -68,7 +68,7 @@ namespace DriverETCSApp.Forms.AForms
                 int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 + columnWidth / 2);
                 int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
                 g.DrawString(text, numbersFont, brush, xText, yText);
-            }
+            /*}*/
 
             // Lines
             foreach ((float percentage, bool isBold) in listOfLines)
