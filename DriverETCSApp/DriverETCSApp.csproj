@@ -281,6 +281,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Communication\Sender.cs" />
     <Compile Include="Communication\SenderHTTP.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UnitTests\Logic\Position\DistancesCalculatorTests.cs" />
     <EmbeddedResource Include="BorderLessForm.resx">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
@@ -347,14 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -455,6 +455,8 @@
     <Folder Include="UnitTests\Logic\Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Design\Icons\Levels\L0.png" />
+    <Content Include="Design\Icons\Levels\L1.png" />
     <Content Include="Design\Icons\Others\DOWNDarkGray.png" />
     <Content Include="Design\Icons\Others\DOWNGray.png" />
     <Content Include="Design\Icons\Others\UPDarkGray.png" />
