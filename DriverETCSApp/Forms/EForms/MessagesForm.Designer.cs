@@ -32,12 +32,13 @@
             // 
             // buttonDown
             // 
-            this.buttonDown.Location = new System.Drawing.Point(597, 111);
+            this.buttonDown.BackColor = System.Drawing.Color.Transparent;
+            this.buttonDown.Image = global::DriverETCSApp.Properties.Resources.DOWNGray;
+            this.buttonDown.Location = new System.Drawing.Point(592, 101);
             this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(48, 44);
+            this.buttonDown.Size = new System.Drawing.Size(64, 64);
             this.buttonDown.TabIndex = 0;
-            this.buttonDown.Text = "\\/";
-            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.UseVisualStyleBackColor = false;
             this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // messagebox
@@ -54,12 +55,14 @@
             // 
             // buttonUp
             // 
-            this.buttonUp.Location = new System.Drawing.Point(597, 44);
+            this.buttonUp.BackColor = System.Drawing.Color.Transparent;
+            this.buttonUp.FlatAppearance.BorderSize = 0;
+            this.buttonUp.Image = global::DriverETCSApp.Properties.Resources.UPGray;
+            this.buttonUp.Location = new System.Drawing.Point(592, 23);
             this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(48, 44);
+            this.buttonUp.Size = new System.Drawing.Size(64, 64);
             this.buttonUp.TabIndex = 4;
-            this.buttonUp.Text = "/\\";
-            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.UseVisualStyleBackColor = false;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // buttonTest
