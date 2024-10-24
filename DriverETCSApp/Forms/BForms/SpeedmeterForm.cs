@@ -1,4 +1,6 @@
-﻿using DriverETCSApp.Design;
+﻿using DriverETCSApp.Data;
+using DriverETCSApp.Design;
+using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -173,6 +175,13 @@ namespace DriverETCSApp.Forms.BForms {
             clockPanel.Invalidate();
         }
 
+        public void ChangeMode(string mode) {
+            Bitmap newImage = ETCSModes.images[mode];
+            if(newImage != null) {
+                modePicture.Image = newImage;
+            }
+        }
+
         private void btnTest1_Click(object sender, EventArgs e) {
             SetSpeed(this.GetSpeed() + 5);
         }
@@ -184,6 +193,10 @@ namespace DriverETCSApp.Forms.BForms {
         private void btnTest3_Click(object sender, EventArgs e) {
             SetSpeedWarning(0, 60);
             SetSpeedCap(60, 70);
+        }
+
+        private void modePicture_Click(object sender, EventArgs e) {
+            ChangeMode(ETCSModes.PT);
         }
     }
 }

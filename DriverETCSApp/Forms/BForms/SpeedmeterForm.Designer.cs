@@ -50,6 +50,7 @@
             this.modePicture.Size = new System.Drawing.Size(68, 68);
             this.modePicture.TabIndex = 7;
             this.modePicture.TabStop = false;
+            this.modePicture.Click += new System.EventHandler(this.modePicture_Click);
             // 
             // btnTest1
             // 
