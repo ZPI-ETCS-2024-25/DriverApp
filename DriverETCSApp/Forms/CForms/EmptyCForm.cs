@@ -13,14 +13,24 @@ namespace DriverETCSApp.Forms.CForms {
     public partial class EmptyCForm : BorderLessForm {
         public EmptyCForm() {
             InitializeComponent();
-        }
-
-        private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
             levelAnnouncementPicture.Hide();
         }
 
-        private void AnnounceLevel2() {
-            levelAnnouncementPicture.Image = Resources.L2;
+        private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
+            levelAnnouncementPicture.Image = Resources.L2AckWhite;
+        }
+
+        private void buttonLevel2_Click(object sender, EventArgs e) {
+            AnnounceLevel2();
+        }
+
+        public void AnnounceLevel2() {
+            levelAnnouncementPicture.Show();
+            levelAnnouncementPicture.Image = Resources.L2AckYellow;
+        }
+
+        public void Level2Acquired() {
+            levelAnnouncementPicture.Hide();
         }
     }
 }
