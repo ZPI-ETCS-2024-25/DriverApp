@@ -114,7 +114,7 @@ namespace DriverETCSApp.Forms.EForms {
                 return;
             }
 
-            List<string> linesOfMessages = ConvertToLinesOfStrings(messages.Skip(messageIndex).ToList());
+            List<string> linesOfMessages = ConvertToLinesOfStrings(messages.AsEnumerable().Reverse().Skip(messageIndex).ToList());
             string result = "";
             for (int i = 0; i < maxLinesShown && i < linesOfMessages.Count; i++) {
                 result += linesOfMessages[i] + "\n";
