@@ -96,14 +96,14 @@ namespace DriverETCSApp.Forms.EForms {
             PopOldestMessage();
         }
 
-        private void buttonDown_Click(object sender, EventArgs e) {
-            if(messageIndex < messages.Count - 1)
+        private void pictureBox1_Click_1(object sender, EventArgs e) {
+            if (messageIndex < messages.Count - 1)
                 messageIndex++;
             RefreshMessages();
         }
 
-        private void buttonUp_Click(object sender, EventArgs e) {
-            if(messageIndex > 0) 
+        private void pictureBox1_Click(object sender, EventArgs e) {
+            if (messageIndex > 0)
                 messageIndex--;
             RefreshMessages();
         }
@@ -134,6 +134,7 @@ namespace DriverETCSApp.Forms.EForms {
             messages.RemoveAt(0);
             RefreshMessages();
         }
+
 
     }
 }
