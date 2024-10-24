@@ -454,6 +454,12 @@
     <Folder Include="UnitTests\Logic\Charts\" />
     <Folder Include="UnitTests\Logic\Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Design\Icons\Others\DOWNDarkGray.png" />
+    <Content Include="Design\Icons\Others\DOWNGray.png" />
+    <Content Include="Design\Icons\Others\UPDarkGray.png" />
+    <Content Include="Design\Icons\Others\UPGray.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

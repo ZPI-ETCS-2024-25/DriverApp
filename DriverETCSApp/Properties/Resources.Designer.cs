@@ -93,6 +93,26 @@ namespace DriverETCSApp.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DOWNDarkGray {
+            get {
+                object obj = ResourceManager.GetObject("DOWNDarkGray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOWNGray {
+            get {
+                object obj = ResourceManager.GetObject("DOWNGray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FS {
             get {
                 object obj = ResourceManager.GetObject("FS", resourceCulture);
@@ -266,6 +286,26 @@ namespace DriverETCSApp.Properties {
         internal static System.Drawing.Bitmap TripAck {
             get {
                 object obj = ResourceManager.GetObject("TripAck", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UPDarkGray {
+            get {
+                object obj = ResourceManager.GetObject("UPDarkGray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UPGray {
+            get {
+                object obj = ResourceManager.GetObject("UPGray", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
