@@ -41,13 +41,14 @@
             // 
             // levelAnnouncementPicture
             // 
-            this.levelAnnouncementPicture.Image = global::DriverETCSApp.Properties.Resources.L0A;
+            this.levelAnnouncementPicture.Image = global::DriverETCSApp.Properties.Resources.L2AckWhite;
             this.levelAnnouncementPicture.Location = new System.Drawing.Point(296, 1);
             this.levelAnnouncementPicture.Name = "levelAnnouncementPicture";
             this.levelAnnouncementPicture.Size = new System.Drawing.Size(129, 98);
             this.levelAnnouncementPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.levelAnnouncementPicture.TabIndex = 9;
             this.levelAnnouncementPicture.TabStop = false;
+            this.levelAnnouncementPicture.Click += new System.EventHandler(this.levelAnnouncementPicture_Click);
             // 
             // EmptyCForm
             // 

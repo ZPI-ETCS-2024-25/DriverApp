@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,5 +15,12 @@ namespace DriverETCSApp.Forms.CForms {
             InitializeComponent();
         }
 
+        private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
+            levelAnnouncementPicture.Hide();
+        }
+
+        private void AnnounceLevel2() {
+            levelAnnouncementPicture.Image = Resources.L2;
+        }
     }
 }

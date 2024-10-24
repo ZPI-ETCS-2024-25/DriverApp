@@ -103,16 +103,6 @@ namespace DriverETCSApp.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap L0A {
-            get {
-                object obj = ResourceManager.GetObject("L0A", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap L2 {
             get {
                 object obj = ResourceManager.GetObject("L2", resourceCulture);
