@@ -24,23 +24,36 @@
         /// </summary>
         private void InitializeComponent() {
             this.clockPanel = new System.Windows.Forms.Panel();
+            this.modePicture = new System.Windows.Forms.PictureBox();
             this.btnTest1 = new System.Windows.Forms.Button();
             this.btnTest2 = new System.Windows.Forms.Button();
             this.btnTest3 = new System.Windows.Forms.Button();
+            this.clockPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.modePicture)).BeginInit();
             this.SuspendLayout();
             // 
             // clockPanel
             // 
             this.clockPanel.BackColor = System.Drawing.Color.Transparent;
+            this.clockPanel.Controls.Add(this.modePicture);
             this.clockPanel.Location = new System.Drawing.Point(30, 12);
             this.clockPanel.Name = "clockPanel";
             this.clockPanel.Size = new System.Drawing.Size(500, 500);
             this.clockPanel.TabIndex = 2;
             this.clockPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             // 
+            // modePicture
+            // 
+            this.modePicture.Image = global::DriverETCSApp.Properties.Resources.FS;
+            this.modePicture.Location = new System.Drawing.Point(432, 432);
+            this.modePicture.Name = "modePicture";
+            this.modePicture.Size = new System.Drawing.Size(68, 68);
+            this.modePicture.TabIndex = 7;
+            this.modePicture.TabStop = false;
+            // 
             // btnTest1
             // 
-            this.btnTest1.Location = new System.Drawing.Point(429, 526);
+            this.btnTest1.Location = new System.Drawing.Point(455, 555);
             this.btnTest1.Name = "btnTest1";
             this.btnTest1.Size = new System.Drawing.Size(75, 23);
             this.btnTest1.TabIndex = 3;
@@ -50,7 +63,7 @@
             // 
             // btnTest2
             // 
-            this.btnTest2.Location = new System.Drawing.Point(336, 526);
+            this.btnTest2.Location = new System.Drawing.Point(455, 526);
             this.btnTest2.Name = "btnTest2";
             this.btnTest2.Size = new System.Drawing.Size(75, 23);
             this.btnTest2.TabIndex = 4;
@@ -80,6 +93,8 @@
             this.Controls.Add(this.clockPanel);
             this.Name = "SpeedmeterForm";
             this.Text = "SpeedmeterForm";
+            this.clockPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.modePicture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -89,5 +104,6 @@
         private System.Windows.Forms.Button btnTest1;
         private System.Windows.Forms.Button btnTest2;
         private System.Windows.Forms.Button btnTest3;
+        private System.Windows.Forms.PictureBox modePicture;
     }
 }

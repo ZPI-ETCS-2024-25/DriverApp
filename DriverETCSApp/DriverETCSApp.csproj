@@ -454,6 +454,9 @@
     <Folder Include="UnitTests\Logic\Charts\" />
     <Folder Include="UnitTests\Logic\Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Design\Icons\LevelAnnouncements\L0A.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
