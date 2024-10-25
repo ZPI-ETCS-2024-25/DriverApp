@@ -66,7 +66,7 @@ namespace DriverETCSApp.Forms.AForms
                 string text = distanceLeft.ToString();
                 SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
 
-                int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 + columnWidth / 2);
+                int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 /* columnWidth / 2*/);
                 int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
                 g.DrawString(text, numbersFont, brush, xText, yText);
             /*}*/
