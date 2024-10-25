@@ -31,7 +31,7 @@ namespace DriverETCSApp.Logic.Data
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
-                diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - position : TrainData.CalculatedPosition + position;
+                diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - position : position - TrainData.CalculatedPosition;
             }
             finally
             {
@@ -42,7 +42,14 @@ namespace DriverETCSApp.Logic.Data
             int lastIndex = -1;
             for (int i = 0; i < speeddistances.Count; i++)
             {
-                speeddistances[i] = speeddistances[i] - diffrence;
+                if (i == 0 && diffrence < 0)
+                {
+                    
+                }
+                else
+                {
+                    speeddistances[i] = speeddistances[i] - diffrence;
+                }
                 if (speeddistances[i] < 0)
                 {
                     lastIndex = i;
@@ -53,13 +60,20 @@ namespace DriverETCSApp.Logic.Data
                 speeddistances.RemoveRange(0, lastIndex);
                 speeds.RemoveRange(0, lastIndex);
                 speeddistances[0] = 0;
-            }
+            } 
             #endregion
             #region load gradients and distances of gradients
             lastIndex = -1;
             for (int i = 0; i < gradientsDistances.Count; i++)
             {
-                gradientsDistances[i] = gradientsDistances[i] - diffrence;
+                if (i == 0 && diffrence < 0)
+                {
+
+                }
+                else
+                {
+                    gradientsDistances[i] = gradientsDistances[i] - diffrence;
+                }
                 if (gradientsDistances[i] < 0)
                 {
                     lastIndex = i;
@@ -76,7 +90,14 @@ namespace DriverETCSApp.Logic.Data
             lastIndex = -1;
             for (int i = 0; i < messagesDistances.Count; i++)
             {
-                messagesDistances[i] = messagesDistances[i] - diffrence;
+                if (i == 0 && diffrence < 0 && messagesDistances.Count == 1)
+                {
+
+                }
+                else
+                { 
+                    messagesDistances[i] = messagesDistances[i] - diffrence;
+                }
                 if (messagesDistances[i] < 0)
                 {
                     lastIndex = i;

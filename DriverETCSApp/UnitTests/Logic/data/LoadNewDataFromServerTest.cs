@@ -74,22 +74,246 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             {
                     ""MessageType"" : ""MA"",
                     ""Speeds"" : [100, 50, 0],
-                    ""SpeedDistances"" : [500],
-                    ""Gradients"" : [5],
-                    ""GradientsDistances"" : [500],
-                    ""Messages"" : [""TEST1""],
-                    ""MessagesDistances"" : [20],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [20, 1000],
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
             LoadNewDataFromServer.LoadNewData(msg);
 
+            Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0, 500, 1000, 2800 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5, 2, -3 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0, 500, 1800, 2800 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 20, 1000 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void SingleIterationNDirectionNegativeTest()
+        {
+            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedPosition = 500;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [0],
+                    ""SpeedDistances"" : [0],
+                    ""Gradients"" : [5],
+                    ""GradientsDistances"" : [0],
+                    ""Messages"" : [""TEST1""],
+                    ""MessagesDistances"" : [0],
+                    ""ServerPosition"" : 0.450
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
             Assert.Equal(new List<double> { 0 }, AuthorityData.Speeds);
-            Assert.Equal(new List<double> { 500 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
             Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
-            Assert.Equal(new List<double> { 500 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
             Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
-            Assert.Equal(new List<double> { 20 }, AuthorityData.MessagesDistances);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void MultipleIterationNDirectionNegativeTest()
+        {
+            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedPosition = 500;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [100, 50, 0],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [120, 1000],
+                    ""ServerPosition"" : 0.450
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0, 450, 950, 2750 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5, 2, -3 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0, 450, 1750, 2750 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 70, 950 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void SingleIterationNDirectionPositiveTest()
+        {
+            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedPosition = 500;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [0],
+                    ""SpeedDistances"" : [0],
+                    ""Gradients"" : [5],
+                    ""GradientsDistances"" : [0],
+                    ""Messages"" : [""TEST1""],
+                    ""MessagesDistances"" : [0],
+                    ""ServerPosition"" : 0.550
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void MultipleIterationNDirectionPositiveTest()
+        {
+            TrainData.CalculatedDrivingDirection = "N";
+            TrainData.CalculatedPosition = 500;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [100, 50, 0],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [120, 1000],
+                    ""ServerPosition"" : 0.550
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0, 550, 1050, 2850 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5, 2, -3 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0, 550, 1850, 2850 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 170, 1050 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void SingleIterationPDirectionNegativeTest()
+        {
+            TrainData.CalculatedDrivingDirection = "P";
+            TrainData.CalculatedPosition = 450;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [0],
+                    ""SpeedDistances"" : [0],
+                    ""Gradients"" : [5],
+                    ""GradientsDistances"" : [0],
+                    ""Messages"" : [""TEST1""],
+                    ""MessagesDistances"" : [0],
+                    ""ServerPosition"" : 0.500
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void MultipleIterationPDirectionNegativeTest()
+        {
+            TrainData.CalculatedDrivingDirection = "P";
+            TrainData.CalculatedPosition = 450;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [100, 50, 0],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [120, 1000],
+                    ""ServerPosition"" : 0.500
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0, 450, 950, 2750 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5, 2, -3 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0, 450, 1750, 2750 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 70, 950 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void SingleIterationPDirectionPositiveTest()
+        {
+            TrainData.CalculatedDrivingDirection = "P";
+            TrainData.CalculatedPosition = 550;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [0],
+                    ""SpeedDistances"" : [0],
+                    ""Gradients"" : [5],
+                    ""GradientsDistances"" : [0],
+                    ""Messages"" : [""TEST1""],
+                    ""MessagesDistances"" : [0],
+                    ""ServerPosition"" : 0.500
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
+        public void MultipleIterationPDirectionPositiveTest()
+        {
+            TrainData.CalculatedDrivingDirection = "P";
+            TrainData.CalculatedPosition = 550;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [100, 50, 0],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [120, 1000],
+                    ""ServerPosition"" : 0.500
+            }");
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            LoadNewDataFromServer.LoadNewData(msg);
+
+            Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
+            Assert.Equal(new List<double> { 0, 550, 1050, 2850 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<int> { 5, 2, -3 }, AuthorityData.Gradients);
+            Assert.Equal(new List<double> { 0, 550, 1850, 2850 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { 170, 1050 }, AuthorityData.MessagesDistances);
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
     }
