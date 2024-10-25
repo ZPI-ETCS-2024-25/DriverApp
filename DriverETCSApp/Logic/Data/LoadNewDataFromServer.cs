@@ -26,7 +26,7 @@ namespace DriverETCSApp.Logic.Data
             List<string> messages = decodedMessage.Messages.ToObject<List<string>>();
             List<double> messagesDistances = decodedMessage.MessagesDistances.ToObject<List<double>>();
 
-            int position = decodedMessage.Position * 1000;
+            int position = decodedMessage.ServerPosition * 1000;
             double diffrence;
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try

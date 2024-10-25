@@ -286,6 +286,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UnitTests\Logic\Data\LoadNewDataFromServerTest.cs" />
+    <Compile Include="UnitTests\Logic\Data\SpeedSegragationTest.cs" />
     <Compile Include="UnitTests\Logic\Position\DistancesCalculatorTests.cs" />
     <EmbeddedResource Include="BorderLessForm.resx">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
@@ -452,7 +454,6 @@
     <Folder Include="UnitTests\Communication\" />
     <Folder Include="UnitTests\Forms\" />
     <Folder Include="UnitTests\Logic\Charts\" />
-    <Folder Include="UnitTests\Logic\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Design\Icons\Levels\L0.png" />

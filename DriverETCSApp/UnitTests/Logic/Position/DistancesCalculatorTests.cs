@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DriverETCSApp.UnitTests.Logic
+namespace DriverETCSApp.UnitTests.Logic.Position
 {
     public class DistancesCalculatorTests
     {

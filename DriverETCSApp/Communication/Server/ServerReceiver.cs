@@ -43,7 +43,6 @@ namespace DriverETCSApp.Communication.Server
 }
 
 /*
-
 {
     "MessageType" : "MA",
     "Speeds" : [250, 200, 160, 130, 100, 60, 50, 40, 0],
