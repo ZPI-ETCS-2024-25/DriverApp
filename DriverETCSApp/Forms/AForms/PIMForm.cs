@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using DriverETCSApp.Design;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace DriverETCSApp.Forms.AForms
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             // Column
-            Brush columnBrush = Brushes.White;
+            Brush columnBrush = new SolidBrush(DMIColors.Grey);
             int x = (int)(panelPIM.Width * rectStartX);
             int y = (int)(panelPIM.Height * (rectStartY + rectHeight * (1f - columnPercentage))) ;
             int columnWidth = (int)(panelPIM.Width * rectWidth);
@@ -61,7 +62,7 @@ namespace DriverETCSApp.Forms.AForms
 
             // Top Text
             /*if (columnPercentage != 0f) {*/
-                Brush brush = Brushes.White;
+                Brush brush = new SolidBrush(DMIColors.Grey);
                 string text = distanceLeft.ToString();
                 SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
 
@@ -76,7 +77,7 @@ namespace DriverETCSApp.Forms.AForms
                 int x1 = panelPIM.Width / 4 + (!isBold ? panelPIM.Width / 8 : 0);
                 int x2 = (int)(panelPIM.Width * rectStartX * 0.9f);
                 int y1 = (int)(panelPIM.Height * rectStartY) + (int)(panelPIM.Height * rectHeight * percentage);
-                Pen pen = new Pen(Color.White, isBold ? 5f : 2f);
+                Pen pen = new Pen(DMIColors.Grey, isBold ? 5f : 2f);
 
                 g.DrawLine(pen, x1, y1, x2, y1);
             }
