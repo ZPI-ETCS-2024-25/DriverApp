@@ -9,6 +9,7 @@ namespace DriverETCSApp {
         protected string ip;
 
         public abstract Task<string> SendMessage(string msg, Port destination);
+        public abstract Task<string> SendMessageToEndpoint(string msg, Port destination, string endpoint);
 
         public Sender(string ip) {
             this.ip = ip;

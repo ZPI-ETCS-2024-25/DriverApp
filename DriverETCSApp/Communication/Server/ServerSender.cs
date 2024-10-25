@@ -24,7 +24,6 @@ namespace DriverETCSApp.Communication.Server
             //create data
             var data = new
             {
-                Type = "Register",
                 TrainId = TrainData.TrainNumber,
                 LengthMeters = TrainData.Length,
                 MaxSpeed = TrainData.VMax,
@@ -34,14 +33,13 @@ namespace DriverETCSApp.Communication.Server
             string dataSerialized = JsonSerializer.Serialize(data);
             TrainData.IsTrainRegisterOnServer = true;
             //send
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "register");
         }
 
         public async Task UpdateTrainData(string oldNumber)
         {
             var data = new
             {
-                Type = "UpdateData",
                 TrainNumer = oldNumber,
                 TrainId = TrainData.TrainNumber,
                 LengthMeters = TrainData.Length,
@@ -49,26 +47,24 @@ namespace DriverETCSApp.Communication.Server
                 BrakeWeight = TrainData.BrakingMass
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updatedata");
         }
 
         public async Task UnregisterTrainData()
         {
             var data = new
             {
-                Type = "Unregister",
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
             TrainData.IsTrainRegisterOnServer = false;
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
         }
 
         public async Task SendPositionData(string kilometer, string track)
         {
             var data = new
             {
-                Type = "UpdatePosition",
                 TrainId = TrainData.TrainNumber,
                 Kilometer = kilometer,
                 Track = track,
@@ -76,18 +72,17 @@ namespace DriverETCSApp.Communication.Server
                 Direction = TrainData.CalculatedDrivingDirection
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updateposition");
         }
 
         public async Task SendMARequest()
         {
             var data = new
             {
-                Type = "MARequest",
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "marequest");
         }
 
         public async Task SendSpeedUpdate(double currSpeed)
@@ -97,12 +92,11 @@ namespace DriverETCSApp.Communication.Server
             {
                 var data = new
                 {
-                    Type = "SpeedUpdate",
                     TrainId = TrainData.TrainNumber,
                     Speed = currSpeed
                 };
                 string dataSerialized = JsonSerializer.Serialize(data);
-                await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+                await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
             }
             finally
             {
