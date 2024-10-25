@@ -287,6 +287,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UnitTests\Logic\Charts\ChartDrawerPASPTest.cs" />
+    <Compile Include="UnitTests\Logic\Charts\ChartInterpolateTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartScaleDrawerTest.cs" />
     <Compile Include="UnitTests\Logic\Data\LoadNewDataFromServerTest.cs" />
     <Compile Include="UnitTests\Logic\Data\SpeedSegragationTest.cs" />
