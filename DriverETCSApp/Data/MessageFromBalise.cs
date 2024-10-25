@@ -2,23 +2,23 @@
 {
     internal class MessageFromBalise
     {
-        public string Kilometer { get; set; }
-        public int Number { get; set; }
-        public int GroupSize { get; set; }
-        public string Track { get; set; }
-        public int Line { get; set; }
-        public string MessageType { get; set; }
+        public string kilometer { get; set; }
+        public int number { get; set; }
+        public int numberOfBalises { get; set; }
+        public string trackNumber { get; set; }
+        public int lineNumber { get; set; }
+        public string messageType { get; set; }
 
         public MessageFromBalise() { }
 
-        public MessageFromBalise(string kilometer, int number, int groupSize, string trackNumber, int lineNumber, string messageType)
+        public MessageFromBalise(string kilometer, int number, int numberOfBalises, string trackNumber, int lineNumber, string messageType)
         {
-            Kilometer = kilometer;
-            Number = number;
-            GroupSize = groupSize;
-            Track = trackNumber;
-            Line = lineNumber;
-            MessageType = messageType;
+            this.kilometer = kilometer;
+            this.number = number;
+            this.numberOfBalises = numberOfBalises;
+            this.trackNumber = trackNumber;
+            this.lineNumber = lineNumber;
+            this.messageType = messageType;
         }
     }
 }
