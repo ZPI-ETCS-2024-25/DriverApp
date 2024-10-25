@@ -35,7 +35,7 @@
             this.levelPicture.Image = global::DriverETCSApp.Properties.Resources.L2;
             this.levelPicture.Location = new System.Drawing.Point(0, 1);
             this.levelPicture.Name = "levelPicture";
-            this.levelPicture.Size = new System.Drawing.Size(108, 52);
+            this.levelPicture.Size = new System.Drawing.Size(104, 42);
             this.levelPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.levelPicture.TabIndex = 10;
             this.levelPicture.TabStop = false;
@@ -43,9 +43,9 @@
             // levelAnnouncementPicture
             // 
             this.levelAnnouncementPicture.Image = global::DriverETCSApp.Properties.Resources.L2AckWhite;
-            this.levelAnnouncementPicture.Location = new System.Drawing.Point(296, 1);
+            this.levelAnnouncementPicture.Location = new System.Drawing.Point(276, 0);
             this.levelAnnouncementPicture.Name = "levelAnnouncementPicture";
-            this.levelAnnouncementPicture.Size = new System.Drawing.Size(129, 98);
+            this.levelAnnouncementPicture.Size = new System.Drawing.Size(116, 100);
             this.levelAnnouncementPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.levelAnnouncementPicture.TabIndex = 9;
             this.levelAnnouncementPicture.TabStop = false;
