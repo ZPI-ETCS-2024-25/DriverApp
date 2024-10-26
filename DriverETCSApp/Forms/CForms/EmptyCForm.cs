@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,9 +18,12 @@ namespace DriverETCSApp.Forms.CForms {
 
         private bool IsAckActiveToClick;
         private bool IsBorderVisible;
-        private Timer Timer;
-        private Timer TimerStop;
-        private Timer TimerLevelChange;
+
+        private System.Threading.Timer Timer;
+        private System.Threading.Timer TimerStop;
+        private System.Threading.Timer TimerLevelChange;
+
+        private AckInfo LastAckInfo;
 
         public EmptyCForm() {
             InitializeComponent();
@@ -27,17 +31,11 @@ namespace DriverETCSApp.Forms.CForms {
             IsAckActiveToClick = false;
             IsBorderVisible = false;
 
-            Timer = new Timer();
-            Timer.Interval = 250;
-            Timer.Tick += TimerTick;
+            Timer = new System.Threading.Timer(TimerBorderTick, null, Timeout.Infinite, Timeout.Infinite);
 
-            TimerStop = new Timer();
-            TimerStop.Interval = 5000;
-            TimerStop.Tick += StopTrain;
+            TimerStop = new System.Threading.Timer(StopTrain, null, Timeout.Infinite, Timeout.Infinite);
 
-            TimerLevelChange = new Timer();
-            TimerLevelChange.Interval = 5000;
-            TimerLevelChange.Tick += ChangeLevel;
+            TimerLevelChange = new System.Threading.Timer(ChangeLevel, null, Timeout.Infinite, Timeout.Infinite);
 
             ETCSEvents.AckChanged += AnnounceChangeLevel;
             //ETCSEvents.LevelChanged +=
@@ -47,55 +45,74 @@ namespace DriverETCSApp.Forms.CForms {
             if (IsAckActiveToClick)
             {
                 IsAckActiveToClick = false;
-                Timer.Stop();
-                TimerStop.Stop();
-                TimerLevelChange.Start();
-                levelAnnouncementPicture.Image = Resources.L2AckWhite;
+                Timer.Change(Timeout.Infinite, Timeout.Infinite);
+                TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
+                TimerLevelChange.Change(5000, 5000);
+                levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
+                IsBorderVisible = false;
+                levelAnnouncementPicture.Invalidate();
             }
         }
 
-        public async void AnnounceChangeLevel(object sender, AckInfo e) {
+        private async void AnnounceChangeLevel(object sender, AckInfo e) {
             levelAnnouncementPicture.Image = e.Bitmap;
-            await Task.Delay(17500);
-            IsAckActiveToClick = true;
-            levelAnnouncementPicture.Image = e.FlashingBitmap;
-            Timer.Start();
-            Timer.Enabled = true;
-            TimerStop.Start();
+            LastAckInfo = e;
+            await Task.Delay(1750);
+            WaitToChangeLevel(e);
         }
 
-        private void TimerTick(object sender, EventArgs e)
+        private void WaitToChangeLevel(AckInfo e)
         {
-            levelAnnouncementPicture.Invalidate();
-            levelAnnouncementPicture.Update();
+            IsAckActiveToClick = true;
+            levelAnnouncementPicture.Image = e.FlashingBitmap;
+
+            Timer.Change(0, 250);
+            TimerStop.Change(5000, 5000);
+        }
+
+        private void TimerBorderTick(object sender)
+        {
+            if (IsHandleCreated)
+            {
+                Invoke(new Action(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        IsBorderVisible = !IsBorderVisible;
+                        levelAnnouncementPicture.Invalidate();
+                        levelAnnouncementPicture.Update();
+                    }
+                }));
+            }
         }
 
         private void levelAnnouncementPicture_Paint(object sender, PaintEventArgs e)
         {
             if (IsBorderVisible)
             {
-                Rectangle rectangle = new Rectangle(levelAnnouncementPicture.Location.X, levelAnnouncementPicture.Location.Y, levelAnnouncementPicture.Width - 1, levelAnnouncementPicture.Height - 1);
+                Rectangle rectangle = new Rectangle(0, 0, levelAnnouncementPicture.Width - 1, levelAnnouncementPicture.Height - 1);
 
-                using (Pen pen = new Pen(DMIColors.Yellow, 3))
+                using (Pen pen = new Pen(DMIColors.Yellow, 5))
                 {
                     e.Graphics.DrawRectangle(pen, rectangle);
                 }
             }
-
-            IsBorderVisible = !IsBorderVisible;
         }
 
-        private void StopTrain(object sender, EventArgs e)
+        private void StopTrain(object sender)
         {
             Console.WriteLine("TRAIN STOP!");
+            TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
-        private void ChangeLevel(object sender, EventArgs e)
+        private void ChangeLevel(object sender)
         {
-            Timer.Stop();
-            TimerStop.Stop();
-            TimerLevelChange.Stop();
+            Timer.Change(Timeout.Infinite, Timeout.Infinite);
+            TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
+            TimerLevelChange.Change(Timeout.Infinite, Timeout.Infinite);
             levelAnnouncementPicture.Image = null;
+            IsBorderVisible = false;
+            IsAckActiveToClick = false;
         }
     }
 }
