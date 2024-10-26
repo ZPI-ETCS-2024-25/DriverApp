@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace DriverETCSApp.Events
 {
@@ -14,6 +15,8 @@ namespace DriverETCSApp.Events
         public static event EventHandler<LevelInfo> LevelChanged;
         public static event EventHandler<AckInfo> AckChanged;
         public static event EventHandler<MessageInfo> NewSystemMessage;
+        public static event EventHandler<ChangeLevelIcon> ChangeLevelIcon;
+        public static event EventHandler MisionStarted;
         public static event EventHandler ForceToChangeBaliseType;
 
         public static void OnModeChanged(ModeInfo modeInfo)
@@ -39,6 +42,16 @@ namespace DriverETCSApp.Events
         public static void OnNewSystemMessage(MessageInfo messageInfo)
         {
             NewSystemMessage?.Invoke(null, messageInfo);
+        }
+
+        public static void OnChangeLevelIcon(ChangeLevelIcon changeLevelIcon)
+        {
+            ChangeLevelIcon?.Invoke(null, changeLevelIcon);
+        }
+
+        public static void OnMisionStarted()
+        {
+            MisionStarted?.Invoke(null, EventArgs.Empty);
         }
     }
 }

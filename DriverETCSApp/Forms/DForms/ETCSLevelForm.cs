@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using DriverETCSApp.Data;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Events;
+using System.Security.AccessControl;
+using DriverETCSApp.Properties;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -57,6 +59,7 @@ namespace DriverETCSApp.Forms.DForms
                 await Data.TrainData.TrainDataSemaphofe.WaitAsync();
                 TrainData.ETCSLevel = label2.Text;
                 ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Wybrano poziom"));
+                SetUpMode();
                 Data.TrainData.TrainDataSemaphofe.Release();
                 Close();
                 MainForm.DrawDFormMenu();
@@ -69,6 +72,25 @@ namespace DriverETCSApp.Forms.DForms
             {
                 Close();
                 MainForm.DrawDFormMenu();
+            }
+        }
+
+        private void SetUpMode()
+        {
+            if(!TrainData.IsMisionStarted)
+            {
+                if (TrainData.ETCSLevel.Equals(ETCSLevel.Poziom2))
+                {
+                    ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.L2));
+                }
+                else
+                {
+                    ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.SHP));
+                }
+            }
+            else
+            {
+                
             }
         }
     }

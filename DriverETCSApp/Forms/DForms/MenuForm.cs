@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -25,8 +26,9 @@ namespace DriverETCSApp.Forms.DForms
             closeButton.ForeColor = TrainData.IsMisionStarted ? DMIColors.Grey : DMIColors.DarkGrey;
         }
 
-        public void SetStartButtonColor()
+        public async void SetStartButtonColor()
         {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             if(TrainData.IsMisionStarted)
             {
                 IsStartActive = false;
@@ -52,13 +54,17 @@ namespace DriverETCSApp.Forms.DForms
                 IsStartActive = false;
                 buttonStart.ForeColor = Design.DMIColors.DarkGrey;
             }
+            TrainData.TrainDataSemaphofe.Release();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (IsStartActive && !TrainData.IsMisionStarted)
             {
+                await TrainData.TrainDataSemaphofe.WaitAsync();
                 TrainData.IsMisionStarted = true;
+                ETCSEvents.OnMisionStarted();
+                TrainData.TrainDataSemaphofe.Release();
                 Close();
                 MainForm.ShowGFPanels();
                 MainForm.DrawGForm();

@@ -19,18 +19,21 @@ namespace DriverETCSApp.Forms.CForms {
 
         private bool IsAckActiveToClick;
         private bool IsBorderVisible;
+        private bool IsAfterMissionStarted;
 
         private System.Threading.Timer Timer;
         private System.Threading.Timer TimerStop;
         private System.Threading.Timer TimerLevelChange;
 
         private AckInfo LastAckInfo;
+        private ModeInfo LastModeInfo;
 
         public EmptyCForm() {
             InitializeComponent();
 
             IsAckActiveToClick = false;
             IsBorderVisible = false;
+            IsAfterMissionStarted = false;
 
             Timer = new System.Threading.Timer(TimerBorderTick, null, Timeout.Infinite, Timeout.Infinite);
 
@@ -40,25 +43,47 @@ namespace DriverETCSApp.Forms.CForms {
 
             ETCSEvents.AckChanged += AnnounceChangeLevel;
             ETCSEvents.LevelChanged += ForceToChangeLevel;
+            ETCSEvents.ChangeLevelIcon += ChangeLevelByMenu;
+            ETCSEvents.MisionStarted += MisionStarted;
         }
 
         private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
             if (IsAckActiveToClick)
             {
-                IsAckActiveToClick = false;
-                Timer.Change(Timeout.Infinite, Timeout.Infinite);
-                TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
-                TimerLevelChange.Change(5000, 5000);
-                levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
-                IsBorderVisible = false;
-                levelAnnouncementPicture.Invalidate();
-                if (LastAckInfo.WillBeActive)
+                if (!IsAfterMissionStarted)
                 {
-                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
+                    IsAckActiveToClick = false;
+                    Timer.Change(Timeout.Infinite, Timeout.Infinite);
+                    TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
+                    TimerLevelChange.Change(5000, 5000);
+                    levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
+                    IsBorderVisible = false;
+                    levelAnnouncementPicture.Invalidate();
+                    if (LastAckInfo.WillBeActive)
+                    {
+                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
+                    }
+                    else
+                    {
+                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom SHP potwierdzony"));
+                    }
                 }
                 else
                 {
-                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom SHP potwierdzony"));
+                    IsAfterMissionStarted = false;
+                    levelAnnouncementPicture.Invalidate();
+                    Change();
+                    if(LastModeInfo.Mode.Equals(ETCSModes.STM))
+                    {
+                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "SN zatwierdzony"));
+                        TrainData.ActiveMode = ETCSModes.STM;
+                    }
+                    else
+                    {
+                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "OS zatwierdzony"));
+                        TrainData.ActiveMode = ETCSModes.OS;
+                    }
+                    ETCSEvents.OnModeChanged(LastModeInfo);
                 }
             }
         }
@@ -161,6 +186,30 @@ namespace DriverETCSApp.Forms.CForms {
             levelAnnouncementPicture.Image = null;
             IsBorderVisible = false;
             IsAckActiveToClick = false;
+        }
+
+        private void ChangeLevelByMenu(object sender, ChangeLevelIcon e)
+        {
+            levelPicture.Image = e.Icon;
+        }
+
+        private void MisionStarted(object sender, EventArgs e)
+        {
+            IsAckActiveToClick = true;
+            IsBorderVisible = true;
+            IsAfterMissionStarted = true;
+
+            if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))
+            {
+                levelAnnouncementPicture.Image = Resources.STMAck;
+                LastModeInfo = new ModeInfo(Resources.STM, ETCSModes.STM);
+            }
+            else
+            {
+                levelAnnouncementPicture.Image = Resources.OSAck;
+                LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
+            }
+            Timer.Change(0, 250);
         }
     }
 }
