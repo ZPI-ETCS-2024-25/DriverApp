@@ -76,10 +76,12 @@ namespace DriverETCSApp.Communication.Server
 
         public async Task SendMARequest()
         {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             var data = new
             {
                 TrainId = TrainData.TrainNumber
             };
+            TrainData.TrainDataSemaphofe.Release();
             string dataSerialized = JsonSerializer.Serialize(data);
             await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "marequest");
         }

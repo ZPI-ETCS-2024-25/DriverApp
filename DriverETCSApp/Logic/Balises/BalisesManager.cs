@@ -26,6 +26,7 @@ namespace DriverETCSApp.Logic.Balises
             //OFF -> set after LTO, should ignore every balises
             //Ignore_OFF -> set after ETCS is activated, require to ignore LTA and LTO messages
             LastBaliseType = "";
+            ETCSEvents.ForceToChangeBaliseType += ForceChangeType;
         }
 
         public async void Manage(MessageFromBalise decodedMessage)
@@ -182,6 +183,11 @@ namespace DriverETCSApp.Logic.Balises
             }
 
             await Position(message);
+        }
+
+        private void ForceChangeType(object sender, BaliseInfo e)
+        {
+            LastBaliseType = e.Info;
         }
     }
 }

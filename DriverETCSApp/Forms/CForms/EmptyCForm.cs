@@ -1,4 +1,5 @@
-﻿using DriverETCSApp.Data;
+﻿using DriverETCSApp.Communication.Server;
+using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,13 +29,16 @@ namespace DriverETCSApp.Forms.CForms {
 
         private AckInfo LastAckInfo;
         private ModeInfo LastModeInfo;
+        private ServerSender ServerSender;
 
-        public EmptyCForm() {
+        public EmptyCForm(ServerSender serverSender) {
             InitializeComponent();
 
             IsAckActiveToClick = false;
             IsBorderVisible = false;
             IsAfterMissionStarted = false;
+
+            ServerSender = serverSender;
 
             Timer = new System.Threading.Timer(TimerBorderTick, null, Timeout.Infinite, Timeout.Infinite);
 
@@ -150,6 +155,7 @@ namespace DriverETCSApp.Forms.CForms {
                 TrainData.ETCSLevel = ETCSLevel.Poziom2;
                 TrainData.ActiveMode = ETCSModes.FS;
                 ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                _ = ServerSender.SendMARequest();
             }
             else
             {
@@ -169,6 +175,7 @@ namespace DriverETCSApp.Forms.CForms {
                 TrainData.ETCSLevel = ETCSLevel.Poziom2;
                 TrainData.ActiveMode = ETCSModes.FS;
                 ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                _ = ServerSender.SendMARequest();
             }
             else
             {

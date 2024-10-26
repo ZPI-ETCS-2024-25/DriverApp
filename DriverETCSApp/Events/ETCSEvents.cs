@@ -17,7 +17,7 @@ namespace DriverETCSApp.Events
         public static event EventHandler<MessageInfo> NewSystemMessage;
         public static event EventHandler<ChangeLevelIcon> ChangeLevelIcon;
         public static event EventHandler MisionStarted;
-        public static event EventHandler ForceToChangeBaliseType;
+        public static event EventHandler<BaliseInfo> ForceToChangeBaliseType;
 
         public static void OnModeChanged(ModeInfo modeInfo)
         {
@@ -52,6 +52,11 @@ namespace DriverETCSApp.Events
         public static void OnMisionStarted()
         {
             MisionStarted?.Invoke(null, EventArgs.Empty);
+        }
+
+        public static void OnForceToChangeBaliseType(BaliseInfo baliseInfo)
+        {
+            ForceToChangeBaliseType?.Invoke(null, baliseInfo);
         }
     }
 }
