@@ -1,5 +1,7 @@
 ﻿using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Events;
+using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,8 @@ namespace DriverETCSApp.Forms.BForms {
             needleLength = halfClockSize - 30;
 
             numbersFont = new Font(this.Font.FontFamily, 17f, this.Font.Style, this.Font.Unit);
+
+            ETCSEvents.ModeChanged += modeChanged;
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
@@ -175,8 +179,7 @@ namespace DriverETCSApp.Forms.BForms {
             clockPanel.Invalidate();
         }
 
-        public void ChangeMode(string mode) {
-            Bitmap newImage = ETCSModes.images[mode];
+        public void ChangeMode(Bitmap newImage) {
             if(newImage != null) {
                 modePicture.Image = newImage;
             }
@@ -195,8 +198,8 @@ namespace DriverETCSApp.Forms.BForms {
             SetSpeedCap(60, 70);
         }
 
-        private void modePicture_Click(object sender, EventArgs e) {
-            ChangeMode(ETCSModes.PT);
+        private void modeChanged(object sender, ModeInfo e) {
+            ChangeMode(e.Bitmap);
         }
     }
 }

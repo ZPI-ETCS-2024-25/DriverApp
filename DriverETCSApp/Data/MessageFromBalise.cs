@@ -1,6 +1,6 @@
 ﻿namespace DriverETCSApp.Data
 {
-    internal class MessageFromBalise
+    public class MessageFromBalise
     {
         public string kilometer { get; set; }
         public int number { get; set; }

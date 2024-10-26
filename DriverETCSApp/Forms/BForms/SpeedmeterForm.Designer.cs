@@ -44,13 +44,12 @@
             // 
             // modePicture
             // 
-            this.modePicture.Image = global::DriverETCSApp.Properties.Resources.FS;
+            this.modePicture.Image = global::DriverETCSApp.Properties.Resources.SB;
             this.modePicture.Location = new System.Drawing.Point(432, 432);
             this.modePicture.Name = "modePicture";
             this.modePicture.Size = new System.Drawing.Size(64, 64);
             this.modePicture.TabIndex = 7;
             this.modePicture.TabStop = false;
-            this.modePicture.Click += new System.EventHandler(this.modePicture_Click);
             // 
             // btnTest1
             // 

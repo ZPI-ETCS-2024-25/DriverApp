@@ -130,6 +130,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\ETCSEventArgs\BaliseModeInfo.cs" />
+    <Compile Include="Events\ETCSEventArgs\ConnectionInfo.cs" />
+    <Compile Include="Events\ETCSEventArgs\LevelInfo.cs" />
+    <Compile Include="Events\ETCSEvents.cs" />
+    <Compile Include="Events\ETCSEventArgs\ModeInfo.cs" />
     <Compile Include="Forms\CForms\EmptyCForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +161,7 @@
     <Compile Include="Forms\EForms\MessagesForm.Designer.cs">
       <DependentUpon>MessagesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Balises\BalisesManager.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
@@ -458,6 +464,7 @@
     <Folder Include="UnitTests\Forms\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Design\Icons\ETCSConnection\NoConnection.png" />
     <Content Include="Design\Icons\Levels\L0.png" />
     <Content Include="Design\Icons\Levels\L1.png" />
     <Content Include="Design\Icons\Others\DOWNDarkGray.png" />

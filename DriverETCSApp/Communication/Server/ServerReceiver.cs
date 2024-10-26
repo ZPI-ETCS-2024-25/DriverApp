@@ -1,5 +1,7 @@
 ﻿using DriverETCSApp.Data;
+using DriverETCSApp.Events;
 using DriverETCSApp.Logic.Data;
+using DriverETCSApp.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,9 +23,14 @@ namespace DriverETCSApp.Communication.Server
         public void Proccess(string message)
         {
             dynamic decodedMessage = JsonConvert.DeserializeObject(message);
-            if (decodedMessage.MessageType == "MA")
+            switch (decodedMessage.MessageType)
             {
-                LoadNewAuthorityData(decodedMessage);
+                case "MA":
+                    LoadNewAuthorityData(decodedMessage);
+                    break;
+                case "RA":
+                    ConnectionWithRBC(decodedMessage);
+                    break;
             }
         }
 
@@ -37,6 +44,29 @@ namespace DriverETCSApp.Communication.Server
             finally
             {
                 AuthorityData.AuthoritiyDataSemaphore.Release();
+            }
+        }
+
+        private async void ConnectionWithRBC(dynamic decodedMessage)
+        {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
+            {
+                if (decodedMessage.RegisterSuccess)
+                {
+                    TrainData.IsTrainRegisterOnServer = true;
+                    TrainData.IsConnectionWorking = true;
+                    ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
+                }
+                else
+                {
+                    TrainData.IsTrainRegisterOnServer = false;
+                    TrainData.IsConnectionWorking = false;
+                }
+            }
+            finally
+            {
+                TrainData.TrainDataSemaphofe.Release();
             }
         }
     }

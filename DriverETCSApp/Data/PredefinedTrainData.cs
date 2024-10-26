@@ -29,8 +29,8 @@ namespace DriverETCSApp.Data
         public static PredefinedTrain DefaultTrain = new PredefinedTrain(
             "Default",
             "PASS 3",
-            "30",
-            "15",
+            "100",
+            "120",
             "100"
         );
     }

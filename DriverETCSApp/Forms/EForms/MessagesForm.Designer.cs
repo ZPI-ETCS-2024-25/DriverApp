@@ -68,7 +68,6 @@
             // 
             // RBCConnectionPicture
             // 
-            this.RBCConnectionPicture.Image = global::DriverETCSApp.Properties.Resources.ConnectionSet;
             this.RBCConnectionPicture.Location = new System.Drawing.Point(1, 3);
             this.RBCConnectionPicture.Name = "RBCConnectionPicture";
             this.RBCConnectionPicture.Size = new System.Drawing.Size(104, 42);

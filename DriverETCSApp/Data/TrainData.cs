@@ -13,12 +13,17 @@ namespace DriverETCSApp.Data
         public static string VMax = "";
         public static string BrakingMass = "";
         public static double ActualSpeed = 0;
+
+
         //etcs data
         public static string ETCSLevel = "";
         public static string ActiveMode = "";
         public static bool IsMisionStarted = false;
         public static bool IsETCSActive = false;
         public static bool IsTrainRegisterOnServer = false;
+        public static bool IsConnectionWorking = false;
+
+
         //position data
         public static double CalculatedPosition = 0;
         public static string CalculatedDrivingDirection = "";

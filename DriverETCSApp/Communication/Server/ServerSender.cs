@@ -31,7 +31,6 @@ namespace DriverETCSApp.Communication.Server
             };
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
-            TrainData.IsTrainRegisterOnServer = true;
             //send
             await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "register");
         }
