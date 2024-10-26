@@ -16,77 +16,82 @@ namespace DriverETCSApp.Logic.Position
 
         public DistancesCalculator()
         {
-            ClockTimer = new Timer(Calculate, null, 0, 500);
+            ClockTimer = new Timer(Initcalculate, null, 0, 500);
             SpeedSegragation = new SpeedSegragation();
         }
 
-        public void Calculate(object sender)
+        public void Initcalculate(object sender)
         {
             AuthorityData.AuthoritiyDataSemaphore.Wait();
             TrainData.TrainDataSemaphofe.Wait();
             try
             {
-                var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
-                TrainData.LastCalculated = TrainData.CalculatedPosition;
-                //TrainData.CalculatedPosition += 11.11;
-                TrainData.TrainDataSemaphofe.Release();
-                #region speeds and distances of speeds
-                int lastIndex = -1;
-                for (int i = 0; i < AuthorityData.SpeedDistances.Count; i++)
-                {
-                    AuthorityData.SpeedDistances[i] = AuthorityData.SpeedDistances[i] - diffrence;
-                    if (AuthorityData.SpeedDistances[i] < 0)
-                    {
-                        lastIndex = i;
-                    }
-                }
-                if (lastIndex != -1)
-                {
-                    AuthorityData.SpeedDistances.RemoveRange(0, lastIndex);
-                    AuthorityData.Speeds.RemoveRange(0, lastIndex);
-                    AuthorityData.SpeedDistances[0] = 0;
-                }
-                SpeedSegragation.CalculateSpeeds();
-                #endregion
-                #region gradients and distances of gradients
-                lastIndex = -1;
-                for (int i = 0; i < AuthorityData.GradientsDistances.Count; i++)
-                {
-                    AuthorityData.GradientsDistances[i] = AuthorityData.GradientsDistances[i] - diffrence;
-                    if (AuthorityData.GradientsDistances[i] < 0)
-                    {
-                        lastIndex = i;
-                    }
-                }
-                if (lastIndex != -1)
-                {
-                    AuthorityData.GradientsDistances.RemoveRange(0, lastIndex);
-                    AuthorityData.Gradients.RemoveRange(0, lastIndex);
-                    AuthorityData.GradientsDistances[0] = 0;
-                }
-                #endregion
-                #region messages and distances of messages
-                lastIndex = -1;
-                for (int i = 0; i < AuthorityData.MessagesDistances.Count; i++)
-                {
-                    AuthorityData.MessagesDistances[i] = AuthorityData.MessagesDistances[i] - diffrence;
-                    if (AuthorityData.MessagesDistances[i] < 0)
-                    {
-                        lastIndex = i;
-                    }
-                }
-                if (lastIndex != -1)
-                {
-                    AuthorityData.MessagesDistances.RemoveRange(0, lastIndex + 1);
-                    AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
-                }
-                #endregion
             }
             finally
             {
+                TrainData.TrainDataSemaphofe.Release();
                 AuthorityData.AuthoritiyDataSemaphore.Release();
                 DistancesCalculationsCompleted?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void Calculate(object sender)
+        {
+            var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
+            TrainData.LastCalculated = TrainData.CalculatedPosition;
+            //TrainData.CalculatedPosition += 11.11;
+
+            #region speeds and distances of speeds
+            int lastIndex = -1;
+            for (int i = 0; i < AuthorityData.SpeedDistances.Count; i++)
+            {
+                AuthorityData.SpeedDistances[i] = AuthorityData.SpeedDistances[i] - diffrence;
+                if (AuthorityData.SpeedDistances[i] < 0)
+                {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1)
+            {
+                AuthorityData.SpeedDistances.RemoveRange(0, lastIndex);
+                AuthorityData.Speeds.RemoveRange(0, lastIndex);
+                AuthorityData.SpeedDistances[0] = 0;
+            }
+            SpeedSegragation.CalculateSpeeds();
+            #endregion
+            #region gradients and distances of gradients
+            lastIndex = -1;
+            for (int i = 0; i < AuthorityData.GradientsDistances.Count; i++)
+            {
+                AuthorityData.GradientsDistances[i] = AuthorityData.GradientsDistances[i] - diffrence;
+                if (AuthorityData.GradientsDistances[i] < 0)
+                {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1)
+            {
+                AuthorityData.GradientsDistances.RemoveRange(0, lastIndex);
+                AuthorityData.Gradients.RemoveRange(0, lastIndex);
+                AuthorityData.GradientsDistances[0] = 0;
+            }
+            #endregion
+            #region messages and distances of messages
+            lastIndex = -1;
+            for (int i = 0; i < AuthorityData.MessagesDistances.Count; i++)
+            {
+                AuthorityData.MessagesDistances[i] = AuthorityData.MessagesDistances[i] - diffrence;
+                if (AuthorityData.MessagesDistances[i] < 0)
+                {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1)
+            {
+                AuthorityData.MessagesDistances.RemoveRange(0, lastIndex + 1);
+                AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
+            }
+            #endregion
         }
 
         public void TurnOffClock()
