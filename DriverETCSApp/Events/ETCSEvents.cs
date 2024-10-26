@@ -12,6 +12,7 @@ namespace DriverETCSApp.Events
         public static event EventHandler<ModeInfo> ModeChanged;
         public static event EventHandler<ConnectionInfo> ConnectionChanged;
         public static event EventHandler<LevelInfo> LevelChanged;
+        public static event EventHandler<AckInfo> AckChanged;
         public static event EventHandler ForceToChangeBaliseType;
 
         public static void OnModeChanged(ModeInfo modeInfo)
@@ -27,6 +28,11 @@ namespace DriverETCSApp.Events
         public static void OnLevelChanged(LevelInfo levelInfo)
         {
             LevelChanged?.Invoke(null, levelInfo);
+        }
+
+        public static void OnAckChanged(AckInfo ackInfo)
+        {
+            AckChanged?.Invoke(null, ackInfo);
         }
     }
 }

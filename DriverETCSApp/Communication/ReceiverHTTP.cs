@@ -39,7 +39,8 @@ namespace DriverETCSApp.Communication {
                         using (var reader = new System.IO.StreamReader(request.InputStream, request.ContentEncoding)) {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
-                            serverReceiver.Proccess(receivedMessage);
+                            //serverReceiver.Proccess(receivedMessage);
+                            unityReceiver.Proccess(receivedMessage);
                             /*if (IsServerSource(request))
                             {
                                 serverReceiver.Proccess(receivedMessage);

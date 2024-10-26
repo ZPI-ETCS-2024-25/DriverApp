@@ -98,10 +98,10 @@ namespace DriverETCSApp.Forms
             bPanel.Visible = false;
             cPanel.Visible = false;
             ePanel.Visible = false;
-            aForm?.Close();
-            bForm?.Close();
-            cForm?.Close();
-            eForm?.Close();
+            aForm?.Hide();
+            bForm?.Hide();
+            cForm?.Hide();
+            eForm?.Hide();
             dPanel.Width = 1280;
             dPanel.Height = 900;
             dPanel.Location = new Point(0, 30);
@@ -130,29 +130,41 @@ namespace DriverETCSApp.Forms
         }
 
         public void DrawAFormPIM() {
-            aForm = new AForms.PIMForm();
-            aForm.TopLevel = false;
-            aPanel.Controls.Add(aForm);
+            if (aForm == null)
+            {
+                aForm = new AForms.PIMForm();
+                aForm.TopLevel = false;
+                aPanel.Controls.Add(aForm);
+            }
             aForm.Show();
         }
         public void DrawCForm() {
-            cForm = new CForms.EmptyCForm();
-            cForm.TopLevel = false;
-            cPanel.Controls.Add(cForm);
+            if (cForm == null)
+            {
+                cForm = new CForms.EmptyCForm();
+                cForm.TopLevel = false;
+                cPanel.Controls.Add(cForm);
+            }
             cForm.Show();
         }
 
         public void DrawEFormMessages() {
-            eForm = new EForms.MessagesForm();
-            eForm.TopLevel = false;
-            ePanel.Controls.Add(eForm);
+            if (eForm == null)
+            {
+                eForm = new EForms.MessagesForm();
+                eForm.TopLevel = false;
+                ePanel.Controls.Add(eForm);
+            }
             eForm.Show();
         }
 
         public void DrawBFormSpeed() {
-            bForm = new BForms.SpeedmeterForm();
-            bForm.TopLevel = false;
-            bPanel.Controls.Add(bForm);
+            if (bForm == null)
+            {
+                bForm = new BForms.SpeedmeterForm();
+                bForm.TopLevel = false;
+                bPanel.Controls.Add(bForm);
+            }
             bForm.Show();
         }
 

@@ -1,5 +1,8 @@
 ﻿using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
+using DriverETCSApp.Events;
+using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,12 +153,13 @@ namespace DriverETCSApp.Logic.Balises
             //ACK to enter to ETCS zone
             if(LastBaliseType.Equals(""))
             {
-
+                ETCSEvents.OnAckChanged(new AckInfo(Resources.L2AckWhite, Resources.L2AckYellow));
             }
             //ACK to leave ETCS zone
             else if(LastBaliseType.Equals("ON"))
             {
                 LastBaliseType = "GO_OFF";
+                ETCSEvents.OnAckChanged(new AckInfo(Resources.SHPAckWhite, Resources.SHPAckYellow));
             }
             //at the beggining of ETCS zone
             else if(LastBaliseType.Equals("Ignore_OFF"))
