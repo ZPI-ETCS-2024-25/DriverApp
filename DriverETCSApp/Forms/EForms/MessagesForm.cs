@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Schema;
+using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace DriverETCSApp.Forms.EForms
 {
@@ -55,6 +57,7 @@ namespace DriverETCSApp.Forms.EForms
 
             LoadConnection();
             ETCSEvents.ConnectionChanged += ChangeConnection;
+            ETCSEvents.NewSystemMessage += NewSystemMessage;
         }
 
         private string BiggestFittingText(RichTextBox richTextBox, string testString)
@@ -184,6 +187,12 @@ namespace DriverETCSApp.Forms.EForms
                 RBCConnectionPicture.Image = Resources.NoConnection;
             }
             TrainData.TrainDataSemaphofe.Release();
+        }
+
+        private void NewSystemMessage(object sender, MessageInfo e)
+        {
+            messages.Add(new Message(e.Time, e.Message));
+            RefreshMessages();
         }
     }
 }

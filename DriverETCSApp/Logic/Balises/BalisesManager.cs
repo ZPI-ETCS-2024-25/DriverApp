@@ -78,7 +78,7 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            if (!message.kilometer.Equals(TrainData.BalisePosition) && TrainData.IsTrainRegisterOnServer)
+            if (!message.kilometer.Equals(TrainData.BalisePosition) && TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
                 TrainData.BalisePosition = message.kilometer;
                 TrainData.BaliseLinePosition = message.lineNumber;
@@ -109,8 +109,13 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            if (TrainData.IsTrainRegisterOnServer)
+            if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
+                if(TrainData.IsETCSActive)
+                {
+                    ETCSEvents.OnLevelChanged(new LevelInfo(Resources.SHP, false));
+                }
+
                 LastBaliseType = "OFF";
                 await ServerSender.UnregisterTrainData();
             }
@@ -124,8 +129,12 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            if (TrainData.IsTrainRegisterOnServer)
+            if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
+                if(!TrainData.IsETCSActive)
+                {
+                    ETCSEvents.OnLevelChanged(new LevelInfo(Resources.L2, true));
+                }
                 LastBaliseType = "Ignore_OFF";
                 await Position(message);
             }
@@ -139,7 +148,7 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            if (!TrainData.IsTrainRegisterOnServer)
+            if (!TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.SendTrainData();
             }
@@ -150,16 +159,21 @@ namespace DriverETCSApp.Logic.Balises
 
         private async Task ChangeLevel(MessageFromBalise message)
         {
-            //ACK to enter to ETCS zone
-            if(LastBaliseType.Equals(""))
+            if (!TrainData.IsConnectionWorking || !TrainData.IsTrainRegisterOnServer)
             {
-                ETCSEvents.OnAckChanged(new AckInfo(Resources.L2AckWhite, Resources.L2AckYellow));
+                return;
+            }
+
+            //ACK to enter to ETCS zone
+            if (LastBaliseType.Equals(""))
+            {
+                ETCSEvents.OnAckChanged(new AckInfo(Resources.L2AckWhite, Resources.L2AckYellow, Resources.L2, true));
             }
             //ACK to leave ETCS zone
             else if(LastBaliseType.Equals("ON"))
             {
                 LastBaliseType = "GO_OFF";
-                ETCSEvents.OnAckChanged(new AckInfo(Resources.SHPAckWhite, Resources.SHPAckYellow));
+                ETCSEvents.OnAckChanged(new AckInfo(Resources.SHPAckWhite, Resources.SHPAckYellow, Resources.SHP, false));
             }
             //at the beggining of ETCS zone
             else if(LastBaliseType.Equals("Ignore_OFF"))

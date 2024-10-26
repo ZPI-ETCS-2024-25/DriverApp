@@ -134,6 +134,7 @@
     <Compile Include="Events\ETCSEventArgs\BaliseModeInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\ConnectionInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\LevelInfo.cs" />
+    <Compile Include="Events\ETCSEventArgs\MessageInfo.cs" />
     <Compile Include="Events\ETCSEvents.cs" />
     <Compile Include="Events\ETCSEventArgs\ModeInfo.cs" />
     <Compile Include="Forms\CForms\EmptyCForm.cs">
@@ -166,7 +167,7 @@
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />
-    <Compile Include="Data\TrainLevels.cs" />
+    <Compile Include="Data\ETCSLevels.cs" />
     <Compile Include="Data\AuthorityData.cs" />
     <Compile Include="Design\DMIColors.cs" />
     <Compile Include="BorderLessForm.cs">

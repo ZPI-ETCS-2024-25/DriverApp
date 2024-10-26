@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Communication.Server;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,6 +28,12 @@ namespace DriverETCSApp.Communication {
             return request.RemoteEndPoint.Port == (int)Port.Server;
         }
 
+        private bool ToDebug(string message)
+        {
+            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            return decodedMessage.from.ToString() == "server";
+        }
+
         protected override void HandleIncomingConnection() {
             while (listener.IsListening) {
                 try {
@@ -40,15 +47,15 @@ namespace DriverETCSApp.Communication {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
                             //serverReceiver.Proccess(receivedMessage);
-                            unityReceiver.Proccess(receivedMessage);
-                            /*if (IsServerSource(request))
+                            //unityReceiver.Proccess(receivedMessage);
+                            if (/*IsServerSource(request)*/ ToDebug(receivedMessage))
                             {
                                 serverReceiver.Proccess(receivedMessage);
                             }
                             else
                             {
                                 unityReceiver.Proccess(receivedMessage);
-                            }*/
+                            }
                         }
                         
                         string responseMessage = "Driver received your message!";

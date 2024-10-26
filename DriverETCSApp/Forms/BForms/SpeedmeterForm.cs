@@ -200,6 +200,7 @@ namespace DriverETCSApp.Forms.BForms {
 
         private void modeChanged(object sender, ModeInfo e) {
             ChangeMode(e.Bitmap);
+            TrainData.ActiveMode = e.Mode;
         }
     }
 }

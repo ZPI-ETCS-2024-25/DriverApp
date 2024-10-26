@@ -1,4 +1,5 @@
-﻿using DriverETCSApp.Design;
+﻿using DriverETCSApp.Data;
+using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Properties;
@@ -38,7 +39,7 @@ namespace DriverETCSApp.Forms.CForms {
             TimerLevelChange = new System.Threading.Timer(ChangeLevel, null, Timeout.Infinite, Timeout.Infinite);
 
             ETCSEvents.AckChanged += AnnounceChangeLevel;
-            //ETCSEvents.LevelChanged +=
+            ETCSEvents.LevelChanged += ForceToChangeLevel;
         }
 
         private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
@@ -51,13 +52,21 @@ namespace DriverETCSApp.Forms.CForms {
                 levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
                 IsBorderVisible = false;
                 levelAnnouncementPicture.Invalidate();
+                if (LastAckInfo.WillBeActive)
+                {
+                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
+                }
+                else
+                {
+                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom SHP potwierdzony"));
+                }
             }
         }
 
         private async void AnnounceChangeLevel(object sender, AckInfo e) {
             levelAnnouncementPicture.Image = e.Bitmap;
             LastAckInfo = e;
-            await Task.Delay(1750);
+            await Task.Delay(17500);
             WaitToChangeLevel(e);
         }
 
@@ -101,11 +110,50 @@ namespace DriverETCSApp.Forms.CForms {
 
         private void StopTrain(object sender)
         {
+            //In the future add code to stop train
             Console.WriteLine("TRAIN STOP!");
             TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private void ChangeLevel(object sender)
+        {
+            Change();
+            TrainData.IsETCSActive = LastAckInfo.WillBeActive;
+            levelPicture.Image = LastAckInfo.Level;
+            if(LastAckInfo.WillBeActive)
+            {
+                TrainData.ETCSLevel = ETCSLevel.Poziom2;
+                TrainData.ActiveMode = ETCSModes.FS;
+                ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+            }
+            else
+            {
+                TrainData.ETCSLevel = ETCSLevel.SHP;
+                TrainData.ActiveMode = ETCSModes.STM;
+                ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+            }
+        }
+
+        private void ForceToChangeLevel(object sender, LevelInfo e)
+        {
+            Change();
+            TrainData.IsETCSActive = e.WillBeActive;
+            levelPicture.Image = e.Bitmap;
+            if (e.WillBeActive)
+            {
+                TrainData.ETCSLevel = ETCSLevel.Poziom2;
+                TrainData.ActiveMode = ETCSModes.FS;
+                ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+            }
+            else
+            {
+                TrainData.ETCSLevel = ETCSLevel.SHP;
+                TrainData.ActiveMode = ETCSModes.STM;
+                ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+            }
+        }
+
+        private void Change()
         {
             Timer.Change(Timeout.Infinite, Timeout.Infinite);
             TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
