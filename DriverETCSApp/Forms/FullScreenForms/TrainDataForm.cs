@@ -49,7 +49,10 @@ namespace DriverETCSApp.Forms.DForms
             Close();
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
+            MainForm.DrawAFormPIM();
             MainForm.DrawBFormSpeed();
+            MainForm.DrawCForm();
+            MainForm.DrawEFormMessages();
         }
 
         private void ActivateLabel(int index)

@@ -45,6 +45,9 @@ namespace DriverETCSApp.Forms.DForms
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
             MainForm.DrawBFormSpeed();
+            MainForm.DrawAFormPIM();
+            MainForm.DrawCForm();
+            MainForm.DrawEFormMessages();
         }
 
         private void labelData1_Click(object sender, EventArgs e)

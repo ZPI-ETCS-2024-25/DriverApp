@@ -39,14 +39,15 @@ namespace DriverETCSApp.Forms.DForms
             infoLabelData4.Text = vmax;
         }
 
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
-
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
+            MainForm.DrawAFormPIM();
             MainForm.DrawBFormSpeed();
+            MainForm.DrawCForm();
+            MainForm.DrawEFormMessages();
         }
 
         private async void labelData1_Click(object sender, EventArgs e)
@@ -82,7 +83,10 @@ namespace DriverETCSApp.Forms.DForms
                 {
                     MainForm.DrawDFromTrainNumer();
                 }
+                MainForm.DrawAFormPIM();
                 MainForm.DrawBFormSpeed();
+                MainForm.DrawCForm();
+                MainForm.DrawEFormMessages();
             }
             else
             {

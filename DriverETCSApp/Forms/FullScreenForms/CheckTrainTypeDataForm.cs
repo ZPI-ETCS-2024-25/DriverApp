@@ -36,7 +36,10 @@ namespace DriverETCSApp.Forms.DForms
             Close();
             MainForm.HideFullScreen();
             MainForm.DrawDFormMenu();
+            MainForm.DrawAFormPIM();
             MainForm.DrawBFormSpeed();
+            MainForm.DrawCForm();
+            MainForm.DrawEFormMessages();
         }
 
         private async void labelData1_Click(object sender, EventArgs e)
@@ -73,7 +76,10 @@ namespace DriverETCSApp.Forms.DForms
                 {
                     MainForm.DrawDFromTrainNumer();
                 }
+                MainForm.DrawAFormPIM();
                 MainForm.DrawBFormSpeed();
+                MainForm.DrawCForm();
+                MainForm.DrawEFormMessages();
             }
             else
             {
