@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -62,10 +64,11 @@ namespace DriverETCSApp.Forms.DForms
                     TrainData.BrakingMass = BrakingMass;
                     TrainData.VMax = VMax;
 
-                    if (Data.TrainData.IsTrainRegisterOnServer)
+                    if (Data.TrainData.IsTrainRegisterOnServer && TrainData.IsConnectionWorking)
                     {
                         await ServerSender.UpdateTrainData(TrainData.TrainNumber);
                     }
+                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Wprowadzono dane pociągu"));
                 }
                 finally
                 {

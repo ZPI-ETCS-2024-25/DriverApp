@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriverETCSApp.Data;
+using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -26,8 +28,6 @@ namespace DriverETCSApp.Forms.DForms
             Data.TrainData.TrainDataSemaphofe.Release();
             SetCloseButtonColor();
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
 
         private void SetCloseButtonColor()
         {
@@ -56,6 +56,7 @@ namespace DriverETCSApp.Forms.DForms
             {
                 await Data.TrainData.TrainDataSemaphofe.WaitAsync();
                 TrainData.ETCSLevel = label2.Text;
+                ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Wybrano poziom"));
                 Data.TrainData.TrainDataSemaphofe.Release();
                 Close();
                 MainForm.DrawDFormMenu();

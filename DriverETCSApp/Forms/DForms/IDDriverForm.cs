@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriverETCSApp.Data;
+using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -123,8 +125,9 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (!string.IsNullOrEmpty(label2.Text))
             {
-                TrainData.IDDriver = label2.Text;
                 await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+                TrainData.IDDriver = label2.Text;
+                ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Wprowadzono ID Maszynisty"));
                 if (string.IsNullOrEmpty(TrainData.ETCSLevel))
                 {
                     Close();

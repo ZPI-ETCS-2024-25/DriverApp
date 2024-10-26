@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
+using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -92,6 +94,7 @@ namespace DriverETCSApp.Forms.DForms
                 {
                     var oldNumber = TrainData.TrainNumber;
                     TrainData.TrainNumber = label2.Text;
+                    ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Wprowadzono numer pociągu"));
                     if (Data.TrainData.IsTrainRegisterOnServer)
                     {
                         await ServerSender.UpdateTrainData(oldNumber);

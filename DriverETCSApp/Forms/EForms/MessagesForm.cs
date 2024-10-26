@@ -46,12 +46,12 @@ namespace DriverETCSApp.Forms.EForms
 
             messages = new List<Message>();
 
-            messages.Add(new Message("13:11", "Test 3"));
+            /*messages.Add(new Message("13:11", "Test 3"));
             messages.Add(new Message("13:20", "☺"));
             messages.Add(new Message("15:21", "Test 2"));
             messages.Add(new Message("17:31", "Test "));
             messages.Add(new Message("15:24", "Najechano na balisę! \nWysłano informację do serwera"));
-            messages.Add(new Message("16:01", "123456789012345678901234567890123456789012345678901234567890"));
+            messages.Add(new Message("16:01", "123456789012345678901234567890123456789012345678901234567890"));*/
 
             RefreshMessages();
 
