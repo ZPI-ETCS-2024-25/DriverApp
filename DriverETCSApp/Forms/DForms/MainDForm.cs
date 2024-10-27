@@ -103,7 +103,7 @@ namespace DriverETCSApp.Forms.DForms
 
         public async Task PASPInvalidate()
         {
-            if(IsChartDrawing)
+            if (IsChartDrawing)
             {
                 return;
             }
@@ -126,13 +126,22 @@ namespace DriverETCSApp.Forms.DForms
 
         private void ChangeVisibilityOfChart(object sender, ModeInfo e)
         {
-            if(e.Mode.Equals(ETCSModes.FS))
+            if (IsHandleCreated)
             {
-                PlanningChart.Visible = true;
-            }
-            else
-            {
-                PlanningChart.Visible = false;
+                Invoke(new Action(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        if (e.Mode.Equals(ETCSModes.FS))
+                        {
+                            PlanningChart.Visible = true;
+                        }
+                        else
+                        {
+                            PlanningChart.Visible = false;
+                        }
+                    }
+                }));
             }
         }
     }

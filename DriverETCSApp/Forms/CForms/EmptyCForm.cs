@@ -96,7 +96,7 @@ namespace DriverETCSApp.Forms.CForms {
         private async void AnnounceChangeLevel(object sender, AckInfo e) {
             levelAnnouncementPicture.Image = e.Bitmap;
             LastAckInfo = e;
-            await Task.Delay(17500);
+            await Task.Delay(1750);
             WaitToChangeLevel(e);
         }
 

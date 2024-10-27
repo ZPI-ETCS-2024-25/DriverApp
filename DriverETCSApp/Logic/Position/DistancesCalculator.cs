@@ -74,6 +74,10 @@ namespace DriverETCSApp.Logic.Position
             {
                 AuthorityData.GradientsDistances.RemoveRange(0, lastIndex);
                 AuthorityData.Gradients.RemoveRange(0, lastIndex);
+                
+            }
+            if (AuthorityData.SpeedDistances.Count > 0)
+            {
                 AuthorityData.GradientsDistances[0] = 0;
             }
             #endregion
