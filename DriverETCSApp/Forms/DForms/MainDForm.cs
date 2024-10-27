@@ -1,5 +1,7 @@
 ﻿using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Events;
+using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Logic;
 using DriverETCSApp.Logic.Charts;
 using DriverETCSApp.Logic.Data;
@@ -39,13 +41,15 @@ namespace DriverETCSApp.Forms.DForms
             DistancesCalculator.DistancesCalculationsCompleted += DistancesCalculationCompleted;
             SpeedSegragation = new SpeedSegragation();
 
-            ChartScaller = new ChartScaleDrawer(chartBackLines);
-            ChartPASPDrawer = new ChartDrawerPASP(chartBackLines);
-            ChartSpeedsDrawer = new ChartSpeedsDrawer(chartBackLines);
-            ChartGradientDrawer = new ChartGradientDrawer(chartBackLines);
+            ChartScaller = new ChartScaleDrawer(PlanningChart);
+            ChartPASPDrawer = new ChartDrawerPASP(PlanningChart);
+            ChartSpeedsDrawer = new ChartSpeedsDrawer(PlanningChart);
+            ChartGradientDrawer = new ChartGradientDrawer(PlanningChart);
 
             InitalizeBasicChart();
             Init();
+
+            ETCSEvents.ModeChanged += ChangeVisibilityOfChart;
         }
 
         private async void Init()
@@ -72,13 +76,13 @@ namespace DriverETCSApp.Forms.DForms
         private async void InitalizeBasicChart()
         {
             await TrainData.TrainDataSemaphofe.WaitAsync();
-            if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP) || !TrainData.ActiveMode.Equals(ETCSModes.FS))
+            if (!TrainData.ActiveMode.Equals(ETCSModes.FS))
             {
-                chartBackLines.Visible = false;
+                PlanningChart.Visible = false;
             }
             else
             {
-                chartBackLines.Visible = true;
+                PlanningChart.Visible = true;
             }
             Data.TrainData.TrainDataSemaphofe.Release();
         }
@@ -108,8 +112,8 @@ namespace DriverETCSApp.Forms.DForms
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             try
             {
-                chartBackLines.Invalidate();
-                chartBackLines.Update();
+                PlanningChart.Invalidate();
+                PlanningChart.Update();
                 ChartPASPDrawer.Draw();
                 ChartGradientDrawer.Draw();
             }
@@ -117,6 +121,18 @@ namespace DriverETCSApp.Forms.DForms
             {
                 AuthorityData.AuthoritiyDataSemaphore.Release();
                 IsChartDrawing = false;
+            }
+        }
+
+        private void ChangeVisibilityOfChart(object sender, ModeInfo e)
+        {
+            if(e.Mode.Equals(ETCSModes.FS))
+            {
+                PlanningChart.Visible = true;
+            }
+            else
+            {
+                PlanningChart.Visible = false;
             }
         }
     }
