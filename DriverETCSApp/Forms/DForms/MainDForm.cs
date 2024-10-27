@@ -54,6 +54,11 @@ namespace DriverETCSApp.Forms.DForms
 
         private async void Init()
         {
+            if (PlanningChart == null)
+            {
+                return;
+            }
+
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             try
             {
@@ -112,6 +117,10 @@ namespace DriverETCSApp.Forms.DForms
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             try
             {
+                if(PlanningChart == null)
+                {
+                    return;
+                }
                 PlanningChart.Invalidate();
                 PlanningChart.Update();
                 ChartPASPDrawer.Draw();

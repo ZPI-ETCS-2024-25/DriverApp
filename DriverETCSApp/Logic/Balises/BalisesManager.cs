@@ -145,6 +145,7 @@ namespace DriverETCSApp.Logic.Balises
             if(LastBaliseType.Equals("OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
+                LastBaliseType = "";
                 return;
             }
 

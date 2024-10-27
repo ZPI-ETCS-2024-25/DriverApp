@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Data;
+using DriverETCSApp.Events;
 using DriverETCSApp.Logic.Data;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace DriverETCSApp.Logic.Position
         {
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
-            //TrainData.CalculatedPosition += 11.11;
+            TrainData.CalculatedPosition += 11.11;
 
             #region speeds and distances of speeds
             int lastIndex = -1;
@@ -88,6 +89,7 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.MessagesDistances[i] = AuthorityData.MessagesDistances[i] - diffrence;
                 if (AuthorityData.MessagesDistances[i] < 0)
                 {
+                    ETCSEvents.OnNewSystemMessage(new Events.ETCSEventArgs.MessageInfo(DateTime.Now.ToString("HH:mm"), AuthorityData.Messages[i]));
                     lastIndex = i;
                 }
             }

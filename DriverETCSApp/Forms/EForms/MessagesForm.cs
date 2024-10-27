@@ -191,8 +191,17 @@ namespace DriverETCSApp.Forms.EForms
 
         private void NewSystemMessage(object sender, MessageInfo e)
         {
-            messages.Add(new Message(e.Time, e.Message));
-            RefreshMessages();
+            if (IsHandleCreated)
+            {
+                Invoke(new Action(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        messages.Add(new Message(e.Time, e.Message));
+                        RefreshMessages();
+                    }
+                }));
+            }
         }
     }
 }
