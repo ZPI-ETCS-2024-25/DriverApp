@@ -33,6 +33,7 @@ namespace DriverETCSApp.Forms.DForms
             {
                 IsStartActive = false;
                 buttonStart.ForeColor = Design.DMIColors.DarkGrey;
+                TrainData.TrainDataSemaphofe.Release();
                 return;
             }
             if(!string.IsNullOrEmpty(TrainData.TrainNumber) && !string.IsNullOrEmpty(TrainData.IDDriver) && !string.IsNullOrEmpty(TrainData.ETCSLevel))

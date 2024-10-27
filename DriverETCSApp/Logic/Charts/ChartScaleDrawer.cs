@@ -38,6 +38,12 @@ namespace DriverETCSApp.Logic
 
         public void Draw()
         {
+            if(Chart == null)
+            {
+                Console.WriteLine("CHART WAS NULL!");
+                return;
+            }
+
             //clear chart data
             Chart.Series.Clear();
             Chart.ChartAreas.Clear();

@@ -26,6 +26,7 @@ namespace DriverETCSApp.Logic.Position
             TrainData.TrainDataSemaphofe.Wait();
             try
             {
+                Calculate(null);
             }
             finally
             {

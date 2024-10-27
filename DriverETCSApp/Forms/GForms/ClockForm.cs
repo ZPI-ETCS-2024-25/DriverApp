@@ -13,30 +13,37 @@ namespace DriverETCSApp.Forms.GForms
     public partial class ClockForm : BorderLessForm
     {
         private System.Threading.Timer ClockTimer;
-        private bool IsFormClosing;
 
         public ClockForm()
         {
             InitializeComponent();
-            IsFormClosing = false;
             ClockTimer = new System.Threading.Timer(PrintClock, null, 0, 500);
+            Load += ClockFormLoad;
             FormClosing += ClockFormClosing;
         }
 
         private void PrintClock(object sender)
         {
+
             Invoke(new Action(() =>
             {
-                if (!IsDisposed && !Disposing)
+                if (!IsDisposed && !Disposing && Created)
                 {
                     clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
                 }
             }));
+
+        }
+
+        private void ClockFormLoad(object sender, EventArgs e)
+        {
+            PrintClock(null);
         }
 
         private void ClockFormClosing(object sender, FormClosingEventArgs e)
         {
-            IsFormClosing = true;
+            Console.WriteLine("DELETING CLOCK TIMER");
+            ClockTimer.Change(Timeout.Infinite, Timeout.Infinite);
             ClockTimer?.Dispose();
         }
     }
