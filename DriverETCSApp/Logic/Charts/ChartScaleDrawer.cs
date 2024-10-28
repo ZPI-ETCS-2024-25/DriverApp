@@ -21,7 +21,7 @@ namespace DriverETCSApp.Logic
             Chart = chart;
         }
 
-        public void Clear()
+        /*public void Clear()
         {
             Chart.Series.Clear();
             Series series1 = new Series("BasicArea")
@@ -34,7 +34,7 @@ namespace DriverETCSApp.Logic
             series1.Points.AddXY(0, 0);
             Chart.Series.Add(series1);
             series1.ChartArea = Chart.ChartAreas[0].Name;
-        }
+        }*/
 
         public void Draw()
         {

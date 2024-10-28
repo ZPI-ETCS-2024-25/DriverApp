@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Xunit;
 
 // Ogólne informacje o zestawie są kontrolowane poprzez następujący 
 // zestaw atrybutów. Zmień wartości tych atrybutów, aby zmodyfikować informacje
@@ -21,6 +22,7 @@ using System.Runtime.InteropServices;
 
 // Następujący identyfikator GUID jest identyfikatorem biblioteki typów w przypadku udostępnienia tego projektu w modelu COM
 [assembly: Guid("9a28e228-a7b7-4eb4-a98d-341dae82cfd9")]
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 // Informacje o wersji zestawu zawierają następujące cztery wartości:
 //
