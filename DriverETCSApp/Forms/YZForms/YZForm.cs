@@ -16,7 +16,5 @@ namespace DriverETCSApp.Forms
         {
             InitializeComponent();
         }
-
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
     }
 }

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DriverETCSApp {
-    internal abstract class Sender {
+namespace DriverETCSApp.Communication
+{
+    public abstract class Sender {
         protected string ip;
 
         public abstract Task<string> SendMessage(string msg, Port destination);

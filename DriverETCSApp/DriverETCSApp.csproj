@@ -294,6 +294,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
+    <Compile Include="UnitTests\Forms\YZForms\YZFormTest.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartDrawerPASPTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartInterpolateTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartScaleDrawerTest.cs" />
@@ -459,8 +462,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UnitTests\Communication\" />
-    <Folder Include="UnitTests\Forms\" />
+    <Folder Include="UnitTests\Communication\Server\" />
+    <Folder Include="UnitTests\Communication\Unity\" />
+    <Folder Include="UnitTests\Events\EventsArgs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\ETCSConnection\NoConnection.png" />

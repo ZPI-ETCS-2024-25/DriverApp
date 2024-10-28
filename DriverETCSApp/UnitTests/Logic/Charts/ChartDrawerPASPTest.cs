@@ -102,12 +102,14 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         [Fact]
         public void ZeroIndicationLineTest()
         {
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.LowerDistances = new List<double> { 0 };
             AuthorityData.LowerSpeed = new List<double> { 0 };
 
             bool b = ChartDrawerPASP.DrawIndication(null);
 
             Assert.False(b);
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
     }
 }

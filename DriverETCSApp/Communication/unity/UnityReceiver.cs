@@ -23,7 +23,6 @@ namespace DriverETCSApp.Communication.Server
         public void Proccess(string message)
         {
             MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
-            decodedMessage.kilometer = decodedMessage.kilometer.Replace('.', ',');
 
             BalisesManager.Manage(decodedMessage);
         }

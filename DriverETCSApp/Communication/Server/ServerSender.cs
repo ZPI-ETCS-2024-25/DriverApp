@@ -60,7 +60,7 @@ namespace DriverETCSApp.Communication.Server
             await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
         }
 
-        public async Task SendPositionData(string kilometer, string track)
+        public async Task SendPositionData(double kilometer, string track)
         {
             var data = new
             {

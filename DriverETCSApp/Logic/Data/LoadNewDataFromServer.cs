@@ -105,9 +105,8 @@ namespace DriverETCSApp.Logic.Data
             }
             if (lastIndex != -1)
             {
-                messagesDistances.RemoveRange(0, lastIndex);
-                messages.RemoveRange(0, lastIndex);
-                messagesDistances[0] = 0;
+                messagesDistances.RemoveRange(0, lastIndex + 1);
+                messages.RemoveRange(0, lastIndex + 1);
             }
             #endregion
 

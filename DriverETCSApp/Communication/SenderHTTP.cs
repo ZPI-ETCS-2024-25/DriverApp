@@ -4,8 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 
-namespace DriverETCSApp {
-    internal class SenderHTTP : Sender {
+namespace DriverETCSApp.Communication
+{
+    public class SenderHTTP : Sender {
         public SenderHTTP(string ip) : base(ip) {
         }
 

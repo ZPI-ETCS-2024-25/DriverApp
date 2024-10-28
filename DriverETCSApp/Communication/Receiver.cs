@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DriverETCSApp.Communication {
-    internal abstract class Receiver {
+    public abstract class Receiver {
         protected string ip;
         protected Port port = Port.DriverApp;
 

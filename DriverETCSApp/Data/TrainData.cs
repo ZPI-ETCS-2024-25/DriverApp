@@ -32,7 +32,7 @@ namespace DriverETCSApp.Data
         //public static int CalculatedPosition = 6150;
         //public static string CalculatedDrivingDirection = "N";
 
-        public static string BalisePosition = "";
+        public static double BalisePosition = 0;
         public static int BaliseLinePosition = 0;
         //lock for this data
         public static SemaphoreSlim TrainDataSemaphofe = new SemaphoreSlim(1, 1);

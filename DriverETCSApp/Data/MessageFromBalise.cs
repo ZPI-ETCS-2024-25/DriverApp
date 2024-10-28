@@ -2,7 +2,7 @@
 {
     public class MessageFromBalise
     {
-        public string kilometer { get; set; }
+        public double kilometer { get; set; }
         public int number { get; set; }
         public int numberOfBalises { get; set; }
         public string trackNumber { get; set; }
@@ -11,7 +11,7 @@
 
         public MessageFromBalise() { }
 
-        public MessageFromBalise(string kilometer, int number, int numberOfBalises, string trackNumber, int lineNumber, string messageType)
+        public MessageFromBalise(double kilometer, int number, int numberOfBalises, string trackNumber, int lineNumber, string messageType)
         {
             this.kilometer = kilometer;
             this.number = number;

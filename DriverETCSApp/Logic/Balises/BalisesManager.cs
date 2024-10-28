@@ -34,7 +34,7 @@ namespace DriverETCSApp.Logic.Balises
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
-                if(decodedMessage.kilometer.Equals(TrainData.BalisePosition))
+                if (decodedMessage.kilometer.Equals(TrainData.BalisePosition))
                 {
                     return;
                 }

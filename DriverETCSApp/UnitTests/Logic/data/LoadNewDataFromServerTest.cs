@@ -48,20 +48,21 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             {
                     ""MessageType"" : ""MA"",
                     ""Speeds"" : [0],
-                    ""SpeedDistances"" : [500],
+                    ""SpeedDistances"" : [0],
                     ""Gradients"" : [5],
-                    ""GradientsDistances"" : [500],
+                    ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [20],
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
+            TrainData.CalculatedPosition = 0;
             LoadNewDataFromServer.LoadNewData(msg);
 
             Assert.Equal(new List<double> { 0 }, AuthorityData.Speeds);
-            Assert.Equal(new List<double> { 500 }, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
             Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
-            Assert.Equal(new List<double> { 500 }, AuthorityData.GradientsDistances);
+            Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
             Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
             Assert.Equal(new List<double> { 20 }, AuthorityData.MessagesDistances);
             AuthorityData.AuthoritiyDataSemaphore.Release();
@@ -82,6 +83,7 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
+            TrainData.CalculatedPosition = 0;
             LoadNewDataFromServer.LoadNewData(msg);
 
             Assert.Equal(new List<double> { 100, 50, 0 }, AuthorityData.Speeds);
@@ -116,8 +118,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
             Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
             Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
-            Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
-            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            Assert.Equal(new List<string> { }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { }, AuthorityData.MessagesDistances);
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
@@ -228,8 +230,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             Assert.Equal(new List<double> { 0 }, AuthorityData.SpeedDistances);
             Assert.Equal(new List<int> { 5 }, AuthorityData.Gradients);
             Assert.Equal(new List<double> { 0 }, AuthorityData.GradientsDistances);
-            Assert.Equal(new List<string> { "TEST1" }, AuthorityData.Messages);
-            Assert.Equal(new List<double> { 0 }, AuthorityData.MessagesDistances);
+            Assert.Equal(new List<string> { }, AuthorityData.Messages);
+            Assert.Equal(new List<double> { }, AuthorityData.MessagesDistances);
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 

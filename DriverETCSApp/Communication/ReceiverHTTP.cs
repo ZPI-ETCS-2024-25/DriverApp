@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace DriverETCSApp.Communication {
-    internal class ReceiverHTTP : Receiver {
+    public class ReceiverHTTP : Receiver {
 
         private HttpListener listener;
         private Thread listenerThread;
@@ -46,8 +46,6 @@ namespace DriverETCSApp.Communication {
                         using (var reader = new System.IO.StreamReader(request.InputStream, request.ContentEncoding)) {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
-                            //serverReceiver.Proccess(receivedMessage);
-                            //unityReceiver.Proccess(receivedMessage);
                             if (/*IsServerSource(request)*/ ToDebug(receivedMessage))
                             {
                                 serverReceiver.Proccess(receivedMessage);
@@ -87,6 +85,11 @@ namespace DriverETCSApp.Communication {
             listener.Stop();
             listenerThread.Abort();
             listener.Close();
+        }
+
+        public bool IsListening()
+        {
+            return listener.IsListening;
         }
 
         /*~ReceiverHTTP() {
