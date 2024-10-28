@@ -8,6 +8,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 using DriverETCSApp.Logic;
 using DriverETCSApp.Logic.Charts;
 using DriverETCSApp.Data;
+using System.Drawing;
+using DriverETCSApp.Design;
+using DriverETCSApp.Forms.DForms;
 
 namespace DriverETCSApp.UnitTests.Logic.Charts
 {
@@ -16,11 +19,13 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         private ChartDrawerPASP ChartDrawerPASP;
         private ChartScaleDrawer ChartScaleDrawer;
         private ChartInterpolate ChartInterpolate;
+        private ChartInterpolate Interpolator;
         private Chart Chart;
 
         public ChartDrawerPASPTest() 
         {
             Chart = new Chart();
+            Interpolator = new ChartInterpolate();
             ChartInterpolate = new ChartInterpolate();
             ChartScaleDrawer = new ChartScaleDrawer(Chart);
             ChartScaleDrawer.Draw();
@@ -74,5 +79,56 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
 
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
+
+        [Fact]
+        public void PASPEmptyTest2()
+        {
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            AuthorityData.SpeedDistances = new List<double> { };
+            AuthorityData.Speeds = new List<double> { };
+
+            ChartDrawerPASP.Draw();
+
+            List<DataPoint> expectedPoints = new List<DataPoint>
+            {
+
+            };
+
+            Assert.Equal(expectedPoints.Count, Chart.Series["SeriesZoneSpeed"].Points.Count);
+
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        /*[Fact]
+        public async Task ZeroIndicationLineTest()
+        {
+            var form = new MainDForm(new Forms.MainForm(), new DriverETCSApp.Logic.Position.DistancesCalculator());
+            AuthorityData.LowerDistances = new List<double> { 0 };
+            AuthorityData.LowerSpeed = new List<double> { 0 };
+
+            await form.PASPInvalidate();
+            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.LowerDistances[0] - 400));
+
+            form.Show();
+            form.Refresh();
+
+            Color color;
+            using (Bitmap bitmap = new Bitmap(1, 1))
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.CopyFromScreen(form.PointToScreen(new Point(0, 0)), Point.Empty, new Size(1, 1));
+                }
+                color = bitmap.GetPixel(0, 0);
+            }
+
+            Assert.Equal(DMIColors.Yellow.ToArgb(), color.ToArgb());
+        }
+
+        [Fact]
+        public async Task EmptyIndicationLineTest()
+        {
+
+        }*/
     }
 }

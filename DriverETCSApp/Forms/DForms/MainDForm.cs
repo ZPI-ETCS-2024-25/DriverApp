@@ -52,6 +52,11 @@ namespace DriverETCSApp.Forms.DForms
             ETCSEvents.ModeChanged += ChangeVisibilityOfChart;
         }
 
+        public Chart GetChart()
+        {
+            return PlanningChart;
+        }
+
         private async void Init()
         {
             if (PlanningChart == null)
