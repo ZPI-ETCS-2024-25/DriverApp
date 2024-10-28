@@ -99,36 +99,15 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
-        /*[Fact]
-        public async Task ZeroIndicationLineTest()
+        [Fact]
+        public void ZeroIndicationLineTest()
         {
-            var form = new MainDForm(new Forms.MainForm(), new DriverETCSApp.Logic.Position.DistancesCalculator());
             AuthorityData.LowerDistances = new List<double> { 0 };
             AuthorityData.LowerSpeed = new List<double> { 0 };
 
-            await form.PASPInvalidate();
-            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.LowerDistances[0] - 400));
+            bool b = ChartDrawerPASP.DrawIndication(null);
 
-            form.Show();
-            form.Refresh();
-
-            Color color;
-            using (Bitmap bitmap = new Bitmap(1, 1))
-            {
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CopyFromScreen(form.PointToScreen(new Point(0, 0)), Point.Empty, new Size(1, 1));
-                }
-                color = bitmap.GetPixel(0, 0);
-            }
-
-            Assert.Equal(DMIColors.Yellow.ToArgb(), color.ToArgb());
+            Assert.False(b);
         }
-
-        [Fact]
-        public async Task EmptyIndicationLineTest()
-        {
-
-        }*/
     }
 }

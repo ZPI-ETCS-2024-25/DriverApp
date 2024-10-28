@@ -265,12 +265,6 @@
     <Compile Include="Forms\GForms\ClockForm.Designer.cs">
       <DependentUpon>ClockForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestForms\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TestForms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\YZForms\YZForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,9 +353,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GForms\ClockForm.resx">
       <DependentUpon>ClockForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestForms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\YZForms\YZForm.resx">
       <DependentUpon>YZForm.cs</DependentUpon>

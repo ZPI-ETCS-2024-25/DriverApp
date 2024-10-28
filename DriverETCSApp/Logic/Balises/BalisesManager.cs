@@ -189,5 +189,10 @@ namespace DriverETCSApp.Logic.Balises
         {
             LastBaliseType = e.Info;
         }
+
+        public string GetLastBaliseType()
+        {
+            return LastBaliseType;
+        }
     }
 }

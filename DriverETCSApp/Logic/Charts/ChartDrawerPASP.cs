@@ -69,11 +69,11 @@ namespace DriverETCSApp.Logic.Charts
             DrawIndication(e.Graphics);
         }
 
-        public void DrawIndication(Graphics graphics)
+        public bool DrawIndication(Graphics graphics)
         {
-            if (AuthorityData.LowerSpeed.Count <= 0 || AuthorityData.LowerDistances.Count <= 0)
+            if (AuthorityData.LowerSpeed.Count <= 1 || AuthorityData.LowerDistances.Count <= 1)
             {
-                return;
+                return false;
             }
 
             int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.LowerDistances[0] - 400));
@@ -83,6 +83,7 @@ namespace DriverETCSApp.Logic.Charts
             {
                 graphics.DrawLine(pen, pixelX, pixelY, pixelX + 190, pixelY);
             }
+            return true;
         }
     }
 }
