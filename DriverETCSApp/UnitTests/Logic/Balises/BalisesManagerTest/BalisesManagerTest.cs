@@ -76,8 +76,8 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 
             BalisesManager.Manage(messageFromBalise);
 
-            Assert.Equal("", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0, TrainData.BalisePosition);
+            Assert.Equal("N", TrainData.CalculatedDrivingDirection);
+            Assert.Equal(0.1, TrainData.BalisePosition);
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             BalisesManager.Manage(messageFromBalise);
 
             Assert.Equal("", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0, TrainData.BalisePosition);
+            Assert.Equal(0.1, TrainData.BalisePosition);
         }
 
         [Fact]
