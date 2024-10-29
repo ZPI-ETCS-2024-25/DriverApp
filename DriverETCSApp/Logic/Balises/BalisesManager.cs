@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DriverETCSApp.Logic.Balises
@@ -142,6 +143,9 @@ namespace DriverETCSApp.Logic.Balises
             LastBaliseType = "";
             if (!TrainData.IsConnectionWorking && !TrainData.IsTrainRegisterOnServer)
             {
+                //TrainData.BalisePosition = message.kilometer;
+                TrainData.BalisePosition = 0.2;
+                //double x = message.kilometer;
                 await ServerSender.SendTrainData();
             }
 
