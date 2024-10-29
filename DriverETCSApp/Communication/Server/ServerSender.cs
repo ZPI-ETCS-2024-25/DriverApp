@@ -56,7 +56,6 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            TrainData.IsTrainRegisterOnServer = false;
             await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
         }
 

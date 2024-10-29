@@ -157,9 +157,11 @@ namespace DriverETCSApp.Logic.Balises
             LastBaliseType = "";
             if (!TrainData.IsConnectionWorking && !TrainData.IsTrainRegisterOnServer)
             {
-                await ServerSender.SendTrainData();
+                //await ServerSender.SendTrainData();
+                //await ServerSender.SendPositionData(message.kilometer, message.trackNumber);
             }
-
+            TrainData.IsConnectionWorking = true;
+            TrainData.IsTrainRegisterOnServer = true;
             await Position(message);
         }
 
