@@ -28,7 +28,7 @@ namespace DriverETCSApp.Communication.Server
                 case "MA":
                     LoadNewAuthorityData(decodedMessage);
                     break;
-                case "RA":
+                case "RE":
                     ConnectionWithRBC(decodedMessage);
                     break;
                 case "LTO":

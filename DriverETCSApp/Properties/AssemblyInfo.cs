@@ -23,7 +23,6 @@ using Xunit;
 // Następujący identyfikator GUID jest identyfikatorem biblioteki typów w przypadku udostępnienia tego projektu w modelu COM
 [assembly: Guid("9a28e228-a7b7-4eb4-a98d-341dae82cfd9")]
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
-
 // Informacje o wersji zestawu zawierają następujące cztery wartości:
 //
 //      Wersja główna

@@ -13,12 +13,13 @@ namespace DriverETCSApp.UnitTests.Forms.YZForms
         private YZForm YZForm;
         public YZFormTest()
         {
-            YZForm = new YZForm();
+            
         }
 
         [Fact]
         public void YAndZFormTest()
         {
+            YZForm = new YZForm();
             Assert.NotNull(YZForm);
         }
     }

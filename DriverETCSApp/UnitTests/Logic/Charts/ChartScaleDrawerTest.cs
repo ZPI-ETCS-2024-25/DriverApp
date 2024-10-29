@@ -29,6 +29,15 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         }
 
         [Fact]
+        public void ChartNull()
+        {
+            Chart Chart = null;
+            var ChartScaleDrawer = new ChartScaleDrawer(Chart);
+            ChartScaleDrawer.Draw();
+            Assert.Null(ChartScaleDrawer.GetChart());
+        }
+
+        [Fact]
         public void CheckNamesOfAreas()
         {
             ChartScaleDrawer.Draw();

@@ -296,7 +296,11 @@
     </Compile>
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
     <Compile Include="UnitTests\Forms\YZForms\YZFormTest.cs" />
-    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerCLT.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTest.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestLTA.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestLTO.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestRE.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartDrawerPASPTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartInterpolateTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartScaleDrawerTest.cs" />

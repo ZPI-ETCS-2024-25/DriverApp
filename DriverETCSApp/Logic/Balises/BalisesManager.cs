@@ -34,7 +34,9 @@ namespace DriverETCSApp.Logic.Balises
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
-                if (decodedMessage.kilometer.Equals(TrainData.BalisePosition))
+                if (decodedMessage.kilometer.Equals(TrainData.BalisePosition)
+                    && decodedMessage.trackNumber.Equals(TrainData.BaliseTrackPosition)
+                    && decodedMessage.lineNumber == TrainData.BaliseLinePosition)
                 {
                     return;
                 }
@@ -73,45 +75,48 @@ namespace DriverETCSApp.Logic.Balises
 
         private async Task Position(MessageFromBalise message)
         {
-            if(LastBaliseType.Equals("OFF"))
+            if (LastBaliseType.Equals("OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
                 return;
             }
 
-            if (!message.kilometer.Equals(TrainData.BalisePosition) && TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
+            TrainData.BalisePosition = message.kilometer;
+            TrainData.BaliseLinePosition = message.lineNumber;
+            TrainData.BaliseTrackPosition = message.trackNumber;
+            TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
+
+            if (message.numberOfBalises != 1)
             {
-                TrainData.BalisePosition = message.kilometer;
-                TrainData.BaliseLinePosition = message.lineNumber;
-                TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
-
-                if (message.numberOfBalises != 1)
+                if (message.number == 1)
                 {
-                    if (message.number == 1)
-                    {
-                        TrainData.CalculatedDrivingDirection = "N";
-                    }
-                    else if (message.number == message.numberOfBalises)
-                    {
-                        TrainData.CalculatedDrivingDirection = "P";
-                    }
+                    TrainData.CalculatedDrivingDirection = "N";
                 }
+                else if (message.number == message.numberOfBalises)
+                {
+                    TrainData.CalculatedDrivingDirection = "P";
+                }
+            }
 
+            if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
+            {
                 await ServerSender.SendPositionData(message.kilometer, message.trackNumber);
             }
         }
 
         private async Task ForceToEndOfETCSZone(MessageFromBalise message)
         {
+
             if (LastBaliseType.Equals("Ignore_OFF"))
             {
                 await Position(message);
                 return;
             }
 
+            TrainData.BalisePosition = message.kilometer;
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
-                if(TrainData.IsETCSActive)
+                if (TrainData.IsETCSActive)
                 {
                     ETCSEvents.OnLevelChanged(new LevelInfo(Resources.SHP, false));
                 }
@@ -131,7 +136,7 @@ namespace DriverETCSApp.Logic.Balises
 
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
-                if(!TrainData.IsETCSActive)
+                if (!TrainData.IsETCSActive)
                 {
                     ETCSEvents.OnLevelChanged(new LevelInfo(Resources.L2, true));
                 }
@@ -142,19 +147,19 @@ namespace DriverETCSApp.Logic.Balises
 
         private async Task RegisterOnServer(MessageFromBalise message)
         {
-            if(LastBaliseType.Equals("OFF"))
+            if (LastBaliseType.Equals("OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
                 LastBaliseType = "";
                 return;
             }
 
-            if (!TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
+            LastBaliseType = "";
+            if (!TrainData.IsConnectionWorking && !TrainData.IsTrainRegisterOnServer)
             {
                 await ServerSender.SendTrainData();
             }
 
-            LastBaliseType = "";
             await Position(message);
         }
 
@@ -171,13 +176,13 @@ namespace DriverETCSApp.Logic.Balises
                 ETCSEvents.OnAckChanged(new AckInfo(Resources.L2AckWhite, Resources.L2AckYellow, Resources.L2, true));
             }
             //ACK to leave ETCS zone
-            else if(LastBaliseType.Equals("ON"))
+            else if (LastBaliseType.Equals("ON"))
             {
                 LastBaliseType = "GO_OFF";
                 ETCSEvents.OnAckChanged(new AckInfo(Resources.SHPAckWhite, Resources.SHPAckYellow, Resources.SHP, false));
             }
             //at the beggining of ETCS zone
-            else if(LastBaliseType.Equals("Ignore_OFF"))
+            else if (LastBaliseType.Equals("Ignore_OFF"))
             {
                 LastBaliseType = "ON";
             }

@@ -21,6 +21,11 @@ namespace DriverETCSApp.Logic
             Chart = chart;
         }
 
+        public Chart GetChart()
+        {
+            return Chart;
+        }
+
         /*public void Clear()
         {
             Chart.Series.Clear();

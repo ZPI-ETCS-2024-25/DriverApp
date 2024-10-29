@@ -54,6 +54,28 @@ namespace DriverETCSApp.UnitTests.Logic.Position
         }
 
         [Fact]
+        public void TestCalculatorWithoutRemoveElementsInNDirection1()
+        {
+            Calculator.TurnOffClock();
+
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            TrainData.TrainDataSemaphofe.Wait();
+            TrainData.CalculatedPosition = 100;
+            TrainData.LastCalculated = 200;
+            TrainData.CalculatedDrivingDirection = "N";
+            SetData();
+            Calculator.Calculate(this);
+            Assert.Equal(AuthorityData.SpeedDistances, new List<double> { 0, 250, 600, 900, 1100, 1650, 2100, 2640, 3600, 5910, 7100 });
+            Assert.Equal(AuthorityData.Speeds, new List<double> { 100, 120, 90, 80, 50, 100, 120, 50, 40, 20, 0 });
+            Assert.Equal(AuthorityData.Gradients, new List<int> { 10, 0, -2, 1, 5, -3 });
+            Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 600, 1150, 2600, 3600, 4100, 7100 });
+            Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
+            Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 400, 1100 });
+            TrainData.TrainDataSemaphofe.Release();
+            AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        [Fact]
         public void TestCalculatorWithoutRemoveElementsInPDirection()
         {
             AuthorityData.AuthoritiyDataSemaphore.Wait();
