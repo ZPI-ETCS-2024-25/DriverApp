@@ -15,6 +15,7 @@ namespace DriverETCSApp.Logic.Balises
     {
         private ServerSender ServerSender;
         private string LastBaliseType;
+        Dictionary<string, Func<MessageFromBalise, Task>> Dict;
 
         public BalisesManager()
         {
@@ -27,6 +28,12 @@ namespace DriverETCSApp.Logic.Balises
             //Ignore_OFF -> set after ETCS is activated, require to ignore LTA and LTO messages
             LastBaliseType = "";
             ETCSEvents.ForceToChangeBaliseType += ForceChangeType;
+            Dict = new Dictionary<string, Func<MessageFromBalise, Task>>();
+            Dict["CBF"] = Position;
+            Dict["CLT"] = ForceToEnterETCSZone;
+            Dict["LTA"] = ChangeLevel;
+            Dict["RE"] = RegisterOnServer;
+            Dict["LTO"] = ForceToEndOfETCSZone;
         }
 
         public async void Manage(MessageFromBalise decodedMessage)
@@ -41,31 +48,7 @@ namespace DriverETCSApp.Logic.Balises
                     return;
                 }
 
-                //normal balise with information about position
-                if (decodedMessage.messageType.Contains("CBF"))
-                {
-                    await Position(decodedMessage);
-                }
-                //force to change level to L2
-                else if (decodedMessage.messageType.Contains("CLT"))
-                {
-                    await ForceToEnterETCSZone(decodedMessage);
-                }
-                //ack to change level (from L2 to STM or STM to L2)
-                else if (decodedMessage.messageType.Contains("LTA"))
-                {
-                    await ChangeLevel(decodedMessage);
-                }
-                //start communication with RBC (server)
-                else if (decodedMessage.messageType.Contains("RE"))
-                {
-                    await RegisterOnServer(decodedMessage);
-                }
-                //force to change level to STM
-                else if (decodedMessage.messageType.Contains("LTO"))
-                {
-                    await ForceToEndOfETCSZone(decodedMessage);
-                }
+                await Dict[decodedMessage.messageType](decodedMessage);
             }
             finally
             {
@@ -131,6 +114,7 @@ namespace DriverETCSApp.Logic.Balises
             if (LastBaliseType.Equals("OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
+                TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
                 return;
             }
 
@@ -150,6 +134,7 @@ namespace DriverETCSApp.Logic.Balises
             if (LastBaliseType.Equals("OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
+                TrainData.CalculatedPosition = message.kilometer * 1000;
                 LastBaliseType = "";
                 return;
             }
@@ -157,11 +142,9 @@ namespace DriverETCSApp.Logic.Balises
             LastBaliseType = "";
             if (!TrainData.IsConnectionWorking && !TrainData.IsTrainRegisterOnServer)
             {
-                //await ServerSender.SendTrainData();
-                //await ServerSender.SendPositionData(message.kilometer, message.trackNumber);
+                await ServerSender.SendTrainData();
             }
-            TrainData.IsConnectionWorking = true;
-            TrainData.IsTrainRegisterOnServer = true;
+
             await Position(message);
         }
 
@@ -169,6 +152,8 @@ namespace DriverETCSApp.Logic.Balises
         {
             if (!TrainData.IsConnectionWorking || !TrainData.IsTrainRegisterOnServer)
             {
+                TrainData.BalisePosition = message.kilometer;
+                TrainData.CalculatedPosition = message.kilometer * 1000;
                 return;
             }
 
@@ -186,7 +171,13 @@ namespace DriverETCSApp.Logic.Balises
             //at the beggining of ETCS zone
             else if (LastBaliseType.Equals("Ignore_OFF"))
             {
+                TrainData.BalisePosition = message.kilometer;
+                TrainData.CalculatedPosition = message.kilometer * 1000;
                 LastBaliseType = "ON";
+            }
+            else if (LastBaliseType.Equals("OFF"))
+            {
+                return;
             }
 
             await Position(message);

@@ -296,7 +296,7 @@
     </Compile>
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
     <Compile Include="UnitTests\Forms\YZForms\YZFormTest.cs" />
-    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerCLT.cs" />
+    <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestCLT.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTest.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestLTA.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestLTO.cs" />

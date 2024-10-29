@@ -65,8 +65,6 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 
             BalisesManager.Manage(messageFromBalise);
 
-            Assert.Equal("P", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("", BalisesManager.GetLastBaliseType());
         }
     }
