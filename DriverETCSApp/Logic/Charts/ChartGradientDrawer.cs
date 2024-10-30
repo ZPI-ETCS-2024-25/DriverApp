@@ -34,7 +34,6 @@ namespace DriverETCSApp.Logic.Charts
 
         public void SetUp()
         {
-            //Chart.Paint += new PaintEventHandler(Draw);
             Chart.Paint += new PaintEventHandler(DrawGraphics);
         }
 

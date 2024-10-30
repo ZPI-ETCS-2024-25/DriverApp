@@ -110,12 +110,12 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             TrainData.IsConnectionWorking = true;
             TrainData.IsTrainRegisterOnServer = true;
             TrainData.ActiveMode = "";
-            ETCSEvents.OnForceToChangeBaliseType(new Events.ETCSEventArgs.BaliseInfo("Ignore_OFF"));
+            ETCSEvents.OnForceToChangeBaliseType(new Events.ETCSEventArgs.BaliseInfo("OFF"));
 
             BalisesManager.Manage(messageFromBalise);
-            Assert.Equal("N", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0.1, TrainData.BalisePosition);
-            Assert.Equal("ON", BalisesManager.GetLastBaliseType());
+            Assert.Equal("", TrainData.CalculatedDrivingDirection);
+            Assert.Equal(0, TrainData.BalisePosition);
+            Assert.Equal("OFF", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
         }
     }

@@ -295,6 +295,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
+    <Compile Include="UnitTests\Forms\FForms\ToolbarFormTest.cs" />
+    <Compile Include="UnitTests\Forms\GForms\ClockFormTest.cs" />
+    <Compile Include="UnitTests\Forms\MainFormTest.cs" />
     <Compile Include="UnitTests\Forms\YZForms\YZFormTest.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestCLT.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTest.cs" />
@@ -302,6 +305,7 @@
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestLTO.cs" />
     <Compile Include="UnitTests\Logic\Balises\BalisesManagerTest\BalisesManagerTestRE.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartDrawerPASPTest.cs" />
+    <Compile Include="UnitTests\Logic\Charts\ChartGradientDrawerTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartInterpolateTest.cs" />
     <Compile Include="UnitTests\Logic\Charts\ChartScaleDrawerTest.cs" />
     <Compile Include="UnitTests\Logic\Data\LoadNewDataFromServerTest.cs" />
@@ -469,6 +473,8 @@
     <Folder Include="UnitTests\Communication\Server\" />
     <Folder Include="UnitTests\Communication\Unity\" />
     <Folder Include="UnitTests\Events\EventsArgs\" />
+    <Folder Include="UnitTests\Forms\DForms\" />
+    <Folder Include="UnitTests\Forms\FullScreenForms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\ETCSConnection\NoConnection.png" />
