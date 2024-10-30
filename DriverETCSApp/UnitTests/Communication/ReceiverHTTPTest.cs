@@ -24,6 +24,7 @@ namespace DriverETCSApp.UnitTests.Communication
             Assert.True(ReceiverHTTP.IsListening());
             ReceiverHTTP.StopListening();
             Assert.False(ReceiverHTTP.IsListening());
+            ReceiverHTTP.StartListening();
         }
     }
 }
