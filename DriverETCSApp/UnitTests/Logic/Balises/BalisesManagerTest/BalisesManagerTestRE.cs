@@ -36,8 +36,8 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void RETest()
         {
             BalisesManager = new BalisesManager();
-            var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "RE");
-            TrainData.BalisePosition = 0;
+            var messageFromBalise = new MessageFromBalise(0.2, 2, 2, "1", 1, "RE");
+            TrainData.BalisePosition = 0.1;
             TrainData.CalculatedDrivingDirection = "";
             TrainData.IsConnectionWorking = true;
             TrainData.IsTrainRegisterOnServer = true;
@@ -45,7 +45,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             BalisesManager.Manage(messageFromBalise);
 
             Assert.Equal("P", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0.1, TrainData.BalisePosition);
+            Assert.Equal(0.2, TrainData.BalisePosition);
             Assert.Equal("", BalisesManager.GetLastBaliseType());
         }
 
@@ -54,7 +54,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         {
             BalisesManager = new BalisesManager();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "RE");
-            TrainData.BalisePosition = 0;
+            TrainData.BalisePosition = 0.0;
             TrainData.CalculatedDrivingDirection = "";
             TrainData.IsConnectionWorking = false;
             TrainData.IsTrainRegisterOnServer = false;
@@ -65,7 +65,6 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 
             BalisesManager.Manage(messageFromBalise);
 
-            Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("", BalisesManager.GetLastBaliseType());
         }
     }

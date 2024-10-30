@@ -99,15 +99,19 @@ namespace DriverETCSApp.Forms.DForms
 
         private void DistancesCalculationCompleted(object sender, EventArgs e)
         {
-            if (IsHandleCreated)
+            if (IsHandleCreated && !IsDisposed && !Disposing)
             {
-                Invoke(new Action(async () =>
+                try
                 {
-                    if (!IsDisposed && !Disposing)
+                    Invoke(new Action(async () =>
                     {
-                        await PASPInvalidate();
-                    }
-                }));
+                        if (!IsDisposed && !Disposing)
+                        {
+                            await PASPInvalidate();
+                        }
+                    }));
+                }
+                catch { Console.WriteLine("DistancesCalculationCompleted(object sender, EventArgs e)"); }
             }
         }
 
@@ -122,7 +126,7 @@ namespace DriverETCSApp.Forms.DForms
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             try
             {
-                if(PlanningChart == null)
+                if (PlanningChart == null)
                 {
                     return;
                 }
@@ -140,22 +144,26 @@ namespace DriverETCSApp.Forms.DForms
 
         private void ChangeVisibilityOfChart(object sender, ModeInfo e)
         {
-            if (IsHandleCreated)
+            if (IsHandleCreated && !IsDisposed && !Disposing)
             {
-                Invoke(new Action(() =>
+                try
                 {
-                    if (!IsDisposed && !Disposing)
+                    Invoke(new Action(() =>
                     {
-                        if (e.Mode.Equals(ETCSModes.FS))
+                        if (!IsDisposed && !Disposing)
                         {
-                            PlanningChart.Visible = true;
+                            if (e.Mode.Equals(ETCSModes.FS))
+                            {
+                                PlanningChart.Visible = true;
+                            }
+                            else
+                            {
+                                PlanningChart.Visible = false;
+                            }
                         }
-                        else
-                        {
-                            PlanningChart.Visible = false;
-                        }
-                    }
-                }));
+                    }));
+                }
+                catch { Console.WriteLine("ChangeVisibilityOfChart(object sender, ModeInfo e)"); }
             }
         }
     }

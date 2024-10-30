@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DriverETCSApp.Events.ETCSEventArgs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,15 +25,20 @@ namespace DriverETCSApp.Forms.GForms
 
         private void PrintClock(object sender)
         {
-
-            Invoke(new Action(() =>
+            if (IsHandleCreated && !IsDisposed && !Disposing)
             {
-                if (!IsDisposed && !Disposing && Created)
+                try
                 {
-                    clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
+                    Invoke(new Action(() =>
+                    {
+                        if (!IsDisposed && !Disposing && Created)
+                        {
+                            clockLabel.Text = DateTime.Now.ToString("HH:mm:ss");
+                        }
+                    }));
                 }
-            }));
-
+                catch { Console.WriteLine("PrintClock(object sender)"); }
+            }
         }
 
         private void ClockFormLoad(object sender, EventArgs e)
@@ -45,6 +51,11 @@ namespace DriverETCSApp.Forms.GForms
             Console.WriteLine("DELETING CLOCK TIMER");
             ClockTimer.Change(Timeout.Infinite, Timeout.Infinite);
             ClockTimer?.Dispose();
+        }
+
+        public string GetPrintedTime()
+        {
+            return clockLabel.Text;
         }
     }
 }
