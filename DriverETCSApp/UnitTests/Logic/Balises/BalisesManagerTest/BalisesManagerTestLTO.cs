@@ -55,6 +55,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("OFF", BalisesManager.GetLastBaliseType());
             Assert.Equal(ETCSModes.STM, TrainData.ActiveMode);
+            Assert.False(TrainData.IsTrainRegisterOnServer);
         }
 
         [Fact]

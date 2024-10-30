@@ -108,6 +108,9 @@ namespace DriverETCSApp.Logic.Balises
 
                 LastBaliseType = "OFF";
                 await ServerSender.UnregisterTrainData();
+                TrainData.IsConnectionWorking = false;
+                TrainData.IsTrainRegisterOnServer = false;
+                ETCSEvents.OnConnectionChanged(new ConnectionInfo(null));
             }
         }
 
