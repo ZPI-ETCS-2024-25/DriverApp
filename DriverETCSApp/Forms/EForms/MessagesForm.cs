@@ -24,11 +24,13 @@ namespace DriverETCSApp.Forms.EForms
     {
         public string date;
         public string message;
+        public int timeToDie;
 
-        public Message(string date, string message) : this()
+        public Message(string date, string message, int timeToDie = 30) : this()
         {
             this.date = date;
             this.message = message;
+            this.timeToDie = timeToDie;
         }
     }
 
@@ -45,13 +47,6 @@ namespace DriverETCSApp.Forms.EForms
             InitializeComponent();
 
             messages = new List<Message>();
-
-            /*messages.Add(new Message("13:11", "Test 3"));
-            messages.Add(new Message("13:20", "☺"));
-            messages.Add(new Message("15:21", "Test 2"));
-            messages.Add(new Message("17:31", "Test "));
-            messages.Add(new Message("15:24", "Najechano na balisę! \nWysłano informację do serwera"));
-            messages.Add(new Message("16:01", "123456789012345678901234567890123456789012345678901234567890"));*/
 
             RefreshMessages();
 
