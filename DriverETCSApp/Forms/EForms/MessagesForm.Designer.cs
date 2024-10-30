@@ -38,11 +38,11 @@
             // 
             this.messagebox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.messagebox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
-            this.messagebox.Location = new System.Drawing.Point(105, 3);
+            this.messagebox.Location = new System.Drawing.Point(99, 27);
             this.messagebox.Name = "messagebox";
-            this.messagebox.Size = new System.Drawing.Size(468, 200);
+            this.messagebox.Size = new System.Drawing.Size(468, 176);
             this.messagebox.TabIndex = 3;
             this.messagebox.Text = "";
             // 

@@ -38,7 +38,7 @@ namespace DriverETCSApp.Forms.EForms
         private int messageIndex = 0;
 
         private List<Message> messages;
-        private const int maxLinesShown = 6;
+        private const int maxLinesShown = 5;
 
         public MessagesForm()
         {
