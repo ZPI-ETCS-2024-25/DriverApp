@@ -40,9 +40,9 @@
             this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.messagebox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
-            this.messagebox.Location = new System.Drawing.Point(99, 27);
+            this.messagebox.Location = new System.Drawing.Point(104, 0);
             this.messagebox.Name = "messagebox";
-            this.messagebox.Size = new System.Drawing.Size(468, 176);
+            this.messagebox.Size = new System.Drawing.Size(468, 200);
             this.messagebox.TabIndex = 3;
             this.messagebox.Text = "";
             // 
@@ -68,7 +68,7 @@
             // 
             // RBCConnectionPicture
             // 
-            this.RBCConnectionPicture.Location = new System.Drawing.Point(1, 3);
+            this.RBCConnectionPicture.Location = new System.Drawing.Point(0, 0);
             this.RBCConnectionPicture.Name = "RBCConnectionPicture";
             this.RBCConnectionPicture.Size = new System.Drawing.Size(104, 42);
             this.RBCConnectionPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
