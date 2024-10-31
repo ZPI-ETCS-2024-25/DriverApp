@@ -31,7 +31,7 @@ namespace DriverETCSApp.Forms
 
         private DistancesCalculator DystancesCalculator;
 
-        public MainForm() {
+        public MainForm(bool b) {
             InitializeComponent();
             DoubleBuffered = true;
             DystancesCalculator = new DistancesCalculator();
@@ -39,7 +39,8 @@ namespace DriverETCSApp.Forms
             ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
             ReceiverHTTP.StartListening();
 
-            DrawDefaulFormsInPanels();
+            if(b)
+                DrawDefaulFormsInPanels();
         }
 
 

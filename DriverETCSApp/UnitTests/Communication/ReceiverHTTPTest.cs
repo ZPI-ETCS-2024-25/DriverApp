@@ -1,7 +1,10 @@
 ﻿using DriverETCSApp.Communication;
+using DriverETCSApp.Forms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -24,7 +27,6 @@ namespace DriverETCSApp.UnitTests.Communication
             Assert.True(ReceiverHTTP.IsListening());
             ReceiverHTTP.StopListening();
             Assert.False(ReceiverHTTP.IsListening());
-            ReceiverHTTP.StartListening();
         }
     }
 }

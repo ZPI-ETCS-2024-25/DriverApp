@@ -21,7 +21,7 @@ namespace DriverETCSApp.UnitTests.Forms
 
         private void Create()
         {
-            MainForm = new MainForm();
+            MainForm = new MainForm(false);
             MainForm.Show();
         }
     }

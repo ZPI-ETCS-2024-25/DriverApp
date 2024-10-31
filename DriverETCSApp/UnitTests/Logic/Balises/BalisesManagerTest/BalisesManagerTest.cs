@@ -19,12 +19,14 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public BalisesManagerTest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
         }
 
         [Fact]
         public void KilometerTest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise()
             {
                 kilometer = 0,
@@ -52,6 +54,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -68,6 +71,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestNotRegistered()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -84,6 +88,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestPDirection()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -100,6 +105,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestOff()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -117,6 +123,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestMiddleBalise()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 3, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -133,6 +140,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestSingleBalise()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 1, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -149,6 +157,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestNoConnection()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 1, "1", 1, "CBF");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -165,6 +174,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CBFTestThesameBalise()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 1, "1", 1, "CBF");
             TrainData.BalisePosition = 0.1;
             TrainData.CalculatedDrivingDirection = "";

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,50 +25,55 @@ namespace DriverETCSApp.UnitTests.Forms.FForms
 
         private void Create()
         {
-            MainForm = new MainForm();
+            MainForm = new MainForm(false);
             ToolbarForm = new ToolbarForm(MainForm);
             ToolbarForm.ShowInTaskbar = false;
             ToolbarForm.Visible = false;
             ToolbarForm.CreateControl();
+
+            var formField = typeof(MainForm).GetField("fForm", BindingFlags.NonPublic | BindingFlags.Instance);
+            formField.SetValue(MainForm, ToolbarForm);
         }
 
         private void Stop()
         {
             var stopMethod = typeof(MainForm).GetMethod("MainForm_FormClosing", BindingFlags.NonPublic | BindingFlags.Instance);
-            object[] parameters = { null, FormClosingEventArgs.Empty };
+            object[] parameters = { null, null };
             var result = stopMethod.Invoke(MainForm, parameters);
+            MainForm = null;
         }
 
         [Fact]
         public void GoToMenuTest()
         {
             Create();
-            var button = (Button)(typeof(ToolbarForm).GetField("buttonMainMenu", BindingFlags.NonPublic | BindingFlags.Instance)).GetValue(ToolbarForm);
-            button.PerformClick();
+            var method = typeof(ToolbarForm).GetMethod("buttonMainMenu_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(ToolbarForm, parameters);
+            Stop();
             Assert.True(ToolbarForm.IsDisposed);
-            MainForm.Dispose();
-            ToolbarForm.Dispose();
-            //Stop();
         }
 
         [Fact]
         public void GoToDataViewTest()
         {
             Create();
-            var button = (Button)(typeof(ToolbarForm).GetField("buttonDataView", BindingFlags.NonPublic | BindingFlags.Instance)).GetValue(ToolbarForm);
-            button.PerformClick();
+            var method = typeof(ToolbarForm).GetMethod("buttonDataView_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(ToolbarForm, parameters);
+            Stop();
             Assert.False(ToolbarForm.IsDisposed);
-            //Stop();
         }
 
         [Fact]
         public void GoToSettingsTest()
         {
             Create();
-            var button = (Button)(typeof(ToolbarForm).GetField("buttonSettings", BindingFlags.NonPublic | BindingFlags.Instance)).GetValue(ToolbarForm);
-            button.PerformClick();
+            var method = typeof(ToolbarForm).GetMethod("buttonSettings_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(ToolbarForm, parameters);
+            Stop();
             Assert.True(ToolbarForm.IsDisposed);
-            //Stop();
         }
     }
 }

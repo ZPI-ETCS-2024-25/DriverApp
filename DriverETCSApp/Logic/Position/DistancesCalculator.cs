@@ -75,11 +75,10 @@ namespace DriverETCSApp.Logic.Position
                     lastIndex = i;
                 }
             }
-            if (lastIndex != -1)
+            if (lastIndex != -1 && AuthorityData.Gradients.Count > 0)
             {
                 AuthorityData.GradientsDistances.RemoveRange(0, lastIndex);
                 AuthorityData.Gradients.RemoveRange(0, lastIndex);
-                
             }
             if (AuthorityData.SpeedDistances.Count > 0)
             {

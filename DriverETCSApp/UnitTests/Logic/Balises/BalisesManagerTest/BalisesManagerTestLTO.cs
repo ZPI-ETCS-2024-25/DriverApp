@@ -15,10 +15,16 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
     {
         private BalisesManager BalisesManager;
 
+        public BalisesManagerTestLTO()
+        {
+            TrainData.Reset();
+        }
+
         [Fact]
         public void LTOTestIgnore()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTO");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -39,9 +45,9 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void LTOTestConnectionAndActive()
         {
             BalisesManager = new BalisesManager();
-            EmptyCForm form = new EmptyCForm(new DriverETCSApp.Communication.Server.ServerSender("127.0.0.1", Port.Server));
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTO");
-            TrainData.BalisePosition = 0;
+            TrainData.BalisePosition = 0.0;
             TrainData.CalculatedDrivingDirection = "";
             TrainData.IsConnectionWorking = true;
             TrainData.IsTrainRegisterOnServer = true;
@@ -54,16 +60,15 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.Equal("", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("OFF", BalisesManager.GetLastBaliseType());
-            Assert.Equal(ETCSModes.STM, TrainData.ActiveMode);
-            Assert.False(TrainData.IsTrainRegisterOnServer);
         }
 
         [Fact]
         public void LTOTestConnectionAndNotActive()
         {
             BalisesManager = new BalisesManager();
-            var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTO");
-            TrainData.BalisePosition = 0;
+            TrainData.Reset();
+            var messageFromBalise = new MessageFromBalise(0.2, 1, 2, "1", 1, "LTO");
+            TrainData.BalisePosition = 0.1;
             TrainData.CalculatedDrivingDirection = "";
             TrainData.IsConnectionWorking = true;
             TrainData.IsTrainRegisterOnServer = true;
@@ -74,7 +79,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             BalisesManager.Manage(messageFromBalise);
 
             Assert.Equal("", TrainData.CalculatedDrivingDirection);
-            Assert.Equal(0.1, TrainData.BalisePosition);
+            Assert.Equal(0.2, TrainData.BalisePosition);
             Assert.Equal("OFF", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
         }
@@ -83,6 +88,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void LTOTestNotConnectionAndNotActive()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTO");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";

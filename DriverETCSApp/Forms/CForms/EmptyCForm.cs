@@ -96,7 +96,7 @@ namespace DriverETCSApp.Forms.CForms {
         private async void AnnounceChangeLevel(object sender, AckInfo e) {
             levelAnnouncementPicture.Image = e.Bitmap;
             LastAckInfo = e;
-            await Task.Delay(1750);
+            await Task.Delay(17500);
             WaitToChangeLevel(e);
         }
 
@@ -168,6 +168,7 @@ namespace DriverETCSApp.Forms.CForms {
         private void ForceToChangeLevel(object sender, LevelInfo e)
         {
             Change();
+            Console.WriteLine("ForceToChangeLevel(object sender, LevelInfo e)");
             TrainData.IsETCSActive = e.WillBeActive;
             levelPicture.Image = e.Bitmap;
             if (e.WillBeActive)

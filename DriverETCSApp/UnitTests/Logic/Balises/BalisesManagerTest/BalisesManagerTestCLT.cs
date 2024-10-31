@@ -14,12 +14,16 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
     public class BalisesManagerTestCLT
     {
         private BalisesManager BalisesManager;
-        public BalisesManagerTestCLT() { }
+        public BalisesManagerTestCLT() 
+        {
+            TrainData.Reset();
+        }
 
         [Fact]
         public void CLTTestOFF()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CLT");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -41,6 +45,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CLTTestConnectedNotActive()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CLT");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -65,6 +70,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CLTTestConnectedAndActive()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CLT");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -92,6 +98,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void CLTTestNotConnected()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "CLT");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";

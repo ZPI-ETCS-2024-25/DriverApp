@@ -38,5 +38,42 @@ namespace DriverETCSApp.Data
         
         //lock for this data
         public static SemaphoreSlim TrainDataSemaphofe = new SemaphoreSlim(1, 1);
+
+        //ONLY FOR UNIT TESTS!
+        public static void Reset()
+        {
+            IDDriver = "";
+            TrainNumber = "";
+            TrainType = "";
+            TrainCat = "";
+            Length = "";
+            VMax = "";
+            BrakingMass = "";
+            ActualSpeed = 0;
+
+            ETCSLevel = "";
+            ActiveMode = "";
+            IsMisionStarted = false;
+            IsETCSActive = false;
+            IsTrainRegisterOnServer = false;
+            IsConnectionWorking = false;
+
+            CalculatedPosition = 0;
+            CalculatedDrivingDirection = "";
+            LastCalculated = 0;
+
+            BalisePosition = -55;
+            BaliseLinePosition = 0;
+            BaliseTrackPosition = "";
+
+            if (TrainDataSemaphofe.CurrentCount == 0)
+            {
+                try
+                {
+                    TrainDataSemaphofe.Release();
+                }
+                catch { }
+            }
+        }
     }
 }

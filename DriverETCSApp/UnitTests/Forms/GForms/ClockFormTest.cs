@@ -23,8 +23,9 @@ namespace DriverETCSApp.UnitTests.Forms.GForms
         {
             ClockForm = new ClockForm();
             ClockForm.Show();
-            var s = ClockForm.GetPrintedTime();
-            Assert.Equal(DateTime.Now.ToString("HH:mm:ss"), s);
+            var printedTime = DateTime.ParseExact(ClockForm.GetPrintedTime(), "HH:mm:ss", null);
+            var difference = Math.Abs((DateTime.Now - printedTime).TotalSeconds);
+            Assert.True(difference <= 5);
 
             ClockForm.Close();
             Assert.Empty(ClockForm.GetPrintedTime());

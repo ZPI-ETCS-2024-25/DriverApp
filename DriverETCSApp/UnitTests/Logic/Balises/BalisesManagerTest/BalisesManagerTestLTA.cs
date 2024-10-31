@@ -15,12 +15,15 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
     {
         private BalisesManager BalisesManager;
 
-        public BalisesManagerTestLTA() { }
+        public BalisesManagerTestLTA() {
+            TrainData.Reset();
+        }
 
         [Fact]
         public void LTATestIgnore()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTA");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -40,6 +43,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void LTATest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTA");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -61,6 +65,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         [Fact]
         public void LTATypeONTest()
         {
+            TrainData.Reset();
             BalisesManager = new BalisesManager();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTA");
             TrainData.BalisePosition = 0;
@@ -84,6 +89,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         [Fact]
         public void LTATypeIGNOREOFFTest()
         {
+            TrainData.Reset();
             BalisesManager = new BalisesManager();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTA");
             TrainData.BalisePosition = 0;
@@ -104,6 +110,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void LTATypeOFFTest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 1, 2, "1", 1, "LTA");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";

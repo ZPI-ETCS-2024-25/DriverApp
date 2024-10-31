@@ -14,10 +14,16 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
     {
         private BalisesManager BalisesManager;
 
+        public BalisesManagerTestRE()
+        {
+            TrainData.Reset();
+        }
+
         [Fact]
         public void RETestOff()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "RE");
             TrainData.BalisePosition = 0;
             TrainData.CalculatedDrivingDirection = "";
@@ -36,6 +42,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void RETest()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.2, 2, 2, "1", 1, "RE");
             TrainData.BalisePosition = 0.1;
             TrainData.CalculatedDrivingDirection = "";
@@ -53,6 +60,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
         public void RETestNoConnectionAndRegister()
         {
             BalisesManager = new BalisesManager();
+            TrainData.Reset();
             var messageFromBalise = new MessageFromBalise(0.1, 2, 2, "1", 1, "RE");
             TrainData.BalisePosition = 0.0;
             TrainData.CalculatedDrivingDirection = "";
