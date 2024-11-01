@@ -103,6 +103,19 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
             }
             #endregion
+            #region maxSpeeds and distances of maxSpeeds
+            lastIndex = -1;
+            for (int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
+                AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i] - diffrence;
+                if (AuthorityData.MaxSpeedsDistances[i] < 0) {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1) {
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
+                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
+            }
+            #endregion
         }
 
         public void TurnOffClock()
