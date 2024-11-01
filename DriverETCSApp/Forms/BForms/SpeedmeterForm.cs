@@ -18,6 +18,8 @@ using static System.Net.Mime.MediaTypeNames;
 namespace DriverETCSApp.Forms.BForms {
     public partial class SpeedmeterForm : BorderLessForm {
 
+        private static SpeedmeterForm instance;
+
         private const int linesCount = 18;
         private const int linesLength = 40;
         private const int speedPerLine = 10;
@@ -48,6 +50,9 @@ namespace DriverETCSApp.Forms.BForms {
             numbersFont = new Font(this.Font.FontFamily, 17f, this.Font.Style, this.Font.Unit);
 
             ETCSEvents.ModeChanged += modeChanged;
+
+            if (instance == null)
+                instance = this;
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
@@ -153,12 +158,12 @@ namespace DriverETCSApp.Forms.BForms {
             return speed;
         }
 
-        public void SetSpeed(int newSpeed) {
+        public static void SetSpeed(int newSpeed) {
             if (newSpeed < 0 || newSpeed > linesCount * speedPerLine) 
                 return;
 
-            speed = newSpeed;
-            clockPanel.Invalidate();
+            instance.speed = newSpeed;
+            instance.clockPanel.Invalidate();
         }
 
         public (int, int) GetSpeedWarning() {
