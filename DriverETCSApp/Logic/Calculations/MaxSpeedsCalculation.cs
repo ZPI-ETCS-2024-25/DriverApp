@@ -17,7 +17,6 @@ namespace DriverETCSApp.Logic.Calculations {
                 AuthorityData.MaxSpeedsDistances[i] -= 10;
             }
             
-            
         }
 
     }

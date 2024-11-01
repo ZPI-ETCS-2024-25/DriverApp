@@ -2,11 +2,13 @@
 using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Logic.Position;
 using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,6 +55,12 @@ namespace DriverETCSApp.Forms.BForms {
 
             if (instance == null)
                 instance = this;
+
+            DistancesCalculator.OnCalculactionFinished.Add(UpdateWarningAndCap);
+        }
+
+        private void UpdateWarningAndCap() {
+            SetSpeedWarning(0, 150);
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
