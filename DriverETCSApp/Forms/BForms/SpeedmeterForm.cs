@@ -2,6 +2,8 @@
 using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Logic.Calculations;
+using DriverETCSApp.Logic.Data;
 using DriverETCSApp.Logic.Position;
 using DriverETCSApp.Properties;
 using System;
@@ -15,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Xunit;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DriverETCSApp.Forms.BForms {
@@ -214,8 +217,16 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
-            SetSpeedWarning(0, 60);
-            SetSpeedCap(0, 70);
+            //SetSpeedWarning(0, 60);
+            //SetSpeedCap(0, 70);
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            AuthorityData.SpeedDistances = new List<double> {0, 200, 500, 800, 1000 };
+            AuthorityData.Speeds = new List<double> {100, 140, 90, 80, 50 };
+            AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
+            AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
+            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void modeChanged(object sender, ModeInfo e) {
