@@ -13,7 +13,7 @@ namespace DriverETCSApp.Logic.Calculations {
             AuthorityData.MaxSpeeds = speeds;
             AuthorityData.MaxSpeedsDistances = speedDistances;
 
-            for(int i = 0; i <= AuthorityData.MaxSpeedsDistances.Count; i++) {
+            for(int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
                 AuthorityData.MaxSpeedsDistances[i] -= 10;
             }
             

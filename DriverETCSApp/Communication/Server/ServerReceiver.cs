@@ -1,5 +1,6 @@
 ﻿using DriverETCSApp.Data;
 using DriverETCSApp.Events;
+using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Logic.Data;
 using DriverETCSApp.Properties;
 using Newtonsoft.Json;
@@ -43,11 +44,13 @@ namespace DriverETCSApp.Communication.Server
             try
             {
                 LoadNewDataFromServer.LoadNewData(decodedMessage);
+                MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
             }
             finally
             {
                 AuthorityData.AuthoritiyDataSemaphore.Release();
             }
+            
         }
 
         private async void ConnectionWithRBC(dynamic decodedMessage)

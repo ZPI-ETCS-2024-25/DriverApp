@@ -60,8 +60,14 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void UpdateWarningAndCap() {
-           SetSpeedWarning(0, 100);
-           SetSpeedCap(100, 110);
+            if (AuthorityData.MaxSpeeds.Count > 0) {
+                double max = AuthorityData.MaxSpeeds[0];
+                SetSpeedWarning(0, (int)max);
+            }
+            else {
+                SetSpeedWarning(0, 0);
+                SetSpeedCap(0, 0);
+            }
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {

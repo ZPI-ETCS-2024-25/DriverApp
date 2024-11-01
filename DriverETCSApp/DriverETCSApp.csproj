@@ -297,6 +297,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UnitTests\Calculations\MaxSpeedCalculationTest.cs" />
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
     <Compile Include="UnitTests\Forms\FForms\ToolbarFormTest.cs" />
     <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainTypeDataFormTest .cs" />
