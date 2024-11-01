@@ -81,6 +81,19 @@ namespace DriverETCSApp.UnitTests.Forms.FullScreenForms
 
         [Fact]
         [STAThread]
+        public void TestChangeDisplay()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+            var method = typeof(TrainDataForm).GetMethod("buttonChangeDisplay_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+            Stop();
+            Assert.True(TrainDataForm.IsDisposed);
+        }
+
+        [Fact]
+        [STAThread]
         public void TestClickLabel1Empty()
         {
             Create();
@@ -315,6 +328,167 @@ namespace DriverETCSApp.UnitTests.Forms.FullScreenForms
             Assert.Equal(DMIColors.Grey, l1[3].ForeColor);
             Assert.Equal(DMIColors.DarkGrey, l1[0].ForeColor);
             Assert.Equal(DMIColors.Grey, l1[0].BackColor);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestLabelConfirmation()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+            var label1 = (Label)typeof(TrainDataForm).GetField("infoLabelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            label1.Text = "123";
+
+            var label2 = (Label)typeof(TrainDataForm).GetField("infoLabelData2", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            label2.Text = "1234";
+
+            var label3 = (Label)typeof(TrainDataForm).GetField("infoLabelData3", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            label3.Text = "123";
+
+            var label4 = (Label)typeof(TrainDataForm).GetField("infoLabelData4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            label4.Text = "123";
+
+            var formField = typeof(TrainDataForm).GetField("IsConfirmationActive", BindingFlags.NonPublic | BindingFlags.Instance);
+            formField.SetValue(TrainDataForm, true);
+
+            var method = typeof(TrainDataForm).GetMethod("labelConfirmation_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+
+            var label = (Label)typeof(TrainDataForm).GetField("infoLabelData4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+
+            var ID = (int)typeof(TrainDataForm).GetField("ID", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            var l1 = (List<Label>)typeof(TrainDataForm).GetField("labelsList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Stop();
+            Assert.True(TrainDataForm.IsDisposed);
+            Assert.Equal("123", label.Text);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestLabelConfirmation1()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+
+            var formField = typeof(TrainDataForm).GetField("IsConfirmationActive", BindingFlags.NonPublic | BindingFlags.Instance);
+            formField.SetValue(TrainDataForm, false);
+
+            var method = typeof(TrainDataForm).GetMethod("labelConfirmation_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+
+            var label = (Label)typeof(TrainDataForm).GetField("infoLabelData4", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+
+            Stop();
+            Assert.False(TrainDataForm.IsDisposed);
+            Assert.Equal("", label.Text);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestDataInput()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+
+            var method = typeof(TrainDataForm).GetMethod("button4_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button5_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button6_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button7_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+
+            var label = (Label)typeof(TrainDataForm).GetField("labelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Stop();
+            Assert.Equal("456", label.Text);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestDataInput1()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+
+            var method = typeof(TrainDataForm).GetMethod("button7_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button8_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button9_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            method = typeof(TrainDataForm).GetMethod("button11_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+
+            var label = (Label)typeof(TrainDataForm).GetField("labelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Stop();
+            Assert.Equal("789", label.Text);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestDataInput2()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+
+            var method = typeof(TrainDataForm).GetMethod("button1_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+            var label = (Label)typeof(TrainDataForm).GetField("labelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Assert.Equal("PASS 3", label.Text);
+
+            method = typeof(TrainDataForm).GetMethod("button2_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            label = (Label)typeof(TrainDataForm).GetField("labelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Assert.Equal("FP 4", label.Text);
+
+            method = typeof(TrainDataForm).GetMethod("button3_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            label = (Label)typeof(TrainDataForm).GetField("labelData1", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+
+            Stop();
+            Assert.Equal("FG 4", label.Text);
+        }
+
+        [Fact]
+        [STAThread]
+        public void TestDataInput3()
+        {
+            Create();
+            TrainDataForm = new TrainDataForm(MainForm);
+
+            var l = (Label)typeof(TrainDataForm).GetField("labelData2", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+
+            var formField = typeof(TrainDataForm).GetField("activeLabel", BindingFlags.NonPublic | BindingFlags.Instance);
+            formField.SetValue(TrainDataForm, l);
+
+            var method = typeof(TrainDataForm).GetMethod("button1_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { null, null };
+            var result = method.Invoke(TrainDataForm, parameters);
+            var label = (Label)typeof(TrainDataForm).GetField("activeLabel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Assert.Equal("1", label.Text);
+
+            method = typeof(TrainDataForm).GetMethod("button2_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            label = (Label)typeof(TrainDataForm).GetField("activeLabel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Assert.Equal("12", label.Text);
+
+            method = typeof(TrainDataForm).GetMethod("button3_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            label = (Label)typeof(TrainDataForm).GetField("activeLabel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            Assert.Equal("123", label.Text);
+
+            method = typeof(TrainDataForm).GetMethod("button10_Click", BindingFlags.NonPublic | BindingFlags.Instance);
+            result = method.Invoke(TrainDataForm, parameters);
+            label = (Label)typeof(TrainDataForm).GetField("activeLabel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(TrainDataForm);
+            
+            Stop();
+            Assert.Equal("12", label.Text);
         }
     }
 }

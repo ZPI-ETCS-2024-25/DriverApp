@@ -16,7 +16,7 @@ namespace DriverETCSApp.Forms.DForms
     {
         private MainForm MainForm;
         private bool IsConfirmationActive;
-        PredefinedTrain trainData;
+        private PredefinedTrain trainData;
 
         public TrainDataTypeForm(MainForm mainForm)
         {
