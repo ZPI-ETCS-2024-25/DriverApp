@@ -10,12 +10,15 @@ namespace DriverETCSApp.Logic.Calculations {
 
         static private DateTime lastApproximation = DateTime.Now;
 
-        public static void ApproximatePosition() {
+        public static double ApproximateMovedDistance() {
             TimeSpan timeDifference = DateTime.Now - lastApproximation;
-            double currentSpeed = AuthorityData.CurrentSpeed;
-            double previousPosition = AuthorityData.CurrentPosition;
+            double currentSpeed = TrainData.CurrentSpeed;
+            lastApproximation = DateTime.Now;
 
-            AuthorityData.CurrentPosition = previousPosition + currentSpeed * timeDifference.TotalSeconds;
+            return currentSpeed * timeDifference.TotalSeconds;
+        }
+
+        public static void ResetLastApproximationTimer() {
             lastApproximation = DateTime.Now;
         }
     }
