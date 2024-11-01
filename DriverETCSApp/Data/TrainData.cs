@@ -49,7 +49,7 @@ namespace DriverETCSApp.Data
             Length = "";
             VMax = "";
             BrakingMass = "";
-            ActualSpeed = 0;
+            CurrentSpeed = 0;
 
             ETCSLevel = "";
             ActiveMode = "";

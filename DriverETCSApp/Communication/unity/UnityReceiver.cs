@@ -40,7 +40,7 @@ namespace DriverETCSApp.Communication.Server
 
         private void SpeedChanged(dynamic message) {
             SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
-            AuthorityData.CurrentSpeed = speedData.NewSpeed;
+            TrainData.CurrentSpeed = speedData.NewSpeed;
         }
     }
 }
