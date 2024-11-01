@@ -10,7 +10,7 @@ namespace DriverETCSApp.Logic.Calculations {
     public static class MaxSpeedsCalculation {
 
         public static void Calculate(List<double> speeds, List<double> speedDistances) {
-            AuthorityData.MaxSpeeds = speeds;
+            AuthorityData.MaxSpeeds = new List<double>(speeds);
             AuthorityData.MaxSpeedsDistances.Clear();
 
             for (int i = 0; i < speedDistances.Count; i++) {

@@ -2,8 +2,10 @@
 using DriverETCSApp.Events;
 using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Logic.Data;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,9 +46,11 @@ namespace DriverETCSApp.Logic.Position
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             TrainData.CalculatedPosition -= PositionApproximation.ApproximateMovedDistance();
-            
-            //if(AuthorityData.SpeedDistances.Count > 0)
-            //    Console.WriteLine(AuthorityData.SpeedDistances[0] + ", " + AuthorityData.SpeedDistances[1] + ", " + AuthorityData.SpeedDistances[2]);
+
+            //if (AuthorityData.MaxSpeedsDistances.Count > 0) {
+            //    Console.WriteLine("  " + string.Join(", ", AuthorityData.MaxSpeedsDistances.Select(x => (int)x)));
+            //    Console.WriteLine("  " + string.Join(", ", AuthorityData.MaxSpeeds.Select(x => (int)x)));
+            //}
 
             #region speeds and distances of speeds
             int lastIndex = -1;
