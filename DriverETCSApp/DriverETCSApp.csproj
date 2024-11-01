@@ -134,6 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\SpeedData.cs" />
     <Compile Include="Events\ETCSEventArgs\AckInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\BaliseInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\BaliseModeInfo.cs" />
