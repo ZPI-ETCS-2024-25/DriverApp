@@ -12,7 +12,7 @@ namespace DriverETCSApp.Data
         public static string Length = "";
         public static string VMax = "";
         public static string BrakingMass = "";
-        public static double ActualSpeed = 0;
+        public static double CurrentSpeed = 0;
 
 
         //etcs data
@@ -49,7 +49,7 @@ namespace DriverETCSApp.Data
             Length = "";
             VMax = "";
             BrakingMass = "";
-            ActualSpeed = 0;
+            CurrentSpeed = 0;
 
             ETCSLevel = "";
             ActiveMode = "";

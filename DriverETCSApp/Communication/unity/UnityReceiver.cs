@@ -22,9 +22,25 @@ namespace DriverETCSApp.Communication.Server
 
         public void Proccess(string message)
         {
-            MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
+            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            switch (decodedMessage.MessageType.ToString()) {
+                case "FB": //From Balise
+                    SetDistanceFromBalise(message);
+                    break;
+                case "NS": //New speed
+                    SpeedChanged(message);
+                    break;
+            }
+        }
 
+        private void SetDistanceFromBalise(dynamic message) {
+            MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
             BalisesManager.Manage(decodedMessage);
+        }
+
+        private void SpeedChanged(dynamic message) {
+            SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
+            TrainData.CurrentSpeed = speedData.NewSpeed;
         }
     }
 }
