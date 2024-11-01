@@ -170,18 +170,18 @@ namespace DriverETCSApp.Forms.BForms {
             return speedWarning;
         }
 
-        public void SetSpeedWarning(int min, int max) {
-            speedWarning = (min, max);
-            clockPanel.Invalidate();
+        public static void SetSpeedWarning(int min, int max) {
+            instance.speedWarning = (min, max);
+            instance.clockPanel.Invalidate();
         }
 
         public (int, int) GetSpeedCap() {
             return speedCap;
         }
 
-        public void SetSpeedCap(int min, int max) {
-            speedCap = (min, max);
-            clockPanel.Invalidate();
+        public static void SetSpeedCap(int min, int max) {
+            instance.speedCap = (min, max);
+            instance.clockPanel.Invalidate();
         }
 
         public void ChangeMode(Bitmap newImage) {
