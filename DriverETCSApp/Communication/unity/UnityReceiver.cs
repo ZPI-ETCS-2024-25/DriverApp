@@ -31,7 +31,6 @@ namespace DriverETCSApp.Communication.Server
                     SpeedChanged(message);
                     break;
             }
-            
         }
 
         private void SetDistanceFromBalise(dynamic message) {

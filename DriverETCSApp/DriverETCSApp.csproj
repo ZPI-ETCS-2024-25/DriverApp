@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Logic\Balises\BalisesManager.cs" />
     <Compile Include="Logic\Calculations\MaxSpeedsCalculation.cs" />
+    <Compile Include="Logic\Calculations\PositionApproximation.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />
     <Compile Include="Data\PredefinedTrainData.cs" />
     <Compile Include="Data\TrainData.cs" />

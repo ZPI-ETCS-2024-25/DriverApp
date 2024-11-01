@@ -17,8 +17,8 @@ namespace DriverETCSApp.Data
         //lock
         public static SemaphoreSlim AuthoritiyDataSemaphore = new SemaphoreSlim(1, 1);
         //distance
-        public static double CurrentDistance;
-        public static double CurrentSpeed;
+        public static double CurrentPosition = 0f;
+        public static double CurrentSpeed = 0f;
         //speed data
         public static List<double> Speeds = new List<double>();
         public static List<double> SpeedDistances = new List<double>();
