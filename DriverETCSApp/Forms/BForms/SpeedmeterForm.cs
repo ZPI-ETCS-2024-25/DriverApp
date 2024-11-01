@@ -60,7 +60,8 @@ namespace DriverETCSApp.Forms.BForms {
         }
 
         private void UpdateWarningAndCap() {
-            SetSpeedWarning(0, 150);
+           SetSpeedWarning(0, 100);
+           SetSpeedCap(100, 110);
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e) {
@@ -129,8 +130,8 @@ namespace DriverETCSApp.Forms.BForms {
                 Pen pen = new Pen(Color.Yellow, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
 
-                int offset = 10;
-                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - offset, clockSize - offset);
+                int offset = 15;
+                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2*offset, clockSize - 2*offset);
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
                 e.Graphics.DrawArc(new Pen(Color.Yellow, 32), insideRect, pointer, pointerBoldness);
@@ -138,8 +139,8 @@ namespace DriverETCSApp.Forms.BForms {
 
             // Draw Arc of Cap
             if (speedCap != (0, 0) && speedCap.Item1 < speed) {
-                int offset = 10;
-                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - offset, clockSize - offset);
+                int offset = 12;
+                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
 
                 float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine - 0.2f;
                 float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine;
@@ -208,7 +209,7 @@ namespace DriverETCSApp.Forms.BForms {
 
         private void btnTest3_Click(object sender, EventArgs e) {
             SetSpeedWarning(0, 60);
-            SetSpeedCap(60, 70);
+            SetSpeedCap(0, 70);
         }
 
         private void modeChanged(object sender, ModeInfo e) {
