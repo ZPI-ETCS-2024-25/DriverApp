@@ -93,6 +93,7 @@
             this.Controls.Add(this.clockPanel);
             this.Name = "SpeedmeterForm";
             this.Text = "SpeedmeterForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpeedmeterForm_FormClosing);
             this.clockPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.modePicture)).EndInit();
             this.ResumeLayout(false);

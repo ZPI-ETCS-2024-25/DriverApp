@@ -10,7 +10,7 @@ using DriverETCSApp.Data;
 
 namespace DriverETCSApp.UnitTests.Logic.Charts
 {
-    public class ChartScaleDrawerTest
+    public class ChartScaleDrawerTest : IDisposable
     {
         private ChartScaleDrawer ChartScaleDrawer;
         private Chart Chart;
@@ -135,6 +135,12 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             {
                 Assert.Empty(Chart.ChartAreas[i].AxisY.StripLines);
             }
+        }
+
+        public void Dispose()
+        {
+            Chart.Dispose();
+            ChartScaleDrawer = null;
         }
     }
 }

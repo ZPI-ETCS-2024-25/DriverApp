@@ -198,5 +198,11 @@ namespace DriverETCSApp.Forms.EForms
                 }));
             }
         }
+
+        private void MessagesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ETCSEvents.ConnectionChanged -= ChangeConnection;
+            ETCSEvents.NewSystemMessage -= NewSystemMessage;
+        }
     }
 }

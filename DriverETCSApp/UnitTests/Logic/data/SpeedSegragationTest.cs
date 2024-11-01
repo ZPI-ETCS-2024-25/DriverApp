@@ -1,11 +1,13 @@
 using DriverETCSApp.Data;
 using DriverETCSApp.Logic.Data;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Data
 {
-    public class SpeedSegregationTest
+    public class SpeedSegregationTest : IDisposable
     {
         private SpeedSegragation SpeedSegragation;
         public SpeedSegregationTest() 
@@ -75,6 +77,11 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             Assert.Equal(new List<double> { }, AuthorityData.HigherSpeed);
             Assert.Equal(new List<double> { 0 }, AuthorityData.LowerSpeed);
             AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        public void Dispose()
+        {
+            SpeedSegragation = null;
         }
     }
 }

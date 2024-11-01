@@ -3,10 +3,12 @@ using DriverETCSApp.Logic.Data;
 using DriverETCSApp.Data;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System;
 
 namespace DriverETCSApp.UnitTests.Logic.Data
 {
-    public class LoadNewDataFromServerTest
+    public class LoadNewDataFromServerTest : IDisposable
     {
         private LoadNewDataFromServer LoadNewDataFromServer;
 
@@ -317,6 +319,11 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             Assert.Equal(new List<string> { "TEST1", "Test" }, AuthorityData.Messages);
             Assert.Equal(new List<double> { 170, 1050 }, AuthorityData.MessagesDistances);
             AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        public void Dispose()
+        {
+            LoadNewDataFromServer = null;
         }
     }
 }

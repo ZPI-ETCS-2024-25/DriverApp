@@ -59,6 +59,7 @@
             this.Controls.Add(this.levelAnnouncementPicture);
             this.Name = "EmptyCForm";
             this.Text = "EmptyCForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EmptyCForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.levelPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.levelAnnouncementPicture)).EndInit();
             this.ResumeLayout(false);

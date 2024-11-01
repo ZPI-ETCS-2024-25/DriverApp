@@ -11,7 +11,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 {
-    public class BalisesManagerTestLTO
+    public class BalisesManagerTestLTO : IDisposable
     {
         private BalisesManager BalisesManager;
 
@@ -104,6 +104,11 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("GO_OFF", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
+        }
+
+        public void Dispose()
+        {
+            BalisesManager = null;
         }
     }
 }

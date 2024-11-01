@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Charts
 {
-    public class ChartInterpolateTest
+    public class ChartInterpolateTest : IDisposable
     {
         private ChartInterpolate ChartInterpolate;
 
@@ -47,6 +47,11 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             double expected = 4125.345;
             double value = ChartInterpolate.InterpolatePosition(1050);
             Assert.Equal(expected, value);
+        }
+
+        public void Dispose()
+        {
+            ChartInterpolate = null;
         }
     }
 }

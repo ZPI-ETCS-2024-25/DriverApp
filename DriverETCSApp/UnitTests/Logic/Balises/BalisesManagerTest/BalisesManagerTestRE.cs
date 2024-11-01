@@ -10,7 +10,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 {
-    public class BalisesManagerTestRE
+    public class BalisesManagerTestRE : IDisposable
     {
         private BalisesManager BalisesManager;
 
@@ -74,6 +74,11 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             BalisesManager.Manage(messageFromBalise);
 
             Assert.Equal("", BalisesManager.GetLastBaliseType());
+        }
+
+        public void Dispose()
+        {
+            BalisesManager = null;
         }
     }
 }

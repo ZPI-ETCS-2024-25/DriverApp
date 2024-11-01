@@ -113,6 +113,7 @@
             this.Controls.Add(this.messagebox);
             this.Name = "MessagesForm";
             this.Text = "MessagesForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagesForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.RBCConnectionPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonUP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

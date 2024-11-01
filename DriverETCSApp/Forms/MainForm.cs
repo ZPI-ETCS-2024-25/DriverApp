@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace DriverETCSApp.Forms
 {
-    public partial class MainForm : Form {
+    public partial class MainForm : Form, IDisposable {
         private BorderLessForm aForm;
         private BorderLessForm bForm;
         private BorderLessForm cForm;
@@ -34,15 +34,30 @@ namespace DriverETCSApp.Forms
         public MainForm(bool b) {
             InitializeComponent();
             DoubleBuffered = true;
-            DystancesCalculator = new DistancesCalculator();
-            ServerSender = new ServerSender("127.0.0.1", Port.Server);
-            ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
-            ReceiverHTTP.StartListening();
 
-            if(b)
+            if (b)
+            {
+                DystancesCalculator = new DistancesCalculator();
+                ServerSender = new ServerSender("127.0.0.1", Port.Server);
+                ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
+                ReceiverHTTP.StartListening();
                 DrawDefaulFormsInPanels();
+            }
         }
 
+        public new void Dispose()
+        {
+            base.Dispose();
+            aForm?.Dispose();
+            bForm?.Dispose();
+            cForm?.Dispose();
+            dForm?.Dispose();
+            eForm?.Dispose();
+            fForm?.Dispose();
+            gForm?.Dispose();
+            yForm?.Dispose();
+            zForm?.Dispose();
+        }
 
         //Block keyboards
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -265,7 +280,8 @@ namespace DriverETCSApp.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ReceiverHTTP.StopListening();
+            ReceiverHTTP?.StopListening();
+            Dispose();
         }
     }
 }

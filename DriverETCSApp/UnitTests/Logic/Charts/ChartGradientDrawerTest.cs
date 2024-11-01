@@ -12,7 +12,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Charts
 {
-    public class ChartGradientDrawerTest
+    public class ChartGradientDrawerTest : IDisposable
     {
         private ChartGradientDrawer ChartGradientDrawer;
         private ChartScaleDrawer ChartScaleDrawer;
@@ -150,6 +150,14 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             Assert.Single(Chart.Series);
 
             AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        public void Dispose()
+        {
+            ChartGradientDrawer = null;
+            ChartScaleDrawer = null;
+            Interpolator = null;
+            Chart.Dispose();
         }
     }
 }

@@ -202,5 +202,10 @@ namespace DriverETCSApp.Forms.BForms {
             ChangeMode(e.Bitmap);
             TrainData.ActiveMode = e.Mode;
         }
+
+        private void SpeedmeterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ETCSEvents.ModeChanged -= modeChanged;
+        }
     }
 }

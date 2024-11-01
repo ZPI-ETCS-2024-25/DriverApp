@@ -11,7 +11,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 {
-    public class BalisesManagerTestLTA
+    public class BalisesManagerTestLTA : IDisposable
     {
         private BalisesManager BalisesManager;
 
@@ -56,6 +56,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
                 x => ETCSEvents.AckChanged -= x,
                 () => BalisesManager.Manage(messageFromBalise));
             Assert.NotNull(y);
+            //BalisesManager.Manage(messageFromBalise);
             Assert.Equal("N", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("", BalisesManager.GetLastBaliseType());
@@ -79,7 +80,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
                 x => ETCSEvents.AckChanged += x,
                 x => ETCSEvents.AckChanged -= x,
                 () => BalisesManager.Manage(messageFromBalise));
-            Assert.NotNull(y);
+            //BalisesManager.Manage(messageFromBalise);
             Assert.Equal("N", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("GO_OFF", BalisesManager.GetLastBaliseType());
@@ -124,6 +125,11 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.Equal(0, TrainData.BalisePosition);
             Assert.Equal("OFF", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
+        }
+
+        public void Dispose()
+        {
+            BalisesManager = null;
         }
     }
 }

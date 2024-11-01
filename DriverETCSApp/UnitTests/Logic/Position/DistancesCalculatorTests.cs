@@ -10,7 +10,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Position
 {
-    public class DistancesCalculatorTests
+    public class DistancesCalculatorTests : IDisposable
     {
         private DistancesCalculator Calculator;
 
@@ -133,6 +133,11 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 500 });
             TrainData.TrainDataSemaphofe.Release();
             AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        public void Dispose()
+        {
+            Calculator = null;
         }
     }
 }

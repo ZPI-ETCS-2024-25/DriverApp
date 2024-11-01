@@ -297,6 +297,10 @@
     </Compile>
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
     <Compile Include="UnitTests\Forms\FForms\ToolbarFormTest.cs" />
+    <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainTypeDataFormTest .cs" />
+    <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainDataFormTest.cs" />
+    <Compile Include="UnitTests\Forms\FullScreenForms\TrainDataFormTest.cs" />
+    <Compile Include="UnitTests\Forms\FullScreenForms\TrainDataTypeFormTest.cs" />
     <Compile Include="UnitTests\Forms\GForms\ClockFormTest.cs" />
     <Compile Include="UnitTests\Forms\MainFormTest.cs" />
     <Compile Include="UnitTests\Forms\YZForms\YZFormTest.cs" />
@@ -475,7 +479,6 @@
     <Folder Include="UnitTests\Communication\Unity\" />
     <Folder Include="UnitTests\Events\EventsArgs\" />
     <Folder Include="UnitTests\Forms\DForms\" />
-    <Folder Include="UnitTests\Forms\FullScreenForms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\ETCSConnection\NoConnection.png" />

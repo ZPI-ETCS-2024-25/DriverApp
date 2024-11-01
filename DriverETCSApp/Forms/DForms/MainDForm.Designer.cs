@@ -54,6 +54,7 @@ namespace DriverETCSApp.Forms.DForms
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainDForm";
             this.Text = "EmptyDForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainDForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PlanningChart)).EndInit();
             this.ResumeLayout(false);
 

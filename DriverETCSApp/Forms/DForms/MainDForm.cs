@@ -166,5 +166,11 @@ namespace DriverETCSApp.Forms.DForms
                 catch { Console.WriteLine("ChangeVisibilityOfChart(object sender, ModeInfo e)"); }
             }
         }
+
+        private void MainDForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DistancesCalculator.DistancesCalculationsCompleted -= DistancesCalculationCompleted;
+            ETCSEvents.ModeChanged -= ChangeVisibilityOfChart;
+        }
     }
 }

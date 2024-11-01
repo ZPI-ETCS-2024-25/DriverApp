@@ -12,7 +12,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 {
-    public class BalisesManagerTest
+    public class BalisesManagerTest : IDisposable
     {
         private BalisesManager BalisesManager;
 
@@ -185,6 +185,11 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
 
             Assert.Equal("", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
+        }
+
+        public void Dispose()
+        {
+            BalisesManager = null;
         }
     }
 }

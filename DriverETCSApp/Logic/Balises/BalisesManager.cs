@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DriverETCSApp.Logic.Balises
 {
-    public class BalisesManager
+    public class BalisesManager : IDisposable
     {
         private ServerSender ServerSender;
         private string LastBaliseType;
@@ -196,6 +196,11 @@ namespace DriverETCSApp.Logic.Balises
         public string GetLastBaliseType()
         {
             return LastBaliseType;
+        }
+
+        public void Dispose()
+        {
+            ETCSEvents.ForceToChangeBaliseType -= ForceChangeType;
         }
     }
 }

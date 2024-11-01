@@ -27,8 +27,6 @@ namespace DriverETCSApp.Forms.DForms
             IsConfirmationActive = false;
         }
 
-        //protected override void PaintForm(object sender, PaintEventArgs e) { }
-
         private void button1_Click(object sender, EventArgs e)
         {
             IsConfirmationActive = false;

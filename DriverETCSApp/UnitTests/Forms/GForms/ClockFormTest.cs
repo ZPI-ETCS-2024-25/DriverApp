@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Xunit;
 using DriverETCSApp.Forms.GForms;
 using System.Threading;
+using DriverETCSApp.Logic.Balises;
 
 namespace DriverETCSApp.UnitTests.Forms.GForms
 {
-    public class ClockFormTest
+    public class ClockFormTest : IDisposable
     {
         private ClockForm ClockForm;
 
@@ -29,6 +30,11 @@ namespace DriverETCSApp.UnitTests.Forms.GForms
 
             ClockForm.Close();
             Assert.Empty(ClockForm.GetPrintedTime());
+        }
+
+        public void Dispose()
+        {
+            ClockForm.Dispose();
         }
     }
 }

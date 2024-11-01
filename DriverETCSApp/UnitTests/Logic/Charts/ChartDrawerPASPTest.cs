@@ -14,7 +14,7 @@ using DriverETCSApp.Forms.DForms;
 
 namespace DriverETCSApp.UnitTests.Logic.Charts
 {
-    public class ChartDrawerPASPTest
+    public class ChartDrawerPASPTest : IDisposable
     {
         private ChartDrawerPASP ChartDrawerPASP;
         private ChartScaleDrawer ChartScaleDrawer;
@@ -22,7 +22,7 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         private ChartInterpolate Interpolator;
         private Chart Chart;
 
-        public ChartDrawerPASPTest() 
+        public ChartDrawerPASPTest()
         {
             Chart = new Chart();
             Interpolator = new ChartInterpolate();
@@ -110,6 +110,15 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
 
             Assert.False(b);
             AuthorityData.AuthoritiyDataSemaphore.Release();
+        }
+
+        public void Dispose()
+        {
+            ChartDrawerPASP = null;
+            ChartScaleDrawer = null;
+            ChartInterpolate = null;
+            Interpolator = null;
+            Chart.Dispose();
         }
     }
 }

@@ -155,7 +155,7 @@ namespace DriverETCSApp.Forms.CForms {
                 TrainData.ETCSLevel = ETCSLevel.Poziom2;
                 TrainData.ActiveMode = ETCSModes.FS;
                 ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
-                _ = ServerSender.SendMARequest();
+                _ = ServerSender?.SendMARequest();
             }
             else
             {
@@ -176,7 +176,7 @@ namespace DriverETCSApp.Forms.CForms {
                 TrainData.ETCSLevel = ETCSLevel.Poziom2;
                 TrainData.ActiveMode = ETCSModes.FS;
                 ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
-                _ = ServerSender.SendMARequest();
+                _ = ServerSender?.SendMARequest();
             }
             else
             {
@@ -218,6 +218,14 @@ namespace DriverETCSApp.Forms.CForms {
                 LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
             }
             Timer.Change(0, 250);
+        }
+
+        private void EmptyCForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ETCSEvents.AckChanged -= AnnounceChangeLevel;
+            ETCSEvents.LevelChanged -= ForceToChangeLevel;
+            ETCSEvents.ChangeLevelIcon -= ChangeLevelByMenu;
+            ETCSEvents.MisionStarted -= MisionStarted;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Forms;
+using DriverETCSApp.Logic.Balises;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Forms.YZForms
 {
-    public class YZFormTest
+    public class YZFormTest : IDisposable
     {
         private YZForm YZForm;
         public YZFormTest()
@@ -21,6 +22,11 @@ namespace DriverETCSApp.UnitTests.Forms.YZForms
         {
             YZForm = new YZForm();
             Assert.NotNull(YZForm);
+        }
+
+        public void Dispose()
+        {
+            YZForm.Dispose();
         }
     }
 }

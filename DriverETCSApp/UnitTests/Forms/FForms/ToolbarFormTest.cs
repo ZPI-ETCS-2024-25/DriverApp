@@ -13,14 +13,14 @@ using Xunit;
 
 namespace DriverETCSApp.UnitTests.Forms.FForms
 {
-    public class ToolbarFormTest
+    public class ToolbarFormTest : IDisposable
     {
         private ToolbarForm ToolbarForm;
         private MainForm MainForm;
 
-        public ToolbarFormTest() 
+        public ToolbarFormTest()
         {
-            
+
         }
 
         private void Create()
@@ -40,7 +40,6 @@ namespace DriverETCSApp.UnitTests.Forms.FForms
             var stopMethod = typeof(MainForm).GetMethod("MainForm_FormClosing", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { null, null };
             var result = stopMethod.Invoke(MainForm, parameters);
-            MainForm = null;
         }
 
         [Fact]
@@ -61,8 +60,8 @@ namespace DriverETCSApp.UnitTests.Forms.FForms
             var method = typeof(ToolbarForm).GetMethod("buttonDataView_Click", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { null, null };
             var result = method.Invoke(ToolbarForm, parameters);
-            Stop();
             Assert.False(ToolbarForm.IsDisposed);
+            Stop();
         }
 
         [Fact]
@@ -74,6 +73,12 @@ namespace DriverETCSApp.UnitTests.Forms.FForms
             var result = method.Invoke(ToolbarForm, parameters);
             Stop();
             Assert.True(ToolbarForm.IsDisposed);
+        }
+
+        public void Dispose()
+        {
+            ToolbarForm.Dispose();
+            MainForm.Dispose()  ;
         }
     }
 }
