@@ -2,6 +2,7 @@
 using DriverETCSApp.Data;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,8 @@ namespace DriverETCSApp.Logic.Balises
                 TrainData.BalisePosition = message.kilometer;
                 return;
             }
+
+            PositionApproximation.ResetLastApproximationTimer();
 
             TrainData.BalisePosition = message.kilometer;
             TrainData.BaliseLinePosition = message.lineNumber;
