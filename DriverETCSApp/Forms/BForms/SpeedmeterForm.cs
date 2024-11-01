@@ -221,7 +221,7 @@ namespace DriverETCSApp.Forms.BForms {
             //SetSpeedCap(0, 70);
             AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.SpeedDistances = new List<double> {0, 200, 500, 800, 1000 };
-            AuthorityData.Speeds = new List<double> {100, 140, 90, 80, 50 };
+            AuthorityData.Speeds = new List<double> {100, 140, 90, 85, 53 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
