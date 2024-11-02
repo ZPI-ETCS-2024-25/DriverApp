@@ -14,6 +14,9 @@ namespace DriverETCSApp.Communication.Server
     public class UnityReceiver
     {
         private BalisesManager BalisesManager;
+        
+        private DateTime lastSpeedSend = DateTime.Now;
+        private const int secondsToSend = 2;
 
         public UnityReceiver()
         {
@@ -42,6 +45,12 @@ namespace DriverETCSApp.Communication.Server
             SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
             TrainData.CurrentSpeed = speedData.NewSpeed;
             Forms.BForms.SpeedmeterForm.SetSpeed((int)speedData.NewSpeed);
+
+            if((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend) {
+                ServerSender sender = new ServerSender("127.0.0.1", Port.Server);
+                _ = sender.SendSpeedUpdate(speedData.NewSpeed);
+                lastSpeedSend = DateTime.Now;
+            }
         }
     }
 }
