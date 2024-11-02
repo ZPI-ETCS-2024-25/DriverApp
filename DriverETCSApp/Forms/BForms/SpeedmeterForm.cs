@@ -210,10 +210,12 @@ namespace DriverETCSApp.Forms.BForms {
 
         private void btnTest1_Click(object sender, EventArgs e) {
             SetSpeed(this.GetSpeed() + 5);
+            TrainData.CurrentSpeed += 5;
         }
 
         private void btnTest2_Click(object sender, EventArgs e) {
             SetSpeed(this.GetSpeed() - 5);
+            TrainData.CurrentSpeed -= 5;
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
