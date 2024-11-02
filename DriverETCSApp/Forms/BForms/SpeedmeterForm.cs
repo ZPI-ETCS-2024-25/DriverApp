@@ -224,6 +224,7 @@ namespace DriverETCSApp.Forms.BForms {
             AuthorityData.Speeds = new List<double> {10, 100, 140, 20, 50 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
+            TrainData.CalculatedDrivingDirection = "N";
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
 
             AuthorityData.AuthoritiyDataSemaphore.Release();
