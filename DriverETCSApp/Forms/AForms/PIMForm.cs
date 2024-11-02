@@ -1,4 +1,6 @@
-﻿using DriverETCSApp.Design;
+﻿using DriverETCSApp.Data;
+using DriverETCSApp.Design;
+using DriverETCSApp.Logic.Position;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -43,6 +45,18 @@ namespace DriverETCSApp.Forms.AForms
         {
             InitializeComponent();
             numbersFont = new Font(this.Font.FontFamily, 17f, this.Font.Style, this.Font.Unit);
+
+            DistancesCalculator.OnCalculactionFinished.Add(UpdateDistanceLeft);
+        }
+
+        private void UpdateDistanceLeft() {
+            if (AuthorityData.MaxSpeedsDistances.Count > 0) {
+                double distance = AuthorityData.MaxSpeedsDistances[0];
+                SetDistanceLeft( (int)distance);
+            }
+            else {
+                SetDistanceLeft( 0);
+            }
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e)
