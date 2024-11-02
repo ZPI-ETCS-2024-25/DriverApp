@@ -90,6 +90,8 @@ namespace DriverETCSApp.Forms.CForms {
                     }
                     ETCSEvents.OnModeChanged(LastModeInfo);
                 }
+                levelAnnouncementPicture.Invalidate(true);
+                levelAnnouncementPicture.Update();
             }
         }
 

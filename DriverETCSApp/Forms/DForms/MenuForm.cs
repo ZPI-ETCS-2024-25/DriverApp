@@ -92,7 +92,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (IsStartActive)
+            if (!TrainData.IsMisionStarted)
             {
                 Close();
                 MainForm.DrawDFormETCSLevel();
