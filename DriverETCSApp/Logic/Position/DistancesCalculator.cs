@@ -45,7 +45,7 @@ namespace DriverETCSApp.Logic.Position
         {
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
-            TrainData.CalculatedPosition += PositionApproximation.ApproximateMovedDistance();
+            TrainData.CalculatedPosition += TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
 
             //if (AuthorityData.MaxSpeedsDistances.Count > 0) {
             //    Console.WriteLine("  " + string.Join(", ", AuthorityData.MaxSpeedsDistances.Select(x => (int)x)));

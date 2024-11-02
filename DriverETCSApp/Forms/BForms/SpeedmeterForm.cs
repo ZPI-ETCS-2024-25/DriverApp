@@ -21,7 +21,8 @@ using Xunit;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DriverETCSApp.Forms.BForms {
-    public partial class SpeedmeterForm : BorderLessForm {
+    public partial class SpeedmeterForm : BorderLessForm
+    {
 
         private static SpeedmeterForm instance;
 
@@ -44,7 +45,8 @@ namespace DriverETCSApp.Forms.BForms {
         private (int, int) speedWarning = (0, 0); // yellow
 
         private Font numbersFont;
-        public SpeedmeterForm() {
+        public SpeedmeterForm()
+        {
             InitializeComponent();
             clockSize = (int)(clockPanel.Width * clockScale);
             clockOffset = (clockPanel.Width - clockSize) / 2;
@@ -62,25 +64,32 @@ namespace DriverETCSApp.Forms.BForms {
             DistancesCalculator.OnCalculactionFinished.Add(UpdateWarningAndCap);
         }
 
-        private void UpdateWarningAndCap() {
-            if (AuthorityData.MaxSpeeds.Count > 0) {
+        private void UpdateWarningAndCap()
+        {
+            if (AuthorityData.MaxSpeeds.Count > 0)
+            {
                 double max = AuthorityData.MaxSpeeds[0];
                 SetSpeedWarning(0, (int)max);
             }
-            else {
+            else
+            {
                 SetSpeedWarning(0, 0);
                 SetSpeedCap(0, 0);
             }
         }
 
-        private void clockPanel_Paint(object sender, PaintEventArgs e) {
+        private void clockPanel_Paint(object sender, PaintEventArgs e)
+        {
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             // Draw the ticks and numbers
-            using (var brush = new SolidBrush(DMIColors.Grey)) {
-                using (var pen = new Pen(DMIColors.Grey, 3)) {
-                    for (int i = 0; i <= linesCount; i++) {
+            using (var brush = new SolidBrush(DMIColors.Grey))
+            {
+                using (var pen = new Pen(DMIColors.Grey, 3))
+                {
+                    for (int i = 0; i <= linesCount; i++)
+                    {
                         int angle = i * clockAngle / linesCount - clockAngleOffset;
                         double radians = angle * Math.PI / 180;
                         int x1 = halfClockSize + (int)(halfClockSize * Math.Cos(radians)) + clockOffset;
@@ -91,7 +100,8 @@ namespace DriverETCSApp.Forms.BForms {
                         g.DrawLine(pen, x1, y1, x2, y2);
 
                         // Draw speed numbers
-                        if (i % 2 == 0) {
+                        if (i % 2 == 0)
+                        {
                             string text = (i * speedPerLine).ToString();
                             int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 20 + clockOffset;
                             int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 20 + clockOffset;
@@ -130,7 +140,8 @@ namespace DriverETCSApp.Forms.BForms {
             }
 
             // Draw Arc of Warning
-            if (speedWarning != (0, 0)) {
+            if (speedWarning != (0, 0))
+            {
                 Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
 
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
@@ -140,14 +151,15 @@ namespace DriverETCSApp.Forms.BForms {
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
 
                 int offset = 15;
-                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2*offset, clockSize - 2*offset);
+                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
                 e.Graphics.DrawArc(new Pen(Color.Yellow, 32), insideRect, pointer, pointerBoldness);
             }
 
             // Draw Arc of Cap
-            if (speedCap != (0, 0) && speedCap.Item1 < speed) {
+            if (speedCap != (0, 0) && speedCap.Item1 < speed)
+            {
                 int offset = 12;
                 Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
 
@@ -159,65 +171,81 @@ namespace DriverETCSApp.Forms.BForms {
             }
         }
 
-        private Color GetColorForNeedle() {
+        private Color GetColorForNeedle()
+        {
             if (speedWarning == (0, 0) || speed <= speedWarning.Item1)
                 return Color.White;
-            else if (speed <= speedWarning.Item2) {
+            else if (speed <= speedWarning.Item2)
+            {
                 return Color.Yellow;
             }
-            else if (speed <= speedCap.Item2) {
+            else if (speed <= speedCap.Item2)
+            {
                 return Color.Orange;
             }
             else
                 return Color.Red;
         }
 
-        public int GetSpeed() {
+        public int GetSpeed()
+        {
             return speed;
         }
 
-        public static void SetSpeed(int newSpeed) {
-            if (newSpeed < 0 || newSpeed > linesCount * speedPerLine) 
+        public static void SetSpeed(int newSpeed)
+        {
+            if (newSpeed < 0 || newSpeed > linesCount * speedPerLine)
                 return;
 
             instance.speed = newSpeed;
             instance.clockPanel.Invalidate();
         }
 
-        public (int, int) GetSpeedWarning() {
+        public (int, int) GetSpeedWarning()
+        {
             return speedWarning;
         }
 
-        public static void SetSpeedWarning(int min, int max) {
+        public static void SetSpeedWarning(int min, int max)
+        {
             instance.speedWarning = (min, max);
             instance.clockPanel.Invalidate();
         }
 
-        public (int, int) GetSpeedCap() {
+        public (int, int) GetSpeedCap()
+        {
             return speedCap;
         }
 
-        public static void SetSpeedCap(int min, int max) {
+        public static void SetSpeedCap(int min, int max)
+        {
             instance.speedCap = (min, max);
             instance.clockPanel.Invalidate();
         }
 
-        public void ChangeMode(Bitmap newImage) {
-            if(newImage != null) {
+        public void ChangeMode(Bitmap newImage)
+        {
+            if (newImage != null)
+            {
                 modePicture.Image = newImage;
             }
         }
 
-        private void btnTest1_Click(object sender, EventArgs e) {
+        private void btnTest1_Click(object sender, EventArgs e)
+        {
             SetSpeed(this.GetSpeed() + 5);
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
             if (TrainData.CurrentSpeed < 180)
                 TrainData.CurrentSpeed += 5;
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void btnTest2_Click(object sender, EventArgs e) {
             SetSpeed(this.GetSpeed() - 5);
-            if(TrainData.CurrentSpeed > 0)
+            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            if (TrainData.CurrentSpeed > 0)
                 TrainData.CurrentSpeed -= 5;
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void btnTest3_Click(object sender, EventArgs e) {
