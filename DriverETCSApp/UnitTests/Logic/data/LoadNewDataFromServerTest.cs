@@ -17,6 +17,13 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             LoadNewDataFromServer = new LoadNewDataFromServer();
 
             TrainData.BaliseLinePosition = 1;
+
+            AuthorityData.Speeds = new List<double>();
+            AuthorityData.SpeedDistances = new List<double>();
+            AuthorityData.Gradients = new List<int>();
+            AuthorityData.GradientsDistances = new List<double>();
+            AuthorityData.Messages = new List<string>();
+            AuthorityData.MessagesDistances = new List<double>();
         }
 
         [Fact]
