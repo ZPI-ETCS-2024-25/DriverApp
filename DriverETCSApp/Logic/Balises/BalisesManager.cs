@@ -86,7 +86,7 @@ namespace DriverETCSApp.Logic.Balises
 
             if (message.lineNumber != TrainData.BaliseLinePosition)
             {
-                TrainData.LastCalculated = TrainData.CalculatedDrivingDirection.Equals("N") ? message.kilometer - tmp : message.kilometer + tmp;
+                TrainData.LastCalculated = TrainData.CalculatedDrivingDirection.Equals("N") ? message.kilometer * 1000 - tmp : message.kilometer * 1000 + tmp;
             }
 
             TrainData.BaliseLinePosition = message.lineNumber;
