@@ -167,6 +167,8 @@ namespace DriverETCSApp.Forms.EForms
         public void AddMessage(DateTime time, string contents)
         {
             messages.Add(new Message(time.ToString("hh:mm"), contents));
+
+            messageIndex = 0;
             RefreshMessages();
         }
 
@@ -175,6 +177,8 @@ namespace DriverETCSApp.Forms.EForms
             if (messages.Count == 0)
                 return;
             messages.RemoveAt(0);
+            
+            messageIndex = 0;
             RefreshMessages();
         }
 
