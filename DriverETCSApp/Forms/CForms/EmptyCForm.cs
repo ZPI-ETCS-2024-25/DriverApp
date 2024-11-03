@@ -68,6 +68,7 @@ namespace DriverETCSApp.Forms.CForms
                     levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
                     IsBorderVisible = false;
                     levelAnnouncementPicture.Invalidate();
+                    levelAnnouncementPicture.Update();
                     if (LastAckInfo.WillBeActive)
                     {
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
@@ -81,6 +82,7 @@ namespace DriverETCSApp.Forms.CForms
                 {
                     IsAfterMissionStarted = false;
                     levelAnnouncementPicture.Invalidate();
+                    levelAnnouncementPicture.Update();
                     Change();
                     if (LastModeInfo.Mode.Equals(ETCSModes.STM))
                     {
@@ -94,7 +96,8 @@ namespace DriverETCSApp.Forms.CForms
                     }
                     ETCSEvents.OnModeChanged(LastModeInfo);
                 }
-                levelAnnouncementPicture.Invalidate(true);
+                IsBorderVisible = false;
+                levelAnnouncementPicture.Invalidate();
                 levelAnnouncementPicture.Update();
             }
         }
@@ -217,6 +220,17 @@ namespace DriverETCSApp.Forms.CForms
             levelAnnouncementPicture.Image = null;
             IsBorderVisible = false;
             IsAckActiveToClick = false;
+            if (IsHandleCreated)
+            {
+                Invoke(new Action(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        levelAnnouncementPicture.Invalidate();
+                        levelAnnouncementPicture.Update();
+                    }
+                }));
+            }
         }
 
         private void ChangeLevelByMenu(object sender, ChangeLevelIcon e)
