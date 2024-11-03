@@ -16,7 +16,8 @@ namespace DriverETCSApp.Logic.Calculations {
             double lastSpeed = TrainData.LastSpeed / 3.6;
             lastApproximation = DateTime.Now;
 
-            var distance = (lastSpeed * timeDifference.TotalSeconds) + (0.5 * (currentSpeed - lastSpeed) * timeDifference.TotalSeconds);
+            //var distance = (lastSpeed * timeDifference.TotalSeconds) + (0.5 * (currentSpeed - lastSpeed) * timeDifference.TotalSeconds);
+            var distance = 0.5 * (currentSpeed + lastSpeed) * timeDifference.TotalSeconds;
             TrainData.LastSpeed = TrainData.CurrentSpeed;
 
             return distance;
