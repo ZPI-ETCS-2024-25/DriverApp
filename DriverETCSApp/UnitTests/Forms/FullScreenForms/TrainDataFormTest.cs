@@ -20,7 +20,7 @@ namespace DriverETCSApp.UnitTests.Forms.FullScreenForms
 
         public TrainDataFormTest()
         {
-
+            TrainData.Reset();
         }
 
         public void Dispose()

@@ -41,15 +41,24 @@ namespace DriverETCSApp.Communication.Server
             BalisesManager.Manage(decodedMessage);
         }
 
-        private void SpeedChanged(dynamic message) {
-            SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
-            TrainData.CurrentSpeed = speedData.NewSpeed;
-            Forms.BForms.SpeedmeterForm.SetSpeed((int)speedData.NewSpeed);
+        private async void SpeedChanged(dynamic message) {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
+            {
+                SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
+                TrainData.CurrentSpeed = speedData.NewSpeed;
+                Forms.BForms.SpeedmeterForm.SetSpeed((int)speedData.NewSpeed);
 
-            if((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend) {
-                ServerSender sender = new ServerSender("127.0.0.1", Port.Server);
-                _ = sender.SendSpeedUpdate(speedData.NewSpeed);
-                lastSpeedSend = DateTime.Now;
+                if ((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend)
+                {
+                    ServerSender sender = new ServerSender("127.0.0.1", Port.Server);
+                    _ = sender.SendSpeedUpdate(speedData.NewSpeed);
+                    lastSpeedSend = DateTime.Now;
+                }
+            }
+            finally
+            {
+                TrainData.TrainDataSemaphofe.Release();
             }
         }
     }

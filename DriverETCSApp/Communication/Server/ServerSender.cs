@@ -11,11 +11,13 @@ namespace DriverETCSApp.Communication.Server
     public class ServerSender
     {
         private SenderHTTP SenderHTTP;
+        private ServerReceiver ServerReceiver;
         private Port ServerPort;
 
         public ServerSender(string ip, Port port)
         {
             SenderHTTP = new SenderHTTP(ip);
+            ServerReceiver = new ServerReceiver();
             ServerPort = port;
         }
 
@@ -32,7 +34,8 @@ namespace DriverETCSApp.Communication.Server
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
             //send
-            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "register");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "register");
+            AnalyzeResponce(responce);
         }
 
         public async Task UpdateTrainData(string oldNumber)
@@ -46,7 +49,8 @@ namespace DriverETCSApp.Communication.Server
                 BrakeWeight = TrainData.BrakingMass
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updatedata");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updatedata");
+            AnalyzeResponce(responce);
         }
 
         public async Task UnregisterTrainData()
@@ -56,7 +60,8 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
+            AnalyzeResponce(responce);
         }
 
         public async Task SendPositionData(double kilometer, string track)
@@ -70,19 +75,19 @@ namespace DriverETCSApp.Communication.Server
                 Direction = TrainData.CalculatedDrivingDirection
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updateposition");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updateposition");
+            AnalyzeResponce(responce);
         }
 
         public async Task SendMARequest()
         {
-            await TrainData.TrainDataSemaphofe.WaitAsync();
             var data = new
             {
                 TrainId = TrainData.TrainNumber
             };
-            TrainData.TrainDataSemaphofe.Release();
             string dataSerialized = JsonSerializer.Serialize(data);
-            await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "marequest");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "marequest");
+            AnalyzeResponce(responce);
         }
 
         public async Task SendSpeedUpdate(double currSpeed)
@@ -96,12 +101,23 @@ namespace DriverETCSApp.Communication.Server
                     Speed = currSpeed
                 };
                 string dataSerialized = JsonSerializer.Serialize(data);
-                await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
+                var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
+                AnalyzeResponce(responce);
             }
             finally
             {
                 Data.TrainData.TrainDataSemaphofe.Release();
             }
+        }
+
+        private void AnalyzeResponce(string responce)
+        {
+            if (string.IsNullOrEmpty(responce))
+            {
+                return;
+            }
+
+            ServerReceiver.Proccess(responce);
         }
     }
 }

@@ -40,56 +40,31 @@ namespace DriverETCSApp.Communication.Server
 
         private void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            try
-            {
-                LoadNewDataFromServer.LoadNewData(decodedMessage);
-                MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            }
-            finally
-            {
-                AuthorityData.AuthoritiyDataSemaphore.Release();
-            }
-            
+            LoadNewDataFromServer.LoadNewData(decodedMessage);
+            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
         }
-
-        private async void ConnectionWithRBC(dynamic decodedMessage)
+        private void ConnectionWithRBC(dynamic decodedMessage)
         {
-            await TrainData.TrainDataSemaphofe.WaitAsync();
-            try
-            {
-                if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
-                {
-                    TrainData.IsTrainRegisterOnServer = true;
-                    TrainData.IsConnectionWorking = true;
-                    ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
-                }
-                else
-                {
-                    TrainData.IsTrainRegisterOnServer = false;
-                    TrainData.IsConnectionWorking = false;
-                    ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
-                }
-            }
-            finally
-            {
-                TrainData.TrainDataSemaphofe.Release();
-            }
-        }
 
-        private async void UnregisterRBC(dynamic decodedMessage)
-        {
-            await TrainData.TrainDataSemaphofe.WaitAsync();
-            try
+            if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
+            {
+                TrainData.IsTrainRegisterOnServer = true;
+                TrainData.IsConnectionWorking = true;
+                ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
+            }
+            else
             {
                 TrainData.IsTrainRegisterOnServer = false;
                 TrainData.IsConnectionWorking = false;
                 ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
             }
-            finally
-            {
-                TrainData.TrainDataSemaphofe.Release();
-            }
+        }
+
+        private void UnregisterRBC(dynamic decodedMessage)
+        {
+            TrainData.IsTrainRegisterOnServer = false;
+            TrainData.IsConnectionWorking = false;
+            ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
         }
     }
 }

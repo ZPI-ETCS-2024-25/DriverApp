@@ -61,7 +61,7 @@ namespace DriverETCSApp.Communication
                 {
                     Console.WriteLine("error while sending a message");
                 }
-                return null;
+                return "";
             }
         }
     }

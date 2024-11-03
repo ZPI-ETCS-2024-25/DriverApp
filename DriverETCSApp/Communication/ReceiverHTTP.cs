@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Communication.Server;
+using DriverETCSApp.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,15 @@ namespace DriverETCSApp.Communication {
                             Console.WriteLine("Message received from client: " + receivedMessage);
                             if (/*IsServerSource(request)*/ ToDebug(receivedMessage))
                             {
-                                serverReceiver.Proccess(receivedMessage);
+                                TrainData.TrainDataSemaphofe.Wait();
+                                try
+                                {
+                                    serverReceiver.Proccess(receivedMessage);
+                                }
+                                finally
+                                {
+                                    TrainData.TrainDataSemaphofe.Release();
+                                }
                             }
                             else
                             {

@@ -16,8 +16,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DriverETCSApp.Forms.CForms {
-    public partial class EmptyCForm : BorderLessForm {
+namespace DriverETCSApp.Forms.CForms
+{
+    public partial class EmptyCForm : BorderLessForm
+    {
 
         private bool IsAckActiveToClick;
         private bool IsBorderVisible;
@@ -31,7 +33,8 @@ namespace DriverETCSApp.Forms.CForms {
         private ModeInfo LastModeInfo;
         private ServerSender ServerSender;
 
-        public EmptyCForm(ServerSender serverSender) {
+        public EmptyCForm(ServerSender serverSender)
+        {
             InitializeComponent();
 
             IsAckActiveToClick = false;
@@ -52,7 +55,8 @@ namespace DriverETCSApp.Forms.CForms {
             ETCSEvents.MisionStarted += MisionStarted;
         }
 
-        private void levelAnnouncementPicture_Click(object sender, EventArgs e) {
+        private void levelAnnouncementPicture_Click(object sender, EventArgs e)
+        {
             if (IsAckActiveToClick)
             {
                 if (!IsAfterMissionStarted)
@@ -78,7 +82,7 @@ namespace DriverETCSApp.Forms.CForms {
                     IsAfterMissionStarted = false;
                     levelAnnouncementPicture.Invalidate();
                     Change();
-                    if(LastModeInfo.Mode.Equals(ETCSModes.STM))
+                    if (LastModeInfo.Mode.Equals(ETCSModes.STM))
                     {
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "SN zatwierdzony"));
                         TrainData.ActiveMode = ETCSModes.STM;
@@ -95,7 +99,8 @@ namespace DriverETCSApp.Forms.CForms {
             }
         }
 
-        private async void AnnounceChangeLevel(object sender, AckInfo e) {
+        private async void AnnounceChangeLevel(object sender, AckInfo e)
+        {
             levelAnnouncementPicture.Image = e.Bitmap;
             LastAckInfo = e;
             await Task.Delay(17500);
@@ -147,44 +152,60 @@ namespace DriverETCSApp.Forms.CForms {
             TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
-        private void ChangeLevel(object sender)
+        private async void ChangeLevel(object sender)
         {
             Change();
-            TrainData.IsETCSActive = LastAckInfo.WillBeActive;
-            levelPicture.Image = LastAckInfo.Level;
-            if(LastAckInfo.WillBeActive)
+            await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+            try
             {
-                TrainData.ETCSLevel = ETCSLevel.Poziom2;
-                TrainData.ActiveMode = ETCSModes.FS;
-                ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
-                _ = ServerSender?.SendMARequest();
+                TrainData.IsETCSActive = LastAckInfo.WillBeActive;
+                levelPicture.Image = LastAckInfo.Level;
+                if (LastAckInfo.WillBeActive)
+                {
+                    TrainData.ETCSLevel = ETCSLevel.Poziom2;
+                    TrainData.ActiveMode = ETCSModes.FS;
+                    ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                    _ = ServerSender?.SendMARequest();
+                }
+                else
+                {
+                    TrainData.ETCSLevel = ETCSLevel.SHP;
+                    TrainData.ActiveMode = ETCSModes.STM;
+                    ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+                }
             }
-            else
+            finally
             {
-                TrainData.ETCSLevel = ETCSLevel.SHP;
-                TrainData.ActiveMode = ETCSModes.STM;
-                ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+                Data.TrainData.TrainDataSemaphofe.Release();
             }
         }
 
-        private void ForceToChangeLevel(object sender, LevelInfo e)
+        private async void ForceToChangeLevel(object sender, LevelInfo e)
         {
             Change();
-            Console.WriteLine("ForceToChangeLevel(object sender, LevelInfo e)");
-            TrainData.IsETCSActive = e.WillBeActive;
-            levelPicture.Image = e.Bitmap;
-            if (e.WillBeActive)
+            await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+            try
             {
-                TrainData.ETCSLevel = ETCSLevel.Poziom2;
-                TrainData.ActiveMode = ETCSModes.FS;
-                ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
-                _ = ServerSender?.SendMARequest();
+                Console.WriteLine("ForceToChangeLevel(object sender, LevelInfo e)");
+                TrainData.IsETCSActive = e.WillBeActive;
+                levelPicture.Image = e.Bitmap;
+                if (e.WillBeActive)
+                {
+                    TrainData.ETCSLevel = ETCSLevel.Poziom2;
+                    TrainData.ActiveMode = ETCSModes.FS;
+                    ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                    _ = ServerSender?.SendMARequest();
+                }
+                else
+                {
+                    TrainData.ETCSLevel = ETCSLevel.SHP;
+                    TrainData.ActiveMode = ETCSModes.STM;
+                    ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+                }
             }
-            else
+            finally
             {
-                TrainData.ETCSLevel = ETCSLevel.SHP;
-                TrainData.ActiveMode = ETCSModes.STM;
-                ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
+                Data.TrainData.TrainDataSemaphofe.Release();
             }
         }
 
