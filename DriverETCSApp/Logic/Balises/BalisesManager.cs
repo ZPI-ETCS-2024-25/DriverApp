@@ -68,10 +68,9 @@ namespace DriverETCSApp.Logic.Balises
 
             PositionApproximation.ResetLastApproximationTimer();
 
+            var tmp = Math.Abs(TrainData.CalculatedPosition - TrainData.LastCalculated);
+
             TrainData.BalisePosition = message.kilometer;
-            TrainData.BaliseLinePosition = message.lineNumber;
-            TrainData.BaliseTrackPosition = message.trackNumber;
-            TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
 
             if (message.numberOfBalises != 1)
             {
@@ -84,6 +83,15 @@ namespace DriverETCSApp.Logic.Balises
                     TrainData.CalculatedDrivingDirection = "P";
                 }
             }
+
+            if (message.lineNumber != TrainData.BaliseLinePosition)
+            {
+                TrainData.LastCalculated = TrainData.CalculatedDrivingDirection.Equals("N") ? message.kilometer - tmp : message.kilometer + tmp;
+            }
+
+            TrainData.BaliseLinePosition = message.lineNumber;
+            TrainData.BaliseTrackPosition = message.trackNumber;
+            TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
 
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {

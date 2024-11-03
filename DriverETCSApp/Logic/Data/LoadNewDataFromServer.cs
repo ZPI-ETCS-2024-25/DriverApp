@@ -12,7 +12,7 @@ namespace DriverETCSApp.Logic.Data
     {
         private SpeedSegragation SpeedSegragation;
 
-        public LoadNewDataFromServer() 
+        public LoadNewDataFromServer()
         {
             SpeedSegragation = new SpeedSegragation();
         }
@@ -25,17 +25,30 @@ namespace DriverETCSApp.Logic.Data
             List<double> gradientsDistances = decodedMessage.GradientsDistances.ToObject<List<double>>();
             List<string> messages = decodedMessage.Messages.ToObject<List<string>>();
             List<double> messagesDistances = decodedMessage.MessagesDistances.ToObject<List<double>>();
+            List<int> lines = decodedMessage.Lines.ToObject<List<int>>();
+            List<double> linesDistances = decodedMessage.LinesDistances.ToObject<List<double>>();
 
             int position = decodedMessage.ServerPosition * 1000;
-            double diffrence;
-            await TrainData.TrainDataSemaphofe.WaitAsync();
-            try
+            double diffrence = 0;
+            if (lines[0] == TrainData.BaliseLinePosition)
             {
                 diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - position : position - TrainData.CalculatedPosition;
             }
-            finally
+            else
             {
-                TrainData.TrainDataSemaphofe.Release();
+                int i = 0;
+                for (; i < linesDistances.Count - 1; i++)
+                {
+                    if (lines[i] != TrainData.BaliseLinePosition)
+                    {
+                        diffrence += (linesDistances[i + 1] - linesDistances[i]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                diffrence += TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.BalisePosition : TrainData.BalisePosition - TrainData.CalculatedPosition;
             }
 
             #region load speeds and distances of speeds
@@ -44,7 +57,7 @@ namespace DriverETCSApp.Logic.Data
             {
                 if (i == 0 && diffrence < 0)
                 {
-                    
+
                 }
                 else
                 {
@@ -60,7 +73,7 @@ namespace DriverETCSApp.Logic.Data
                 speeddistances.RemoveRange(0, lastIndex);
                 speeds.RemoveRange(0, lastIndex);
                 speeddistances[0] = 0;
-            } 
+            }
             #endregion
             #region load gradients and distances of gradients
             lastIndex = -1;
@@ -95,7 +108,7 @@ namespace DriverETCSApp.Logic.Data
 
                 }
                 else
-                { 
+                {
                     messagesDistances[i] = messagesDistances[i] - diffrence;
                 }
                 if (messagesDistances[i] < 0)
@@ -110,12 +123,23 @@ namespace DriverETCSApp.Logic.Data
             }
             #endregion
 
-            AuthorityData.Speeds = speeds;
-            AuthorityData.SpeedDistances = speeddistances;
-            AuthorityData.Gradients = gradients;
-            AuthorityData.GradientsDistances = gradientsDistances;
-            AuthorityData.Messages = messages;
-            AuthorityData.MessagesDistances = messagesDistances;
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+            try
+            {
+                AuthorityData.Speeds = speeds;
+                AuthorityData.SpeedDistances = speeddistances;
+                AuthorityData.Gradients = gradients;
+                AuthorityData.GradientsDistances = gradientsDistances;
+                AuthorityData.Messages = messages;
+                AuthorityData.MessagesDistances = messagesDistances;
+                AuthorityData.Lines = lines;
+                AuthorityData.LinesDistances = linesDistances;
+            }
+            finally 
+            { 
+                AuthorityData.AuthoritiyDataSemaphore.Release(); 
+            }
+            TrainData.LastCalculated = TrainData.CalculatedPosition;
             SpeedSegragation.CalculateSpeeds();
         }
     }

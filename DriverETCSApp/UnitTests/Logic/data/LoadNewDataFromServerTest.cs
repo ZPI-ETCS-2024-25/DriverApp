@@ -15,6 +15,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
         public LoadNewDataFromServerTest()
         {
             LoadNewDataFromServer = new LoadNewDataFromServer();
+
+            TrainData.BaliseLinePosition = 1;
         }
 
         [Fact]
@@ -29,6 +31,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [],
                     ""Messages"" : [],
                     ""MessagesDistances"" : [],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 1000],
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -55,6 +59,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [20],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 1000],
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -82,6 +88,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0, 500, 1800, 2800],
                     ""Messages"" : [""TEST1"", ""Test""],
                     ""MessagesDistances"" : [20, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -111,6 +119,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [0],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.450
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -139,6 +149,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0, 500, 1800, 2800],
                     ""Messages"" : [""TEST1"", ""Test""],
                     ""MessagesDistances"" : [120, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.450
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -167,6 +179,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [0],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.550
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -195,6 +209,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0, 500, 1800, 2800],
                     ""Messages"" : [""TEST1"", ""Test""],
                     ""MessagesDistances"" : [120, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.550
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -223,6 +239,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [0],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.500
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -251,6 +269,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0, 500, 1800, 2800],
                     ""Messages"" : [""TEST1"", ""Test""],
                     ""MessagesDistances"" : [120, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.500
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -279,6 +299,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0],
                     ""Messages"" : [""TEST1""],
                     ""MessagesDistances"" : [0],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.500
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();
@@ -307,6 +329,8 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""GradientsDistances"" : [0, 500, 1800, 2800],
                     ""Messages"" : [""TEST1"", ""Test""],
                     ""MessagesDistances"" : [120, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
                     ""ServerPosition"" : 0.500
             }");
             AuthorityData.AuthoritiyDataSemaphore.Wait();

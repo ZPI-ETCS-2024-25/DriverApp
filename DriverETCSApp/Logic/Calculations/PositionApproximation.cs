@@ -13,13 +13,10 @@ namespace DriverETCSApp.Logic.Calculations {
         public static double ApproximateMovedDistance() {
             TimeSpan timeDifference = DateTime.Now - lastApproximation;
 
-            // double currentSpeed = TrainData.CurrentSpeed / 3.6;
-            // double lastSpeed = TrainData.LastSpeed / 3.6;
-            double currentSpeed = TrainData.CurrentSpeed * 1000 / 3600;
-            double lastSpeed = TrainData.LastSpeed * 1000 / 3600;
+            double currentSpeed = TrainData.CurrentSpeed / 3.6;
+            double lastSpeed = TrainData.LastSpeed / 3.6;
             lastApproximation = DateTime.Now;
 
-            //var distance = (lastSpeed * timeDifference.TotalSeconds) + (0.5 * (currentSpeed - lastSpeed) * timeDifference.TotalSeconds);
             var distance = 0.5 * (currentSpeed + lastSpeed) * timeDifference.TotalSeconds;
             TrainData.LastSpeed = TrainData.CurrentSpeed;
 

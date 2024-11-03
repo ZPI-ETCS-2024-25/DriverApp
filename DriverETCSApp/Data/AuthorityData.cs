@@ -27,5 +27,8 @@ namespace DriverETCSApp.Data
         //messages data
         public static List<string> Messages = new List<string>();
         public static List<double> MessagesDistances = new List<double>();
+        //
+        public static List<int> Lines = new List<int>();
+        public static List<double> LinesDistances = new List<double>();
     }
 }
