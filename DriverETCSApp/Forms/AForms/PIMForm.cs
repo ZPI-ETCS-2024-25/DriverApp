@@ -55,7 +55,7 @@ namespace DriverETCSApp.Forms.AForms
                 SetDistanceLeft( (int)distance);
             }
             else {
-                SetDistanceLeft( 0);
+                SetDistanceLeft(0);
             }
         }
 
@@ -77,7 +77,7 @@ namespace DriverETCSApp.Forms.AForms
             // Top Text
             /*if (columnPercentage != 0f) {*/
                 Brush brush = new SolidBrush(DMIColors.Grey);
-                string text = distanceLeft.ToString();
+                string text = ((int)distanceLeft / 10 * 10).ToString();
                 SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
 
                 int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 /* columnWidth / 2*/);
