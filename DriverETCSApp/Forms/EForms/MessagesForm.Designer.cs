@@ -28,10 +28,10 @@
             this.buttonTest2 = new System.Windows.Forms.Button();
             this.RBCConnectionPicture = new System.Windows.Forms.PictureBox();
             this.buttonUP = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonDOWN = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.RBCConnectionPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonUP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonDOWN)).BeginInit();
             this.SuspendLayout();
             // 
             // messagebox
@@ -87,17 +87,17 @@
             this.buttonUP.TabStop = false;
             this.buttonUP.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // pictureBox1
+            // buttonDOWN
             // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Image = global::DriverETCSApp.Properties.Resources.DOWNGray;
-            this.pictureBox1.Location = new System.Drawing.Point(573, 103);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(92, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
+            this.buttonDOWN.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonDOWN.Image = global::DriverETCSApp.Properties.Resources.DOWNGray;
+            this.buttonDOWN.Location = new System.Drawing.Point(573, 103);
+            this.buttonDOWN.Name = "buttonDOWN";
+            this.buttonDOWN.Size = new System.Drawing.Size(92, 100);
+            this.buttonDOWN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.buttonDOWN.TabIndex = 14;
+            this.buttonDOWN.TabStop = false;
+            this.buttonDOWN.Click += new System.EventHandler(this.pictureBox1_Click_1);
             // 
             // MessagesForm
             // 
@@ -105,7 +105,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(668, 200);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonDOWN);
             this.Controls.Add(this.buttonUP);
             this.Controls.Add(this.RBCConnectionPicture);
             this.Controls.Add(this.buttonTest2);
@@ -116,7 +116,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagesForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.RBCConnectionPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonUP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonDOWN)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -127,6 +127,6 @@
         private System.Windows.Forms.Button buttonTest2;
         private System.Windows.Forms.PictureBox RBCConnectionPicture;
         private System.Windows.Forms.PictureBox buttonUP;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox buttonDOWN;
     }
 }

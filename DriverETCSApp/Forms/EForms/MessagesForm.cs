@@ -131,12 +131,24 @@ namespace DriverETCSApp.Forms.EForms
 
         public void RefreshMessages()
         {
+            // Buttons
+            if (messageIndex == 0)
+                buttonUP.Image = Resources.UPDarkGray;
+            else
+                buttonUP.Image = Resources.UPGray;
+
+            if (messageIndex >= messages.Count - 1)
+                buttonDOWN.Image = Resources.DOWNDarkGray;
+            else
+                buttonDOWN.Image = Resources.DOWNGray;
+
+            // Messages
             if (messages.Count == 0)
             {
                 messagebox.Text = "";
                 return;
             }
-
+            
             List<string> linesOfMessages = ConvertToLinesOfStrings(messages.AsEnumerable().Reverse().Skip(messageIndex).ToList());
             string result = "";
             for (int i = 0; i < maxLinesShown && i < linesOfMessages.Count; i++)
