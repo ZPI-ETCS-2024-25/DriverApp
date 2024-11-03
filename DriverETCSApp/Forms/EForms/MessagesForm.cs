@@ -107,7 +107,12 @@ namespace DriverETCSApp.Forms.EForms
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
-            AddMessage("19:10", "You've got new Message!!!");
+            string[] messages = { "You've Got new message!!!", "test", "Drived over balise", ":)", "test test test test test test test" };
+            Random random = new Random();
+
+            string randomString = messages[random.Next(messages.Length)];
+
+            AddMessage(DateTime.Now, randomString);
         }
 
         private void buttonTest2_Click(object sender, EventArgs e)
@@ -117,14 +122,14 @@ namespace DriverETCSApp.Forms.EForms
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
         {
-            if (messageIndex < messages.Count - 1)
+            if (messageIndex < messages.Count - 1 && messages.Count > maxLinesShown)
                 messageIndex++;
             RefreshMessages();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (messageIndex > 0)
+            if (messageIndex > 0 && messages.Count > maxLinesShown)
                 messageIndex--;
             RefreshMessages();
         }
@@ -132,12 +137,12 @@ namespace DriverETCSApp.Forms.EForms
         public void RefreshMessages()
         {
             // Buttons
-            if (messageIndex == 0)
+            if (messageIndex == 0 || messages.Count <= maxLinesShown)
                 buttonUP.Image = Resources.UPDarkGray;
             else
                 buttonUP.Image = Resources.UPGray;
 
-            if (messageIndex >= messages.Count - 1)
+            if (messageIndex >= messages.Count - 1 || messages.Count <= maxLinesShown)
                 buttonDOWN.Image = Resources.DOWNDarkGray;
             else
                 buttonDOWN.Image = Resources.DOWNGray;
@@ -159,9 +164,9 @@ namespace DriverETCSApp.Forms.EForms
             messagebox.Text = result;
         }
 
-        public void AddMessage(string time, string contents)
+        public void AddMessage(DateTime time, string contents)
         {
-            messages.Add(new Message(time, contents));
+            messages.Add(new Message(time.ToString("hh:mm"), contents));
             RefreshMessages();
         }
 
