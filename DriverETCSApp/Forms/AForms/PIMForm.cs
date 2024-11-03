@@ -37,7 +37,6 @@ namespace DriverETCSApp.Forms.AForms
             (1f, true)
         };
 
-        const int maxShownDistance = 1000;
         int distanceLeft = 2000;
         float columnPercentage = 1f; // Percentage 0-1
 
@@ -75,15 +74,14 @@ namespace DriverETCSApp.Forms.AForms
             g.FillRectangle(columnBrush, rect);
 
             // Top Text
-            /*if (columnPercentage != 0f) {*/
-                Brush brush = new SolidBrush(DMIColors.Grey);
-                string text = ((int)distanceLeft / 10 * 10).ToString();
-                SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
 
-                int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2 /* columnWidth / 2*/);
-                int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
-                g.DrawString(text, numbersFont, brush, xText, yText);
-            /*}*/
+            Brush brush = new SolidBrush(DMIColors.Grey);
+            string text = ((int)distanceLeft / 10 * 10).ToString();
+            SizeF textSize = e.Graphics.MeasureString(text, numbersFont);
+
+            int xText = (int)(panelPIM.Width * rectStartX - textSize.Width / 2);
+            int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
+            g.DrawString(text, numbersFont, brush, xText, yText);
 
             // Lines
             foreach ((float percentage, bool isBold) in listOfLines)
