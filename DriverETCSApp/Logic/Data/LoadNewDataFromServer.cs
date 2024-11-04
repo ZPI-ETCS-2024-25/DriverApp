@@ -48,6 +48,7 @@ namespace DriverETCSApp.Logic.Data
                         break;
                     }
                 }
+                diffrence += 15;
                 diffrence += TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.BalisePosition : TrainData.BalisePosition - TrainData.CalculatedPosition;
             }
 
