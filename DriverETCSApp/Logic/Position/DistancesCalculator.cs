@@ -120,12 +120,16 @@ namespace DriverETCSApp.Logic.Position
                 }
             }
             if (lastIndex != -1) {
-                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
-                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex);
+                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex);
+            }
+            if (AuthorityData.MaxSpeedsDistances.Count > 0)
+            {
+                AuthorityData.MaxSpeedsDistances[0] = 0;
             }
             #endregion
 
-            foreach(Action action in OnCalculactionFinished) {
+            foreach (Action action in OnCalculactionFinished) {
                 action.Invoke();
             }
         }

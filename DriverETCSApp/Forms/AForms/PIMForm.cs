@@ -48,14 +48,16 @@ namespace DriverETCSApp.Forms.AForms
             DistancesCalculator.OnCalculactionFinished.Add(UpdateDistanceLeft);
         }
 
-        private void UpdateDistanceLeft() {
-            if (AuthorityData.MaxSpeedsDistances.Count > 0) {
-                double distance = AuthorityData.MaxSpeedsDistances[0];
+        private async void UpdateDistanceLeft() {
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+            if (AuthorityData.MaxSpeedsDistances.Count > 1) {
+                double distance = AuthorityData.MaxSpeedsDistances[1];
                 SetDistanceLeft( (int)distance);
             }
             else {
                 SetDistanceLeft(0);
             }
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e)

@@ -67,8 +67,12 @@ namespace DriverETCSApp.Logic.Charts
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
                 var x = AuthorityData.LowerDistances[i];
                 int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(x));
+                // tutaj to ogarnąć jak będzie skończone
+                bool checkIndication = (pixelY >= 0) && (i == 0) && (375 > pixelY);
+                var pen = checkIndication ? PenYellow: Pen;
+                var bursh = checkIndication ? SolidBrushYellow : SolidBrush;
 
-                graphics.DrawLine(Pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
+                graphics.DrawLine(pen, pixelX - LineLength / 2, pixelY + 1, pixelX + LineLength / 2, pixelY + 1);
 
                 Point[] triangleDown = new Point[]
                 {
@@ -76,10 +80,10 @@ namespace DriverETCSApp.Logic.Charts
                     new Point(pixelX, pixelY + 3),
                     new Point(pixelX + 10, pixelY + 3)
                 };
-                graphics.FillPolygon(SolidBrush, triangleDown);
+                graphics.FillPolygon(bursh, triangleDown);
 
                 var y = AuthorityData.LowerSpeed[i].ToString();
-                graphics.DrawString(y, Font, SolidBrush, pixelX + 10, pixelY);
+                graphics.DrawString(y, Font, bursh, pixelX + 10, pixelY);
             }
         }
     }

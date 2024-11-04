@@ -64,8 +64,9 @@ namespace DriverETCSApp.Forms.BForms {
             DistancesCalculator.OnCalculactionFinished.Add(UpdateWarningAndCap);
         }
 
-        private void UpdateWarningAndCap()
+        private async void UpdateWarningAndCap()
         {
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             if (AuthorityData.MaxSpeeds.Count > 0)
             {
                 double max = AuthorityData.MaxSpeeds[0];
@@ -76,6 +77,7 @@ namespace DriverETCSApp.Forms.BForms {
                 SetSpeedWarning(0, 0);
                 SetSpeedCap(0, 0);
             }
+            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e)
@@ -231,27 +233,27 @@ namespace DriverETCSApp.Forms.BForms {
             }
         }
 
-        private void btnTest1_Click(object sender, EventArgs e)
+        private async void btnTest1_Click(object sender, EventArgs e)
         {
             SetSpeed(this.GetSpeed() + 5);
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             if (TrainData.CurrentSpeed < 180)
                 TrainData.CurrentSpeed += 5;
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
-        private void btnTest2_Click(object sender, EventArgs e) {
+        private async void btnTest2_Click(object sender, EventArgs e) {
             SetSpeed(this.GetSpeed() - 5);
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             if (TrainData.CurrentSpeed > 0)
                 TrainData.CurrentSpeed -= 5;
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
-        private void btnTest3_Click(object sender, EventArgs e) {
+        private async void btnTest3_Click(object sender, EventArgs e) {
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             AuthorityData.SpeedDistances = new List<double> {0, 200, 500, 1000, 2000 };
             AuthorityData.Speeds = new List<double> {10, 100, 140, 20, 50 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
