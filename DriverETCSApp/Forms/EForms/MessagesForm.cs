@@ -19,7 +19,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace DriverETCSApp.Forms.EForms
 {
-
     public struct Message
     {
         public string date;
@@ -42,8 +41,16 @@ namespace DriverETCSApp.Forms.EForms
         private List<Message> messages;
         private const int maxLinesShown = 5;
 
+        Image previousImage = null;
+
+        private static MessagesForm instance = null;
+
         public MessagesForm()
         {
+            if(instance == null) {
+                instance = this;
+            }
+
             InitializeComponent();
 
             messages = new List<Message>();
@@ -220,10 +227,20 @@ namespace DriverETCSApp.Forms.EForms
             }
         }
 
-        private void MessagesForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void MessagesForm_FormClosing(object sender, FormClosingEventArgs e) {
             ETCSEvents.ConnectionChanged -= ChangeConnection;
             ETCSEvents.NewSystemMessage -= NewSystemMessage;
+        }
+
+        public static void BrakingImage(bool braking) {
+            if(braking) {
+                instance.previousImage = instance.RBCConnectionPicture.Image;
+                instance.RBCConnectionPicture.Image = Resources.Brakes;
+            }
+            else {
+                instance.RBCConnectionPicture.Image = instance.previousImage;
+                instance.previousImage = null;
+            }
         }
     }
 }

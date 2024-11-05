@@ -58,7 +58,6 @@ namespace DriverETCSApp.Communication.Server
                     lastSpeedSend = DateTime.Now;
                 }
                 EmergencyBrakeManager.CheckSpeed();
-
             }
             finally
             {

@@ -239,6 +239,7 @@ namespace DriverETCSApp.Forms.BForms {
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             if (TrainData.CurrentSpeed < 180)
                 TrainData.CurrentSpeed += 5;
+            EmergencyBrakeManager.CheckSpeed();
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
@@ -247,6 +248,7 @@ namespace DriverETCSApp.Forms.BForms {
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             if (TrainData.CurrentSpeed > 0)
                 TrainData.CurrentSpeed -= 5;
+            EmergencyBrakeManager.CheckSpeed();
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
