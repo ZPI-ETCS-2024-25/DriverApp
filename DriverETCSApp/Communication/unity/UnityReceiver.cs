@@ -54,7 +54,7 @@ namespace DriverETCSApp.Communication.Server
                 if ((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend)
                 {
                     ServerSender sender = new ServerSender("127.0.0.1", Port.Server);
-                    _ = sender.SendSpeedUpdate(speedData.NewSpeed);
+                    await sender.SendSpeedUpdate(speedData.NewSpeed, TrainData.TrainNumber);
                     lastSpeedSend = DateTime.Now;
                 }
                 EmergencyBrakeManager.CheckSpeed();
