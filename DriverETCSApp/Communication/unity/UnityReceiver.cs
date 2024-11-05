@@ -43,7 +43,7 @@ namespace DriverETCSApp.Communication.Server
             BalisesManager.Manage(decodedMessage);
         }
 
-        private async void SpeedChanged(dynamic message) {
+        public async void SpeedChanged(dynamic message) {
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
