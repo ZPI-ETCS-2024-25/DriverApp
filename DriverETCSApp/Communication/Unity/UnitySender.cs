@@ -20,11 +20,12 @@ namespace DriverETCSApp.Communication.Unity
             Port = port;
         }
 
-        public async Task SendBrakeSignal() {
+        public async Task SendBrakeSignal(bool brakeCommand) {
             var data = new {
-                BreakCommand = true
+                BreakCommand = brakeCommand
             };
             string dataSerialized = JsonSerializer.Serialize(data);
+            var response = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "brakecommand");
         }
     }
 }

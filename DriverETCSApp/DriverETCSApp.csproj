@@ -171,6 +171,7 @@
       <DependentUpon>MessagesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Balises\BalisesManager.cs" />
+    <Compile Include="Logic\Calculations\EmergencyBrakeManager.cs" />
     <Compile Include="Logic\Calculations\MaxSpeedsCalculation.cs" />
     <Compile Include="Logic\Calculations\PositionApproximation.cs" />
     <Compile Include="Logic\Charts\ChartData.cs" />

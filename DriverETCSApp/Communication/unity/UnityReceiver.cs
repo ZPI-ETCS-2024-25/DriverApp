@@ -1,6 +1,7 @@
 using DriverETCSApp.Communication.Unity;
 using DriverETCSApp.Data;
 using DriverETCSApp.Logic.Balises;
+using DriverETCSApp.Logic.Calculations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -56,10 +57,7 @@ namespace DriverETCSApp.Communication.Server
                     _ = sender.SendSpeedUpdate(speedData.NewSpeed);
                     lastSpeedSend = DateTime.Now;
                 }
-                if(TrainData.CurrentSpeed > AuthorityData.MaxSpeeds[0]) {
-                    UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
-                    _ = sender.SendBrakeSignal();
-                }
+                EmergencyBrakeManager.CheckSpeed();
 
             }
             finally
