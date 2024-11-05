@@ -92,22 +92,15 @@ namespace DriverETCSApp.Communication.Server
 
         public async Task SendSpeedUpdate(double currSpeed, string trainNumber)
         {
-            await TrainData.TrainDataSemaphofe.WaitAsync();
-            try
+
+            var data = new
             {
-                var data = new
-                {
-                    TrainId = trainNumber,
-                    Speed = currSpeed
-                };
-                string dataSerialized = JsonSerializer.Serialize(data);
-                var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
-                //AnalyzeResponce(responce);
-            }
-            finally
-            {
-                Data.TrainData.TrainDataSemaphofe.Release();
-            }
+                TrainId = trainNumber,
+                Speed = currSpeed
+            };
+            string dataSerialized = JsonSerializer.Serialize(data);
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
+            //AnalyzeResponce(responce);
         }
 
         private void AnalyzeResponce(string responce)
