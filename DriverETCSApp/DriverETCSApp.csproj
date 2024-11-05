@@ -299,6 +299,7 @@
     </Compile>
     <Compile Include="UnitTests\Calculations\MaxSpeedCalculationTest.cs" />
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
+    <Compile Include="UnitTests\Forms\DForms\ETCSLevelFormTest.cs" />
     <Compile Include="UnitTests\Forms\FForms\ToolbarFormTest.cs" />
     <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainTypeDataFormTest .cs" />
     <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainDataFormTest.cs" />
@@ -481,7 +482,6 @@
     <Folder Include="UnitTests\Communication\Server\" />
     <Folder Include="UnitTests\Communication\Unity\" />
     <Folder Include="UnitTests\Events\EventsArgs\" />
-    <Folder Include="UnitTests\Forms\DForms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Design\Icons\ETCSConnection\NoConnection.png" />

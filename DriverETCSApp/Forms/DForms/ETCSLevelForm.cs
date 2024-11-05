@@ -43,13 +43,17 @@ namespace DriverETCSApp.Forms.DForms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             label2.Text = ETCSLevel.Poziom2;
+            TrainData.TrainDataSemaphofe.Release();
         }
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             label2.Text = ETCSLevel.SHP;
+            TrainData.TrainDataSemaphofe.Release();
         }
 
         private async void label2_Click(object sender, EventArgs e)
@@ -75,22 +79,30 @@ namespace DriverETCSApp.Forms.DForms
             }
         }
 
-        private void SetUpMode()
+        private async void SetUpMode()
         {
-            if(!TrainData.IsMisionStarted)
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            try
             {
-                if (TrainData.ETCSLevel.Equals(ETCSLevel.Poziom2))
+                if (!TrainData.IsMisionStarted)
                 {
-                    ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.L2));
+                    if (TrainData.ETCSLevel.Equals(ETCSLevel.Poziom2))
+                    {
+                        ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.L2));
+                    }
+                    else
+                    {
+                        ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.SHP));
+                    }
                 }
                 else
                 {
-                    ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.SHP));
+
                 }
             }
-            else
+            finally
             {
-                
+                TrainData.TrainDataSemaphofe.Release();
             }
         }
     }
