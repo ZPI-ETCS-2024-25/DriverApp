@@ -67,9 +67,9 @@ namespace DriverETCSApp.Forms.BForms {
         private async void UpdateWarningAndCap()
         {
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            if (AuthorityData.MaxSpeeds.Count > 0)
+            if (AuthorityData.currentSpeedLimit > 0)
             {
-                double max = AuthorityData.MaxSpeeds[0];
+                double max = AuthorityData.currentSpeedLimit;
                 SetSpeedWarning(0, (int)max);
             }
             else
@@ -255,7 +255,7 @@ namespace DriverETCSApp.Forms.BForms {
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             AuthorityData.SpeedDistances = new List<double> {0, 200, 500, 1000, 2000 };
-            AuthorityData.Speeds = new List<double> {10, 100, 140, 20, 50 };
+            AuthorityData.Speeds = new List<double> { 100, 120, 140, 20, 50 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";
