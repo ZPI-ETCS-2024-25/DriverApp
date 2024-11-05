@@ -122,6 +122,7 @@ namespace DriverETCSApp.Logic.Position
             if (lastIndex != -1) {
                 AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex);
                 AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex);
+                AuthorityData.currentSpeedLimit = AuthorityData.MaxSpeeds[0];
             }
             if (AuthorityData.MaxSpeedsDistances.Count > 0)
             {

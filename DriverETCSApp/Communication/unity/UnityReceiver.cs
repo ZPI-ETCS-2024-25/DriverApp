@@ -1,5 +1,7 @@
+using DriverETCSApp.Communication.Unity;
 using DriverETCSApp.Data;
 using DriverETCSApp.Logic.Balises;
+using DriverETCSApp.Logic.Calculations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -41,7 +43,7 @@ namespace DriverETCSApp.Communication.Server
             BalisesManager.Manage(decodedMessage);
         }
 
-        private async void SpeedChanged(dynamic message) {
+        public async void SpeedChanged(dynamic message) {
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
@@ -55,6 +57,7 @@ namespace DriverETCSApp.Communication.Server
                     await sender.SendSpeedUpdate(speedData.NewSpeed, TrainData.TrainNumber);
                     lastSpeedSend = DateTime.Now;
                 }
+                EmergencyBrakeManager.CheckSpeed();
             }
             finally
             {

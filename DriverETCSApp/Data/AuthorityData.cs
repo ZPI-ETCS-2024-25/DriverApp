@@ -12,6 +12,7 @@ namespace DriverETCSApp.Data
         //lock
         public static SemaphoreSlim AuthoritiyDataSemaphore = new SemaphoreSlim(1, 1);
         //speed data
+        public static double currentSpeedLimit = 0;
         public static List<double> Speeds = new List<double>();
         public static List<double> SpeedDistances = new List<double>();
         public static List<double> LowerSpeed = new List<double>();
