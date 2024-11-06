@@ -40,17 +40,19 @@
             this.messagebox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.messagebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.messagebox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
-            this.messagebox.Location = new System.Drawing.Point(104, 0);
+            this.messagebox.Location = new System.Drawing.Point(139, 0);
+            this.messagebox.Margin = new System.Windows.Forms.Padding(4);
             this.messagebox.Name = "messagebox";
-            this.messagebox.Size = new System.Drawing.Size(468, 200);
+            this.messagebox.Size = new System.Drawing.Size(624, 246);
             this.messagebox.TabIndex = 3;
             this.messagebox.Text = "";
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(12, 85);
+            this.buttonTest.Location = new System.Drawing.Point(16, 104);
+            this.buttonTest.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(59, 44);
+            this.buttonTest.Size = new System.Drawing.Size(79, 54);
             this.buttonTest.TabIndex = 5;
             this.buttonTest.Text = "add message";
             this.buttonTest.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // buttonTest2
             // 
-            this.buttonTest2.Location = new System.Drawing.Point(12, 135);
+            this.buttonTest2.Location = new System.Drawing.Point(16, 166);
+            this.buttonTest2.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTest2.Name = "buttonTest2";
-            this.buttonTest2.Size = new System.Drawing.Size(59, 44);
+            this.buttonTest2.Size = new System.Drawing.Size(79, 54);
             this.buttonTest2.TabIndex = 6;
             this.buttonTest2.Text = "delete message";
             this.buttonTest2.UseVisualStyleBackColor = true;
@@ -69,8 +72,9 @@
             // RBCConnectionPicture
             // 
             this.RBCConnectionPicture.Location = new System.Drawing.Point(0, 0);
+            this.RBCConnectionPicture.Margin = new System.Windows.Forms.Padding(4);
             this.RBCConnectionPicture.Name = "RBCConnectionPicture";
-            this.RBCConnectionPicture.Size = new System.Drawing.Size(108, 50);
+            this.RBCConnectionPicture.Size = new System.Drawing.Size(144, 62);
             this.RBCConnectionPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RBCConnectionPicture.TabIndex = 12;
             this.RBCConnectionPicture.TabStop = false;
@@ -79,9 +83,10 @@
             // 
             this.buttonUP.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonUP.Image = global::DriverETCSApp.Properties.Resources.UPGray;
-            this.buttonUP.Location = new System.Drawing.Point(573, 3);
+            this.buttonUP.Location = new System.Drawing.Point(764, 4);
+            this.buttonUP.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUP.Name = "buttonUP";
-            this.buttonUP.Size = new System.Drawing.Size(92, 100);
+            this.buttonUP.Size = new System.Drawing.Size(123, 123);
             this.buttonUP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.buttonUP.TabIndex = 13;
             this.buttonUP.TabStop = false;
@@ -91,9 +96,10 @@
             // 
             this.buttonDOWN.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonDOWN.Image = global::DriverETCSApp.Properties.Resources.DOWNGray;
-            this.buttonDOWN.Location = new System.Drawing.Point(573, 103);
+            this.buttonDOWN.Location = new System.Drawing.Point(764, 127);
+            this.buttonDOWN.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDOWN.Name = "buttonDOWN";
-            this.buttonDOWN.Size = new System.Drawing.Size(92, 100);
+            this.buttonDOWN.Size = new System.Drawing.Size(123, 123);
             this.buttonDOWN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.buttonDOWN.TabIndex = 14;
             this.buttonDOWN.TabStop = false;
@@ -101,16 +107,17 @@
             // 
             // MessagesForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
-            this.ClientSize = new System.Drawing.Size(668, 200);
+            this.ClientSize = new System.Drawing.Size(891, 246);
             this.Controls.Add(this.buttonDOWN);
             this.Controls.Add(this.buttonUP);
             this.Controls.Add(this.RBCConnectionPicture);
             this.Controls.Add(this.buttonTest2);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.messagebox);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MessagesForm";
             this.Text = "MessagesForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagesForm_FormClosing);

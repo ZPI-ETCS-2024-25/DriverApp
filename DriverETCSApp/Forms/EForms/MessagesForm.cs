@@ -24,18 +24,23 @@ namespace DriverETCSApp.Forms.EForms
         public string date;
         public string message;
         public int timeToDie;
+        private DateTime timeCreated;
 
-        public Message(string date, string message, int timeToDie = 30) : this()
+        public Message(string date, string message, int timeToDie = 3) : this()
         {
             this.date = date;
             this.message = message;
             this.timeToDie = timeToDie;
+            this.timeCreated = DateTime.Now;
+        }
+
+        public bool IsExpired() {
+            return (DateTime.Now - timeCreated).TotalSeconds >= timeToDie;
         }
     }
 
     public partial class MessagesForm : BorderLessForm
     {
-
         private int messageIndex = 0;
 
         private List<Message> messages;
@@ -52,6 +57,14 @@ namespace DriverETCSApp.Forms.EForms
             LoadConnection();
             ETCSEvents.ConnectionChanged += ChangeConnection;
             ETCSEvents.NewSystemMessage += NewSystemMessage;
+        }
+
+        private void DeleteExpiredMessages() {
+            for(int i = 0; i < messages.Count; i++) {
+                if (messages[i].IsExpired()) {
+                    messages.RemoveAt(i--);
+                }
+            }
         }
 
         private string BiggestFittingText(RichTextBox richTextBox, string testString)
@@ -135,6 +148,7 @@ namespace DriverETCSApp.Forms.EForms
 
         public void RefreshMessages()
         {
+            DeleteExpiredMessages();
             // Buttons
             if (messageIndex == 0 || messages.Count <= maxLinesShown)
                 buttonUP.Image = Resources.UPDarkGray;
