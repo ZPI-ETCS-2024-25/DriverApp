@@ -29,6 +29,11 @@ namespace DriverETCSApp.Logic.Data
             List<int> lines = decodedMessage.Lines.ToObject<List<int>>();
             List<double> linesDistances = decodedMessage.LinesDistances.ToObject<List<double>>();
 
+            if(speeds.Count < 1 || speeddistances.Count < 2 || gradients.Count < 2 || gradientsDistances.Count < 2 || lines.Count < 1 || linesDistances.Count < 1)
+            {
+                return;
+            }
+
             int position = decodedMessage.ServerPosition * 1000;
             double diffrence = 0;
             if (lines[0] == TrainData.BaliseLinePosition)

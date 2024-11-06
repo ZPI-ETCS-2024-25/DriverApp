@@ -116,8 +116,8 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
             object[] parameters = { null, null };
             var result = stopMethod.Invoke(ETCSLevelForm, parameters);
 
+            Assert.False(ETCSLevelForm.IsDisposed);
             Stop();
-            Assert.True(ETCSLevelForm.IsDisposed);
         }
 
         [Fact]

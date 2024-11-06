@@ -13,6 +13,7 @@ namespace DriverETCSApp.UnitTests.Logic.Data
         public SpeedSegregationTest() 
         {
             SpeedSegragation = new SpeedSegragation();
+            TrainData.VMax = "250";
         }
 
         [Fact]
