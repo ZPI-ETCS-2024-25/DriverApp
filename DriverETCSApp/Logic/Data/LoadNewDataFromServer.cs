@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,49 @@ namespace DriverETCSApp.Logic.Data
             }
 
             #region load speeds and distances of speeds
+            var tmpSpeed = new List<double>();
+            var tmpSpeedDist = new List<double>();
+            var vmax = Double.Parse(TrainData.VMax);
+            int actualTmpIndex = 0;
+
+            if (speeds[0] > vmax)
+            {
+                tmpSpeed.Add(vmax);
+            }
+            else
+            {
+                tmpSpeed.Add(speeds[0]);
+            }
+            tmpSpeedDist.Add(speeddistances[0]);
+            tmpSpeedDist.Add(speeddistances[1]);
+
+            for (int i = 1; i < speeddistances.Count - 1; i++)
+            {
+                if (speeds[i] < vmax)
+                {
+                    tmpSpeed.Add(speeds[i]);
+                    tmpSpeedDist.Add(speeddistances[i + 1]);
+                    actualTmpIndex++;
+                }
+                else
+                {
+                    if (tmpSpeed[actualTmpIndex] == vmax)
+                    {
+                        tmpSpeedDist[actualTmpIndex + 1] = speeddistances[i + 1];
+                    }
+                    else
+                    {
+                        tmpSpeed.Add(vmax);
+                        tmpSpeedDist.Add(speeddistances[i]);
+                        actualTmpIndex++;
+                    }
+                }
+            }
+            tmpSpeed.Add(speeds[speeds.Count - 1]);
+
+            speeddistances = tmpSpeedDist;
+            speeds = tmpSpeed;
+
             int lastIndex = -1;
             for (int i = 0; i < speeddistances.Count; i++)
             {

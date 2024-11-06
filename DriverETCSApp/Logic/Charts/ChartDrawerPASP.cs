@@ -59,7 +59,8 @@ namespace DriverETCSApp.Logic.Charts
                 }
                 else
                 {
-                    series.Points.AddXY(interpolateSpeeds[i], Interpolator.InterpolatePosition(interpolateDistances[i]));
+                    //series.Points.AddXY(interpolateSpeeds[i], Interpolator.InterpolatePosition(interpolateDistances[i]));
+                    series.Points.AddXY(0, Interpolator.InterpolatePosition(interpolateDistances[interpolateSpeeds.Count - 1]));
                 }
             }
         }

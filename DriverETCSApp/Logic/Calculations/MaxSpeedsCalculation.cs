@@ -35,6 +35,16 @@ namespace DriverETCSApp.Logic.Calculations {
             }
 
             AuthorityData.currentSpeedLimit = AuthorityData.MaxSpeeds[0];
+
+            for(int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++)
+            {
+                Console.WriteLine(AuthorityData.MaxSpeedsDistances[i]);
+            }
+
+            for (int i = 0; i < AuthorityData.MaxSpeeds.Count; i++)
+            {
+                Console.WriteLine(AuthorityData.MaxSpeeds[i]);
+            }
         }
 
     }
