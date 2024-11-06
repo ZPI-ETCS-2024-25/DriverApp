@@ -57,13 +57,20 @@ namespace DriverETCSApp.Forms.EForms
             LoadConnection();
             ETCSEvents.ConnectionChanged += ChangeConnection;
             ETCSEvents.NewSystemMessage += NewSystemMessage;
+
+            //Task repeatingTask = DeleteExpiredMessages();
+            Task.Run(() => DeleteExpiredMessages());
         }
 
-        private void DeleteExpiredMessages() {
-            for(int i = 0; i < messages.Count; i++) {
-                if (messages[i].IsExpired()) {
-                    messages.RemoveAt(i--);
+        private async Task DeleteExpiredMessages() {
+            while(true) {
+                for(int i = 0; i < messages.Count; i++) {
+                    if (messages[i].IsExpired()) {
+                        messages.RemoveAt(i--);
+                    }
                 }
+
+                await Task.Delay(2000);
             }
         }
 
