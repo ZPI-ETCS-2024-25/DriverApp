@@ -278,8 +278,12 @@ namespace DriverETCSApp.Forms
             fForm.Refresh();
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if(TrainData.IsTrainRegisterOnServer && TrainData.IsConnectionWorking)
+            {
+                await ServerSender.UnregisterTrainData();
+            }
             ReceiverHTTP?.StopListening();
             Dispose();
         }
