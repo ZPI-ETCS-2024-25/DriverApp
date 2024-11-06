@@ -253,10 +253,11 @@ namespace DriverETCSApp.Forms.BForms
         {
             UnityReceiver receiver = new UnityReceiver();
             SpeedData speedData = new SpeedData();
-            if (TrainData.CurrentSpeed < 180)
+            if (TrainData.CurrentSpeed < 180) {
                 speedData.NewSpeed = this.GetSpeed() + 5;
-            var json = JsonConvert.SerializeObject(speedData);
-            receiver.SpeedChanged(json);
+                var json = JsonConvert.SerializeObject(speedData);
+                receiver.SpeedChanged(json);
+            }
         }
 
         private async void btnTest2_Click(object sender, EventArgs e)
@@ -274,8 +275,8 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            AuthorityData.SpeedDistances = new List<double> { 0, 200, 500, 1000, 2000 };
-            AuthorityData.Speeds = new List<double> { 100, 120, 140, 20, 50 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 1000, 1010, 2000, 3000};
+            AuthorityData.Speeds = new List<double> { 140, 120, 20, 140, 120 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";
