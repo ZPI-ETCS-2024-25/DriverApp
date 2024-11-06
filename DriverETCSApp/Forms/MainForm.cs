@@ -280,9 +280,9 @@ namespace DriverETCSApp.Forms
 
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(TrainData.IsTrainRegisterOnServer && TrainData.IsConnectionWorking)
+            if(TrainData.IsTrainRegisterOnServer || TrainData.IsConnectionWorking)
             {
-                await ServerSender.UnregisterTrainData();
+                await ServerSender?.UnregisterTrainData();
             }
             ReceiverHTTP?.StopListening();
             Dispose();
