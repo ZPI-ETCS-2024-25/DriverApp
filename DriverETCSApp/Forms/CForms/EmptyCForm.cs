@@ -25,6 +25,7 @@ namespace DriverETCSApp.Forms.CForms
         private bool IsAckActiveToClick;
         private bool IsBorderVisible;
         private bool IsAfterMissionStarted;
+        private bool IsTimerStoped;
 
         private System.Threading.Timer Timer;
         private System.Threading.Timer TimerStop;
@@ -42,6 +43,7 @@ namespace DriverETCSApp.Forms.CForms
             IsAckActiveToClick = false;
             IsBorderVisible = false;
             IsAfterMissionStarted = false;
+            IsTimerStoped = true;
 
             if (instance == null)
             {
@@ -66,6 +68,7 @@ namespace DriverETCSApp.Forms.CForms
         {
             if (IsAckActiveToClick)
             {
+                IsTimerStoped = true;
                 if (!IsAfterMissionStarted)
                 {
                     IsAckActiveToClick = false;
@@ -120,6 +123,7 @@ namespace DriverETCSApp.Forms.CForms
         private void WaitToChangeLevel(AckInfo e)
         {
             IsAckActiveToClick = true;
+            IsTimerStoped = false;
             levelAnnouncementPicture.Image = e.FlashingBitmap;
 
             Timer.Change(0, 250);
@@ -135,8 +139,11 @@ namespace DriverETCSApp.Forms.CForms
                     if (!IsDisposed && !Disposing)
                     {
                         IsBorderVisible = !IsBorderVisible;
-                        levelAnnouncementPicture.Invalidate();
-                        levelAnnouncementPicture.Update();
+                        if (!IsTimerStoped)
+                        {
+                            levelAnnouncementPicture.Invalidate();
+                            levelAnnouncementPicture.Update();
+                        }
                     }
                 }));
             }
@@ -144,7 +151,7 @@ namespace DriverETCSApp.Forms.CForms
 
         private void levelAnnouncementPicture_Paint(object sender, PaintEventArgs e)
         {
-            if (IsBorderVisible)
+            if (IsBorderVisible && !IsTimerStoped)
             {
                 Rectangle rectangle = new Rectangle(0, 0, levelAnnouncementPicture.Width - 1, levelAnnouncementPicture.Height - 1);
 
@@ -196,7 +203,6 @@ namespace DriverETCSApp.Forms.CForms
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
-                Console.WriteLine("ForceToChangeLevel(object sender, LevelInfo e)");
                 TrainData.IsETCSActive = e.WillBeActive;
                 levelPicture.Image = e.Bitmap;
                 if (e.WillBeActive)
@@ -250,6 +256,7 @@ namespace DriverETCSApp.Forms.CForms
             IsAckActiveToClick = true;
             IsBorderVisible = true;
             IsAfterMissionStarted = true;
+            IsTimerStoped = false;
 
             if (TrainData.ETCSLevel.Equals(ETCSLevel.SHP))
             {
