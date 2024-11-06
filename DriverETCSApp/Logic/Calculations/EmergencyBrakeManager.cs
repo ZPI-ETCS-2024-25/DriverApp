@@ -1,5 +1,6 @@
 ﻿using DriverETCSApp.Communication.Unity;
 using DriverETCSApp.Data;
+using DriverETCSApp.Forms.CForms;
 using DriverETCSApp.Forms.EForms;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,17 @@ namespace DriverETCSApp.Logic.Calculations {
         private static bool isBraking = false;
 
         public static void CheckSpeed() {
-            
             if (TrainData.CurrentSpeed > AuthorityData.currentSpeedLimit && !isBraking) {
                 UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
                 _ = sender.SendBrakeSignal(true);
                 isBraking = true;
-                MessagesForm.BrakingImage(true);
+                EmptyCForm.BrakingImage(true);
             }
             else if (TrainData.CurrentSpeed <= AuthorityData.currentSpeedLimit && isBraking) {
                 UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
                 _ = sender.SendBrakeSignal(false);
                 isBraking = false;
-                MessagesForm.BrakingImage(false);
+                EmptyCForm.BrakingImage(false);
             }
         }
     }

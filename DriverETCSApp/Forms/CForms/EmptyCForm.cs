@@ -3,6 +3,7 @@ using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Forms.EForms;
 using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace DriverETCSApp.Forms.CForms
         private AckInfo LastAckInfo;
         private ModeInfo LastModeInfo;
         private ServerSender ServerSender;
+        private static EmptyCForm instance = null;
 
         public EmptyCForm(ServerSender serverSender)
         {
@@ -40,6 +42,11 @@ namespace DriverETCSApp.Forms.CForms
             IsAckActiveToClick = false;
             IsBorderVisible = false;
             IsAfterMissionStarted = false;
+
+            if (instance == null)
+            {
+                instance = this;
+            }
 
             ServerSender = serverSender;
 
@@ -106,7 +113,7 @@ namespace DriverETCSApp.Forms.CForms
         {
             levelAnnouncementPicture.Image = e.Bitmap;
             LastAckInfo = e;
-            await Task.Delay(17500);
+            await Task.Delay(15000);
             WaitToChangeLevel(e);
         }
 
@@ -158,7 +165,7 @@ namespace DriverETCSApp.Forms.CForms
         private async void ChangeLevel(object sender)
         {
             Change();
-            await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
                 TrainData.IsETCSActive = LastAckInfo.WillBeActive;
@@ -179,14 +186,14 @@ namespace DriverETCSApp.Forms.CForms
             }
             finally
             {
-                Data.TrainData.TrainDataSemaphofe.Release();
+                TrainData.TrainDataSemaphofe.Release();
             }
         }
 
         private async void ForceToChangeLevel(object sender, LevelInfo e)
         {
             Change();
-            await Data.TrainData.TrainDataSemaphofe.WaitAsync();
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
                 Console.WriteLine("ForceToChangeLevel(object sender, LevelInfo e)");
@@ -208,7 +215,7 @@ namespace DriverETCSApp.Forms.CForms
             }
             finally
             {
-                Data.TrainData.TrainDataSemaphofe.Release();
+                TrainData.TrainDataSemaphofe.Release();
             }
         }
 
@@ -255,6 +262,18 @@ namespace DriverETCSApp.Forms.CForms
                 LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
             }
             Timer.Change(0, 250);
+        }
+
+        public static void BrakingImage(bool braking)
+        {
+            if (braking)
+            {
+                instance.brakePicture.Image = Resources.Brakes;
+            }
+            else
+            {
+                instance.brakePicture.Image = null;
+            }
         }
 
         private void EmptyCForm_FormClosing(object sender, FormClosingEventArgs e)

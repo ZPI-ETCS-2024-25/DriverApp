@@ -19,10 +19,12 @@ namespace DriverETCSApp.Communication.Server
         
         private DateTime lastSpeedSend = DateTime.Now;
         private const int secondsToSend = 2;
+        private ServerSender sender;
 
         public UnityReceiver()
         {
             BalisesManager = new BalisesManager();
+            sender = new ServerSender("127.0.0.1", Port.Server);
         }
 
         public void Proccess(string message)
@@ -53,7 +55,6 @@ namespace DriverETCSApp.Communication.Server
 
                 if ((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend)
                 {
-                    ServerSender sender = new ServerSender("127.0.0.1", Port.Server);
                     await sender.SendSpeedUpdate(speedData.NewSpeed, TrainData.TrainNumber);
                     lastSpeedSend = DateTime.Now;
                 }

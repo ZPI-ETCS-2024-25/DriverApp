@@ -70,7 +70,7 @@
             // 
             this.RBCConnectionPicture.Location = new System.Drawing.Point(0, 0);
             this.RBCConnectionPicture.Name = "RBCConnectionPicture";
-            this.RBCConnectionPicture.Size = new System.Drawing.Size(104, 42);
+            this.RBCConnectionPicture.Size = new System.Drawing.Size(108, 50);
             this.RBCConnectionPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RBCConnectionPicture.TabIndex = 12;
             this.RBCConnectionPicture.TabStop = false;
