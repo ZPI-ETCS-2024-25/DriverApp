@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace DriverETCSApp.Forms.EForms
@@ -26,7 +28,7 @@ namespace DriverETCSApp.Forms.EForms
         public int timeToDie;
         private DateTime timeCreated;
 
-        public Message(string date, string message, int timeToDie = 3) : this()
+        public Message(string date, string message, int timeToDie = 30) : this()
         {
             this.date = date;
             this.message = message;
@@ -58,19 +60,25 @@ namespace DriverETCSApp.Forms.EForms
             ETCSEvents.ConnectionChanged += ChangeConnection;
             ETCSEvents.NewSystemMessage += NewSystemMessage;
 
-            //Task repeatingTask = DeleteExpiredMessages();
             Task.Run(() => DeleteExpiredMessages());
         }
 
         private async Task DeleteExpiredMessages() {
+            bool updateNecessary = false;
             while(true) {
                 for(int i = 0; i < messages.Count; i++) {
                     if (messages[i].IsExpired()) {
-                        messages.RemoveAt(i--);
+                        messages.Remove(messages[i]);
+                        i--;
+                        updateNecessary = true;
                     }
                 }
 
-                await Task.Delay(2000);
+                if(updateNecessary) {
+                    this.Invoke((MethodInvoker)(() => RefreshMessages()));
+                    updateNecessary = false;
+                }
+                await Task.Delay(1000);
             }
         }
 
@@ -155,7 +163,7 @@ namespace DriverETCSApp.Forms.EForms
 
         public void RefreshMessages()
         {
-            DeleteExpiredMessages();
+            Console.WriteLine("ok.");
             // Buttons
             if (messageIndex == 0 || messages.Count <= maxLinesShown)
                 buttonUP.Image = Resources.UPDarkGray;
@@ -166,18 +174,15 @@ namespace DriverETCSApp.Forms.EForms
                 buttonDOWN.Image = Resources.DOWNDarkGray;
             else
                 buttonDOWN.Image = Resources.DOWNGray;
-
             // Messages
-            if (messages.Count == 0)
-            {
+            if (messages.Count == 0) {
                 messagebox.Text = "";
                 return;
             }
             
             List<string> linesOfMessages = ConvertToLinesOfStrings(messages.AsEnumerable().Reverse().Skip(messageIndex).ToList());
             string result = "";
-            for (int i = 0; i < maxLinesShown && i < linesOfMessages.Count; i++)
-            {
+            for (int i = 0; i < maxLinesShown && i < linesOfMessages.Count; i++) {
                 result += linesOfMessages[i] + "\n";
             }
             result = result.Remove(result.Length - 1);
