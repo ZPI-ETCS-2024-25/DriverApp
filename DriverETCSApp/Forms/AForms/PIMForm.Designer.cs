@@ -48,6 +48,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PIMForm";
             this.Text = "PIMForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PIMForm_FormClosing);
             this.ResumeLayout(false);
 
         }

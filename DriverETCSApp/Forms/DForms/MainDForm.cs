@@ -38,7 +38,7 @@ namespace DriverETCSApp.Forms.DForms
             MainForm = mainForm;
             IsChartDrawing = false;
             DistancesCalculator = distancesCalculator;
-            DistancesCalculator.DistancesCalculationsCompleted += DistancesCalculationCompleted;
+            ETCSEvents.DistancesCalculationsCompleted += DistancesCalculationCompleted;
             SpeedSegragation = new SpeedSegragation();
 
             ChartScaller = new ChartScaleDrawer(PlanningChart);
@@ -169,7 +169,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void MainDForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DistancesCalculator.DistancesCalculationsCompleted -= DistancesCalculationCompleted;
+            ETCSEvents.DistancesCalculationsCompleted -= DistancesCalculationCompleted;
             ETCSEvents.ModeChanged -= ChangeVisibilityOfChart;
         }
     }

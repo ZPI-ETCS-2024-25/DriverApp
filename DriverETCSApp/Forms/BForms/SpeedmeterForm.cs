@@ -23,7 +23,8 @@ using System.Xml.Linq;
 using Xunit;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace DriverETCSApp.Forms.BForms {
+namespace DriverETCSApp.Forms.BForms
+{
     public partial class SpeedmeterForm : BorderLessForm
     {
 
@@ -60,27 +61,39 @@ namespace DriverETCSApp.Forms.BForms {
             numbersFont = new Font(this.Font.FontFamily, 17f, this.Font.Style, this.Font.Unit);
 
             ETCSEvents.ModeChanged += modeChanged;
+            ETCSEvents.DistancesCalculationsCompleted += UpdateWarningAndCap;
 
             if (instance == null)
                 instance = this;
-
-            DistancesCalculator.OnCalculactionFinished.Add(UpdateWarningAndCap);
         }
 
-        private async void UpdateWarningAndCap()
+        private void UpdateWarningAndCap(object sender, EventArgs e)
         {
-            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            if (AuthorityData.currentSpeedLimit > 0)
+            if (IsHandleCreated && !IsDisposed && !Disposing)
             {
-                double max = AuthorityData.currentSpeedLimit;
-                SetSpeedWarning(0, (int)max);
+                try
+                {
+                    Invoke(new Action(async () =>
+                    {
+                        if (!IsDisposed && !Disposing)
+                        {
+                            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+                            if (AuthorityData.currentSpeedLimit > 0)
+                            {
+                                double max = AuthorityData.currentSpeedLimit;
+                                SetSpeedWarning(0, (int)max);
+                            }
+                            else
+                            {
+                                SetSpeedWarning(0, 0);
+                                SetSpeedCap(0, 0);
+                            }
+                            AuthorityData.AuthoritiyDataSemaphore.Release();
+                        }
+                    }));
+                }
+                catch { }
             }
-            else
-            {
-                SetSpeedWarning(0, 0);
-                SetSpeedCap(0, 0);
-            }
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e)
@@ -246,7 +259,8 @@ namespace DriverETCSApp.Forms.BForms {
             receiver.SpeedChanged(json);
         }
 
-        private async void btnTest2_Click(object sender, EventArgs e) {
+        private async void btnTest2_Click(object sender, EventArgs e)
+        {
             UnityReceiver receiver = new UnityReceiver();
             SpeedData speedData = new SpeedData();
             if (TrainData.CurrentSpeed > 0)
@@ -255,11 +269,12 @@ namespace DriverETCSApp.Forms.BForms {
             receiver.SpeedChanged(json);
         }
 
-        private async void btnTest3_Click(object sender, EventArgs e) {
+        private async void btnTest3_Click(object sender, EventArgs e)
+        {
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            AuthorityData.SpeedDistances = new List<double> {0, 200, 500, 1000, 2000 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 200, 500, 1000, 2000 };
             AuthorityData.Speeds = new List<double> { 100, 120, 140, 20, 50 };
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
@@ -269,7 +284,8 @@ namespace DriverETCSApp.Forms.BForms {
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
-        private void modeChanged(object sender, ModeInfo e) {
+        private void modeChanged(object sender, ModeInfo e)
+        {
             ChangeMode(e.Bitmap);
             TrainData.ActiveMode = e.Mode;
         }
@@ -277,6 +293,7 @@ namespace DriverETCSApp.Forms.BForms {
         private void SpeedmeterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ETCSEvents.ModeChanged -= modeChanged;
+            ETCSEvents.DistancesCalculationsCompleted -= UpdateWarningAndCap;
         }
     }
 }

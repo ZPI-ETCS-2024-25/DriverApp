@@ -16,8 +16,6 @@ namespace DriverETCSApp.Logic.Position
     {
         private Timer ClockTimer;
         private SpeedSegragation SpeedSegragation;
-        public event EventHandler DistancesCalculationsCompleted;
-        static public List<Action> OnCalculactionFinished = new List<Action>();
 
         public DistancesCalculator()
         {
@@ -37,7 +35,7 @@ namespace DriverETCSApp.Logic.Position
             {
                 TrainData.TrainDataSemaphofe.Release();
                 AuthorityData.AuthoritiyDataSemaphore.Release();
-                DistancesCalculationsCompleted?.Invoke(this, EventArgs.Empty);
+                ETCSEvents.OnDistancesCalculationsCompleted();
             }
         }
 
@@ -129,10 +127,6 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.MaxSpeedsDistances[0] = 0;
             }
             #endregion
-
-            foreach (Action action in OnCalculactionFinished) {
-                action.Invoke();
-            }
         }
 
         public void TurnOffClock()

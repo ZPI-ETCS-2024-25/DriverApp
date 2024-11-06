@@ -1,5 +1,6 @@
 ﻿using DriverETCSApp.Data;
 using DriverETCSApp.Design;
+using DriverETCSApp.Events;
 using DriverETCSApp.Logic.Position;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -45,19 +46,34 @@ namespace DriverETCSApp.Forms.AForms
             InitializeComponent();
             numbersFont = new Font(this.Font.FontFamily, 17f, this.Font.Style, this.Font.Unit);
 
-            DistancesCalculator.OnCalculactionFinished.Add(UpdateDistanceLeft);
+            ETCSEvents.DistancesCalculationsCompleted += UpdateDistanceLeft;
         }
 
-        private async void UpdateDistanceLeft() {
-            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            if (AuthorityData.MaxSpeedsDistances.Count > 1) {
-                double distance = AuthorityData.MaxSpeedsDistances[1];
-                SetDistanceLeft( (int)distance);
+        private void UpdateDistanceLeft(object sender, EventArgs e) {
+            if (IsHandleCreated && !IsDisposed && !Disposing)
+            {
+                try
+                {
+                    Invoke(new Action(async () =>
+                    {
+                        if (!IsDisposed && !Disposing)
+                        {
+                            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+                            if (AuthorityData.MaxSpeedsDistances.Count > 1)
+                            {
+                                double distance = AuthorityData.MaxSpeedsDistances[1];
+                                SetDistanceLeft((int)distance);
+                            }
+                            else
+                            {
+                                SetDistanceLeft(0);
+                            }
+                            AuthorityData.AuthoritiyDataSemaphore.Release();
+                        }
+                    }));
+                }
+                catch { }
             }
-            else {
-                SetDistanceLeft(0);
-            }
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         private void clockPanel_Paint(object sender, PaintEventArgs e)
@@ -131,6 +147,11 @@ namespace DriverETCSApp.Forms.AForms
 
         private void button1_Click(object sender, EventArgs e) {
             SetDistanceLeft(GetDistanceLeft() - 100);
+        }
+
+        private void PIMForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ETCSEvents.DistancesCalculationsCompleted -= UpdateDistanceLeft;
         }
     }
 }

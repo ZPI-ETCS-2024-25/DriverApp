@@ -18,6 +18,7 @@ namespace DriverETCSApp.Events
         public static event EventHandler<ChangeLevelIcon> ChangeLevelIcon;
         public static event EventHandler MisionStarted;
         public static event EventHandler<BaliseInfo> ForceToChangeBaliseType;
+        public static event EventHandler DistancesCalculationsCompleted;
 
         public static void OnModeChanged(ModeInfo modeInfo)
         {
@@ -57,6 +58,11 @@ namespace DriverETCSApp.Events
         public static void OnForceToChangeBaliseType(BaliseInfo baliseInfo)
         {
             ForceToChangeBaliseType?.Invoke(null, baliseInfo);
+        }
+
+        public static void OnDistancesCalculationsCompleted()
+        {
+            DistancesCalculationsCompleted?.Invoke(null, EventArgs.Empty);
         }
     }
 }
