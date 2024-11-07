@@ -80,12 +80,15 @@ namespace DriverETCSApp.Forms.BForms
                     {
                         if (!IsDisposed && !Disposing)
                         {
+                            Console.WriteLine(string.Join(", ", AuthorityData.Speeds));
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0)
-                            {
-                                double max = AuthorityData.Speeds[0];
-                                SetSpeedLimit((int)max);
-                                //SetSpeedWarning((int)max-35, (int)max, true);
+                            if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
+                                double speedlimit = AuthorityData.Speeds[0];
+                                SetSpeedLimit((int)speedlimit);
+                                if (AuthorityData.Speeds.Count > 1) {
+                                    double nextSpeedlimit = AuthorityData.Speeds[1];
+                                    SetSpeedWarning((int)speedlimit, (int)nextSpeedlimit);
+                                }
                             }
                             else
                             {
@@ -204,8 +207,6 @@ namespace DriverETCSApp.Forms.BForms
                 Pen pen = new Pen(speed > speedCap.Item2 ? Color.Red : Color.Orange, 32);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
-
-
         }
 
         private Color GetColorForNeedle()
