@@ -83,16 +83,17 @@ namespace DriverETCSApp.Forms.BForms
                             //Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
                             //Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
+                            if (AuthorityData.CalculatedSpeedLimit > 0) {
+                                double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
+                                double nextSpeedlimit = AuthorityData.Speeds[1];
+                                SetSpeedLimit((int)nextSpeedlimit);
+                                SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
+                            }
+                            else if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
                                 double speedlimit = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)speedlimit);
                                 
-                                if (AuthorityData.CalculatedSpeedLimit > 0) {
-                                    double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
-                                    double nextSpeedlimit = AuthorityData.Speeds[1];
-                                    SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
-                                }
-                                else if (AuthorityData.Speeds.Count > 1) {
+                                if (AuthorityData.Speeds.Count > 1) {
                                     double nextSpeedlimit = AuthorityData.Speeds[1];
                                     SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit);
                                 }
