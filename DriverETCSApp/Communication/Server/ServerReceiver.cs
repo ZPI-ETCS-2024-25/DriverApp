@@ -6,8 +6,10 @@ using DriverETCSApp.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DriverETCSApp.Communication.Server
@@ -16,14 +18,28 @@ namespace DriverETCSApp.Communication.Server
     {
         private LoadNewDataFromServer LoadNewDataFromServer;
 
+        private static DateTime LastMessageDateTime = DateTime.Now;
+        private static SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
+
         public ServerReceiver()
         {
             LoadNewDataFromServer = new LoadNewDataFromServer();
+
         }
 
-        public void Proccess(string message)
+        public async void Proccess(string message)
         {
             dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+
+            await Semaphore.WaitAsync();
+            DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime, "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
+            if(messageTime <= LastMessageDateTime)
+            {
+                return;
+            }
+            LastMessageDateTime = messageTime;
+            Semaphore.Release();
+
             switch (decodedMessage.MessageType.ToString())
             {
                 case "MA":
