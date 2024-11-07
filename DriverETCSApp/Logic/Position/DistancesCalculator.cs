@@ -5,6 +5,7 @@ using DriverETCSApp.Logic.Data;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -118,11 +119,7 @@ namespace DriverETCSApp.Logic.Position
                 }
             }
             if (lastIndex != -1) {
-                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex);
-            }
-            if (AuthorityData.MaxSpeedsDistances.Count > 0)
-            {
-                AuthorityData.MaxSpeedsDistances[0] = 0;
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
             }
             #endregion
         }

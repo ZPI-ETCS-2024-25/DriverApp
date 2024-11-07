@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -59,9 +60,9 @@ namespace DriverETCSApp.Forms.AForms
                         if (!IsDisposed && !Disposing)
                         {
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.MaxSpeedsDistances.Count > 1)
+                            if (AuthorityData.MaxSpeedsDistances.Count > 0)
                             {
-                                double distance = AuthorityData.MaxSpeedsDistances[1];
+                                double distance = AuthorityData.MaxSpeedsDistances[0];
                                 SetDistanceLeft((int)distance);
                             }
                             else
