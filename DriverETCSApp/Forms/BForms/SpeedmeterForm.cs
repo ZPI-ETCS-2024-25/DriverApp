@@ -80,14 +80,21 @@ namespace DriverETCSApp.Forms.BForms
                     {
                         if (!IsDisposed && !Disposing)
                         {
-                            Console.WriteLine(string.Join(", ", AuthorityData.Speeds));
+                            Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
+                            Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
                             if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
                                 double speedlimit = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)speedlimit);
-                                if (AuthorityData.Speeds.Count > 1) {
+                                
+                                if (AuthorityData.CalculatedSpeedLimit > 0) {
+                                    double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
                                     double nextSpeedlimit = AuthorityData.Speeds[1];
-                                    SetSpeedWarning((int)speedlimit, (int)nextSpeedlimit);
+                                    SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
+                                }
+                                else if (AuthorityData.Speeds.Count > 1) {
+                                    double nextSpeedlimit = AuthorityData.Speeds[1];
+                                    SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit);
                                 }
                             }
                             else
@@ -171,7 +178,7 @@ namespace DriverETCSApp.Forms.BForms
                 float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedLimit) * clockAngle / linesCount / speedPerLine;
 
-                Pen pen = new Pen(Color.Gray, 8);
+                Pen pen = new Pen(Color.DarkSlateGray, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
 

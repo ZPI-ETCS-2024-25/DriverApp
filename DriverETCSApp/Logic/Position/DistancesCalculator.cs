@@ -46,11 +46,6 @@ namespace DriverETCSApp.Logic.Position
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             TrainData.CalculatedPosition += TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
 
-            //if (AuthorityData.MaxSpeedsDistances.Count > 0) {
-            //    Console.WriteLine("  " + string.Join(", ", AuthorityData.MaxSpeedsDistances.Select(x => (int)x)));
-            //    Console.WriteLine("  " + string.Join(", ", AuthorityData.MaxSpeeds.Select(x => (int)x)));
-            //}
-
             #region speeds and distances of speeds
             int lastIndex = -1;
             for (int i = 0; i < AuthorityData.SpeedDistances.Count; i++)
@@ -65,8 +60,10 @@ namespace DriverETCSApp.Logic.Position
             {
                 AuthorityData.SpeedDistances.RemoveRange(0, lastIndex);
                 AuthorityData.Speeds.RemoveRange(0, lastIndex);
-                
             }
+            if(lastIndex > 0)
+                AuthorityData.CalculatedSpeedLimit = 0;
+
             if (AuthorityData.SpeedDistances.Count > 0)
             {
                 AuthorityData.SpeedDistances[0] = 0;
@@ -120,8 +117,11 @@ namespace DriverETCSApp.Logic.Position
             }
             if (lastIndex != -1) {
                 AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
+                AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
             }
+            MaxSpeedsCalculation.CountDownCalculatedMaxSpeed();
             #endregion
+
         }
 
         public void TurnOffClock()
