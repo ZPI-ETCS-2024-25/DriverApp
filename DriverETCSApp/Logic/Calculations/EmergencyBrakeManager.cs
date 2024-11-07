@@ -15,7 +15,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
         public static void CheckSpeed() {
 
-            double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] : 0; 
+            double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] + AuthorityData.WARNING_SPEED_RANGE : 0; 
 
             if (TrainData.CurrentSpeed > currentSpeedLimitation && !isBraking) {
                 UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
