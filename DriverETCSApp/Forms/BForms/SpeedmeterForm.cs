@@ -49,7 +49,7 @@ namespace DriverETCSApp.Forms.BForms
         private (int, int) speedWarning = (0, 0); // yellow / white
         private bool isWarningYellow = false;
         private (int, int) speedCap = (0, 0); // orange
-        private int speedLimit = 100;
+        private int speedLimit = 0;
 
         private Font numbersFont;
         public SpeedmeterForm()
@@ -82,6 +82,13 @@ namespace DriverETCSApp.Forms.BForms
                         {
                             //Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
                             //Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
+
+                            if (AuthorityData.Speeds.Count > 0 && AuthorityData.MaxSpeedsDistances[0] > AuthorityData.CAUTION_DISTANCE) {
+                                double speedlimit = AuthorityData.Speeds[0];
+                                SetSpeedLimit((int)speedlimit);
+                                return;
+                            }
+
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
                             if (AuthorityData.CalculatedSpeedLimit > 0) {
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
