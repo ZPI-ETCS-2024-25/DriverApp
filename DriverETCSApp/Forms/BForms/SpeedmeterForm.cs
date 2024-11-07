@@ -219,11 +219,14 @@ namespace DriverETCSApp.Forms.BForms
 
         private Color GetColorForNeedle()
         {
-            if (speedWarning == (0, 0) || speed <= speedWarning.Item1)
+            if (speedWarning == (0, 0) || speed <= speedWarning.Item1 )
                 return DMIColors.White;
             else if (speed <= speedWarning.Item2)
             {
-                return DMIColors.Yellow;
+                if (isWarningYellow) 
+                    return DMIColors.Yellow;
+                else
+                    return DMIColors.White;
             }
             else if (speed <= speedCap.Item2)
             {
