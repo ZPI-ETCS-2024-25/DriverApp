@@ -80,8 +80,8 @@ namespace DriverETCSApp.Forms.BForms
                     {
                         if (!IsDisposed && !Disposing)
                         {
-                            Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
-                            Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
+                            //Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
+                            //Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
                             if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
                                 double speedlimit = AuthorityData.Speeds[0];
