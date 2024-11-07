@@ -83,13 +83,8 @@ namespace DriverETCSApp.Forms.BForms
                             //Console.WriteLine(AuthorityData.CalculatedSpeedLimit);
                             //Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
 
-                            //if (AuthorityData.Speeds.Count > 0 && AuthorityData.MaxSpeedsDistances[0] > AuthorityData.CAUTION_DISTANCE) {
-                            //    double speedlimit = AuthorityData.Speeds[0];
-                            //    SetSpeedLimit((int)speedlimit);
-                            //    return;
-                            //}
-
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+                            // Speed limit and speed warning
                             if (AuthorityData.CalculatedSpeedLimit > 0) {
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
                                 double nextSpeedlimit = AuthorityData.Speeds[1];
@@ -100,7 +95,7 @@ namespace DriverETCSApp.Forms.BForms
                                 double speedlimit = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)speedlimit);
                                 
-                                if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.CAUTION_DISTANCE) {
+                                if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE) {
                                     double nextSpeedlimit = AuthorityData.Speeds[1];
                                     SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit);
                                 }
@@ -112,6 +107,14 @@ namespace DriverETCSApp.Forms.BForms
                                 SetSpeedWarning(0, 0);
                                 SetSpeedCap(0, 0);
                             }
+
+                            // Orange Speed Cap
+                            int lastAllowedSpeed = Math.Max(speedLimit, speedWarning.Item2);
+                            if (lastAllowedSpeed > 0)
+                                SetSpeedCap(lastAllowedSpeed, lastAllowedSpeed + AuthorityData.WARNING_SPEED_RANGE);
+                            else
+                                SetSpeedCap(0, 0);
+
                             AuthorityData.AuthoritiyDataSemaphore.Release();
                         }
                     }));
@@ -228,11 +231,11 @@ namespace DriverETCSApp.Forms.BForms
 
         private Color GetColorForNeedle()
         {
-            if (speedWarning == (0, 0) || speed <= speedWarning.Item1 )
+            if (speed <= speedLimit )
                 return DMIColors.White;
             else if (speed <= speedWarning.Item2)
             {
-                if (isWarningYellow) 
+                if (isWarningYellow)
                     return DMIColors.Yellow;
                 else
                     return DMIColors.White;
