@@ -9,6 +9,7 @@ using DriverETCSApp.Logic.Data;
 using DriverETCSApp.Logic.Position;
 using DriverETCSApp.Properties;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,9 +81,9 @@ namespace DriverETCSApp.Forms.BForms
                         if (!IsDisposed && !Disposing)
                         {
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.currentSpeedLimit > 0)
+                            if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0)
                             {
-                                double max = AuthorityData.currentSpeedLimit;
+                                double max = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)max);
                                 //SetSpeedWarning((int)max-35, (int)max, true);
                             }
@@ -299,13 +300,14 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            AuthorityData.SpeedDistances = new List<double> { 0, 1000, 1010, 2000, 3000};
-            AuthorityData.Speeds = new List<double> { 140, 120, 20, 140, 120 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 300, 500};
+            AuthorityData.Speeds = new List<double> { 140, 120, 100};
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
 
+            Debug.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 

@@ -12,7 +12,6 @@ namespace DriverETCSApp.Logic.Calculations {
         private const double brakingAcceleration = -10; // km/h^2
 
         public static void Calculate(List<double> speeds, List<double> speedDistances) {
-            AuthorityData.MaxSpeeds = new List<double>(speeds);
             AuthorityData.MaxSpeedsDistances.Clear();
 
             for (int i = 1; i < speedDistances.Count; i++) {
@@ -32,18 +31,6 @@ namespace DriverETCSApp.Logic.Calculations {
                 if( AuthorityData.MaxSpeedsDistances[i] < AuthorityData.MaxSpeedsDistances[i - 1]) {
                     AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i - 1];
                 }
-            }
-
-            AuthorityData.currentSpeedLimit = AuthorityData.MaxSpeeds[0];
-
-            for(int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++)
-            {
-                Console.WriteLine(AuthorityData.MaxSpeedsDistances[i]);
-            }
-
-            for (int i = 0; i < AuthorityData.MaxSpeeds.Count; i++)
-            {
-                Console.WriteLine(AuthorityData.MaxSpeeds[i]);
             }
         }
 

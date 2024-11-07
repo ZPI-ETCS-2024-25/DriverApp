@@ -14,13 +14,16 @@ namespace DriverETCSApp.Logic.Calculations {
         private static bool isBraking = false;
 
         public static void CheckSpeed() {
-            if (TrainData.CurrentSpeed > AuthorityData.currentSpeedLimit && !isBraking) {
+
+            double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] : 0; 
+
+            if (TrainData.CurrentSpeed > currentSpeedLimitation && !isBraking) {
                 UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
                 _ = sender.SendBrakeSignal(true);
                 isBraking = true;
                 EmptyCForm.BrakingImage(true);
             }
-            else if (TrainData.CurrentSpeed <= AuthorityData.currentSpeedLimit && isBraking) {
+            else if (TrainData.CurrentSpeed <= currentSpeedLimitation && isBraking) {
                 UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
                 _ = sender.SendBrakeSignal(false);
                 isBraking = false;

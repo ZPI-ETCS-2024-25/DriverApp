@@ -72,7 +72,7 @@ namespace DriverETCSApp.Logic.Charts
 
         public bool DrawIndication(Graphics graphics)
         {
-            if (AuthorityData.MaxSpeeds.Count <= 1 || AuthorityData.MaxSpeedsDistances.Count <= 1)
+            if (AuthorityData.MaxSpeedsDistances.Count <= 1)
             {
                 return false;
             }
