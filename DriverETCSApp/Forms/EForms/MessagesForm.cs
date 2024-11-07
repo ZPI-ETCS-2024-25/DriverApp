@@ -163,7 +163,6 @@ namespace DriverETCSApp.Forms.EForms
 
         public void RefreshMessages()
         {
-            Console.WriteLine("ok.");
             // Buttons
             if (messageIndex == 0 || messages.Count <= maxLinesShown)
                 buttonUP.Image = Resources.UPDarkGray;

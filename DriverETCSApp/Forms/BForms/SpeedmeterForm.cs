@@ -47,6 +47,7 @@ namespace DriverETCSApp.Forms.BForms
         private int speed = 0;
         private (int, int) speedCap = (0, 0); // orange
         private (int, int) speedWarning = (0, 0); // yellow
+        private int speedLimit = 100;
 
         private Font numbersFont;
         public SpeedmeterForm()
@@ -81,7 +82,8 @@ namespace DriverETCSApp.Forms.BForms
                             if (AuthorityData.currentSpeedLimit > 0)
                             {
                                 double max = AuthorityData.currentSpeedLimit;
-                                SetSpeedWarning(0, (int)max);
+                                SetSpeedLimit((int)max);
+                                //SetSpeedWarning(0, (int)max);
                             }
                             else
                             {
@@ -157,6 +159,17 @@ namespace DriverETCSApp.Forms.BForms
                 }
             }
 
+            // Draw Arc of Speed Limit
+            if (speedLimit > 0) {
+                Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
+
+                float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
+                float sweepAngle = (speedLimit) * clockAngle / linesCount / speedPerLine;
+
+                Pen pen = new Pen(Color.Gray, 8);
+                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+            }
+
             // Draw Arc of Warning
             if (speedWarning != (0, 0))
             {
@@ -187,6 +200,8 @@ namespace DriverETCSApp.Forms.BForms
                 Pen pen = new Pen(speed > speedCap.Item2 ? Color.Red : Color.Orange, 32);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
+
+
         }
 
         private Color GetColorForNeedle()
@@ -227,6 +242,11 @@ namespace DriverETCSApp.Forms.BForms
         public static void SetSpeedWarning(int min, int max)
         {
             instance.speedWarning = (min, max);
+            instance.clockPanel.Invalidate();
+        }
+
+        public static void SetSpeedLimit(int newSpeed) {
+            instance.speedLimit = newSpeed;
             instance.clockPanel.Invalidate();
         }
 
