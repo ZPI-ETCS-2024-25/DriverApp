@@ -10,6 +10,7 @@ namespace DriverETCSApp.Logic.Calculations {
     public static class MaxSpeedsCalculation {
 
         private const double brakingAcceleration = -10; // km/h^2
+        private static DateTime LastCountDown = DateTime.Now;
 
         public static void Calculate(List<double> speeds, List<double> speedDistances) {
             AuthorityData.MaxSpeedsDistances.Clear();
@@ -34,5 +35,15 @@ namespace DriverETCSApp.Logic.Calculations {
             }
         }
 
+        public static void CountDownCalculatedMaxSpeed() {
+            double passedSeconds = (DateTime.Now - LastCountDown).TotalSeconds;
+            double passedHours = passedSeconds / 60;
+            double previousSpeedLimit = AuthorityData.CalculatedSpeedLimit;
+            double nextSpeedLimit = previousSpeedLimit + brakingAcceleration * passedHours;
+
+            LastCountDown = DateTime.Now;
+            Console.WriteLine(nextSpeedLimit);
+            AuthorityData.CalculatedSpeedLimit = Math.Max(nextSpeedLimit, 0);
+        }
     }
 }
