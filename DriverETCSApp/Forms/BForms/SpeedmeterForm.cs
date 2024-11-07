@@ -178,7 +178,7 @@ namespace DriverETCSApp.Forms.BForms
                 float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedLimit) * clockAngle / linesCount / speedPerLine;
 
-                Pen pen = new Pen(Color.DarkSlateGray, 8);
+                Pen pen = new Pen(DMIColors.DarkGrey, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
 
@@ -190,7 +190,7 @@ namespace DriverETCSApp.Forms.BForms
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
 
-                Color penColor = isWarningYellow ? Color.Yellow : Color.White;
+                Color penColor = isWarningYellow ? DMIColors.Yellow : DMIColors.White;
                 Pen pen = new Pen(penColor, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
 
@@ -211,7 +211,7 @@ namespace DriverETCSApp.Forms.BForms
                 float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine - 0.2f;
                 float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine;
 
-                Pen pen = new Pen(speed > speedCap.Item2 ? Color.Red : Color.Orange, 32);
+                Pen pen = new Pen(speed > speedCap.Item2 ? DMIColors.Red : DMIColors.Orange, 32);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
             }
         }
@@ -219,17 +219,17 @@ namespace DriverETCSApp.Forms.BForms
         private Color GetColorForNeedle()
         {
             if (speedWarning == (0, 0) || speed <= speedWarning.Item1)
-                return Color.White;
+                return DMIColors.White;
             else if (speed <= speedWarning.Item2)
             {
-                return Color.Yellow;
+                return DMIColors.Yellow;
             }
             else if (speed <= speedCap.Item2)
             {
-                return Color.Orange;
+                return DMIColors.Orange;
             }
             else
-                return Color.Red;
+                return DMIColors.Red;
         }
 
         public int GetSpeed()
