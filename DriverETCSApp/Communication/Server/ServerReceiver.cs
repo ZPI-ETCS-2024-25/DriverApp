@@ -38,10 +38,12 @@ namespace DriverETCSApp.Communication.Server
             }
         }
 
-        private void LoadNewAuthorityData(dynamic decodedMessage)
+        private async void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            LoadNewDataFromServer.LoadNewData(decodedMessage);
-            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+            if (await LoadNewDataFromServer.LoadNewData(decodedMessage))
+            {
+                MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+            }
         }
         private void ConnectionWithRBC(dynamic decodedMessage)
         {

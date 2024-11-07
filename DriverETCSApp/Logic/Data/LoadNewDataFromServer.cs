@@ -6,6 +6,7 @@ using System.Runtime.ExceptionServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.LinkLabel;
 
 namespace DriverETCSApp.Logic.Data
 {
@@ -18,7 +19,7 @@ namespace DriverETCSApp.Logic.Data
             SpeedSegragation = new SpeedSegragation();
         }
 
-        public async void LoadNewData(dynamic decodedMessage)
+        public async Task<bool> LoadNewData(dynamic decodedMessage)
         {
             List<double> speeds = decodedMessage.Speeds.ToObject<List<double>>();
             List<double> speeddistances = decodedMessage.SpeedDistances.ToObject<List<double>>();
@@ -29,9 +30,10 @@ namespace DriverETCSApp.Logic.Data
             List<int> lines = decodedMessage.Lines.ToObject<List<int>>();
             List<double> linesDistances = decodedMessage.LinesDistances.ToObject<List<double>>();
 
-            if(speeds.Count < 1 || speeddistances.Count < 2 || gradients.Count < 2 || gradientsDistances.Count < 2 || lines.Count < 1 || linesDistances.Count < 1)
+            if(!ValidateData(speeds, speeddistances, gradients, gradientsDistances, lines, linesDistances, messagesDistances))
             {
-                return;
+                Console.WriteLine("Wrong MA! Ignoring!");
+                return false;
             }
 
             int position = decodedMessage.ServerPosition * 1000;
@@ -191,6 +193,25 @@ namespace DriverETCSApp.Logic.Data
             }
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             SpeedSegragation.CalculateSpeeds();
+            return true;
+        }
+
+        private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances)
+        {
+            if (speeds.Count < 1 || speeddistances.Count < 2 || gradients.Count < 2 
+                || gradientsDistances.Count < 2 || lines.Count < 1 || linesDistances.Count < 1)
+            {
+                return false;
+            }
+
+            if (speeddistances[speeddistances.Count - 1] != gradientsDistances[gradientsDistances.Count - 1] 
+                || speeddistances[speeddistances.Count - 1] != linesDistances[linesDistances.Count - 1]
+                || speeddistances[speeddistances.Count - 1] < messagesDistances[messagesDistances.Count - 1])
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
