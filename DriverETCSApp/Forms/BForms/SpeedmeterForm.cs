@@ -45,8 +45,9 @@ namespace DriverETCSApp.Forms.BForms
         private int needleLength;
 
         private int speed = 0;
+        private (int, int) speedWarning = (0, 0); // yellow / white
+        private bool isWarningYellow = false;
         private (int, int) speedCap = (0, 0); // orange
-        private (int, int) speedWarning = (0, 0); // yellow
         private int speedLimit = 100;
 
         private Font numbersFont;
@@ -83,7 +84,7 @@ namespace DriverETCSApp.Forms.BForms
                             {
                                 double max = AuthorityData.currentSpeedLimit;
                                 SetSpeedLimit((int)max);
-                                //SetSpeedWarning(0, (int)max);
+                                //SetSpeedWarning((int)max-35, (int)max, true);
                             }
                             else
                             {
@@ -178,14 +179,16 @@ namespace DriverETCSApp.Forms.BForms
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
 
-                Pen pen = new Pen(Color.Yellow, 8);
+                Color penColor = isWarningYellow ? Color.Yellow : Color.White;
+                Pen pen = new Pen(penColor, 8);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
 
                 int offset = 15;
                 Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
-                e.Graphics.DrawArc(new Pen(Color.Yellow, 32), insideRect, pointer, pointerBoldness);
+                e.Graphics.DrawArc(new Pen(penColor, 32), insideRect, pointer, pointerBoldness);
+                
             }
 
             // Draw Arc of Cap
@@ -239,9 +242,10 @@ namespace DriverETCSApp.Forms.BForms
             return speedWarning;
         }
 
-        public static void SetSpeedWarning(int min, int max)
+        public static void SetSpeedWarning(int min, int max, bool isYellow = false)
         {
             instance.speedWarning = (min, max);
+            instance.isWarningYellow = isYellow;
             instance.clockPanel.Invalidate();
         }
 
