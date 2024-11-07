@@ -32,9 +32,10 @@ namespace DriverETCSApp.Communication.Server
             dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
             await Semaphore.WaitAsync();
-            DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime, "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime.ToObject<string>(), "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
             if(messageTime <= LastMessageDateTime)
             {
+                Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
                 return;
             }
             LastMessageDateTime = messageTime;
