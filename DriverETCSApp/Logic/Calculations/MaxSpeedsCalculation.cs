@@ -14,6 +14,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
         public static void Calculate(List<double> speeds, List<double> speedDistances) {
             AuthorityData.MaxSpeedsDistances.Clear();
+            AuthorityData.MaxSpeeds.Clear();
 
             for (int i = 1; i < speedDistances.Count; i++) {
                 double previousMaxSpeed = speeds[i - 1];
@@ -28,12 +29,18 @@ namespace DriverETCSApp.Logic.Calculations {
                 }
             }
 
-            for(int i = 1; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
+            AuthorityData.MaxSpeeds = new List<double>(speeds);
+            AuthorityData.MaxSpeeds.RemoveRange(0, 1);
+
+            for (int i = 1; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
                 if( AuthorityData.MaxSpeedsDistances[i] < AuthorityData.MaxSpeedsDistances[i - 1]) {
-                    AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i - 1];
+                    AuthorityData.MaxSpeedsDistances.RemoveRange(i - 1, 1);
+                    AuthorityData.MaxSpeeds.RemoveRange(i - 1, 1);
+                    i--;
+                    //AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i - 1];
                 }
             }
-            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
+            Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
         }
 
         public static void CountDownCalculatedMaxSpeed() {
@@ -44,8 +51,9 @@ namespace DriverETCSApp.Logic.Calculations {
             LastCountDown = DateTime.Now;
             //Console.WriteLine(passedHours + ", " + previousSpeedLimit + ", " + (brakingAcceleration * passedHours) + ", " + nextSpeedLimit);
             
-            if(AuthorityData.Speeds.Count > 1 && nextSpeedLimit < AuthorityData.Speeds[1]) {
-                nextSpeedLimit = 0;
+            if(nextSpeedLimit < AuthorityData.FallTo) {
+                AuthorityData.CalculatedSpeedLimit = 0;
+                AuthorityData.FallTo = 0;
             }
             else {
                 AuthorityData.CalculatedSpeedLimit = Math.Max(nextSpeedLimit, 0);
