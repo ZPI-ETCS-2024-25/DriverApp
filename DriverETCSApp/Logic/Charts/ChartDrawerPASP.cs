@@ -72,12 +72,12 @@ namespace DriverETCSApp.Logic.Charts
 
         public bool DrawIndication(Graphics graphics)
         {
-            if (AuthorityData.MaxSpeedsDistances.Count <= 1)
+            if (AuthorityData.MaxSpeedsDistances.Count < 1)
             {
                 return false;
             }
 
-            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[1] - 400));
+            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[0]));
             int pixelX = (int)Chart.ChartAreas[4].AxisX.ValueToPixelPosition(0);
 
             using (var pen = new Pen(DMIColors.Yellow, 2))
