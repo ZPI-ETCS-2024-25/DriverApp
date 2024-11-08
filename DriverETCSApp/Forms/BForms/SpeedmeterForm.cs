@@ -95,7 +95,8 @@ namespace DriverETCSApp.Forms.BForms
                                 double speedlimit = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)speedlimit);
                                 
-                                if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE) {
+                                if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
+                                && AuthorityData.Speeds[1] < AuthorityData.Speeds[0]) {
                                     double nextSpeedlimit = AuthorityData.Speeds[1];
                                     SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit);
                                 }
@@ -324,8 +325,8 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            AuthorityData.SpeedDistances = new List<double> { 0, 1000, 2000};
-            AuthorityData.Speeds = new List<double> { 140, 120, 100};
+            AuthorityData.SpeedDistances = new List<double> { 0, 1000, 1400, 1700};
+            AuthorityData.Speeds = new List<double> { 100, 80, 110, 120};
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";

@@ -46,8 +46,23 @@ namespace DriverETCSApp.Logic.Position
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             TrainData.CalculatedPosition += TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
 
-            #region speeds and distances of speeds
+            #region distances of maxSpeeds
             int lastIndex = -1;
+            for (int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
+                AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i] - diffrence;
+                if (AuthorityData.MaxSpeedsDistances[i] < 0) {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1) {
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
+                if (AuthorityData.Speeds[0] > AuthorityData.Speeds[1])
+                    AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
+            }
+            MaxSpeedsCalculation.CountDownCalculatedMaxSpeed();
+            #endregion
+            #region speeds and distances of speeds
+            lastIndex = -1;
             for (int i = 0; i < AuthorityData.SpeedDistances.Count; i++)
             {
                 AuthorityData.SpeedDistances[i] = AuthorityData.SpeedDistances[i] - diffrence;
@@ -106,20 +121,6 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.MessagesDistances.RemoveRange(0, lastIndex + 1);
                 AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
             }
-            #endregion
-            #region distances of maxSpeeds
-            lastIndex = -1;
-            for (int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
-                AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i] - diffrence;
-                if (AuthorityData.MaxSpeedsDistances[i] < 0) {
-                    lastIndex = i;
-                }
-            }
-            if (lastIndex != -1) {
-                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
-                AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
-            }
-            MaxSpeedsCalculation.CountDownCalculatedMaxSpeed();
             #endregion
 
         }
