@@ -55,9 +55,13 @@ namespace DriverETCSApp.Logic.Position
                 }
             }
             if (lastIndex != -1) {
-                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
-                if (AuthorityData.Speeds[0] > AuthorityData.Speeds[1])
+                if (AuthorityData.Speeds[0] > AuthorityData.MaxSpeeds[0]) {
                     AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
+                    AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
+                }
+
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
+                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
             }
             MaxSpeedsCalculation.CountDownCalculatedMaxSpeed();
             #endregion
@@ -73,11 +77,13 @@ namespace DriverETCSApp.Logic.Position
             }
             if (lastIndex != -1)
             {
+                if(AuthorityData.Speeds[lastIndex] == AuthorityData.FallTo) {
+                    AuthorityData.CalculatedSpeedLimit = 0;
+                    AuthorityData.FallTo = 0;
+                }
                 AuthorityData.SpeedDistances.RemoveRange(0, lastIndex);
                 AuthorityData.Speeds.RemoveRange(0, lastIndex);
             }
-            if(lastIndex > 0)
-                AuthorityData.CalculatedSpeedLimit = 0;
 
             if (AuthorityData.SpeedDistances.Count > 0)
             {
