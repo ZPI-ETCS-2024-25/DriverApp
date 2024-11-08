@@ -52,8 +52,7 @@ namespace DriverETCSApp.Logic.Calculations {
             //Console.WriteLine(passedHours + ", " + previousSpeedLimit + ", " + (brakingAcceleration * passedHours) + ", " + nextSpeedLimit);
             
             if(nextSpeedLimit < AuthorityData.FallTo) {
-                AuthorityData.CalculatedSpeedLimit = 0;
-                AuthorityData.FallTo = 0;
+                AuthorityData.CalculatedSpeedLimit = AuthorityData.FallTo;
             }
             else {
                 AuthorityData.CalculatedSpeedLimit = Math.Max(nextSpeedLimit, 0);

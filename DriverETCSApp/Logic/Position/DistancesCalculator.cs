@@ -77,6 +77,10 @@ namespace DriverETCSApp.Logic.Position
             }
             if (lastIndex != -1)
             {
+                if(AuthorityData.Speeds[lastIndex] == AuthorityData.FallTo) {
+                    AuthorityData.CalculatedSpeedLimit = 0;
+                    AuthorityData.FallTo = 0;
+                }
                 AuthorityData.SpeedDistances.RemoveRange(0, lastIndex);
                 AuthorityData.Speeds.RemoveRange(0, lastIndex);
             }
