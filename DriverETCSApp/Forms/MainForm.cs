@@ -15,7 +15,8 @@ using System.Windows.Forms;
 
 namespace DriverETCSApp.Forms
 {
-    public partial class MainForm : Form, IDisposable {
+    public partial class MainForm : Form, IDisposable
+    {
         private BorderLessForm aForm;
         private BorderLessForm bForm;
         private BorderLessForm cForm;
@@ -31,7 +32,8 @@ namespace DriverETCSApp.Forms
 
         private DistancesCalculator DystancesCalculator;
 
-        public MainForm(bool b) {
+        public MainForm(bool b)
+        {
             InitializeComponent();
             DoubleBuffered = true;
 
@@ -60,11 +62,13 @@ namespace DriverETCSApp.Forms
         }
 
         //Block keyboards
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
             return true;
         }
 
-        private void DrawDefaulFormsInPanels() {
+        private void DrawDefaulFormsInPanels()
+        {
             DrawDFormIDDriver(false);
             DrawAFormPIM();
             DrawBFormSpeed();
@@ -73,7 +77,8 @@ namespace DriverETCSApp.Forms
             DrawYZFormDefault();
         }
 
-        public void HideGFPanels() {
+        public void HideGFPanels()
+        {
             gPanel.Visible = false;
             fPanel.Visible = false;
             gForm?.Close();
@@ -82,14 +87,16 @@ namespace DriverETCSApp.Forms
             dPanel.Height = 900;
         }
 
-        public void ShowGFPanels() {
+        public void ShowGFPanels()
+        {
             gPanel.Visible = true;
             fPanel.Visible = true;
             dPanel.Width = 492;
             dPanel.Height = 600;
         }
 
-        public void SetFullScreen() {
+        public void SetFullScreen()
+        {
             aPanel.Visible = false;
             bPanel.Visible = false;
             cPanel.Visible = false;
@@ -103,7 +110,8 @@ namespace DriverETCSApp.Forms
             dPanel.Location = new Point(0, 30);
         }
 
-        public void HideFullScreen() {
+        public void HideFullScreen()
+        {
             aPanel.Visible = true;
             bPanel.Visible = true;
             cPanel.Visible = true;
@@ -113,7 +121,8 @@ namespace DriverETCSApp.Forms
             dPanel.Location = new Point(668, 30);
         }
 
-        public void DrawYZFormDefault() {
+        public void DrawYZFormDefault()
+        {
             yForm = new YZForm();
             yForm.TopLevel = false;
             yPanel.Controls.Add(yForm);
@@ -125,7 +134,8 @@ namespace DriverETCSApp.Forms
             zForm.Show();
         }
 
-        public void DrawAFormPIM() {
+        public void DrawAFormPIM()
+        {
             if (aForm == null)
             {
                 aForm = new AForms.PIMForm();
@@ -134,7 +144,8 @@ namespace DriverETCSApp.Forms
             }
             aForm.Show();
         }
-        public void DrawCForm() {
+        public void DrawCForm()
+        {
             if (cForm == null)
             {
                 cForm = new CForms.EmptyCForm(ServerSender);
@@ -144,7 +155,8 @@ namespace DriverETCSApp.Forms
             cForm.Show();
         }
 
-        public void DrawEFormMessages() {
+        public void DrawEFormMessages()
+        {
             if (eForm == null)
             {
                 eForm = new EForms.MessagesForm();
@@ -154,7 +166,8 @@ namespace DriverETCSApp.Forms
             eForm.Show();
         }
 
-        public void DrawBFormSpeed() {
+        public void DrawBFormSpeed()
+        {
             if (bForm == null)
             {
                 bForm = new BForms.SpeedmeterForm();
@@ -278,12 +291,13 @@ namespace DriverETCSApp.Forms
             fForm.Refresh();
         }
 
-        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if((TrainData.IsTrainRegisterOnServer || TrainData.IsConnectionWorking) && ServerSender != null)
+            if ((TrainData.IsTrainRegisterOnServer || TrainData.IsConnectionWorking) && ServerSender != null)
             {
-                await ServerSender?.UnregisterTrainData();
+                _ = ServerSender?.UnregisterTrainData();
             }
+            Console.WriteLine("Wyłączanie HTTP listenera");
             ReceiverHTTP?.StopListening();
             Dispose();
         }

@@ -22,10 +22,11 @@ namespace DriverETCSApp.Communication.Unity
 
         public async Task SendBrakeSignal(bool brakeCommand) {
             var data = new {
+                messageType = "brake",
                 BreakCommand = brakeCommand
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            var response = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "brakecommand");
+            var response = await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
     }
 }
