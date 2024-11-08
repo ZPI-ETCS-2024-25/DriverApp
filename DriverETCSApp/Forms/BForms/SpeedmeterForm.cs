@@ -81,7 +81,7 @@ namespace DriverETCSApp.Forms.BForms
                         if (!IsDisposed && !Disposing)
                         {
                             //Console.WriteLine(AuthorityData.FallTo + ", " + AuthorityData.CalculatedSpeedLimit);
-                            //Console.WriteLine(string.Join(", ", AuthorityData.SpeedDistances));
+                            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
                             //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeeds));
 
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
@@ -327,8 +327,10 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            AuthorityData.SpeedDistances = new List<double> { 0, 400, 450, 530 };
-            AuthorityData.Speeds = new List<double> { 100, 140, 80, 70};
+            //AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
+            //AuthorityData.Speeds = new List<double> { 100, 150, 80};
+            AuthorityData.SpeedDistances = new List<double> { 0, 1000, 1400 };
+            AuthorityData.Speeds = new List<double> { 120, 80, 100 };
 
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
