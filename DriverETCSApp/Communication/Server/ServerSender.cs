@@ -13,12 +13,14 @@ namespace DriverETCSApp.Communication.Server
         private SenderHTTP SenderHTTP;
         private ServerReceiver ServerReceiver;
         private Port ServerPort;
+        private DataEncryptDecrypt DataEncryptDecrypt;
 
         public ServerSender(string ip, Port port)
         {
             SenderHTTP = new SenderHTTP(ip);
             ServerReceiver = new ServerReceiver();
             ServerPort = port;
+            DataEncryptDecrypt = new DataEncryptDecrypt(EncryptionData.Key, EncryptionData.IV);
         }
 
         public async Task SendTrainData()
@@ -33,8 +35,9 @@ namespace DriverETCSApp.Communication.Server
             };
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             //send
-            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "register");
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "register");
             AnalyzeResponce(responce);
         }
 
@@ -49,7 +52,8 @@ namespace DriverETCSApp.Communication.Server
                 BrakeWeight = TrainData.BrakingMass
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updatedata");
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updatedata");
             AnalyzeResponce(responce);
         }
 
@@ -60,7 +64,8 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "unregister");
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "unregister");
             AnalyzeResponce(responce);
         }
 
@@ -75,7 +80,8 @@ namespace DriverETCSApp.Communication.Server
                 Direction = TrainData.CalculatedDrivingDirection
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "updateposition");
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updateposition");
             AnalyzeResponce(responce);
         }
 
@@ -86,7 +92,8 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = TrainData.TrainNumber
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            var responce = await SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "marequest");
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "marequest");
             AnalyzeResponce(responce);
         }
 
@@ -98,7 +105,8 @@ namespace DriverETCSApp.Communication.Server
                 Speed = currSpeed
             };
             string dataSerialized = JsonSerializer.Serialize(data);
-            _ = SenderHTTP.SendMessageToEndpoint(dataSerialized, Port.Server, "speedupdate");
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            _ = SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "speedupdate");
             //AnalyzeResponce(responce);
         }
 

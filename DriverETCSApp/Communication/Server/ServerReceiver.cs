@@ -17,6 +17,7 @@ namespace DriverETCSApp.Communication.Server
     public class ServerReceiver
     {
         private LoadNewDataFromServer LoadNewDataFromServer;
+        private DataEncryptDecrypt DataEncryptDecrypt;
 
         private static DateTime LastMessageDateTime = DateTime.Now;
         private static SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
@@ -24,12 +25,19 @@ namespace DriverETCSApp.Communication.Server
         public ServerReceiver()
         {
             LoadNewDataFromServer = new LoadNewDataFromServer();
-
+            DataEncryptDecrypt = new DataEncryptDecrypt(EncryptionData.Key, EncryptionData.IV);
         }
 
         public async void Proccess(string message)
         {
-            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
+
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
+            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
+            //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
             await Semaphore.WaitAsync();
             DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime.ToObject<string>(), "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
