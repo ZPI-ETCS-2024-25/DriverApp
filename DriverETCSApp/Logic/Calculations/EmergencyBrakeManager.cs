@@ -47,7 +47,6 @@ namespace DriverETCSApp.Logic.Calculations {
                         _ = sender.SendBrakeSignal(true);
                         isBraking = true;
                         EmptyCForm.BrakingImage(true);
-                        Console.WriteLine("CheckSpeed() start");
                     }
                     brakeLock.Item1 = true;
                 }
@@ -59,7 +58,6 @@ namespace DriverETCSApp.Logic.Calculations {
                         _ = sender.SendBrakeSignal(false);
                         isBraking = false;
                         EmptyCForm.BrakingImage(false);
-                        Console.WriteLine("CheckSpeed() stop");
                     }
                 }
             }
@@ -70,14 +68,12 @@ namespace DriverETCSApp.Logic.Calculations {
                     _ = sender.SendBrakeSignal(true);
                     isBraking = true;
                     EmptyCForm.BrakingImage(true);
-                    Console.WriteLine("CheckSpeed() start SB");
                 }
                 else if(TrainData.CurrentSpeed <= 0 && isBraking)
                 {
                     _ = sender.SendBrakeSignal(false);
                     isBraking = false;
                     EmptyCForm.BrakingImage(false);
-                    Console.WriteLine("CheckSpeed() stop SB");
                 }
             }
             else if(TrainData.ActiveMode.Equals(ETCSModes.STM)) //if in SHP mode brake if train is moving faster then Vmax
@@ -89,7 +85,6 @@ namespace DriverETCSApp.Logic.Calculations {
                         _ = sender.SendBrakeSignal(true);
                         isBraking = true;
                         EmptyCForm.BrakingImage(true);
-                        Console.WriteLine("CheckSpeed() start STM");
                     }
                     brakeLock.Item1 = true;
                 }
@@ -101,7 +96,6 @@ namespace DriverETCSApp.Logic.Calculations {
                         _ = sender.SendBrakeSignal(false);
                         isBraking = false;
                         EmptyCForm.BrakingImage(false);
-                        Console.WriteLine("CheckSpeed() stop STM");
                     }
                 }
             }
@@ -118,7 +112,6 @@ namespace DriverETCSApp.Logic.Calculations {
                     _ = sender.SendBrakeSignal(true);
                     isBraking = true;
                     EmptyCForm.BrakingImage(true);
-                    Console.WriteLine("BrakeAfterAck(object _sender, BrakeChangeInfo e) start");
                 }
                 brakeLock.Item2 = true;
             }
@@ -130,7 +123,6 @@ namespace DriverETCSApp.Logic.Calculations {
                     _ = sender.SendBrakeSignal(false);
                     isBraking = false;
                     EmptyCForm.BrakingImage(false);
-                    Console.WriteLine("BrakeAfterAck(object _sender, BrakeChangeInfo e) stop");
                 }
             }
             Semaphore.Release();

@@ -54,11 +54,6 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             TrainData.IsETCSActive = false;
             TrainData.ActiveMode = "";
 
-            /*var y = Assert.Raises<LevelInfo>(
-                x => ETCSEvents.LevelChanged += x,
-                x => ETCSEvents.LevelChanged -= x,
-                () => BalisesManager.Manage(messageFromBalise));
-            Assert.NotNull(y);*/
             BalisesManager.Manage(messageFromBalise);
             Assert.Equal("N", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
