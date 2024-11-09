@@ -3,6 +3,7 @@ using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
+using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Logic.Position;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace DriverETCSApp.Forms
                 ServerSender = new ServerSender("127.0.0.1", Port.Server);
                 ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
                 ReceiverHTTP.StartListening();
+                EmergencyBrakeManager.SetUp();
                 DrawDefaulFormsInPanels();
             }
         }
@@ -298,6 +300,7 @@ namespace DriverETCSApp.Forms
                 _ = ServerSender?.UnregisterTrainData();
             }
             Console.WriteLine("Wyłączanie HTTP listenera");
+            EmergencyBrakeManager.Destroy();
             ReceiverHTTP?.StopListening();
             Dispose();
         }

@@ -36,6 +36,7 @@ namespace DriverETCSApp.Communication.Server
             if(messageTime <= LastMessageDateTime)
             {
                 Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
+                Semaphore.Release();
                 return;
             }
             LastMessageDateTime = messageTime;

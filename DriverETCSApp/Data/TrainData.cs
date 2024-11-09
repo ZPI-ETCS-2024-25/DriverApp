@@ -18,7 +18,7 @@ namespace DriverETCSApp.Data
 
         //etcs data
         public static string ETCSLevel = "";
-        public static string ActiveMode = "";
+        public static string ActiveMode = ETCSModes.SB;
         public static bool IsMisionStarted = false;
         public static bool IsETCSActive = false;
         public static bool IsTrainRegisterOnServer = false;

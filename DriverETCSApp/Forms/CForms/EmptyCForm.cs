@@ -74,6 +74,7 @@ namespace DriverETCSApp.Forms.CForms
                     IsAckActiveToClick = false;
                     Timer.Change(Timeout.Infinite, Timeout.Infinite);
                     TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
+                    ETCSEvents.OnBrakeChange(new BrakeChangeInfo(false));
                     TimerLevelChange.Change(5000, 5000);
                     levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
                     IsBorderVisible = false;
@@ -164,7 +165,7 @@ namespace DriverETCSApp.Forms.CForms
 
         private void StopTrain(object sender)
         {
-            //In the future add code to stop train
+            ETCSEvents.OnBrakeChange(new BrakeChangeInfo(true));
             Console.WriteLine("TRAIN STOP!");
             TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
         }

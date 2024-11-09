@@ -138,6 +138,7 @@
     <Compile Include="Events\ETCSEventArgs\AckInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\BaliseInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\BaliseModeInfo.cs" />
+    <Compile Include="Events\ETCSEventArgs\BrakeChangeInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\ChangeLevelIcon.cs" />
     <Compile Include="Events\ETCSEventArgs\ConnectionInfo.cs" />
     <Compile Include="Events\ETCSEventArgs\LevelInfo.cs" />

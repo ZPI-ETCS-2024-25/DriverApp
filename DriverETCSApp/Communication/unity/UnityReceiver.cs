@@ -55,7 +55,7 @@ namespace DriverETCSApp.Communication.Server
 
                 if ((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend)
                 {
-                    await sender.SendSpeedUpdate(speedData.NewSpeed, TrainData.TrainNumber);
+                    sender.SendSpeedUpdate(speedData.NewSpeed, TrainData.TrainNumber);
                     lastSpeedSend = DateTime.Now;
                 }
                 EmergencyBrakeManager.CheckSpeed();
