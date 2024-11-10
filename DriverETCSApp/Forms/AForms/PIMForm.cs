@@ -102,16 +102,6 @@ namespace DriverETCSApp.Forms.AForms
             int yText = (int)(panelPIM.Height * rectStartY - textSize.Height * 1.2f);
             g.DrawString(text, numbersFont, brush, xText, yText);
 
-            // Lines
-            foreach ((float percentage, bool isBold) in listOfLines)
-            {
-                int x1 = panelPIM.Width / 4 + (!isBold ? panelPIM.Width / 8 : 0);
-                int x2 = (int)(panelPIM.Width * rectStartX * 0.9f);
-                int y1 = (int)(panelPIM.Height * rectStartY) + (int)(panelPIM.Height * rectHeight * percentage);
-                Pen pen = new Pen(DMIColors.Grey, isBold ? 5f : 2f);
-
-                g.DrawLine(pen, x1, y1, x2, y1);
-            }
         }
 
         public void SetDistanceLeft(int newDistance) {
