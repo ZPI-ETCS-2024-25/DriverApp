@@ -488,6 +488,7 @@
     <Folder Include="UnitTests\Events\EventsArgs\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ClockImage.png" />
     <None Include="Design\Icons\ETCSConnection\NoConnection.png" />
     <Content Include="Design\Icons\Levels\L0.png" />
     <Content Include="Design\Icons\Levels\L1.png" />

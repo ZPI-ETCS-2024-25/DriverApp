@@ -34,9 +34,10 @@
             // 
             // clockPanel
             // 
-            this.clockPanel.BackColor = System.Drawing.Color.Transparent;
+            this.clockPanel.BackColor = System.Drawing.Color.White;
+            this.clockPanel.BackgroundImage = global::DriverETCSApp.Properties.Resources.ClockImage;
             this.clockPanel.Controls.Add(this.modePicture);
-            this.clockPanel.Location = new System.Drawing.Point(30, 12);
+            this.clockPanel.Location = new System.Drawing.Point(22, 20);
             this.clockPanel.Name = "clockPanel";
             this.clockPanel.Size = new System.Drawing.Size(500, 500);
             this.clockPanel.TabIndex = 2;
