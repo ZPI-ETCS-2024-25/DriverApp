@@ -131,34 +131,6 @@ namespace DriverETCSApp.Forms.BForms
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // Draw the ticks and numbers
-            using (var brush = new SolidBrush(DMIColors.Grey))
-            {
-                using (var pen = new Pen(DMIColors.Grey, 3))
-                {
-                    for (int i = 0; i <= linesCount; i++)
-                    {
-                        int angle = i * clockAngle / linesCount - clockAngleOffset;
-                        double radians = angle * Math.PI / 180;
-                        int x1 = halfClockSize + (int)(halfClockSize * Math.Cos(radians)) + clockOffset;
-                        int y1 = halfClockSize + (int)(halfClockSize * Math.Sin(radians)) + clockOffset;
-
-                        int x2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Cos(radians)) + clockOffset;
-                        int y2 = halfClockSize + (int)((halfClockSize - linesLength / (i % 2 + 1)) * Math.Sin(radians)) + clockOffset;
-                        g.DrawLine(pen, x1, y1, x2, y2);
-
-                        // Draw speed numbers
-                        if (i % 2 == 0)
-                        {
-                            string text = (i * speedPerLine).ToString();
-                            int xText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Cos(radians)) - 20 + clockOffset;
-                            int yText = halfClockSize + (int)((halfClockSize - linesLength - speedNumbersOffset) * Math.Sin(radians)) - 20 + clockOffset;
-                            g.DrawString(text, numbersFont, brush, xText, yText);
-                        }
-                    }
-                }
-            }
-
             float needleTarget = speed / (float)speedPerLine;
 
             // Draw the needle
