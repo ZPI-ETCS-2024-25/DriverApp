@@ -32,8 +32,9 @@ namespace DriverETCSApp.Forms.DForms
             if(TrainData.IsMisionStarted)
             {
                 IsStartActive = false;
-                buttonStart.ForeColor = Design.DMIColors.DarkGrey;
-                buttonLevel.ForeColor = Design.DMIColors.DarkGrey;
+                buttonStart.ForeColor = DMIColors.DarkGrey;
+                buttonLevel.ForeColor = DMIColors.DarkGrey;
+                buttonTrainData.ForeColor = DMIColors.DarkGrey;
                 TrainData.TrainDataSemaphofe.Release();
                 return;
             }
@@ -43,18 +44,18 @@ namespace DriverETCSApp.Forms.DForms
                     && !string.IsNullOrEmpty(TrainData.Length) && !string.IsNullOrEmpty(TrainData.VMax))
                 {
                     IsStartActive = true;
-                    buttonStart.ForeColor = Design.DMIColors.Grey;
+                    buttonStart.ForeColor = DMIColors.Grey;
                 }
                 else
                 {
                     IsStartActive = false;
-                    buttonStart.ForeColor = Design.DMIColors.DarkGrey;
+                    buttonStart.ForeColor = DMIColors.DarkGrey;
                 }
             }
             else
             {
                 IsStartActive = false;
-                buttonStart.ForeColor = Design.DMIColors.DarkGrey;
+                buttonStart.ForeColor = DMIColors.DarkGrey;
             }
             TrainData.TrainDataSemaphofe.Release();
         }
@@ -83,7 +84,7 @@ namespace DriverETCSApp.Forms.DForms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (true) //change to CurrSPeed <= 0 -> in the future
+            if (!TrainData.IsMisionStarted)
             {
                 Close();
                 MainForm.DrawTrainDataCategoryForm();

@@ -13,6 +13,7 @@ using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Events;
+using DriverETCSApp.Logic.Calculations;
 
 namespace DriverETCSApp.Forms.DForms
 {
@@ -63,6 +64,7 @@ namespace DriverETCSApp.Forms.DForms
                     TrainData.Length = Length;
                     TrainData.BrakingMass = BrakingMass;
                     TrainData.VMax = VMax;
+                    MaxSpeedsCalculation.SetBrakingAcceleration(Double.Parse(BrakingMass));
 
                     if (Data.TrainData.IsTrainRegisterOnServer && TrainData.IsConnectionWorking)
                     {

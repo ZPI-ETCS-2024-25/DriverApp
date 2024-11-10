@@ -95,6 +95,7 @@ namespace DriverETCSApp.Logic.Balises
 
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
+                // _ = ServerSender.SendPositionData(message.kilometer, message.trackNumber);
                 await ServerSender.SendPositionData(message.kilometer, message.trackNumber);
             }
         }

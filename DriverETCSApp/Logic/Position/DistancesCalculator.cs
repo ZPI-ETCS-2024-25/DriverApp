@@ -24,13 +24,14 @@ namespace DriverETCSApp.Logic.Position
             SpeedSegragation = new SpeedSegragation();
         }
 
-        public void Initcalculate(object sender)
+        public async void Initcalculate(object sender)
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
+            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
+            await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {
                 Calculate(null);
+                EmergencyBrakeManager.CheckSpeed();
             }
             finally
             {

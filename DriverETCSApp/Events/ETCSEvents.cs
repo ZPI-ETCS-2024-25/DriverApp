@@ -19,6 +19,7 @@ namespace DriverETCSApp.Events
         public static event EventHandler MisionStarted;
         public static event EventHandler<BaliseInfo> ForceToChangeBaliseType;
         public static event EventHandler DistancesCalculationsCompleted;
+        public static event EventHandler<BrakeChangeInfo> BrakeChange;
 
         public static void OnModeChanged(ModeInfo modeInfo)
         {
@@ -63,6 +64,11 @@ namespace DriverETCSApp.Events
         public static void OnDistancesCalculationsCompleted()
         {
             DistancesCalculationsCompleted?.Invoke(null, EventArgs.Empty);
+        }
+
+        public static void OnBrakeChange(BrakeChangeInfo brakeChangeInfo)
+        {
+            BrakeChange?.Invoke(null, brakeChangeInfo);
         }
     }
 }
