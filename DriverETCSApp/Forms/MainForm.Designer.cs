@@ -130,6 +130,7 @@ namespace DriverETCSApp.Forms
             this.Controls.Add(this.zPanel);
             this.Controls.Add(this.yPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "ETCS";
