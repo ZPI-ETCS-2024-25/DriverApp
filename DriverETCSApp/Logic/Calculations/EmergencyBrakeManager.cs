@@ -99,6 +99,29 @@ namespace DriverETCSApp.Logic.Calculations {
                     }
                 }
             }
+            else if (TrainData.ActiveMode.Equals(ETCSModes.OS)) //if in OS mode brake if train is moving faster then 20 (+5 tolerance)
+            {
+                if (TrainData.CurrentSpeed > 25)
+                {
+                    if (!isBraking && CheckLock())
+                    {
+                        _ = sender.SendBrakeSignal(true);
+                        isBraking = true;
+                        EmptyCForm.BrakingImage(true);
+                    }
+                    brakeLock.Item1 = true;
+                }
+                else if (TrainData.CurrentSpeed <= 25)
+                {
+                    brakeLock.Item1 = false;
+                    if (isBraking && CheckLock())
+                    {
+                        _ = sender.SendBrakeSignal(false);
+                        isBraking = false;
+                        EmptyCForm.BrakingImage(false);
+                    }
+                }
+            }
             Semaphore.Release();
         }
 

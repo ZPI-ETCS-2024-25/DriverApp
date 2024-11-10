@@ -48,7 +48,7 @@ namespace DriverETCSApp.Communication {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
                             if (IsServerSource(request))
-                            //if (true)
+                            //if (false)
                             {
                                 TrainData.TrainDataSemaphofe.Wait();
                                 try

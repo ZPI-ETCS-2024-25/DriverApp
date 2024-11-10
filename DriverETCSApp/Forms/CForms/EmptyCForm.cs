@@ -100,7 +100,7 @@ namespace DriverETCSApp.Forms.CForms
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "SN zatwierdzony"));
                         TrainData.ActiveMode = ETCSModes.STM;
                     }
-                    else
+                    else //OS
                     {
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "OS zatwierdzony"));
                         TrainData.ActiveMode = ETCSModes.OS;
@@ -254,7 +254,7 @@ namespace DriverETCSApp.Forms.CForms
             levelPicture.Image = e.Icon;
         }
 
-        private void MisionStarted(object sender, EventArgs e)
+        private async void MisionStarted(object sender, EventArgs e)
         {
             IsAckActiveToClick = true;
             IsBorderVisible = true;
@@ -268,8 +268,18 @@ namespace DriverETCSApp.Forms.CForms
             }
             else
             {
-                levelAnnouncementPicture.Image = Resources.OSAck;
-                LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
+                await ServerSender.SendTrainData();
+                if (TrainData.IsTrainRegisterOnServer && TrainData.IsConnectionWorking)
+                {
+                    levelAnnouncementPicture.Image = Resources.OSAck;
+                    LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
+                }
+                else
+                {
+                    levelAnnouncementPicture.Image = Resources.STMAck;
+                    LastModeInfo = new ModeInfo(Resources.STM, ETCSModes.STM);
+                    levelPicture.Image = Resources.SHP;
+                }
             }
             Timer.Change(0, 250);
         }
