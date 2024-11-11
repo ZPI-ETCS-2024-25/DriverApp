@@ -1,7 +1,9 @@
 ﻿using DriverETCSApp.Data;
 using DriverETCSApp.Events;
+using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Logic.Data;
+using DriverETCSApp.Properties;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -129,12 +131,28 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
             }
             #endregion
-
+            #region check for pass EoA
+            CheckEoA();
+            #endregion
         }
 
         public void TurnOffClock()
         {
             ClockTimer.Dispose();
+        }
+
+        private void CheckEoA()
+        {
+            if(TrainData.ActiveMode.Equals(ETCSModes.FS))
+            {
+                if (AuthorityData.Speeds.Count > 0)
+                {
+                    if (AuthorityData.Speeds[0] == 0)
+                    {
+                        ETCSEvents.OnModeChanged(new ModeInfo(Resources.Trip, ETCSModes.TR));
+                    }
+                }
+            }
         }
     }
 }

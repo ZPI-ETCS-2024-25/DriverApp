@@ -198,8 +198,8 @@ namespace DriverETCSApp.Logic.Data
 
         private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances)
         {
-            if (speeds.Count < 1 || speeddistances.Count < 2 || gradients.Count < 2 
-                || gradientsDistances.Count < 2 || lines.Count < 1 || linesDistances.Count < 1)
+            if (speeds.Count < 2 || speeddistances.Count < 2 || gradients.Count < 1 
+                || gradientsDistances.Count < 1 || lines.Count < 1 || linesDistances.Count < 1)
             {
                 return false;
             }

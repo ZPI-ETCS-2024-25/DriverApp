@@ -17,7 +17,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
         private static bool isBraking = false;
         private static UnitySender sender = new UnitySender("127.0.0.1", Port.Unity);
-        private static (bool, bool) brakeLock = (false, false); //SpeedBrake, AckBrake
+        private static (bool, bool, bool) brakeLock = (false, false, false); //SpeedBrake, AckBrake, TripMode
         private static SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
 
         public static void SetUp()
@@ -32,7 +32,8 @@ namespace DriverETCSApp.Logic.Calculations {
 
         private static bool CheckLock()
         {
-            return !brakeLock.Item1 && !brakeLock.Item2;
+            //return true;
+            return !brakeLock.Item1 && !brakeLock.Item2 && !brakeLock.Item3;
         }
 
         public async static void CheckSpeed() {
@@ -43,7 +44,8 @@ namespace DriverETCSApp.Logic.Calculations {
             {
                 if (TrainData.CurrentSpeed > currentSpeedLimitation)
                 {
-                    if (!isBraking && CheckLock()) {
+                    if (!isBraking && CheckLock())
+                    {
                         _ = sender.SendBrakeSignal(true);
                         isBraking = true;
                         EmptyCForm.BrakingImage(true);
@@ -61,22 +63,27 @@ namespace DriverETCSApp.Logic.Calculations {
                     }
                 }
             }
-            else if(TrainData.ActiveMode.Equals(ETCSModes.SB)) //if in STAND BY mode brake if train is moving
+            else if (TrainData.ActiveMode.Equals(ETCSModes.SB) || TrainData.ActiveMode.Equals(ETCSModes.PT)) //if in STAND BY or POST TRIP mode brake if train is moving
             {
-                if(TrainData.CurrentSpeed > 0 && !isBraking)
+                if(TrainData.ActiveMode.Equals(ETCSModes.PT) && brakeLock.Item3)
+                {
+                    brakeLock.Item3 = false;
+                }
+
+                if (TrainData.CurrentSpeed > 0 && !isBraking)
                 {
                     _ = sender.SendBrakeSignal(true);
                     isBraking = true;
                     EmptyCForm.BrakingImage(true);
                 }
-                else if(TrainData.CurrentSpeed <= 0 && isBraking)
+                else if (TrainData.CurrentSpeed <= 0 && isBraking)
                 {
                     _ = sender.SendBrakeSignal(false);
                     isBraking = false;
                     EmptyCForm.BrakingImage(false);
                 }
             }
-            else if(TrainData.ActiveMode.Equals(ETCSModes.STM)) //if in SHP mode brake if train is moving faster then Vmax
+            else if (TrainData.ActiveMode.Equals(ETCSModes.STM)) //if in SHP mode brake if train is moving faster then Vmax
             {
                 if (TrainData.CurrentSpeed > Double.Parse(TrainData.VMax) + 5)
                 {
@@ -121,6 +128,18 @@ namespace DriverETCSApp.Logic.Calculations {
                         EmptyCForm.BrakingImage(false);
                     }
                 }
+            }
+            else if (TrainData.ActiveMode.Equals(ETCSModes.TR)) //if in TR mode brake
+            {
+                if (!isBraking && CheckLock())
+                {
+                    _ = sender.SendBrakeSignal(true);
+                    isBraking = true;
+                    EmptyCForm.BrakingImage(true);
+                }
+                brakeLock.Item1 = false;
+                brakeLock.Item2 = false;
+                brakeLock.Item3 = true;
             }
             Semaphore.Release();
         }
