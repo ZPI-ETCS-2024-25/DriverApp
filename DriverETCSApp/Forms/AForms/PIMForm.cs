@@ -60,13 +60,14 @@ namespace DriverETCSApp.Forms.AForms
                         if (!IsDisposed && !Disposing)
                         {
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.SpeedDistances.Count > 1)
-                            {
+
+                            if (AuthorityData.MaxSpeedsDistances.Count > 0 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
+                            && AuthorityData.SpeedDistances.Count > 1) { 
+
                                 double distance = AuthorityData.SpeedDistances[1];
                                 SetDistanceLeft((int)distance);
                             }
-                            else
-                            {
+                            else {
                                 SetDistanceLeft(0);
                             }
                             AuthorityData.AuthoritiyDataSemaphore.Release();
@@ -81,6 +82,9 @@ namespace DriverETCSApp.Forms.AForms
         {
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            if (distanceLeft == 0)
+                return;
 
             // Column
             Brush columnBrush = new SolidBrush(DMIColors.Grey);

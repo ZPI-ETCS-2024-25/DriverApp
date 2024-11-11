@@ -28,7 +28,7 @@
             // 
             // panelPIM
             // 
-            this.panelPIM.BackColor = System.Drawing.Color.White;
+            this.panelPIM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(34)))));
             this.panelPIM.BackgroundImage = global::DriverETCSApp.Properties.Resources.column;
             this.panelPIM.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.panelPIM.Location = new System.Drawing.Point(0, 0);
