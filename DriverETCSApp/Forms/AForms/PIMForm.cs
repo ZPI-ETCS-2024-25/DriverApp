@@ -60,9 +60,9 @@ namespace DriverETCSApp.Forms.AForms
                         if (!IsDisposed && !Disposing)
                         {
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-                            if (AuthorityData.MaxSpeedsDistances.Count > 0)
+                            if (AuthorityData.SpeedDistances.Count > 1)
                             {
-                                double distance = AuthorityData.MaxSpeedsDistances[0];
+                                double distance = AuthorityData.SpeedDistances[1];
                                 SetDistanceLeft((int)distance);
                             }
                             else
