@@ -143,13 +143,14 @@ namespace DriverETCSApp.Logic.Position
 
         private void CheckEoA()
         {
-            if(TrainData.ActiveMode.Equals(ETCSModes.FS))
+            if(TrainData.ActiveMode.Equals(ETCSModes.FS) && TrainData.IsETCSActive)
             {
                 if (AuthorityData.Speeds.Count > 0)
                 {
                     if (AuthorityData.Speeds[0] == 0)
                     {
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.Trip, ETCSModes.TR));
+                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Nieautoryzowane pominięcie EoA/LoA"));
                     }
                 }
             }

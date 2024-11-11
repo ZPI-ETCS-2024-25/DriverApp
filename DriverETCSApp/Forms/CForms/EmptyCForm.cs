@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace DriverETCSApp.Forms.CForms
 {
@@ -62,6 +63,7 @@ namespace DriverETCSApp.Forms.CForms
             ETCSEvents.LevelChanged += ForceToChangeLevel;
             ETCSEvents.ChangeLevelIcon += ChangeLevelByMenu;
             ETCSEvents.MisionStarted += MisionStarted;
+            ETCSEvents.PostTripAck += PostTripAck;
         }
 
         private void levelAnnouncementPicture_Click(object sender, EventArgs e)
@@ -74,19 +76,31 @@ namespace DriverETCSApp.Forms.CForms
                     IsAckActiveToClick = false;
                     Timer.Change(Timeout.Infinite, Timeout.Infinite);
                     TimerStop.Change(Timeout.Infinite, Timeout.Infinite);
-                    ETCSEvents.OnBrakeChange(new BrakeChangeInfo(false));
-                    TimerLevelChange.Change(5000, 5000);
-                    levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
                     IsBorderVisible = false;
-                    levelAnnouncementPicture.Invalidate();
-                    levelAnnouncementPicture.Update();
-                    if (LastAckInfo.WillBeActive)
+
+                    if (!TrainData.ActiveMode.Equals(ETCSModes.TR))
                     {
-                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
+                        ETCSEvents.OnBrakeChange(new BrakeChangeInfo(false));
+                        TimerLevelChange.Change(5000, 5000);
+                        levelAnnouncementPicture.Image = LastAckInfo.Bitmap;
+                        levelAnnouncementPicture.Invalidate();
+                        levelAnnouncementPicture.Update();
+                        if (LastAckInfo.WillBeActive)
+                        {
+                            ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom 2 potwierdzony"));
+                        }
+                        else
+                        {
+                            ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom SHP potwierdzony"));
+                        }
                     }
                     else
                     {
-                        ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Poziom SHP potwierdzony"));
+                        TrainData.ActiveMode = ETCSModes.PT;
+                        levelAnnouncementPicture.Image = Resources.PostTrip;
+                        ETCSEvents.OnModeChanged(new ModeInfo(Resources.PostTrip, ETCSModes.PT));
+                        levelAnnouncementPicture.Invalidate();
+                        levelAnnouncementPicture.Update();
                     }
                 }
                 else
@@ -281,6 +295,16 @@ namespace DriverETCSApp.Forms.CForms
                     levelPicture.Image = Resources.SHP;
                 }
             }
+            Timer.Change(0, 250);
+        }
+
+        private void PostTripAck(object sender, EventArgs e)
+        {
+            IsAckActiveToClick = true;
+            IsBorderVisible = true;
+            IsAfterMissionStarted = false;
+            IsTimerStoped = false;
+            levelAnnouncementPicture.Image = Resources.TripAck;
             Timer.Change(0, 250);
         }
 

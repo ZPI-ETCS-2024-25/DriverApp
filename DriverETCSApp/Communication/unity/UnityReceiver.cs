@@ -16,6 +16,7 @@ namespace DriverETCSApp.Communication.Server
     public class UnityReceiver
     {
         private BalisesManager BalisesManager;
+        private CheckEndOfTripMode CheckEndOfTripMode;
         
         private DateTime lastSpeedSend = DateTime.Now;
         private const int secondsToSend = 2;
@@ -24,6 +25,7 @@ namespace DriverETCSApp.Communication.Server
         public UnityReceiver()
         {
             BalisesManager = new BalisesManager();
+            CheckEndOfTripMode = new CheckEndOfTripMode();
             sender = new ServerSender("127.0.0.1", Port.Server);
         }
 
@@ -59,6 +61,7 @@ namespace DriverETCSApp.Communication.Server
                     lastSpeedSend = DateTime.Now;
                 }
                 EmergencyBrakeManager.CheckSpeed();
+                CheckEndOfTripMode.CheckEndOfTrip();
             }
             finally
             {

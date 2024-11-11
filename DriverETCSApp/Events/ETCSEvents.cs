@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Xunit.Sdk;
 
 namespace DriverETCSApp.Events
@@ -20,6 +21,7 @@ namespace DriverETCSApp.Events
         public static event EventHandler<BaliseInfo> ForceToChangeBaliseType;
         public static event EventHandler DistancesCalculationsCompleted;
         public static event EventHandler<BrakeChangeInfo> BrakeChange;
+        public static event EventHandler PostTripAck;
 
         public static void OnModeChanged(ModeInfo modeInfo)
         {
@@ -69,6 +71,11 @@ namespace DriverETCSApp.Events
         public static void OnBrakeChange(BrakeChangeInfo brakeChangeInfo)
         {
             BrakeChange?.Invoke(null, brakeChangeInfo);
+        }
+
+        public static void OnPostTripAck()
+        {
+            PostTripAck?.Invoke(null, EventArgs.Empty);
         }
     }
 }
