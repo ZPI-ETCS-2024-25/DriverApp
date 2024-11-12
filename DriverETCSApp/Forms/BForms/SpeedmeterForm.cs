@@ -306,8 +306,8 @@ namespace DriverETCSApp.Forms.BForms
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             //AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
             //AuthorityData.Speeds = new List<double> { 100, 150, 80};
-            AuthorityData.SpeedDistances = new List<double> { 0, 250};
-            AuthorityData.Speeds = new List<double> { 60, 0 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 250, 300, 400};
+            AuthorityData.Speeds = new List<double> { 60, 0, 50, 30 };
 
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
