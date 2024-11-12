@@ -142,6 +142,14 @@ namespace DriverETCSApp.Logic.Balises
                     ETCSEvents.OnLevelChanged(new LevelInfo(Resources.L2, true));
                     LastBaliseType = "Ignore_OFF";
                 }
+                else if(TrainData.ActiveMode.Equals(ETCSModes.OS))
+                {
+                    if (ServerSender != null)
+                    {
+                        await ServerSender?.SendMARequest();
+                        ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                    }
+                }
             }
             await Position(message);
         }

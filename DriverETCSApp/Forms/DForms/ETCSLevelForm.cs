@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using DriverETCSApp.Data;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Events;
-using System.Security.AccessControl;
 using DriverETCSApp.Properties;
 
 namespace DriverETCSApp.Forms.DForms
@@ -94,10 +93,6 @@ namespace DriverETCSApp.Forms.DForms
                     {
                         ETCSEvents.OnChangeLevelIcon(new ChangeLevelIcon(Resources.SHP));
                     }
-                }
-                else
-                {
-
                 }
             }
             finally

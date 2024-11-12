@@ -29,9 +29,9 @@ namespace DriverETCSApp.Communication.Server
             var data = new
             {
                 TrainId = TrainData.TrainNumber,
-                LengthMeters = TrainData.Length,
-                MaxSpeed = TrainData.VMax,
-                BrakeWeight = TrainData.BrakingMass
+                LengthMeters = string.IsNullOrEmpty(TrainData.Length) ? 0 : Int32.Parse(TrainData.Length),
+                MaxSpeed = string.IsNullOrEmpty(TrainData.VMax) ? 0 : Int32.Parse(TrainData.VMax),
+                BrakeWeight = string.IsNullOrEmpty(TrainData.BrakingMass) ? 0 : Int32.Parse(TrainData.BrakingMass)
             };
             //serialize
             string dataSerialized = JsonSerializer.Serialize(data);
@@ -47,9 +47,9 @@ namespace DriverETCSApp.Communication.Server
             {
                 TrainNumer = oldNumber,
                 TrainId = TrainData.TrainNumber,
-                LengthMeters = TrainData.Length,
-                MaxSpeed = TrainData.VMax,
-                BrakeWeight = TrainData.BrakingMass
+                LengthMeters = string.IsNullOrEmpty(TrainData.Length) ? 0 : Int32.Parse(TrainData.Length),
+                MaxSpeed = string.IsNullOrEmpty(TrainData.VMax) ? 0 : Int32.Parse(TrainData.VMax),
+                BrakeWeight = string.IsNullOrEmpty(TrainData.BrakingMass) ? 0 : Int32.Parse(TrainData.BrakingMass)
             };
             string dataSerialized = JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
@@ -74,7 +74,7 @@ namespace DriverETCSApp.Communication.Server
             var data = new
             {
                 TrainId = TrainData.TrainNumber,
-                Kilometer = kilometer,
+                Meter = Convert.ToInt32(kilometer * 1000),
                 Track = track,
                 LineNumber = TrainData.BaliseLinePosition,
                 Direction = TrainData.CalculatedDrivingDirection
