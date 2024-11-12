@@ -39,6 +39,7 @@ namespace DriverETCSApp.Forms.BForms
         private const int speedNumbersOffset = 35;
         private const int needleCircleRadius = 30;
         private const float clockScale = 0.95f; // 0-1f
+        private const int minimalSpeedLimit = 40;
 
         private int clockSize;
         private int clockOffset;
@@ -80,16 +81,13 @@ namespace DriverETCSApp.Forms.BForms
                     {
                         if (!IsDisposed && !Disposing)
                         {
-                            //Console.WriteLine(AuthorityData.FallTo + ", " + AuthorityData.CalculatedSpeedLimit);
-                            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
-                            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeeds));
-
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
                             // Speed limit and speed warning
                             if (AuthorityData.CalculatedSpeedLimit > 0) {
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
                                 double nextSpeedlimit = AuthorityData.FallTo; 
-                                SetSpeedLimit((int)nextSpeedlimit);
+                                
+                                SetSpeedLimit(Math.Max((int)nextSpeedlimit, minimalSpeedLimit));
                                 SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
                             }
                             else if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
@@ -173,20 +171,24 @@ namespace DriverETCSApp.Forms.BForms
             // Draw Arc of Warning
             if (speedWarning != (0, 0))
             {
-                Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
+                int offset = speedWarning.Item2 < minimalSpeedLimit ? 2 : 0;
+                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2* offset, clockSize - 2* offset);
 
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
+                float penSize = speedWarning.Item2 < minimalSpeedLimit ? 4 : 8;
 
                 Color penColor = isWarningYellow ? DMIColors.Yellow : DMIColors.White;
-                Pen pen = new Pen(penColor, 8);
+                Pen pen = new Pen(penColor, penSize);
                 e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
 
-                int offset = 15;
+
+                offset = 16;
                 Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
-                e.Graphics.DrawArc(new Pen(penColor, 32), insideRect, pointer, pointerBoldness);
+
+                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);
                 
             }
 
@@ -301,8 +303,8 @@ namespace DriverETCSApp.Forms.BForms
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             //AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
             //AuthorityData.Speeds = new List<double> { 100, 150, 80};
-            AuthorityData.SpeedDistances = new List<double> { 0, 500, 1000 };
-            AuthorityData.Speeds = new List<double> { 100, 80, 60 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 250, 500 };
+            AuthorityData.Speeds = new List<double> { 60, 0, 70 };
 
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
