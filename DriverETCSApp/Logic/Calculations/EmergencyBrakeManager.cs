@@ -38,8 +38,15 @@ namespace DriverETCSApp.Logic.Calculations {
 
         public async static void CheckSpeed() {
 
-            double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] + AuthorityData.WARNING_SPEED_RANGE : 0;
+            double currentSpeedLimitation;
+            if(AuthorityData.CalculatedSpeedLimit > 0) {
+                currentSpeedLimitation = AuthorityData.CalculatedSpeedLimit + AuthorityData.WARNING_SPEED_RANGE;
+            }
+            else {
+                currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] + AuthorityData.WARNING_SPEED_RANGE : 0;
+            }
             currentSpeedLimitation = Math.Max(currentSpeedLimitation, AuthorityData.MIN_SPEED_LIMIT + AuthorityData.WARNING_SPEED_RANGE);
+            Console.WriteLine(currentSpeedLimitation);
 
             await Semaphore.WaitAsync();
             if (TrainData.ActiveMode.Equals(ETCSModes.FS)) //check if in FS mode
