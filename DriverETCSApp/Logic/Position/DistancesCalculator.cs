@@ -51,7 +51,8 @@ namespace DriverETCSApp.Logic.Position
         {
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
-            TrainData.CalculatedPosition += TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
+            double distancePassed = TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
+            TrainData.CalculatedPosition += distancePassed;
 
             #region distances of maxSpeeds
             int lastIndex = -1;
@@ -70,7 +71,9 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
                 AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
             }
-            MaxSpeedsCalculation.CountDownCalculatedMaxSpeed();
+            if (AuthorityData.CalculatedSpeedLimit > 0) {
+                MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(Math.Abs(distancePassed));
+            }
             #endregion
             #region speeds and distances of speeds
             lastIndex = -1;

@@ -10,7 +10,7 @@ namespace DriverETCSApp.Logic.Calculations {
     public static class MaxSpeedsCalculation {
 
         private static double brakingAcceleration = -3; // km/(h*s)
-        private static DateTime LastCountDown = DateTime.Now;
+        private static double distanceFromLimit = 0;
 
         public static void Calculate(List<double> _speeds, List<double> _speedDistances) {
             List<double> speeds = new List<double>(_speeds);
@@ -49,23 +49,22 @@ namespace DriverETCSApp.Logic.Calculations {
                     //AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i - 1];
                 }
             }
-            Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances));
         }
 
-        public static void CountDownCalculatedMaxSpeed() {
-            double passedSeconds = (DateTime.Now - LastCountDown).TotalSeconds;
+        public static void CountDownCalculatedMaxSpeed(double distancePassed) {
             double previousSpeedLimit = AuthorityData.CalculatedSpeedLimit;
-            double nextSpeedLimit = (previousSpeedLimit + brakingAcceleration * passedSeconds);
 
-            LastCountDown = DateTime.Now;
-            //Console.WriteLine(passedHours + ", " + previousSpeedLimit + ", " + (brakingAcceleration * passedHours) + ", " + nextSpeedLimit);
-            
-            if(nextSpeedLimit < AuthorityData.FallTo) {
+            distanceFromLimit += distancePassed;
+            double nextSpeedLimit = Math.Sqrt(Math.Pow(previousSpeedLimit, 2) + 2 * brakingAcceleration * 3600 * distanceFromLimit / 1000);
+
+            if (nextSpeedLimit < AuthorityData.FallTo) {
                 AuthorityData.CalculatedSpeedLimit = AuthorityData.FallTo;
+                distanceFromLimit = 0;
             }
             else {
                 AuthorityData.CalculatedSpeedLimit = Math.Max(nextSpeedLimit, 0);
             }
+
         }
 
         public static void SetBrakingAcceleration(double brakePercentage)
