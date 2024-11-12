@@ -53,6 +53,7 @@ namespace DriverETCSApp.Logic.Position
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             double distancePassed = TrainData.CalculatedDrivingDirection.Equals("N") ?  PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
             TrainData.CalculatedPosition += distancePassed;
+            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances) + "   " + AuthorityData.CalculatedSpeedLimit);
 
             #region distances of maxSpeeds
             int lastIndex = -1;
@@ -63,6 +64,7 @@ namespace DriverETCSApp.Logic.Position
                 }
             }
             if (lastIndex != -1) {
+                //Console.WriteLine(AuthorityData.Speeds[0] +" > " + AuthorityData.MaxSpeeds[0]);
                 if (AuthorityData.Speeds[0] > AuthorityData.MaxSpeeds[0]) {
                     AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
                     AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];

@@ -84,8 +84,8 @@ namespace DriverETCSApp.Forms.BForms
                             // Speed limit and speed warning
                             if (AuthorityData.CalculatedSpeedLimit > 0) {
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
-                                double nextSpeedlimit = AuthorityData.FallTo; 
-                                
+                                double nextSpeedlimit = AuthorityData.FallTo;
+                                //Console.WriteLine(" " + decresingSpeedLimit);
                                 SetSpeedLimit(Math.Max((int)nextSpeedlimit, AuthorityData.MIN_SPEED_LIMIT));
                                 SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
                             }
@@ -304,17 +304,19 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedWarning(0, 60);
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            //AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
-            //AuthorityData.Speeds = new List<double> { 100, 150, 80};
-            AuthorityData.SpeedDistances = new List<double> { 0, 250};
-            AuthorityData.Speeds = new List<double> { 60, 0 };
+            AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
+            AuthorityData.Speeds = new List<double> { 100, 150, 80 };
+            //AuthorityData.SpeedDistances = new List<double> { 0, 450, 500, 1500 };
+            //AuthorityData.Speeds = new List<double> { 130, 90, 140, 60 };
+            //AuthorityData.SpeedDistances = new List<double> { 0, 250, 300};
+            //AuthorityData.Speeds = new List<double> { 60, 0, 70 };
 
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";
             TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            //Console.WriteLine(string.Join(", ",AuthorityData.MaxSpeedsDistances));
+            Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeeds));
             
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
