@@ -39,7 +39,6 @@ namespace DriverETCSApp.Forms.BForms
         private const int speedNumbersOffset = 35;
         private const int needleCircleRadius = 30;
         private const float clockScale = 0.95f; // 0-1f
-        private const int minimalSpeedLimit = 40;
 
         private int clockSize;
         private int clockOffset;
@@ -87,7 +86,7 @@ namespace DriverETCSApp.Forms.BForms
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
                                 double nextSpeedlimit = AuthorityData.FallTo; 
                                 
-                                SetSpeedLimit(Math.Max((int)nextSpeedlimit, minimalSpeedLimit));
+                                SetSpeedLimit(Math.Max((int)nextSpeedlimit, AuthorityData.MIN_SPEED_LIMIT));
                                 SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
                             }
                             else if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
@@ -171,12 +170,12 @@ namespace DriverETCSApp.Forms.BForms
             // Draw Arc of Warning
             if (speedWarning != (0, 0))
             {
-                int offset = speedWarning.Item2 < minimalSpeedLimit ? 2 : 0;
+                int offset = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 2 : 0;
                 Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2* offset, clockSize - 2* offset);
 
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
-                float penSize = speedWarning.Item2 < minimalSpeedLimit ? 4 : 8;
+                float penSize = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 4 : 8;
 
                 Color penColor = isWarningYellow ? DMIColors.Yellow : DMIColors.White;
                 Pen pen = new Pen(penColor, penSize);
@@ -188,8 +187,7 @@ namespace DriverETCSApp.Forms.BForms
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
 
-                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);
-                
+                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);   
             }
 
             // Draw Arc of Cap
@@ -309,6 +307,7 @@ namespace DriverETCSApp.Forms.BForms
             AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
             TrainData.CalculatedDrivingDirection = "N";
+            TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
             //Console.WriteLine(string.Join(", ",AuthorityData.MaxSpeedsDistances));
             

@@ -39,6 +39,8 @@ namespace DriverETCSApp.Logic.Calculations {
         public async static void CheckSpeed() {
 
             double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] + AuthorityData.WARNING_SPEED_RANGE : 0;
+            currentSpeedLimitation = Math.Max(currentSpeedLimitation, AuthorityData.MIN_SPEED_LIMIT + AuthorityData.WARNING_SPEED_RANGE);
+
             await Semaphore.WaitAsync();
             if (TrainData.ActiveMode.Equals(ETCSModes.FS)) //check if in FS mode
             {
@@ -106,7 +108,7 @@ namespace DriverETCSApp.Logic.Calculations {
                     }
                 }
             }
-            else if (TrainData.ActiveMode.Equals(ETCSModes.OS)) //if in OS mode brake if train is moving faster then 20 (+5 tolerance)
+            else if (TrainData.ActiveMode.Equals(ETCSModes.OS)) //if in OS mode brake if train is moving faster than 20 (+5 tolerance)
             {
                 if (TrainData.CurrentSpeed > 25)
                 {

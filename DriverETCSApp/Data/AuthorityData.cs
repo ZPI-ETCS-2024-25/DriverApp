@@ -25,6 +25,7 @@ namespace DriverETCSApp.Data
         public static double FallTo = 0;
         public const double NOTICE_DISTANCE = 500;
         public const int WARNING_SPEED_RANGE = 10;
+        public const int MIN_SPEED_LIMIT = 40;
         //gradients data
         public static List<int> Gradients = new List<int>();
         public static List<double> GradientsDistances = new List<double>();
