@@ -97,7 +97,7 @@ namespace DriverETCSApp.Forms.BForms
                                 AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
                                 && AuthorityData.MaxSpeeds[0] < AuthorityData.Speeds[0]) {
                                     double nextSpeedlimit = AuthorityData.MaxSpeeds[0];
-                                    SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit);
+                                    SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit, false);
                                 }
                                 else
                                     SetSpeedWarning(0, 0);
@@ -206,8 +206,13 @@ namespace DriverETCSApp.Forms.BForms
 
         private Color GetColorForNeedle()
         {
-            if (speed <= speedLimit )
-                return DMIColors.White;
+            if (speed <= speedLimit) {
+
+                if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
+                    return DMIColors.Yellow;
+                else 
+                    return DMIColors.White;
+            }
             else if (speed <= speedWarning.Item2)
             {
                 if (isWarningYellow)
