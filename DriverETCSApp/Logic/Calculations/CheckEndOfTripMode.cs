@@ -1,23 +1,22 @@
 ﻿using DriverETCSApp.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DriverETCSApp.Events;
 
 namespace DriverETCSApp.Logic.Calculations
 {
     public class CheckEndOfTripMode
     {
+        public static bool IsTripAckActive = false;
+
         public CheckEndOfTripMode() { }
 
         public void CheckEndOfTrip()
         {
-            if(TrainData.ActiveMode.Equals(ETCSModes.TR))
+            if(TrainData.ActiveMode.Equals(ETCSModes.TR) && !IsTripAckActive)
             {
                 if(TrainData.CurrentSpeed == 0)
                 {
-
+                    ETCSEvents.OnPostTripAck();
+                    IsTripAckActive = true;
                 }
             }
         }

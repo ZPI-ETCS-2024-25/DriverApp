@@ -40,7 +40,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
             double currentSpeedLimitation = AuthorityData.Speeds.Count > 0 ? AuthorityData.Speeds[0] + AuthorityData.WARNING_SPEED_RANGE : 0;
             await Semaphore.WaitAsync();
-            if (TrainData.IsETCSActive && TrainData.ActiveMode.Equals(ETCSModes.FS)) //check if in FS mode
+            if (TrainData.ActiveMode.Equals(ETCSModes.FS)) //check if in FS mode
             {
                 if (TrainData.CurrentSpeed > currentSpeedLimitation)
                 {

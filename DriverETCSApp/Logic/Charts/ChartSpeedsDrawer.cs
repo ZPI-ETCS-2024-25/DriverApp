@@ -65,10 +65,10 @@ namespace DriverETCSApp.Logic.Charts
             for (int i = 0; i < AuthorityData.LowerSpeed.Count; i++)
             {
                 int pixelX = (int)Chart.ChartAreas[3].AxisX.ValueToPixelPosition(50);
-                var x = AuthorityData.LowerDistances[i];
-                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(x));
+                int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.LowerDistances[i]));
+                int pixelY1 = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[0]));
                 // tutaj to ogarnąć jak będzie skończone
-                bool checkIndication = (pixelY >= 0) && (i == 0) && (375 > pixelY);
+                bool checkIndication = (pixelY1 >= 0) && (i == 0) && (524 > pixelY1);
                 var pen = checkIndication ? PenYellow: Pen;
                 var bursh = checkIndication ? SolidBrushYellow : SolidBrush;
 

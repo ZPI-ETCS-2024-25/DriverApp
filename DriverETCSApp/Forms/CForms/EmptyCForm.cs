@@ -4,6 +4,7 @@ using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Forms.EForms;
+using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Properties;
 using System;
 using System.Collections.Generic;
@@ -96,8 +97,9 @@ namespace DriverETCSApp.Forms.CForms
                     }
                     else
                     {
+                        CheckEndOfTripMode.IsTripAckActive = false;
                         TrainData.ActiveMode = ETCSModes.PT;
-                        levelAnnouncementPicture.Image = Resources.PostTrip;
+                        levelAnnouncementPicture.Image = null;
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.PostTrip, ETCSModes.PT));
                         levelAnnouncementPicture.Invalidate();
                         levelAnnouncementPicture.Update();
@@ -195,15 +197,17 @@ namespace DriverETCSApp.Forms.CForms
                 if (LastAckInfo.WillBeActive)
                 {
                     TrainData.ETCSLevel = ETCSLevel.Poziom2;
-                    TrainData.ActiveMode = ETCSModes.FS;
+                    //TrainData.ActiveMode = ETCSModes.FS;
                     ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("Ignore_OFF"));
                     if (ServerSender != null)
                         await ServerSender?.SendMARequest();
                 }
                 else
                 {
                     TrainData.ETCSLevel = ETCSLevel.SHP;
-                    TrainData.ActiveMode = ETCSModes.STM;
+                    //TrainData.ActiveMode = ETCSModes.STM;
+                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("OFF"));
                     ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
                 }
             }
@@ -224,7 +228,7 @@ namespace DriverETCSApp.Forms.CForms
                 if (e.WillBeActive)
                 {
                     TrainData.ETCSLevel = ETCSLevel.Poziom2;
-                    TrainData.ActiveMode = ETCSModes.FS;
+                    //TrainData.ActiveMode = ETCSModes.FS;
                     ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
                     if (ServerSender != null)
                         await ServerSender?.SendMARequest();
@@ -232,7 +236,7 @@ namespace DriverETCSApp.Forms.CForms
                 else
                 {
                     TrainData.ETCSLevel = ETCSLevel.SHP;
-                    TrainData.ActiveMode = ETCSModes.STM;
+                    //TrainData.ActiveMode = ETCSModes.STM;
                     ETCSEvents.OnModeChanged(new ModeInfo(Resources.STM, ETCSModes.STM));
                 }
             }
@@ -287,6 +291,7 @@ namespace DriverETCSApp.Forms.CForms
                 {
                     levelAnnouncementPicture.Image = Resources.OSAck;
                     LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
+                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("Ignore_OFF"));
                 }
                 else
                 {

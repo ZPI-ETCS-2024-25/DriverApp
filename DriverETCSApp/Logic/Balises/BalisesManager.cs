@@ -95,7 +95,7 @@ namespace DriverETCSApp.Logic.Balises
 
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
-                // _ = ServerSender.SendPositionData(message.kilometer, message.trackNumber);
+                //_ = ServerSender.SendPositionData(message.kilometer, message.trackNumber);
                 await ServerSender.SendPositionData(message.kilometer, message.trackNumber);
             }
         }
@@ -128,7 +128,7 @@ namespace DriverETCSApp.Logic.Balises
 
         private async Task ForceToEnterETCSZone(MessageFromBalise message)
         {
-            if (LastBaliseType.Equals("OFF"))
+            if (LastBaliseType.Equals("OFF") || LastBaliseType.Equals("GO_OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
                 TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
@@ -140,15 +140,15 @@ namespace DriverETCSApp.Logic.Balises
                 if (!TrainData.IsETCSActive)
                 {
                     ETCSEvents.OnLevelChanged(new LevelInfo(Resources.L2, true));
+                    LastBaliseType = "Ignore_OFF";
                 }
-                LastBaliseType = "Ignore_OFF";
             }
             await Position(message);
         }
 
         private async Task RegisterOnServer(MessageFromBalise message)
         {
-            if (LastBaliseType.Equals("OFF"))
+            if (LastBaliseType.Equals("OFF") || LastBaliseType.Equals("GO_OFF"))
             {
                 TrainData.BalisePosition = message.kilometer;
                 TrainData.CalculatedPosition = message.kilometer * 1000;

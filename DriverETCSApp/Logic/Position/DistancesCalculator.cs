@@ -33,6 +33,10 @@ namespace DriverETCSApp.Logic.Position
             try
             {
                 Calculate(null);
+                if (AuthorityData.Speeds.Count > 0 && AuthorityData.SpeedDistances.Count > 0)
+                {
+                    MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+                }
                 EmergencyBrakeManager.CheckSpeed();
             }
             finally
@@ -143,7 +147,7 @@ namespace DriverETCSApp.Logic.Position
 
         private void CheckEoA()
         {
-            if(TrainData.ActiveMode.Equals(ETCSModes.FS) && TrainData.IsETCSActive)
+            if(TrainData.ActiveMode.Equals(ETCSModes.FS))
             {
                 if (AuthorityData.Speeds.Count > 0)
                 {

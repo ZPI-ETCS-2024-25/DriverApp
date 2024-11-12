@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Data;
+using DriverETCSApp.Logic.Calculations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -186,6 +187,8 @@ namespace DriverETCSApp.Logic.Data
                 AuthorityData.MessagesDistances = messagesDistances;
                 AuthorityData.Lines = lines;
                 AuthorityData.LinesDistances = linesDistances;
+
+                MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
             }
             finally 
             { 

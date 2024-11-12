@@ -317,6 +317,7 @@ namespace DriverETCSApp.Forms.BForms
         {
             ChangeMode(e.Bitmap);
             TrainData.ActiveMode = e.Mode;
+            TrainData.IsETCSActive = !TrainData.ActiveMode.Equals(ETCSModes.SB);
         }
 
         private void SpeedmeterForm_FormClosing(object sender, FormClosingEventArgs e)
