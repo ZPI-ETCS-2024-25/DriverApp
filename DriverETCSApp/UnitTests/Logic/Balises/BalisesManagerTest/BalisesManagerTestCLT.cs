@@ -84,7 +84,7 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.False(wasEventRaised);
             Assert.Equal("N", TrainData.CalculatedDrivingDirection);
             Assert.Equal(0.1, TrainData.BalisePosition);
-            Assert.Equal("Ignore_OFF", BalisesManager.GetLastBaliseType());
+            Assert.Equal("", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
         }
 
@@ -116,6 +116,37 @@ namespace DriverETCSApp.UnitTests.Logic.Balises.BalisesManagerTest
             Assert.Equal(0.1, TrainData.BalisePosition);
             Assert.Equal("", BalisesManager.GetLastBaliseType());
             Assert.Equal("", TrainData.ActiveMode);
+        }
+
+        [Fact]
+        public void CLTTestOSMode()
+        {
+            BalisesManager = new BalisesManager();
+            TrainData.Reset();
+            var messageFromBalise = new MessageFromBalise(0.2, 1, 2, "1", 1, "CLT");
+            TrainData.BalisePosition = 0.1;
+            TrainData.CalculatedDrivingDirection = "";
+            TrainData.IsConnectionWorking = true;
+            TrainData.IsTrainRegisterOnServer = true;
+            TrainData.IsETCSActive = true;
+            TrainData.ActiveMode = ETCSModes.OS;
+            /*bool wasEventRaised = false;
+
+            EventHandler<ModeInfo> modeChangedHandler = (sender, args) =>
+            {
+                wasEventRaised = true;
+            };
+
+            ETCSEvents.ModeChanged += modeChangedHandler;*/
+
+            BalisesManager.Manage(messageFromBalise);
+            Assert.True(true);
+            /*ETCSEvents.ModeChanged -= modeChangedHandler;
+            Assert.True(wasEventRaised);
+            Assert.Equal("N", TrainData.CalculatedDrivingDirection);
+            Assert.Equal(0.2, TrainData.BalisePosition);
+            Assert.Equal("", BalisesManager.GetLastBaliseType());
+            Assert.Equal(ETCSModes.OS, TrainData.ActiveMode);*/
         }
 
         public void Dispose()

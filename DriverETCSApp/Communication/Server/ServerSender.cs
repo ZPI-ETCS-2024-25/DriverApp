@@ -74,7 +74,7 @@ namespace DriverETCSApp.Communication.Server
             var data = new
             {
                 TrainId = TrainData.TrainNumber,
-                Meter = Convert.ToInt32(kilometer * 1000),
+                Kilometer = kilometer,
                 Track = track,
                 LineNumber = TrainData.BaliseLinePosition,
                 Direction = TrainData.CalculatedDrivingDirection
