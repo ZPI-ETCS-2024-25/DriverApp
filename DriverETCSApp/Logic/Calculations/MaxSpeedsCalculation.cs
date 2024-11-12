@@ -29,8 +29,9 @@ namespace DriverETCSApp.Logic.Calculations {
                     if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < AuthorityData.MaxSpeedsDistances[AuthorityData.MaxSpeedsDistances.Count - 1]) {
                         speeds.RemoveRange(i - 1, 1);
                         speedDistances.RemoveRange(i - 1, 1);
+                        AuthorityData.MaxSpeeds.RemoveRange(i - 2, 1);
                         AuthorityData.MaxSpeedsDistances.RemoveRange(i - 2, 1);
-                        i-= 2;
+                        i -= 2;
                         
                         continue;
                     }
