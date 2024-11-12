@@ -19,7 +19,7 @@ namespace DriverETCSApp.Logic.Charts
         private Pen PenYellow;
         private SolidBrush SolidBrush;
         private SolidBrush SolidBrushYellow;
-        Font Font;
+        private Font Font;
 
         private int LineLength;
 
@@ -68,7 +68,7 @@ namespace DriverETCSApp.Logic.Charts
                 int pixelY = (int)Chart.ChartAreas[3].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.LowerDistances[i]));
                 int pixelY1 = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[0]));
                 // tutaj to ogarnąć jak będzie skończone
-                bool checkIndication = (pixelY1 >= 0) && (i == 0) && (524 > pixelY1);
+                bool checkIndication = (pixelY1 >= 0) && (i == 0) && (526 > pixelY1);
                 var pen = checkIndication ? PenYellow: Pen;
                 var bursh = checkIndication ? SolidBrushYellow : SolidBrush;
 

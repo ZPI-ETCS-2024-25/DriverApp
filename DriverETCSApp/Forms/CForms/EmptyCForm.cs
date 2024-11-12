@@ -67,10 +67,11 @@ namespace DriverETCSApp.Forms.CForms
             ETCSEvents.PostTripAck += PostTripAck;
         }
 
-        private void levelAnnouncementPicture_Click(object sender, EventArgs e)
+        private async void levelAnnouncementPicture_Click(object sender, EventArgs e)
         {
             if (IsAckActiveToClick)
             {
+                bool isAfterTrip = false;
                 IsTimerStoped = true;
                 if (!IsAfterMissionStarted)
                 {
@@ -103,6 +104,7 @@ namespace DriverETCSApp.Forms.CForms
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.PostTrip, ETCSModes.PT));
                         levelAnnouncementPicture.Invalidate();
                         levelAnnouncementPicture.Update();
+                        isAfterTrip = true;
                     }
                 }
                 else
@@ -126,6 +128,12 @@ namespace DriverETCSApp.Forms.CForms
                 IsBorderVisible = false;
                 levelAnnouncementPicture.Invalidate();
                 levelAnnouncementPicture.Update();
+
+                if(isAfterTrip)
+                {
+                    await Task.Delay(3000);
+                    MisionStarted(this, EventArgs.Empty);
+                }
             }
         }
 
