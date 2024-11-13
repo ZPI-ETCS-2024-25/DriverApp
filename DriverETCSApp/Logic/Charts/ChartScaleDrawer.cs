@@ -26,21 +26,6 @@ namespace DriverETCSApp.Logic
             return Chart;
         }
 
-        /*public void Clear()
-        {
-            Chart.Series.Clear();
-            Series series1 = new Series("BasicArea")
-            {
-                ChartType = SeriesChartType.Area,
-                Color = Color.Transparent,
-                BorderColor = Color.Transparent,
-                BorderWidth = 0
-            };
-            series1.Points.AddXY(0, 0);
-            Chart.Series.Add(series1);
-            series1.ChartArea = Chart.ChartAreas[0].Name;
-        }*/
-
         public void Draw()
         {
             if(Chart == null)

@@ -57,7 +57,6 @@ namespace DriverETCSApp.Logic.Charts
                 }
                 else
                 {
-                    //series.Points.AddXY(interpolateSpeeds[i], Interpolator.InterpolatePosition(interpolateDistances[i]));
                     series.Points.AddXY(0, Interpolator.InterpolatePosition(interpolateDistances[interpolateSpeeds.Count - 1]));
                 }
             }
@@ -75,7 +74,7 @@ namespace DriverETCSApp.Logic.Charts
                 return false;
             }
 
-            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[0]));
+            int pixelY = (int)Chart.ChartAreas[4].AxisY.ValueToPixelPosition(Interpolator.InterpolatePosition(AuthorityData.MaxSpeedsDistances[0] - AuthorityData.NOTICE_DISTANCE));
             int pixelX = (int)Chart.ChartAreas[4].AxisX.ValueToPixelPosition(0);
 
             using (var pen = new Pen(DMIColors.Yellow, 2))
