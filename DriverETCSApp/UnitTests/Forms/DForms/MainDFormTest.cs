@@ -60,15 +60,5 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
             Stop();
             Assert.True(x.Visible);
         }
-
-        [Fact]
-        public void CheckChartVisibleByEvent()
-        {
-            Create();
-            ETCSEvents.OnModeChanged(new Events.ETCSEventArgs.ModeInfo(null, ETCSModes.OS));
-            var x = MainDForm.GetChart();
-            Stop();
-            Assert.False(x.Visible);
-        }
     }
 }

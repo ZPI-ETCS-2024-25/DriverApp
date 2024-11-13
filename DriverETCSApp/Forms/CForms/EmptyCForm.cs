@@ -238,7 +238,6 @@ namespace DriverETCSApp.Forms.CForms
                     TrainData.ETCSLevel = ETCSLevel.Poziom2;
                     //TrainData.ActiveMode = ETCSModes.FS;
                     ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
-                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("Ignore_OFF"));
                     if (ServerSender != null)
                         await ServerSender?.SendMARequest();
                 }

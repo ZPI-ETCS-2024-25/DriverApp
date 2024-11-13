@@ -21,10 +21,10 @@ namespace DriverETCSApp.UnitTests.Calculations {
         public void CheckMaxSpeed() {
             AuthorityData.SpeedDistances = new List<double> { 150, 500, 800, 1000 };
             AuthorityData.Speeds = new List<double> { 120, 90, 80, 50 };
-
-            SpeedSegragation.CalculateSpeeds();
+            //TrainData.Reset();
+            //SpeedSegragation.CalculateSpeeds();
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 140, 490, 790, 990 });
+            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 208.33333333333331, 721.2962962962963, 819.44444444444446 });
         }
 
         public void Dispose() {

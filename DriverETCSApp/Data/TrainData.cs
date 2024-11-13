@@ -15,7 +15,6 @@ namespace DriverETCSApp.Data
         public static double CurrentSpeed = 0;
         public static double LastSpeed = 0;
 
-
         //etcs data
         public static string ETCSLevel = "";
         public static string ActiveMode = ETCSModes.SB;
@@ -23,7 +22,6 @@ namespace DriverETCSApp.Data
         public static bool IsETCSActive = false;
         public static bool IsTrainRegisterOnServer = false;
         public static bool IsConnectionWorking = false;
-
 
         //position data
         public static double CalculatedPosition = 0;
@@ -48,9 +46,10 @@ namespace DriverETCSApp.Data
             VMax = "";
             BrakingMass = "";
             CurrentSpeed = 0;
+            LastSpeed = 0;
 
             ETCSLevel = "";
-            ActiveMode = "";
+            ActiveMode = ETCSModes.SB;
             IsMisionStarted = false;
             IsETCSActive = false;
             IsTrainRegisterOnServer = false;
