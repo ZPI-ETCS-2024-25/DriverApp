@@ -146,8 +146,10 @@ namespace DriverETCSApp.Logic.Balises
                 {
                     if (ServerSender != null)
                     {
+                        await Position(message);
                         await ServerSender?.SendMARequest();
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));
+                        return;
                     }
                 }
             }

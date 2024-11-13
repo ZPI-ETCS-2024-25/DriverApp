@@ -98,6 +98,7 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
         [Fact]
         public async void Button2Test()
         {
+            TrainData.IDDriver = "";
             Create();
 
             var stopMethod = typeof(IDDriverForm).GetMethod("button2_Click", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -182,6 +183,7 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
         [Fact]
         public void LabelClick()
         {
+            TrainData.IDDriver = "";
             MainForm = new MainForm(false);
             IDDriverForm = new IDDriverForm(MainForm, false);
             IDDriverForm.ShowInTaskbar = false;
@@ -190,8 +192,6 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
 
             var formField = typeof(MainForm).GetField("dForm", BindingFlags.NonPublic | BindingFlags.Instance);
             formField.SetValue(MainForm, IDDriverForm);
-
-            TrainData.IDDriver = "";
 
             var stopMethod = typeof(IDDriverForm).GetMethod("label2_Click", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { null, null };
@@ -204,8 +204,8 @@ namespace DriverETCSApp.UnitTests.Forms.DForms
         [Fact]
         public void LabelClick1()
         {
-            Create();
             TrainData.IDDriver = "";
+            Create();
 
             var stopMethod = typeof(IDDriverForm).GetMethod("button1_Click", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { null, null };
