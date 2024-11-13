@@ -3,17 +3,9 @@ using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
 using DriverETCSApp.Forms;
 using DriverETCSApp.Forms.DForms;
-using DriverETCSApp.Forms.FForms;
-using DriverETCSApp.Logic.Balises;
 using DriverETCSApp.Properties;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Net.Http;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xunit;
 
