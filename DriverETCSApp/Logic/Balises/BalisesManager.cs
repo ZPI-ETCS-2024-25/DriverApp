@@ -96,7 +96,7 @@ namespace DriverETCSApp.Logic.Balises
             TrainData.BaliseLinePosition = message.lineNumber;
             TrainData.BaliseTrackPosition = message.trackNumber;
             TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
-            if(TrainData.LastCalculated == 0)
+            if(TrainData.LastCalculated == 0 || !TrainData.IsETCSActive)
             {
                 TrainData.LastCalculated = TrainData.CalculatedPosition;
             }
