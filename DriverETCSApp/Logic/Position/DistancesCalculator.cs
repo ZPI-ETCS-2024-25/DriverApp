@@ -78,6 +78,8 @@ namespace DriverETCSApp.Logic.Position
             if (AuthorityData.CalculatedSpeedLimit > 0) {
                 MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(Math.Abs(distancePassed));
             }
+            Console.WriteLine(" TEST1 " + string.Join(", ", AuthorityData.MaxSpeeds));
+            Console.WriteLine(" TEST1 " + string.Join(", ", AuthorityData.MaxSpeedsDistances));
             #endregion
             #region speeds and distances of speeds
             lastIndex = -1;

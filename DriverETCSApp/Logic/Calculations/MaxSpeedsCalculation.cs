@@ -70,7 +70,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
         public static void SetBrakingAcceleration(double brakePercentage)
         {
-            brakingAcceleration = brakePercentage / 100 * 3.6 * 0.5 * -1;
+            brakingAcceleration = brakePercentage / 100 * 3.6 * 0.4 * -1;
         }
 
         public static void SetBrakingAccelerationByValue(double brakeAcceleration)

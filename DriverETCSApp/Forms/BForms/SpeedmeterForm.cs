@@ -21,8 +21,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Xunit;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DriverETCSApp.Forms.BForms
 {
@@ -311,8 +309,8 @@ namespace DriverETCSApp.Forms.BForms
             //AuthorityData.SpeedDistances = new List<double> { 0, 250, 300};
             //AuthorityData.Speeds = new List<double> { 60, 0, 70 };
 
-            AuthorityData.Gradients = new List<int> { 10, 0, -2, 1, 5, -3 };
-            AuthorityData.GradientsDistances = new List<double> { 0, 500, 1050, 2500, 3500, 4000, 7000 };
+            AuthorityData.Gradients = new List<int> { 10 };
+            AuthorityData.GradientsDistances = new List<double> { 0, 500 };
             TrainData.CalculatedDrivingDirection = "N";
             TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
