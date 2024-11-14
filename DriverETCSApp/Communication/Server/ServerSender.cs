@@ -54,7 +54,7 @@ namespace DriverETCSApp.Communication.Server
             string dataSerialized = JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updatedata");
-            AnalyzeResponce(responce);
+            //AnalyzeResponce(responce);
         }
 
         public async Task UnregisterTrainData()
@@ -82,7 +82,7 @@ namespace DriverETCSApp.Communication.Server
             string dataSerialized = JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updateposition");
-            AnalyzeResponce(responce);
+            //AnalyzeResponce(responce);
         }
 
         public async Task SendMARequest()
