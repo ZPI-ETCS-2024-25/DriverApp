@@ -1,4 +1,5 @@
 ﻿using DriverETCSApp.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace DriverETCSApp.Communication.Server
                 BrakeWeight = string.IsNullOrEmpty(TrainData.BrakingMass) ? 0 : Int32.Parse(TrainData.BrakingMass)
             };
             //serialize
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             //send
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "register");
@@ -51,7 +52,7 @@ namespace DriverETCSApp.Communication.Server
                 MaxSpeed = string.IsNullOrEmpty(TrainData.VMax) ? 0 : Int32.Parse(TrainData.VMax),
                 BrakeWeight = string.IsNullOrEmpty(TrainData.BrakingMass) ? 0 : Int32.Parse(TrainData.BrakingMass)
             };
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updatedata");
             //AnalyzeResponce(responce);
@@ -63,7 +64,7 @@ namespace DriverETCSApp.Communication.Server
             {
                 TrainId = TrainData.TrainNumber
             };
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "unregister");
             AnalyzeResponce(responce);
@@ -79,7 +80,7 @@ namespace DriverETCSApp.Communication.Server
                 LineNumber = TrainData.BaliseLinePosition,
                 Direction = TrainData.CalculatedDrivingDirection
             };
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "updateposition");
             //AnalyzeResponce(responce);
@@ -91,7 +92,7 @@ namespace DriverETCSApp.Communication.Server
             {
                 TrainId = TrainData.TrainNumber
             };
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             var responce = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "marequest");
             AnalyzeResponce(responce);
@@ -104,10 +105,31 @@ namespace DriverETCSApp.Communication.Server
                 TrainId = trainNumber,
                 Speed = currSpeed
             };
-            string dataSerialized = JsonSerializer.Serialize(data);
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
             _ = SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "speedupdate");
             //AnalyzeResponce(responce);
+        }
+
+        public bool SendIsAliveRequest()
+        {
+            var data = new
+            {
+                TrainId = 0
+            };
+            string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
+            string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
+            string isAlive = SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "isalive").Result;
+
+            if (string.IsNullOrEmpty(isAlive))
+            {
+                return false;
+            }
+
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(isAlive));
+            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
+            bool value = decodedMessage.IsAlive.ToBoolean();
+            return value;
         }
 
         private void AnalyzeResponce(string responce)
