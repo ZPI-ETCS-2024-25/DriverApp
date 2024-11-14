@@ -82,7 +82,16 @@ namespace DriverETCSApp.Forms
 
         public void ShowMessage()
         {
-            MessageBox.Show("Sprawdź czy serwer jest uruchomiony oraz działa poprawnie!", "Błąd połączenia z SERWEREM!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (IsHandleCreated)
+            {
+                Invoke(new Action(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                    {
+                        MessageBox.Show("Sprawdź czy serwer jest uruchomiony oraz działa poprawnie!", "Błąd połączenia z SERWEREM!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }));
+            }
         }
 
         private void SetNotVisible()
