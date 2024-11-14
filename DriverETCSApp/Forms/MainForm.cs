@@ -1,5 +1,6 @@
 ﻿using DriverETCSApp.Communication;
 using DriverETCSApp.Communication.Server;
+using DriverETCSApp.Communication.Unity;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Forms;
@@ -29,6 +30,7 @@ namespace DriverETCSApp.Forms
         private BorderLessForm zForm;
 
         private ServerSender ServerSender;
+        private UnitySender UnitySender;
         private ReceiverHTTP ReceiverHTTP;
 
         private DistancesCalculator DystancesCalculator;
@@ -42,11 +44,60 @@ namespace DriverETCSApp.Forms
             {
                 DystancesCalculator = new DistancesCalculator();
                 ServerSender = new ServerSender("127.0.0.1", Port.Server);
+                UnitySender = new UnitySender("127.0.0.1", Port.Unity);
                 ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
                 ReceiverHTTP.StartListening();
                 EmergencyBrakeManager.SetUp();
                 DrawDefaulFormsInPanels();
+                SetNotVisible();
             }
+        }
+
+        private async void CheckIfAlive()
+        {
+            bool isAlive = false;
+            while(!isAlive)
+            {
+                isAlive = await ServerSender.SendIsAliveRequest();
+                if (!isAlive)
+                {
+                    MessageBox.Show("Sprawdź czy serwer jest uruchomiony oraz działa poprawnie!", "Błąd połączenia z SERWEREM!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //isAlive = true;
+                }
+            }
+
+            isAlive = false;
+            while (!isAlive)
+            {
+                isAlive = await UnitySender.SendIsAliveRequest();
+                if(!isAlive)
+                {
+                    MessageBox.Show("Sprawdź czy środowisko z Unity jest uruchomione oraz działa poprawnie!", "Błąd połączenia z UNITY!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //isAlive = true;
+                }
+            }
+            SetVisible();
+        }
+
+        private void SetNotVisible()
+        {
+            aForm.Visible = false;
+            bForm.Visible = false;
+            cForm.Visible = false;
+            dForm.Visible = false;
+            eForm.Visible = false;
+            yForm.Visible = false;
+            zForm.Visible = false;
+        }
+        private void SetVisible()
+        {
+            aForm.Visible = true;
+            bForm.Visible = true;
+            cForm.Visible = true;
+            dForm.Visible = true;
+            eForm.Visible = true;
+            yForm.Visible = true;
+            zForm.Visible = true;
         }
 
         public new void Dispose()
@@ -303,6 +354,16 @@ namespace DriverETCSApp.Forms
             EmergencyBrakeManager.Destroy();
             ReceiverHTTP?.StopListening();
             Dispose();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            CheckIfAlive();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace DriverETCSApp.Communication
 
             using (HttpClient client = new HttpClient())
             {
+                //client.Timeout = TimeSpan.FromSeconds(3);
                 try
                 {
                     var content = new StringContent(msg, Encoding.UTF8, "application/json");
@@ -50,6 +51,7 @@ namespace DriverETCSApp.Communication
 
             using (HttpClient client = new HttpClient())
             {
+                //client.Timeout = TimeSpan.FromSeconds(3);
                 try
                 {
                     var content = new StringContent(msg, Encoding.UTF8, "application/json");

@@ -30,14 +30,14 @@ namespace DriverETCSApp.Communication.Unity
             var response = await SenderHTTP.SendMessage(dataSerialized, Port.Server);
         }
 
-        public bool SendIsAliveRequest()
+        public async Task<bool> SendIsAliveRequest()
         {
             var data = new
             {
-                messageType = "isAlive"
+                messageType = "alive"
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
-            string isAlive = SenderHTTP.SendMessage(dataSerialized, Port.Server).Result;
+            string isAlive = await SenderHTTP.SendMessage(dataSerialized, Port.Server);
 
             if (string.IsNullOrEmpty(isAlive))
             {

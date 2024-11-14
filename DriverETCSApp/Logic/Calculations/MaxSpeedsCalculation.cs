@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DriverETCSApp.Logic.Calculations {
     public static class MaxSpeedsCalculation {
 
-        private static double brakingAcceleration = -3; // km/(h*s)
+        private static double brakingAcceleration = -1.8; // km/(h*s)
         private static double distanceFromLimit = 0;
 
         public static void Calculate(List<double> _speeds, List<double> _speedDistances) {
@@ -70,7 +70,7 @@ namespace DriverETCSApp.Logic.Calculations {
 
         public static void SetBrakingAcceleration(double brakePercentage)
         {
-            brakingAcceleration = brakePercentage / 100 * 3.6 * 0.6 * -1;
+            brakingAcceleration = brakePercentage / 100 * 3.6 * 0.5 * -1;
         }
 
         public static void SetBrakingAccelerationByValue(double brakeAcceleration)

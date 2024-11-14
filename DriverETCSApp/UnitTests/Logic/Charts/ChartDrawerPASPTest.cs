@@ -31,6 +31,8 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             ChartScaleDrawer.Draw();
             ChartDrawerPASP = new ChartDrawerPASP(Chart);
             ChartDrawerPASP.SetUp();
+            if(AuthorityData.AuthoritiyDataSemaphore.CurrentCount == 0)
+                AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]

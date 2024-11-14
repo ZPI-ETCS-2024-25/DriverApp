@@ -111,7 +111,7 @@ namespace DriverETCSApp.Communication.Server
             //AnalyzeResponce(responce);
         }
 
-        public bool SendIsAliveRequest()
+        public async Task<bool> SendIsAliveRequest()
         {
             var data = new
             {
@@ -119,7 +119,7 @@ namespace DriverETCSApp.Communication.Server
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             string dataEncrypted = Convert.ToBase64String(DataEncryptDecrypt.Encrypt(dataSerialized));
-            string isAlive = SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "isalive").Result;
+            var isAlive = await SenderHTTP.SendMessageToEndpoint(dataEncrypted, Port.Server, "alive");
 
             if (string.IsNullOrEmpty(isAlive))
             {
