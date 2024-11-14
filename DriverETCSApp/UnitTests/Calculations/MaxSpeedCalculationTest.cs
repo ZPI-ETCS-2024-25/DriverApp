@@ -28,6 +28,26 @@ namespace DriverETCSApp.UnitTests.Calculations {
             Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 208.33333333333331, 721.2962962962963, 819.44444444444446 });
         }
 
+        [Fact]
+        public void CheckAdjacentSpeedDistances() {
+            AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
+            AuthorityData.Speeds = new List<double> { 100, 150, 80 };
+            MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
+
+            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 283.33333333333331 });
+        }
+
+        [Fact]
+        public void CheckAdjacentSpeedDistances2() {
+            AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
+            AuthorityData.Speeds = new List<double> { 100, 90, 60 };
+            MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
+
+            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+            Assert.Equal(new List<double> { 153.70370370370372 }, AuthorityData.MaxSpeedsDistances);
+        }
+
         public void Dispose() {
             SpeedSegragation = null;
         }

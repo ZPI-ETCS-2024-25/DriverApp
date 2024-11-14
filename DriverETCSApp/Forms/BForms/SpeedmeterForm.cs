@@ -350,18 +350,18 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
-            AuthorityData.Speeds = new List<double> { 100, 150, 80 };
+            AuthorityData.Speeds = new List<double> { 100, 90, 60 };
+            MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
             //AuthorityData.SpeedDistances = new List<double> { 0, 450, 500, 1500 };
             //AuthorityData.Speeds = new List<double> { 130, 90, 140, 60 };
             //AuthorityData.SpeedDistances = new List<double> { 0, 250, 300};
             //AuthorityData.Speeds = new List<double> { 60, 0, 70 };
-
             AuthorityData.Gradients = new List<int> { 10 };
             AuthorityData.GradientsDistances = new List<double> { 0, 500 };
             TrainData.CalculatedDrivingDirection = "N";
             TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeeds));
+            //Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeedsDistances));
             
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
