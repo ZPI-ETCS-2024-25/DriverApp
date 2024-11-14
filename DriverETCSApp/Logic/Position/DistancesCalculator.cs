@@ -53,6 +53,8 @@ namespace DriverETCSApp.Logic.Position
             TrainData.CalculatedPosition += distancePassed;
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
+
+            
             //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances) + "   " + AuthorityData.CalculatedSpeedLimit);
 
             #region distances of maxSpeeds

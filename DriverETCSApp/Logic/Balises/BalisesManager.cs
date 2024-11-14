@@ -66,7 +66,7 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            PositionApproximation.ResetLastApproximationTimer();
+            TrainData.CalculatedPosition += PositionApproximation.ApproximateMovedDistance();
 
             var tmp = Math.Abs(TrainData.CalculatedPosition - TrainData.LastCalculated);
 
