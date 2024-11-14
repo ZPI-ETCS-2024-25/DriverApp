@@ -84,14 +84,22 @@ namespace DriverETCSApp.Logic.Balises
                 }
             }
 
-            if (message.lineNumber != TrainData.BaliseLinePosition)
+            if (message.lineNumber != TrainData.BaliseLinePosition && !TrainData.BaliseTrackPosition.Equals(""))
             {
                 TrainData.LastCalculated = TrainData.CalculatedDrivingDirection.Equals("N") ? message.kilometer * 1000 - tmp : message.kilometer * 1000 + tmp;
+            }
+            else if(TrainData.BaliseTrackPosition != message.trackNumber && !TrainData.BaliseTrackPosition.Equals(""))
+            {
+                TrainData.LastCalculated -= 20;
             }
 
             TrainData.BaliseLinePosition = message.lineNumber;
             TrainData.BaliseTrackPosition = message.trackNumber;
             TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
+            if(TrainData.LastCalculated == 0)
+            {
+                TrainData.LastCalculated = TrainData.CalculatedPosition;
+            }
 
             if (TrainData.IsConnectionWorking && TrainData.IsTrainRegisterOnServer)
             {
