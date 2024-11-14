@@ -20,6 +20,7 @@ namespace DriverETCSApp.Data
         public static List<double> HigherDistances = new List<double>();
         //calculated speed data
         public static List<double> MaxSpeedsDistances = new List<double>();
+        public static List<double> MaxSpeedsDistancesPoints = new List<double>();
         public static List<double> MaxSpeeds = new List<double>();
         public static double CalculatedSpeedLimit = 0;
         public static double FallTo = 0;

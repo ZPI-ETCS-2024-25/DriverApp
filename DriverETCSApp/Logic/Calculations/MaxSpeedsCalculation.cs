@@ -15,6 +15,7 @@ namespace DriverETCSApp.Logic.Calculations {
         public static void Calculate(List<double> _speeds, List<double> _speedDistances) {
             List<double> speeds = new List<double>(_speeds);
             List<double> speedDistances = new List<double>(_speedDistances);
+            AuthorityData.MaxSpeedsDistancesPoints.Clear();
             AuthorityData.MaxSpeedsDistances.Clear();
             AuthorityData.MaxSpeeds.Clear();
             AuthorityData.MaxSpeeds = new List<double>(speeds);
@@ -26,19 +27,22 @@ namespace DriverETCSApp.Logic.Calculations {
                 if (nextMaxSpeed < previousMaxSpeed) {
                     double distance = (Math.Pow(nextMaxSpeed, 2) - Math.Pow(previousMaxSpeed, 2)) / (2 * brakingAcceleration * 3600);
                     double nextPosition = (speedDistances[i] / 1000 - distance) * 1000;
-                    if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < AuthorityData.MaxSpeedsDistances[AuthorityData.MaxSpeedsDistances.Count - 1]) {
+                    if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < AuthorityData.MaxSpeedsDistances[AuthorityData.MaxSpeedsDistances.Count - 1] + AuthorityData.NOTICE_DISTANCE) {
                         speeds.RemoveRange(i - 1, 1);
                         speedDistances.RemoveRange(i - 1, 1);
                         AuthorityData.MaxSpeeds.RemoveRange(i - 2, 1);
                         AuthorityData.MaxSpeedsDistances.RemoveRange(i - 2, 1);
+                        AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(i - 2, 1);
                         i -= 2;
                         
                         continue;
                     }
                     AuthorityData.MaxSpeedsDistances.Add(nextPosition);
+                    AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
                 else {
                     AuthorityData.MaxSpeedsDistances.Add(speedDistances[i]);
+                    AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
             }
 
@@ -46,6 +50,7 @@ namespace DriverETCSApp.Logic.Calculations {
                 if( AuthorityData.MaxSpeedsDistances[i] < AuthorityData.MaxSpeedsDistances[i - 1]) {
                     AuthorityData.MaxSpeedsDistances.RemoveRange(i - 1, 1);
                     AuthorityData.MaxSpeeds.RemoveRange(i - 1, 1);
+                    AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(i - 1, 1);
                     i--;
                     //AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i - 1];
                 }

@@ -272,12 +272,15 @@ namespace DriverETCSApp.Forms.DForms
         {
             if (!string.IsNullOrEmpty(labelData4.Text))
             {
-                activeInfoLabel.ForeColor = DMIColors.Grey;
-                ActivateLabel(0);
-                DeactivateLabel(3);
-                SetCategoryKeys();
-                confirmationChecks[3] = true;
-                CheckConfirmation();
+                if (Int32.Parse(labelData4.Text) <= 160)
+                {
+                    activeInfoLabel.ForeColor = DMIColors.Grey;
+                    ActivateLabel(0);
+                    DeactivateLabel(3);
+                    SetCategoryKeys();
+                    confirmationChecks[3] = true;
+                    CheckConfirmation();
+                }
             }
         }
 

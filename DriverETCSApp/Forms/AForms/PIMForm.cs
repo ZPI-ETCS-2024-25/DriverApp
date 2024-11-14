@@ -64,7 +64,7 @@ namespace DriverETCSApp.Forms.AForms
                             if (AuthorityData.MaxSpeedsDistances.Count > 0 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
                             && AuthorityData.SpeedDistances.Count > 1) { 
 
-                                double distance = AuthorityData.SpeedDistances[1];
+                                double distance = AuthorityData.MaxSpeedsDistancesPoints[0];
                                 SetDistanceLeft((int)distance);
                             }
                             else {
