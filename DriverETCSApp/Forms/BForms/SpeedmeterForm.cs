@@ -1,8 +1,10 @@
-﻿using DriverETCSApp.Communication.Server;
+﻿using DriverETCSApp.Communication;
+using DriverETCSApp.Communication.Server;
 using DriverETCSApp.Data;
 using DriverETCSApp.Design;
 using DriverETCSApp.Events;
 using DriverETCSApp.Events.ETCSEventArgs;
+using DriverETCSApp.Forms.CForms;
 using DriverETCSApp.Forms.EForms;
 using DriverETCSApp.Logic.Calculations;
 using DriverETCSApp.Logic.Data;
@@ -121,7 +123,7 @@ namespace DriverETCSApp.Forms.BForms
             }
         }
 
-        private void clockPanel_Paint(object sender, PaintEventArgs e)
+        private async void clockPanel_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -130,7 +132,9 @@ namespace DriverETCSApp.Forms.BForms
 
             // Draw the needle
             {
+                await TrainData.TrainDataSemaphofe.WaitAsync();
                 Color needleColor = GetColorForNeedle();
+                TrainData.TrainDataSemaphofe.Release();
 
                 int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
                 double needleRadians = needleAngle * Math.PI / 180;
@@ -204,26 +208,70 @@ namespace DriverETCSApp.Forms.BForms
 
         private Color GetColorForNeedle()
         {
-            if (speed <= speedLimit) {
-
-                if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
-                    return DMIColors.Yellow;
-                else 
-                    return DMIColors.White;
-            }
-            else if (speed <= speedWarning.Item2)
+            if (TrainData.ActiveMode.Equals(ETCSModes.FS)) //check if in FS mode
             {
-                if (isWarningYellow)
-                    return DMIColors.Yellow;
+                if (speed <= speedLimit)
+                {
+                    if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
+                        return DMIColors.Yellow;
+                    else
+                        return DMIColors.White;
+                }
+                else if (speed <= speedWarning.Item2)
+                {
+                    if (isWarningYellow)
+                        return DMIColors.Yellow;
+                    else
+                        return DMIColors.White;
+                }
+                else if (speed <= speedCap.Item2)
+                {
+                    return DMIColors.Orange;
+                }
                 else
-                    return DMIColors.White;
+                    return DMIColors.Red;
             }
-            else if (speed <= speedCap.Item2)
+            else if (TrainData.ActiveMode.Equals(ETCSModes.SB) || TrainData.ActiveMode.Equals(ETCSModes.PT)) //if in STAND BY or POST TRIP mode brake if train is moving
             {
-                return DMIColors.Orange;
+                if (TrainData.CurrentSpeed > 0)
+                {
+                    return DMIColors.Red;
+                }
+                else
+                {
+                    return DMIColors.White;
+                }
+            }
+            else if (TrainData.ActiveMode.Equals(ETCSModes.STM)) //if in SHP mode brake if train is moving faster then Vmax
+            {
+                if (TrainData.CurrentSpeed > Double.Parse(TrainData.VMax) + 5)
+                {
+                    return DMIColors.Red;
+                }
+                else
+                {
+                    return DMIColors.White;
+                }
+            }
+            else if (TrainData.ActiveMode.Equals(ETCSModes.OS)) //if in OS mode brake if train is moving faster than 20 (+5 tolerance)
+            {
+                if (TrainData.CurrentSpeed > 25)
+                {
+                    return DMIColors.Red;
+                }
+                else
+                {
+                    return DMIColors.White;
+                }
+            }
+            else if (TrainData.ActiveMode.Equals(ETCSModes.TR)) //if in TR mode brake
+            {
+                return DMIColors.Red;
             }
             else
+            {
                 return DMIColors.Red;
+            }
         }
 
         public int GetSpeed()
