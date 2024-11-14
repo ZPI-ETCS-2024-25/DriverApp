@@ -21,6 +21,7 @@ namespace DriverETCSApp.UnitTests.Calculations {
         public void CheckMaxSpeed() {
             AuthorityData.SpeedDistances = new List<double> { 150, 500, 800, 1000 };
             AuthorityData.Speeds = new List<double> { 120, 90, 80, 50 };
+            MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
             //TrainData.Reset();
             //SpeedSegragation.CalculateSpeeds();
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
