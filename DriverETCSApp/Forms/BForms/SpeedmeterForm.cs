@@ -362,7 +362,7 @@ namespace DriverETCSApp.Forms.BForms
             TrainData.CalculatedDrivingDirection = "N";
             TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeeds));
+            //Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeedsDistances));
             
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
