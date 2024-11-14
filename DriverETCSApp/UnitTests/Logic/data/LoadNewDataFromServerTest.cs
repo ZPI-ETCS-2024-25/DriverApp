@@ -25,6 +25,11 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             AuthorityData.GradientsDistances = new List<double>();
             AuthorityData.Messages = new List<string>();
             AuthorityData.MessagesDistances = new List<double>();
+
+            if(AuthorityData.AuthoritiyDataSemaphore.CurrentCount == 0)
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
+            }
         }
 
         [Fact]

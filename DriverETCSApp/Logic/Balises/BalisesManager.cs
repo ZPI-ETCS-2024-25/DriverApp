@@ -146,6 +146,8 @@ namespace DriverETCSApp.Logic.Balises
                 {
                     if (ServerSender != null)
                     {
+                        TrainData.BalisePosition = message.kilometer;
+                        TrainData.CalculatedPosition = Convert.ToDouble(message.kilometer) * 1000;
                         await Position(message);
                         await ServerSender?.SendMARequest();
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.FS, ETCSModes.FS));

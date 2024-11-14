@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\Server\DataEncryptDecrypt.cs" />
+    <Compile Include="Communication\Server\ServerIsAliveTimer.cs" />
     <Compile Include="Data\EncryptionData.cs" />
     <Compile Include="Data\SpeedData.cs" />
     <Compile Include="Events\ETCSEventArgs\AckInfo.cs" />

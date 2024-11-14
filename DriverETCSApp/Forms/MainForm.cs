@@ -30,6 +30,7 @@ namespace DriverETCSApp.Forms
         private BorderLessForm zForm;
 
         private ServerSender ServerSender;
+        private ServerIsAliveTimer ServerIsAliveTimer;
         private UnitySender UnitySender;
         private ReceiverHTTP ReceiverHTTP;
 
@@ -47,6 +48,7 @@ namespace DriverETCSApp.Forms
                 UnitySender = new UnitySender("127.0.0.1", Port.Unity);
                 ReceiverHTTP = new ReceiverHTTP("127.0.0.1");
                 ReceiverHTTP.StartListening();
+                ServerIsAliveTimer = new ServerIsAliveTimer(ServerSender, this);
                 EmergencyBrakeManager.SetUp();
                 DrawDefaulFormsInPanels();
                 SetNotVisible();
@@ -77,6 +79,11 @@ namespace DriverETCSApp.Forms
                 }
             }
             SetVisible();
+        }
+
+        public void ShowMessage()
+        {
+            MessageBox.Show("Sprawdź czy serwer jest uruchomiony oraz działa poprawnie!", "Błąd połączenia z SERWEREM!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void SetNotVisible()
@@ -353,17 +360,14 @@ namespace DriverETCSApp.Forms
             Console.WriteLine("Wyłączanie HTTP listenera");
             EmergencyBrakeManager.Destroy();
             ReceiverHTTP?.StopListening();
+            ServerIsAliveTimer?.Stop();
             Dispose();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
             CheckIfAlive();
+            ServerIsAliveTimer?.Start();
         }
     }
 }
