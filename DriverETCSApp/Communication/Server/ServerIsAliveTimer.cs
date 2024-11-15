@@ -34,10 +34,14 @@ namespace DriverETCSApp.Communication.Server
         private async void Run()
         {
             Thread.Sleep(30000);
-            bool isAlive = await ServerSender.SendIsAliveRequest();
-            if(!isAlive)
+            bool isAlive = false;
+            while (!isAlive)
             {
-                MainForm.ShowMessage();
+                isAlive = await ServerSender.SendIsAliveRequest();
+                if (!isAlive)
+                {
+                    MainForm.ShowMessage();
+                }
             }
         }
     }

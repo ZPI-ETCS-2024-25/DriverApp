@@ -59,15 +59,27 @@ namespace DriverETCSApp.Forms.AForms
                     {
                         if (!IsDisposed && !Disposing)
                         {
+                            await TrainData.TrainDataSemaphofe.WaitAsync();
+                            var tmp = TrainData.ActiveMode.Equals(ETCSModes.FS);
+                            TrainData.TrainDataSemaphofe.Release();
+
+                            if (!tmp)
+                            {
+                                panelPIM.Visible = false;
+                                return;
+                            }
+
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
 
-                            if (AuthorityData.MaxSpeedsDistances.Count > 0 && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
-                            && AuthorityData.SpeedDistances.Count > 1) { 
-
+                            if (AuthorityData.MaxSpeedsDistances.Count > 0 
+                            && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
+                            && AuthorityData.SpeedDistances.Count > 1) {
+                                panelPIM.Visible = true;
                                 double distance = AuthorityData.MaxSpeedsDistancesPoints[0];
                                 SetDistanceLeft((int)distance);
                             }
                             else {
+                                panelPIM.Visible = false;
                                 SetDistanceLeft(0);
                             }
                             AuthorityData.AuthoritiyDataSemaphore.Release();
@@ -131,6 +143,7 @@ namespace DriverETCSApp.Forms.AForms
             }
 
             panelPIM.Invalidate();
+            panelPIM.Update();
         }
 
         public int GetDistanceLeft() { return distanceLeft; }

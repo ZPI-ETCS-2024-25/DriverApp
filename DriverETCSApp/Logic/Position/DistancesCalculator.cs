@@ -35,7 +35,9 @@ namespace DriverETCSApp.Logic.Position
                 Calculate(null);
                 if (AuthorityData.Speeds.Count > 0 && AuthorityData.SpeedDistances.Count > 0)
                 {
+                    Console.WriteLine("[]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
                     MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
+                    Console.WriteLine("[][]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
                 }
                 EmergencyBrakeManager.CheckSpeed();
             }
@@ -54,33 +56,9 @@ namespace DriverETCSApp.Logic.Position
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
 
-            //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistances) + "   " + AuthorityData.CalculatedSpeedLimit);
 
-            #region distances of maxSpeeds
-            int lastIndex = -1;
-            for (int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++) {
-                AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i] - diffrence;
-                AuthorityData.MaxSpeedsDistancesPoints[i] = AuthorityData.MaxSpeedsDistancesPoints[i] - diffrence;
-                if (AuthorityData.MaxSpeedsDistances[i] < 0) {
-                    lastIndex = i;
-                }
-            }
-            if (lastIndex != -1) {
-                //Console.WriteLine(AuthorityData.Speeds[0] +" > " + AuthorityData.MaxSpeeds[0]);
-                if (AuthorityData.Speeds[0] > AuthorityData.MaxSpeeds[0]) {
-                    AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
-                    AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
-                }
-                AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(0, lastIndex + 1);
-                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
-                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
-            }
-            if (AuthorityData.CalculatedSpeedLimit > 0) {
-                MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(Math.Abs(distancePassed));
-            }
-            #endregion
             #region speeds and distances of speeds
-            lastIndex = -1;
+            int lastIndex = -1;
             for (int i = 0; i < AuthorityData.SpeedDistances.Count; i++)
             {
                 AuthorityData.SpeedDistances[i] = AuthorityData.SpeedDistances[i] - diffrence;
@@ -105,6 +83,50 @@ namespace DriverETCSApp.Logic.Position
             }
             SpeedSegragation.CalculateSpeeds();
             #endregion
+
+            #region distances of maxSpeeds
+            lastIndex = -1;
+            Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
+            for (int i = 0; i < AuthorityData.MaxSpeedsDistances.Count; i++)
+            {
+                AuthorityData.MaxSpeedsDistances[i] = AuthorityData.MaxSpeedsDistances[i] - diffrence;
+                AuthorityData.MaxSpeedsDistancesPoints[i] = AuthorityData.MaxSpeedsDistancesPoints[i] - diffrence;
+                if (AuthorityData.MaxSpeedsDistances[i] < 0)
+                {
+                    lastIndex = i;
+                }
+            }
+            if (lastIndex != -1)
+            {
+                //Console.WriteLine(AuthorityData.Speeds[0] +" > " + AuthorityData.MaxSpeeds[0]);
+                Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
+                if (AuthorityData.Speeds[0] > AuthorityData.MaxSpeeds[0])
+                {
+                    if (AuthorityData.CalculatedSpeedLimit == 0 && AuthorityData.Speeds[0] != AuthorityData.FallFrom)
+                    {
+                        AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
+                        AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
+                        AuthorityData.FallFrom = AuthorityData.Speeds[0];
+                        MaxSpeedsCalculation.distanceFromLimit = 0;
+                    }
+                    else
+                    {
+                        AuthorityData.CalculatedSpeedLimit = AuthorityData.FallFrom;
+                        AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
+                    }
+                }
+                AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(0, lastIndex + 1);
+                AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
+                AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
+            }
+            Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "||" + AuthorityData.CalculatedSpeedLimit);
+            if (AuthorityData.CalculatedSpeedLimit > 0)
+            {
+                MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(Math.Abs(distancePassed));
+            }
+            Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "|||" + AuthorityData.CalculatedSpeedLimit);
+            #endregion
+
             #region gradients and distances of gradients
             lastIndex = -1;
             for (int i = 0; i < AuthorityData.GradientsDistances.Count; i++)
@@ -125,6 +147,7 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.GradientsDistances[0] = 0;
             }
             #endregion
+
             #region messages and distances of messages
             lastIndex = -1;
             for (int i = 0; i < AuthorityData.MessagesDistances.Count; i++)
@@ -142,6 +165,7 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.Messages.RemoveRange(0, lastIndex + 1);
             }
             #endregion
+
             #region check for pass EoA
             CheckEoA();
             #endregion

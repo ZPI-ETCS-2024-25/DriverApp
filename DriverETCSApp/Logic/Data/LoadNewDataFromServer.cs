@@ -37,6 +37,12 @@ namespace DriverETCSApp.Logic.Data
                 return false;
             }
 
+            if(string.IsNullOrEmpty(TrainData.VMax) || string.IsNullOrEmpty(TrainData.BrakingMass) || string.IsNullOrEmpty(TrainData.TrainNumber) || string.IsNullOrEmpty(TrainData.Length))
+            {
+                Console.WriteLine("Get MA when data EMPTY! Ignoring!");
+                return false;
+            }
+
             int position = decodedMessage.ServerPosition * 1000;
             double diffrence = 0;
             if (lines[0] == TrainData.BaliseLinePosition)

@@ -24,10 +24,11 @@ namespace DriverETCSApp.Data
         public static List<double> MaxSpeeds = new List<double>();
         public static double CalculatedSpeedLimit = 0;
         public static double FallTo = 0;
+        public static double FallFrom = 0;
         //consts to calculated data
         public const double NOTICE_DISTANCE = 500;
         public const int WARNING_SPEED_RANGE = 10;
-        public const int MIN_SPEED_LIMIT = 40;
+        public const int MIN_SPEED_LIMIT = 20;
         //gradients data
         public static List<int> Gradients = new List<int>();
         public static List<double> GradientsDistances = new List<double>();

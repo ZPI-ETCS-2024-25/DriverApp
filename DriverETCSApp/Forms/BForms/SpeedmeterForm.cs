@@ -81,20 +81,23 @@ namespace DriverETCSApp.Forms.BForms
                         {
                             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
                             // Speed limit and speed warning
-                            if (AuthorityData.CalculatedSpeedLimit > 0) {
+                            if (AuthorityData.CalculatedSpeedLimit > 0)
+                            {
                                 double decresingSpeedLimit = AuthorityData.CalculatedSpeedLimit;
                                 double nextSpeedlimit = AuthorityData.FallTo;
                                 //Console.WriteLine(" " + decresingSpeedLimit);
                                 SetSpeedLimit(Math.Max((int)nextSpeedlimit, AuthorityData.MIN_SPEED_LIMIT));
                                 SetSpeedWarning((int)nextSpeedlimit, (int)decresingSpeedLimit, true);
                             }
-                            else if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0) {
+                            else if (AuthorityData.Speeds.Count > 0 && AuthorityData.Speeds[0] > 0)
+                            {
                                 double speedlimit = AuthorityData.Speeds[0];
                                 SetSpeedLimit((int)speedlimit);
-                                
+
                                 if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances.Count > 0 &&
                                 AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
-                                && AuthorityData.MaxSpeeds[0] < AuthorityData.Speeds[0]) {
+                                && AuthorityData.MaxSpeeds[0] < AuthorityData.Speeds[0])
+                                {
                                     double nextSpeedlimit = AuthorityData.MaxSpeeds[0];
                                     SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit, false);
                                 }
@@ -130,35 +133,51 @@ namespace DriverETCSApp.Forms.BForms
             float needleTarget = speed / (float)speedPerLine;
 
             // Draw the needle
+            bool tmp;
             {
                 await TrainData.TrainDataSemaphofe.WaitAsync();
                 Color needleColor = GetColorForNeedle();
+                tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
                 TrainData.TrainDataSemaphofe.Release();
 
                 int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
                 double needleRadians = needleAngle * Math.PI / 180;
                 int xNeedle = halfClockSize + (int)(needleLength * Math.Cos(needleRadians)) + clockOffset;
                 int yNeedle = halfClockSize + (int)(needleLength * Math.Sin(needleRadians)) + clockOffset;
-                g.DrawLine(new Pen(needleColor, 15), halfClockSize, halfClockSize, xNeedle + (halfClockSize - xNeedle) * 0.25f, yNeedle + (halfClockSize - yNeedle) * 0.25f);
-                g.DrawLine(new Pen(needleColor, 5), halfClockSize, halfClockSize, xNeedle, yNeedle);
 
-                // Draw needle circle
-                g.FillEllipse(new SolidBrush(needleColor), halfClockSize - needleCircleRadius, halfClockSize - needleCircleRadius, needleCircleRadius * 2, needleCircleRadius * 2);
+                try
                 {
-                    Font largerFont = new Font(this.Font.FontFamily, 20f, this.Font.Style, this.Font.Unit);
-                    string text = speed.ToString();
-                    SizeF textSize = e.Graphics.MeasureString(text, largerFont);
-                    int begin = (halfClockSize - needleCircleRadius);
+                    g.DrawLine(new Pen(needleColor, 15), halfClockSize, halfClockSize, xNeedle + (halfClockSize - xNeedle) * 0.25f, yNeedle + (halfClockSize - yNeedle) * 0.25f);
+                    g.DrawLine(new Pen(needleColor, 5), halfClockSize, halfClockSize, xNeedle, yNeedle);
 
-                    int xText = begin + (needleCircleRadius * 2 - (int)textSize.Width) / 2;
-                    int yText = begin + (needleCircleRadius * 2 - (int)textSize.Height) / 2;
+                    // Draw needle circle
+                    g.FillEllipse(new SolidBrush(needleColor), halfClockSize - needleCircleRadius, halfClockSize - needleCircleRadius, needleCircleRadius * 2, needleCircleRadius * 2);
+                    {
+                        Font largerFont = new Font(this.Font.FontFamily, 20f, this.Font.Style, this.Font.Unit);
+                        string text = speed.ToString();
+                        SizeF textSize = e.Graphics.MeasureString(text, largerFont);
+                        int begin = (halfClockSize - needleCircleRadius);
 
-                    g.DrawString(speed.ToString(), largerFont, Brushes.Black, xText, yText);
+                        int xText = begin + (needleCircleRadius * 2 - (int)textSize.Width) / 2;
+                        int yText = begin + (needleCircleRadius * 2 - (int)textSize.Height) / 2;
+
+                        g.DrawString(speed.ToString(), largerFont, Brushes.Black, xText, yText);
+                    }
                 }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            //is not in FS mode then return (dont go to next steps)
+            if (tmp)
+            {
+                return;
             }
 
             // Draw Arc of Speed Limit
-            if (speedLimit > 0) {
+            if (speedLimit > 0)
+            {
                 Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
 
                 float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
@@ -172,7 +191,7 @@ namespace DriverETCSApp.Forms.BForms
             if (speedWarning != (0, 0))
             {
                 int offset = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 2 : 0;
-                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2* offset, clockSize - 2* offset);
+                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
 
                 float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
                 float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
@@ -188,7 +207,7 @@ namespace DriverETCSApp.Forms.BForms
                 float pointerBoldness = 2f;
                 float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
 
-                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);   
+                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);
             }
 
             // Draw Arc of Cap
@@ -211,9 +230,9 @@ namespace DriverETCSApp.Forms.BForms
             {
                 if (speed <= speedLimit)
                 {
-                    if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
+                    /*if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
                         return DMIColors.Yellow;
-                    else
+                    else*/
                         return DMIColors.White;
                 }
                 else if (speed <= speedWarning.Item2)
@@ -299,7 +318,8 @@ namespace DriverETCSApp.Forms.BForms
             instance.clockPanel.Invalidate();
         }
 
-        public static void SetSpeedLimit(int newSpeed) {
+        public static void SetSpeedLimit(int newSpeed)
+        {
             instance.speedLimit = newSpeed;
             instance.clockPanel.Invalidate();
         }
@@ -327,7 +347,8 @@ namespace DriverETCSApp.Forms.BForms
         {
             UnityReceiver receiver = new UnityReceiver();
             SpeedData speedData = new SpeedData();
-            if (TrainData.CurrentSpeed < 180) {
+            if (TrainData.CurrentSpeed < 180)
+            {
                 speedData.NewSpeed = this.GetSpeed() + 5;
                 var json = JsonConvert.SerializeObject(speedData);
                 receiver.SpeedChanged(json);
@@ -350,19 +371,19 @@ namespace DriverETCSApp.Forms.BForms
             //SetSpeedCap(0, 70);
             await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
             AuthorityData.SpeedDistances = new List<double> { 0, 440, 450 };
-            AuthorityData.Speeds = new List<double> { 100, 90, 60 };
+            AuthorityData.Speeds = new List<double> { 100, 140, 60 };
             MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
             //AuthorityData.SpeedDistances = new List<double> { 0, 450, 500, 1500 };
             //AuthorityData.Speeds = new List<double> { 130, 90, 140, 60 };
             //AuthorityData.SpeedDistances = new List<double> { 0, 250, 300};
             //AuthorityData.Speeds = new List<double> { 60, 0, 70 };
             AuthorityData.Gradients = new List<int> { 10 };
-            AuthorityData.GradientsDistances = new List<double> { 0, 500 };
+            AuthorityData.GradientsDistances = new List<double> { 0, 450 };
             TrainData.CalculatedDrivingDirection = "N";
             TrainData.ActiveMode = ETCSModes.FS;
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
             //Console.WriteLine(" TEST " + string.Join(", ", AuthorityData.MaxSpeedsDistances));
-            
+
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 

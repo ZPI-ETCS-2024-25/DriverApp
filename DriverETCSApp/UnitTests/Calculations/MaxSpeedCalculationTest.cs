@@ -25,7 +25,7 @@ namespace DriverETCSApp.UnitTests.Calculations {
             //TrainData.Reset();
             //SpeedSegragation.CalculateSpeeds();
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 208.33333333333331, 721.2962962962963, 819.44444444444446 });
+            Assert.Equal(new List<double> { 208.33333333333331, 721.2962962962963, 819.44444444444446 }, AuthorityData.MaxSpeedsDistances);
         }
 
         [Fact]

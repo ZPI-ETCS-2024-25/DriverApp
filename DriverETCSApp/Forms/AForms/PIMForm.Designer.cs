@@ -36,6 +36,7 @@
             this.panelPIM.Name = "panelPIM";
             this.panelPIM.Size = new System.Drawing.Size(126, 477);
             this.panelPIM.TabIndex = 3;
+            this.panelPIM.Visible = false;
             this.panelPIM.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             // 
             // PIMForm

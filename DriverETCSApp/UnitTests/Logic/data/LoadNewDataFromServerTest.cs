@@ -18,6 +18,9 @@ namespace DriverETCSApp.UnitTests.Logic.Data
 
             TrainData.BaliseLinePosition = 1;
             TrainData.VMax = "250";
+            TrainData.BrakingMass = "100";
+            TrainData.TrainNumber = "1";
+            TrainData.Length = "11";
 
             AuthorityData.Speeds = new List<double>();
             AuthorityData.SpeedDistances = new List<double>();
