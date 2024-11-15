@@ -54,7 +54,9 @@ namespace DriverETCSApp.Communication
                 //client.Timeout = TimeSpan.FromSeconds(3);
                 try
                 {
-                    var content = new StringContent(msg, Encoding.UTF8, "application/json");
+                    //var content = new StringContent(msg, Encoding.UTF8, "application/json");
+                    var contentObj = new { Content = msg };
+                    var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(contentObj), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(url, content);
 
                     if (response.IsSuccessStatusCode)

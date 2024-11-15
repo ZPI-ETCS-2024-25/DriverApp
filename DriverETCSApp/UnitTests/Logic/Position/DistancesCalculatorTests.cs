@@ -36,8 +36,6 @@ namespace DriverETCSApp.UnitTests.Logic.Position
         {
             Calculator.TurnOffClock();
 
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
             TrainData.CalculatedPosition = 100;
             TrainData.LastCalculated = 0;
             TrainData.CalculatedDrivingDirection = "N";
@@ -49,8 +47,6 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 400, 950, 2400, 3400, 3900, 6900 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 200, 900});
-            TrainData.TrainDataSemaphofe.Release();
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
@@ -58,8 +54,6 @@ namespace DriverETCSApp.UnitTests.Logic.Position
         {
             Calculator.TurnOffClock();
 
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
             TrainData.CalculatedPosition = 100;
             TrainData.LastCalculated = 200;
             TrainData.CalculatedDrivingDirection = "N";
@@ -71,15 +65,11 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 600, 1150, 2600, 3600, 4100, 7100 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 400, 1100 });
-            TrainData.TrainDataSemaphofe.Release();
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestCalculatorWithoutRemoveElementsInPDirection()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
             TrainData.CalculatedPosition = 0;
             TrainData.LastCalculated = 100;
             TrainData.CalculatedDrivingDirection = "P";
@@ -91,15 +81,11 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 400, 950, 2400, 3400, 3900, 6900 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 1", "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 200, 900 });
-            TrainData.TrainDataSemaphofe.Release();
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestCalculatorWithRemoveElementsInNDirection()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
             TrainData.CalculatedPosition = 500;
             TrainData.LastCalculated = 0;
             TrainData.CalculatedDrivingDirection = "N";
@@ -111,15 +97,11 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 0, 550, 2000, 3000, 3500, 6500 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 500 });
-            TrainData.TrainDataSemaphofe.Release();
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestCalculatorWithRemoveElementsInPDirection()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
-            TrainData.TrainDataSemaphofe.Wait();
             TrainData.CalculatedPosition = 0;
             TrainData.LastCalculated = 500;
             TrainData.CalculatedDrivingDirection = "P";
@@ -131,8 +113,6 @@ namespace DriverETCSApp.UnitTests.Logic.Position
             Assert.Equal(AuthorityData.GradientsDistances, new List<double> { 0, 0, 550, 2000, 3000, 3500, 6500 });
             Assert.Equal(AuthorityData.Messages, new List<string> { "Test 2" });
             Assert.Equal(AuthorityData.MessagesDistances, new List<double> { 500 });
-            TrainData.TrainDataSemaphofe.Release();
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         public void Dispose()

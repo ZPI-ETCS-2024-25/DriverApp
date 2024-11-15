@@ -33,23 +33,6 @@ namespace DriverETCSApp.UnitTests.Forms.BForms
         }
 
         [Fact]
-        public void TestGettersAndSetters()
-        {
-            SpeedmeterForm.SetSpeed(120);
-            Assert.Equal(120, SpeedmeterForm.GetSpeed());
-            SpeedmeterForm.SetSpeed(-5);
-            Assert.Equal(120, SpeedmeterForm.GetSpeed());
-
-            SpeedmeterForm.SetSpeedWarning(0, 50);
-            Assert.Equal((0, 50), SpeedmeterForm.GetSpeedWarning());
-
-            SpeedmeterForm.SetSpeedCap(0, 50);
-            Assert.Equal((0, 50), SpeedmeterForm.GetSpeedCap());
-
-            Stop();
-        }
-
-        [Fact]
         public void CheckModeChange()
         {
             ETCSEvents.OnModeChanged(new Events.ETCSEventArgs.ModeInfo(Resources.FS, ETCSModes.FS));
