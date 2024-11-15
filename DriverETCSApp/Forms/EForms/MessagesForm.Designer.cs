@@ -54,6 +54,7 @@
             this.buttonTest.TabIndex = 5;
             this.buttonTest.Text = "add message";
             this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Visible = false;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // buttonTest2
@@ -64,6 +65,7 @@
             this.buttonTest2.TabIndex = 6;
             this.buttonTest2.Text = "delete message";
             this.buttonTest2.UseVisualStyleBackColor = true;
+            this.buttonTest2.Visible = false;
             this.buttonTest2.Click += new System.EventHandler(this.buttonTest2_Click);
             // 
             // RBCConnectionPicture
@@ -91,7 +93,7 @@
             // 
             this.buttonDOWN.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonDOWN.Image = global::DriverETCSApp.Properties.Resources.DOWNGray;
-            this.buttonDOWN.Location = new System.Drawing.Point(576, 103);
+            this.buttonDOWN.Location = new System.Drawing.Point(576, 100);
             this.buttonDOWN.Name = "buttonDOWN";
             this.buttonDOWN.Size = new System.Drawing.Size(92, 100);
             this.buttonDOWN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
