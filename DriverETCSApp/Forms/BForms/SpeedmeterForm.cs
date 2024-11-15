@@ -230,9 +230,9 @@ namespace DriverETCSApp.Forms.BForms
             {
                 if (speed <= speedLimit)
                 {
-                    /*if (isWarningYellow && speed <= AuthorityData.MIN_SPEED_LIMIT)
+                    if (isWarningYellow /*& speed <= AuthorityData.MIN_SPEED_LIMIT*/)
                         return DMIColors.Yellow;
-                    else*/
+                    else
                         return DMIColors.White;
                 }
                 else if (speed <= speedWarning.Item2)

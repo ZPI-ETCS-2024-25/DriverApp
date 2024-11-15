@@ -361,6 +361,30 @@ namespace DriverETCSApp.UnitTests.Logic.Data
             AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
+        [Fact]
+        public void TestEmptyVmax()
+        {
+            TrainData.VMax = "";
+            TrainData.CalculatedDrivingDirection = "P";
+            TrainData.CalculatedPosition = 550;
+            dynamic msg = JsonConvert.DeserializeObject(@"
+            {
+                    ""MessageType"" : ""MA"",
+                    ""Speeds"" : [100, 50, 40, 0],
+                    ""SpeedDistances"" : [0, 500, 1000, 2800],
+                    ""Gradients"" : [5, 2, -3],
+                    ""GradientsDistances"" : [0, 500, 1800, 2800],
+                    ""Messages"" : [""TEST1"", ""Test""],
+                    ""MessagesDistances"" : [120, 1000],
+                    ""Lines"" : [1],
+                    ""LinesDistances"" : [0, 2800],
+                    ""ServerPosition"" : 0.500
+            }");
+
+            var b = LoadNewDataFromServer.LoadNewData(msg).Result;
+            Assert.False(b);
+        }
+
         public void Dispose()
         {
             LoadNewDataFromServer = null;

@@ -305,9 +305,12 @@
     </Compile>
     <Compile Include="UnitTests\Calculations\MaxSpeedCalculationTest.cs" />
     <Compile Include="UnitTests\Communication\ReceiverHTTPTest.cs" />
+    <Compile Include="UnitTests\Forms\BForms\SpeedmeterFormTest.cs" />
+    <Compile Include="UnitTests\Forms\CForms\CFormTest.cs" />
     <Compile Include="UnitTests\Forms\DForms\ETCSLevelFormTest.cs" />
     <Compile Include="UnitTests\Forms\DForms\IDDriverFormTest.cs" />
     <Compile Include="UnitTests\Forms\DForms\MainDFormTest.cs" />
+    <Compile Include="UnitTests\Forms\EForms\MessageTest.cs" />
     <Compile Include="UnitTests\Forms\FForms\ToolbarFormTest.cs" />
     <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainTypeDataFormTest .cs" />
     <Compile Include="UnitTests\Forms\FullScreenForms\CheckTrainDataFormTest.cs" />

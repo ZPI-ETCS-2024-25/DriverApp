@@ -35,9 +35,9 @@ namespace DriverETCSApp.Communication.Server
                 return;
             }
 
-            /*string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
-            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);*/
-            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
+            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
+            //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
             await Semaphore.WaitAsync();
             DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime.ToObject<string>(), "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -93,16 +93,3 @@ namespace DriverETCSApp.Communication.Server
         }
     }
 }
-
-/*
-{
-    "MessageType" : "MA",
-    "Speeds" : [250, 200, 160, 130, 100, 60, 50, 40, 0],
-    "SpeedDistances" : [0, 1500, 2800, 4100, 4500, 5000, 5100, 6500, 8500],
-    "Gradients" : [-2, 7, -5, 10, -15, 25, -33, 40, 5],
-    "GradientsDistances" : [0, 100, 500, 1500, 2500, 2800, 3900, 5300, 6500, 8500],
-    "Messages" : ["fefs"],
-    "MessagesDistances" : [5000],
-    "ServerPosition" : 5555
-}
-*/
