@@ -99,7 +99,7 @@ namespace DriverETCSApp.Forms.CForms
                     else
                     {
                         CheckEndOfTripMode.IsTripAckActive = false;
-                        TrainData.ActiveMode = ETCSModes.PT;
+                        //TrainData.ActiveMode = ETCSModes.PT;
                         levelAnnouncementPicture.Image = null;
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.PostTrip, ETCSModes.PT));
                         levelAnnouncementPicture.Invalidate();
