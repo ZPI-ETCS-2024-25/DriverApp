@@ -19,11 +19,13 @@ namespace DriverETCSApp.Logic.Position
     {
         private Timer ClockTimer;
         private SpeedSegragation SpeedSegragation;
+        private CheckEndOfTripMode CheckEndOfTripMode;
 
         public DistancesCalculator()
         {
             ClockTimer = new Timer(Initcalculate, null, 0, 500);
             SpeedSegragation = new SpeedSegragation();
+            CheckEndOfTripMode = new CheckEndOfTripMode();
         }
 
         public async void Initcalculate(object sender)
@@ -122,7 +124,7 @@ namespace DriverETCSApp.Logic.Position
             Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "||" + AuthorityData.CalculatedSpeedLimit);
             if (AuthorityData.CalculatedSpeedLimit > 0)
             {
-                MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(Math.Abs(distancePassed));
+                MaxSpeedsCalculation.CountDownCalculatedMaxSpeed(diffrence);
             }
             Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "|||" + AuthorityData.CalculatedSpeedLimit);
             #endregion
@@ -166,8 +168,9 @@ namespace DriverETCSApp.Logic.Position
             }
             #endregion
 
-            #region check for pass EoA
+            #region check for pass EoA and PostTrip
             CheckEoA();
+            CheckEndOfTripMode.CheckEndOfTrip();
             #endregion
         }
 

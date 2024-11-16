@@ -62,6 +62,13 @@ namespace DriverETCSApp.Logic.Calculations {
             double previousSpeedLimit = AuthorityData.CalculatedSpeedLimit;
 
             distanceFromLimit += distancePassed;
+            if(distanceFromLimit < 0)
+            {
+                distanceFromLimit = 0;
+                AuthorityData.CalculatedSpeedLimit = 0;
+                return;
+            }
+
             double nextSpeedLimit = Math.Max(Math.Sqrt(Math.Pow(previousSpeedLimit, 2) + 2 * brakingAcceleration * 3600 * distanceFromLimit / 1000), AuthorityData.FallTo);
             if (Double.IsNaN(nextSpeedLimit))
             {

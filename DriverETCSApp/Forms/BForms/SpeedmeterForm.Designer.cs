@@ -60,7 +60,6 @@
             this.btnTest1.TabIndex = 3;
             this.btnTest1.Text = "speed up";
             this.btnTest1.UseVisualStyleBackColor = true;
-            this.btnTest1.Visible = false;
             this.btnTest1.Click += new System.EventHandler(this.btnTest1_Click);
             // 
             // btnTest2
@@ -71,7 +70,6 @@
             this.btnTest2.TabIndex = 4;
             this.btnTest2.Text = "speed down";
             this.btnTest2.UseVisualStyleBackColor = true;
-            this.btnTest2.Visible = false;
             this.btnTest2.Click += new System.EventHandler(this.btnTest2_Click);
             // 
             // btnTest3
@@ -82,7 +80,6 @@
             this.btnTest3.TabIndex = 5;
             this.btnTest3.Text = "TEST";
             this.btnTest3.UseVisualStyleBackColor = true;
-            this.btnTest3.Visible = false;
             this.btnTest3.Click += new System.EventHandler(this.btnTest3_Click);
             // 
             // SpeedmeterForm

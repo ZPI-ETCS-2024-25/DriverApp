@@ -127,31 +127,40 @@ namespace DriverETCSApp.Forms.BForms
 
         private async void clockPanel_Paint(object sender, PaintEventArgs e)
         {
-            var g = e.Graphics;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            float needleTarget = speed / (float)speedPerLine;
-
-            // Draw the needle
-            bool tmp;
+            try
             {
-                await TrainData.TrainDataSemaphofe.WaitAsync();
-                Color needleColor = GetColorForNeedle();
-                tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
-                TrainData.TrainDataSemaphofe.Release();
+                var g = e.Graphics;
+                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-                int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
-                double needleRadians = needleAngle * Math.PI / 180;
-                int xNeedle = halfClockSize + (int)(needleLength * Math.Cos(needleRadians)) + clockOffset;
-                int yNeedle = halfClockSize + (int)(needleLength * Math.Sin(needleRadians)) + clockOffset;
+                float needleTarget = speed / (float)speedPerLine;
 
-                try
+                // Draw the needle
+                bool tmp;
                 {
-                    g.DrawLine(new Pen(needleColor, 15), halfClockSize, halfClockSize, xNeedle + (halfClockSize - xNeedle) * 0.25f, yNeedle + (halfClockSize - yNeedle) * 0.25f);
-                    g.DrawLine(new Pen(needleColor, 5), halfClockSize, halfClockSize, xNeedle, yNeedle);
+                    await TrainData.TrainDataSemaphofe.WaitAsync();
+                    Color needleColor = GetColorForNeedle();
+                    tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
+                    TrainData.TrainDataSemaphofe.Release();
+
+                    int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
+                    double needleRadians = needleAngle * Math.PI / 180;
+                    int xNeedle = halfClockSize + (int)(needleLength * Math.Cos(needleRadians)) + clockOffset;
+                    int yNeedle = halfClockSize + (int)(needleLength * Math.Sin(needleRadians)) + clockOffset;
+
+                    using (Pen pen = new Pen(needleColor, 15))
+                    {
+                        g.DrawLine(pen, halfClockSize, halfClockSize, xNeedle + (halfClockSize - xNeedle) * 0.25f, yNeedle + (halfClockSize - yNeedle) * 0.25f);
+                    }
+                    using (Pen pen = new Pen(needleColor, 5))
+                    {
+                        g.DrawLine(pen, halfClockSize, halfClockSize, xNeedle, yNeedle);
+                    }
 
                     // Draw needle circle
-                    g.FillEllipse(new SolidBrush(needleColor), halfClockSize - needleCircleRadius, halfClockSize - needleCircleRadius, needleCircleRadius * 2, needleCircleRadius * 2);
+                    using (SolidBrush brush = new SolidBrush(needleColor))
+                    {
+                        g.FillEllipse(brush, halfClockSize - needleCircleRadius, halfClockSize - needleCircleRadius, needleCircleRadius * 2, needleCircleRadius * 2);
+                    }
                     {
                         Font largerFont = new Font(this.Font.FontFamily, 20f, this.Font.Style, this.Font.Unit);
                         string text = speed.ToString();
@@ -163,64 +172,74 @@ namespace DriverETCSApp.Forms.BForms
 
                         g.DrawString(speed.ToString(), largerFont, Brushes.Black, xText, yText);
                     }
+
                 }
-                catch(Exception ex)
+                //is not in FS mode then return (dont go to next steps)
+                if (tmp)
                 {
-                    Console.WriteLine(ex.ToString());
+                    return;
+                }
+
+                // Draw Arc of Speed Limit
+                if (speedLimit > 0)
+                {
+                    Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
+
+                    float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
+                    float sweepAngle = (speedLimit) * clockAngle / linesCount / speedPerLine;
+
+                    using (Pen pen = new Pen(DMIColors.DarkGrey, 8))
+                    {
+                        e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+                    }
+                }
+
+                // Draw Arc of Warning
+                if (speedWarning != (0, 0))
+                {
+                    int offset = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 2 : 0;
+                    Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
+
+                    float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
+                    float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
+                    float penSize = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 4 : 8;
+
+                    Color penColor = isWarningYellow ? DMIColors.Yellow : DMIColors.White;
+                    using (Pen pen = new Pen(penColor, penSize))
+                    {
+                        e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+                    }
+
+
+                    offset = 16;
+                    Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
+                    float pointerBoldness = 2f;
+                    float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
+
+                    using (Pen pen = new Pen(penColor, 25))
+                    {
+                        e.Graphics.DrawArc(pen, insideRect, pointer, pointerBoldness);
+                    }
+                }
+
+                // Draw Arc of Cap
+                if (speedCap != (0, 0) && speedCap.Item1 < speed)
+                {
+                    int offset = 12;
+                    Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
+
+                    float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine - 0.2f;
+                    float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine;
+
+                    using (Pen pen = new Pen(speed > speedCap.Item2 ? DMIColors.Red : DMIColors.Orange, 32))
+                    {
+                        e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+                    }
                 }
             }
-            //is not in FS mode then return (dont go to next steps)
-            if (tmp)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            // Draw Arc of Speed Limit
-            if (speedLimit > 0)
-            {
-                Rectangle rect = new Rectangle(clockOffset, clockOffset, clockSize, clockSize);
-
-                float startAngle = -clockAngleOffset + 0 * clockAngle / linesCount / speedPerLine;
-                float sweepAngle = (speedLimit) * clockAngle / linesCount / speedPerLine;
-
-                Pen pen = new Pen(DMIColors.DarkGrey, 8);
-                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
-            }
-
-            // Draw Arc of Warning
-            if (speedWarning != (0, 0))
-            {
-                int offset = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 2 : 0;
-                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
-
-                float startAngle = -clockAngleOffset + speedWarning.Item1 * clockAngle / linesCount / speedPerLine;
-                float sweepAngle = (speedWarning.Item2 - speedWarning.Item1) * clockAngle / linesCount / speedPerLine;
-                float penSize = speedWarning.Item2 < AuthorityData.MIN_SPEED_LIMIT ? 4 : 8;
-
-                Color penColor = isWarningYellow ? DMIColors.Yellow : DMIColors.White;
-                Pen pen = new Pen(penColor, penSize);
-                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
-
-
-                offset = 16;
-                Rectangle insideRect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
-                float pointerBoldness = 2f;
-                float pointer = -clockAngleOffset + speedWarning.Item2 * clockAngle / linesCount / speedPerLine - pointerBoldness;
-
-                e.Graphics.DrawArc(new Pen(penColor, 25), insideRect, pointer, pointerBoldness);
-            }
-
-            // Draw Arc of Cap
-            if (speedCap != (0, 0) && speedCap.Item1 < speed)
-            {
-                int offset = 12;
-                Rectangle rect = new Rectangle(clockOffset + offset, clockOffset + offset, clockSize - 2 * offset, clockSize - 2 * offset);
-
-                float startAngle = -clockAngleOffset + speedCap.Item1 * clockAngle / linesCount / speedPerLine - 0.2f;
-                float sweepAngle = (speedCap.Item2 - speedCap.Item1) * clockAngle / linesCount / speedPerLine;
-
-                Pen pen = new Pen(speed > speedCap.Item2 ? DMIColors.Red : DMIColors.Orange, 32);
-                e.Graphics.DrawArc(pen, rect, startAngle, sweepAngle);
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -390,6 +409,7 @@ namespace DriverETCSApp.Forms.BForms
         private void modeChanged(object sender, ModeInfo e)
         {
             ChangeMode(e.Bitmap);
+            Console.WriteLine(e.Mode);
             TrainData.ActiveMode = e.Mode;
             TrainData.IsETCSActive = !TrainData.ActiveMode.Equals(ETCSModes.SB);
         }

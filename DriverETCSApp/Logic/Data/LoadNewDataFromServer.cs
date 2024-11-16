@@ -43,6 +43,7 @@ namespace DriverETCSApp.Logic.Data
                 return false;
             }
 
+            AuthorityData.CalculatedSpeedLimit = 0;
             int position = decodedMessage.ServerPosition * 1000;
             double diffrence = 0;
             if (lines[0] == TrainData.BaliseLinePosition)
