@@ -192,7 +192,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Communication\Server\ServerSender.cs" />
-    <Compile Include="Design\ETCSBuffer.cs" />
     <Compile Include="Forms\BForms\SpeedmeterForm.Designer.cs">
       <DependentUpon>SpeedmeterForm.cs</DependentUpon>
     </Compile>
