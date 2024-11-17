@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.panelPIM = new System.Windows.Forms.Panel();
+            this.panelPIM = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
             // 
             // panelPIM
@@ -56,6 +56,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelPIM;
+        private System.Windows.Forms.PictureBox panelPIM;
     }
 }

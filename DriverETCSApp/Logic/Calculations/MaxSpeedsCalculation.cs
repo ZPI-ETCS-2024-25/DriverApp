@@ -80,7 +80,7 @@ namespace DriverETCSApp.Logic.Calculations {
                 previousLimit = nextSpeedLimit;
             }
 
-            Console.WriteLine(distancePassed.ToString() + " " + distanceFromLimit.ToString() + " " + nextSpeedLimit.ToString());
+            //Console.WriteLine(distancePassed.ToString() + " " + distanceFromLimit.ToString() + " " + nextSpeedLimit.ToString());
             if (nextSpeedLimit < AuthorityData.FallTo) {
                 AuthorityData.CalculatedSpeedLimit = AuthorityData.FallTo;
                 distanceFromLimit = 0;

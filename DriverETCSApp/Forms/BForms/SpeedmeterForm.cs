@@ -130,19 +130,18 @@ namespace DriverETCSApp.Forms.BForms
         {
             try
             {
+                await TrainData.TrainDataSemaphofe.WaitAsync();
+                Color needleColor = GetColorForNeedle();
+                bool tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
+                TrainData.TrainDataSemaphofe.Release();
+
                 var g = e.Graphics;
-                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                 float needleTarget = speed / (float)speedPerLine;
 
                 // Draw the needle
-                bool tmp;
                 {
-                    await TrainData.TrainDataSemaphofe.WaitAsync();
-                    Color needleColor = GetColorForNeedle();
-                    tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
-                    TrainData.TrainDataSemaphofe.Release();
-
                     int needleAngle = (int)(needleTarget * clockAngle / linesCount) - clockAngleOffset;
                     double needleRadians = needleAngle * Math.PI / 180;
                     int xNeedle = halfClockSize + (int)(needleLength * Math.Cos(needleRadians)) + clockOffset;
@@ -241,6 +240,7 @@ namespace DriverETCSApp.Forms.BForms
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                clockPanel_Paint(sender, e);
             }
         }
 
