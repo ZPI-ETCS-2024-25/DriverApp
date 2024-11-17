@@ -54,6 +54,7 @@ namespace DriverETCSApp.Forms.BForms
         public SpeedmeterForm()
         {
             InitializeComponent();
+            
             clockSize = (int)(clockPanel.Width * clockScale);
             clockOffset = (clockPanel.Width - clockSize) / 2;
             halfClockSize = (int)(clockSize / 2f);
@@ -372,6 +373,7 @@ namespace DriverETCSApp.Forms.BForms
                 var json = JsonConvert.SerializeObject(speedData);
                 receiver.SpeedChanged(json);
             }
+            Invalidate();
         }
 
         private async void btnTest2_Click(object sender, EventArgs e)
@@ -382,6 +384,7 @@ namespace DriverETCSApp.Forms.BForms
                 speedData.NewSpeed = this.GetSpeed() - 5;
             var json = JsonConvert.SerializeObject(speedData);
             receiver.SpeedChanged(json);
+            Invalidate();
         }
 
         private async void btnTest3_Click(object sender, EventArgs e)

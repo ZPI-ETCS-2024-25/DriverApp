@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.clockPanel = new System.Windows.Forms.Panel();
+            this.clockPanel = new System.Windows.Forms.PictureBox();
             this.modePicture = new System.Windows.Forms.PictureBox();
             this.btnTest1 = new System.Windows.Forms.Button();
             this.btnTest2 = new System.Windows.Forms.Button();
@@ -39,9 +39,9 @@
             this.clockPanel.Controls.Add(this.modePicture);
             this.clockPanel.Location = new System.Drawing.Point(22, 20);
             this.clockPanel.Name = "clockPanel";
+            this.clockPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             this.clockPanel.Size = new System.Drawing.Size(500, 500);
             this.clockPanel.TabIndex = 2;
-            this.clockPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             // 
             // modePicture
             // 
@@ -95,6 +95,7 @@
             this.Name = "SpeedmeterForm";
             this.Text = "SpeedmeterForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpeedmeterForm_FormClosing);
+            
             this.clockPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.modePicture)).EndInit();
             this.ResumeLayout(false);
@@ -102,7 +103,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel clockPanel;
+        private System.Windows.Forms.PictureBox clockPanel;
         private System.Windows.Forms.Button btnTest1;
         private System.Windows.Forms.Button btnTest2;
         private System.Windows.Forms.Button btnTest3;
