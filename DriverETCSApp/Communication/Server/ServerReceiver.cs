@@ -39,16 +39,23 @@ namespace DriverETCSApp.Communication.Server
             dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
             //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
-            await Semaphore.WaitAsync();
-            DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime.ToObject<string>(), "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);
-            if(messageTime <= LastMessageDateTime)
+            try
             {
-                Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
-                Semaphore.Release();
-                return;
+                await Semaphore.WaitAsync();
+                var s = decodedMessage["Timestamp"].ToString(Formatting.None).Trim('"');
+                DateTime messageTime = DateTime.ParseExact(s, "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);
+                if (messageTime <= LastMessageDateTime)
+                {
+                    Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
+                    Semaphore.Release();
+                    return;
+                }
+                LastMessageDateTime = messageTime;
             }
-            LastMessageDateTime = messageTime;
-            Semaphore.Release();
+            finally
+            {
+                Semaphore.Release();
+            }
 
             switch (decodedMessage.MessageType.ToString())
             {
