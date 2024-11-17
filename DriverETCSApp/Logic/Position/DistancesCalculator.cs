@@ -37,9 +37,9 @@ namespace DriverETCSApp.Logic.Position
                 Calculate(null);
                 if (AuthorityData.Speeds.Count > 0 && AuthorityData.SpeedDistances.Count > 0)
                 {
-                    Console.WriteLine("[]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
+                    //Console.WriteLine("[]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
                     MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-                    Console.WriteLine("[][]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
+                    //Console.WriteLine("[][]" + string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "   " + AuthorityData.CalculatedSpeedLimit);
                 }
                 EmergencyBrakeManager.CheckSpeed();
             }
@@ -57,7 +57,7 @@ namespace DriverETCSApp.Logic.Position
             TrainData.CalculatedPosition += distancePassed;
             var diffrence = TrainData.CalculatedDrivingDirection.Equals("N") ? TrainData.CalculatedPosition - TrainData.LastCalculated : TrainData.LastCalculated - TrainData.CalculatedPosition;
             TrainData.LastCalculated = TrainData.CalculatedPosition;
-
+            Console.WriteLine(TrainData.CalculatedPosition.ToString());
 
             #region speeds and distances of speeds
             int lastIndex = -1;
@@ -109,7 +109,14 @@ namespace DriverETCSApp.Logic.Position
                         AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
                         AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
                         AuthorityData.FallFrom = AuthorityData.Speeds[0];
-                        MaxSpeedsCalculation.distanceFromLimit = 0;
+                        if (AuthorityData.MaxSpeedsDistances[0] < 0)
+                        {
+                            MaxSpeedsCalculation.distanceFromLimit = Math.Abs(AuthorityData.MaxSpeedsDistances[lastIndex]);
+                        }
+                        else
+                        {
+                            MaxSpeedsCalculation.distanceFromLimit = 0;
+                        }
                     }
                     else
                     {

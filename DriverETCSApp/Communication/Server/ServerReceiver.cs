@@ -35,9 +35,9 @@ namespace DriverETCSApp.Communication.Server
                 return;
             }
 
-            //string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
-            //dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
-            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
+            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
+            //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
             await Semaphore.WaitAsync();
             DateTime messageTime = DateTime.ParseExact(decodedMessage.GenTime.ToObject<string>(), "HH:mm:ss-dd-MM-yyyy", CultureInfo.InvariantCulture);

@@ -28,6 +28,7 @@
             this.btnTest1 = new System.Windows.Forms.Button();
             this.btnTest2 = new System.Windows.Forms.Button();
             this.btnTest3 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.clockPanel)).BeginInit();
             this.clockPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modePicture)).BeginInit();
             this.SuspendLayout();
@@ -39,9 +40,10 @@
             this.clockPanel.Controls.Add(this.modePicture);
             this.clockPanel.Location = new System.Drawing.Point(22, 20);
             this.clockPanel.Name = "clockPanel";
-            this.clockPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             this.clockPanel.Size = new System.Drawing.Size(500, 500);
             this.clockPanel.TabIndex = 2;
+            this.clockPanel.TabStop = false;
+            this.clockPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.clockPanel_Paint);
             // 
             // modePicture
             // 
@@ -80,6 +82,7 @@
             this.btnTest3.TabIndex = 5;
             this.btnTest3.Text = "TEST";
             this.btnTest3.UseVisualStyleBackColor = true;
+            this.btnTest3.Visible = false;
             this.btnTest3.Click += new System.EventHandler(this.btnTest3_Click);
             // 
             // SpeedmeterForm
@@ -95,7 +98,7 @@
             this.Name = "SpeedmeterForm";
             this.Text = "SpeedmeterForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpeedmeterForm_FormClosing);
-            
+            ((System.ComponentModel.ISupportInitialize)(this.clockPanel)).EndInit();
             this.clockPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.modePicture)).EndInit();
             this.ResumeLayout(false);

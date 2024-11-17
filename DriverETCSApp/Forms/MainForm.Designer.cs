@@ -31,16 +31,16 @@ namespace DriverETCSApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.yPanel = new System.Windows.Forms.Panel();
-            this.zPanel = new System.Windows.Forms.Panel();
-            this.fPanel = new System.Windows.Forms.Panel();
-            this.dPanel = new System.Windows.Forms.Panel();
-            this.gPanel = new System.Windows.Forms.Panel();
-            this.bPanel = new System.Windows.Forms.Panel();
-            this.cPanel = new System.Windows.Forms.Panel();
-            this.ePanel = new System.Windows.Forms.Panel();
-            this.aPanel = new System.Windows.Forms.Panel();
-            this.MainPanel = new System.Windows.Forms.Panel();
+            this.yPanel = new System.Windows.Forms.PictureBox();
+            this.zPanel = new System.Windows.Forms.PictureBox();
+            this.fPanel = new System.Windows.Forms.PictureBox();
+            this.dPanel = new System.Windows.Forms.PictureBox();
+            this.gPanel = new System.Windows.Forms.PictureBox();
+            this.bPanel = new System.Windows.Forms.PictureBox();
+            this.cPanel = new System.Windows.Forms.PictureBox();
+            this.ePanel = new System.Windows.Forms.PictureBox();
+            this.aPanel = new System.Windows.Forms.PictureBox();
+            this.MainPanel = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
             // 
             // yPanel
@@ -142,15 +142,15 @@ namespace DriverETCSApp.Forms
 
         #endregion
 
-        private Panel yPanel;
-        private Panel zPanel;
-        private Panel fPanel;
-        private Panel dPanel;
-        private Panel gPanel;
-        private Panel bPanel;
-        private Panel cPanel;
-        private Panel ePanel;
-        private Panel aPanel;
-        private Panel MainPanel;
+        private PictureBox yPanel;
+        private PictureBox zPanel;
+        private PictureBox fPanel;
+        private PictureBox dPanel;
+        private PictureBox gPanel;
+        private PictureBox bPanel;
+        private PictureBox cPanel;
+        private PictureBox ePanel;
+        private PictureBox aPanel;
+        private PictureBox MainPanel;
     }
 }
