@@ -66,7 +66,8 @@ namespace DriverETCSApp.Logic.Balises
                 return;
             }
 
-            TrainData.CalculatedPosition += PositionApproximation.ApproximateMovedDistance();
+            double distancePassed = TrainData.CalculatedDrivingDirection.Equals("N") ? PositionApproximation.ApproximateMovedDistance() : PositionApproximation.ApproximateMovedDistance() * -1;
+            TrainData.CalculatedPosition += distancePassed;
 
             var tmp = Math.Abs(TrainData.CalculatedPosition - TrainData.LastCalculated);
 
@@ -90,7 +91,8 @@ namespace DriverETCSApp.Logic.Balises
             }
             else if(TrainData.BaliseTrackPosition != message.trackNumber && !TrainData.BaliseTrackPosition.Equals(""))
             {
-                TrainData.LastCalculated -= 20;
+                double diff = TrainData.CalculatedDrivingDirection.Equals("N") ? 20 : -20;
+                TrainData.LastCalculated -= diff;
             }
 
             TrainData.BaliseLinePosition = message.lineNumber;

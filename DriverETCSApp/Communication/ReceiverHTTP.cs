@@ -101,15 +101,5 @@ namespace DriverETCSApp.Communication {
         {
             return listener.IsListening;
         }
-
-        /*~ReceiverHTTP() {
-            // Stop the connection when the receiver is the destroyed
-            if (listener != null && listenerThread != null)
-            {
-                listener.Stop();
-                listenerThread.Abort();
-                listener.Close();
-            }
-        }*/
     }
 }

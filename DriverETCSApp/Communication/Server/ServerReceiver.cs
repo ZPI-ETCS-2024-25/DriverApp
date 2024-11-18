@@ -39,23 +39,17 @@ namespace DriverETCSApp.Communication.Server
             dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
             //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
 
-            try
+            await Semaphore.WaitAsync();
+            var s = decodedMessage["Timestamp"].ToString(Formatting.None).Trim('"');
+            DateTime messageTime = DateTime.ParseExact(s, "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);
+            if (messageTime <= LastMessageDateTime)
             {
-                await Semaphore.WaitAsync();
-                var s = decodedMessage["Timestamp"].ToString(Formatting.None).Trim('"');
-                DateTime messageTime = DateTime.ParseExact(s, "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);
-                if (messageTime <= LastMessageDateTime)
-                {
-                    Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
-                    Semaphore.Release();
-                    return;
-                }
-                LastMessageDateTime = messageTime;
-            }
-            finally
-            {
+                Console.WriteLine("Pomijanie wiadomości z serwera przez TimeGen");
                 Semaphore.Release();
+                return;
             }
+            LastMessageDateTime = messageTime;
+            Semaphore.Release();
 
             switch (decodedMessage.MessageType.ToString())
             {
@@ -69,34 +63,34 @@ namespace DriverETCSApp.Communication.Server
                     UnregisterRBC(decodedMessage);
                     break;
             }
-        }
+}
 
-        private async void LoadNewAuthorityData(dynamic decodedMessage)
-        {
-            await LoadNewDataFromServer.LoadNewData(decodedMessage);
-        }
-        private void ConnectionWithRBC(dynamic decodedMessage)
-        {
+private async void LoadNewAuthorityData(dynamic decodedMessage)
+{
+    await LoadNewDataFromServer.LoadNewData(decodedMessage);
+}
+private void ConnectionWithRBC(dynamic decodedMessage)
+{
 
-            if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
-            {
-                TrainData.IsTrainRegisterOnServer = true;
-                TrainData.IsConnectionWorking = true;
-                ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
-            }
-            else
-            {
-                TrainData.IsTrainRegisterOnServer = false;
-                TrainData.IsConnectionWorking = false;
-                ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
-            }
-        }
+    if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
+    {
+        TrainData.IsTrainRegisterOnServer = true;
+        TrainData.IsConnectionWorking = true;
+        ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
+    }
+    else
+    {
+        TrainData.IsTrainRegisterOnServer = false;
+        TrainData.IsConnectionWorking = false;
+        ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
+    }
+}
 
-        private void UnregisterRBC(dynamic decodedMessage)
-        {
-            TrainData.IsTrainRegisterOnServer = false;
-            TrainData.IsConnectionWorking = false;
-            ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
-        }
+private void UnregisterRBC(dynamic decodedMessage)
+{
+    TrainData.IsTrainRegisterOnServer = false;
+    TrainData.IsConnectionWorking = false;
+    ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
+}
     }
 }
