@@ -206,7 +206,7 @@ namespace DriverETCSApp.Logic.Data
             return true;
         }
 
-        private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances)
+        private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances, List<double> messages)
         {
             if (speeds.Count < 2 || speeddistances.Count < 2 || gradients.Count < 1 
                 || gradientsDistances.Count < 1 || lines.Count < 1 || linesDistances.Count < 1)
@@ -214,13 +214,24 @@ namespace DriverETCSApp.Logic.Data
                 return false;
             }
 
-            if (speeddistances[speeddistances.Count - 1] != gradientsDistances[gradientsDistances.Count - 1] 
-                || speeddistances[speeddistances.Count - 1] != linesDistances[linesDistances.Count - 1]
-                || speeddistances[speeddistances.Count - 1] < messagesDistances[messagesDistances.Count - 1])
+            if(messagesDistances.Count != messages.Count)
             {
                 return false;
             }
 
+            if (speeddistances[speeddistances.Count - 1] != gradientsDistances[gradientsDistances.Count - 1]
+                    || speeddistances[speeddistances.Count - 1] != linesDistances[linesDistances.Count - 1])
+            {
+                return false;
+            }
+
+            if (messagesDistances.Count != 0)
+            {
+                if (speeddistances[speeddistances.Count - 1] < messagesDistances[messagesDistances.Count - 1])
+                {
+                    return false;
+                }
+            }
             return true;
         }
     }
