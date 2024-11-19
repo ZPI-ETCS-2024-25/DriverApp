@@ -54,6 +54,7 @@ namespace DriverETCSApp.Communication.Server
                 SpeedData speedData = JsonConvert.DeserializeObject<SpeedData>(message);
                 TrainData.CurrentSpeed = speedData.NewSpeed;
                 Forms.BForms.SpeedmeterForm.SetSpeed((int)speedData.NewSpeed);
+                Forms.BForms.SpeedmeterForm.GetInstance().InvalidateClockPanel();
 
                 if ((DateTime.Now - lastSpeedSend).TotalSeconds > secondsToSend)
                 {

@@ -27,7 +27,6 @@ namespace DriverETCSApp.Forms.BForms
 {
     public partial class SpeedmeterForm : BorderLessForm
     {
-
         private static SpeedmeterForm instance;
 
         private const int linesCount = 18;
@@ -119,6 +118,7 @@ namespace DriverETCSApp.Forms.BForms
                                 SetSpeedCap(0, 0);
 
                             AuthorityData.AuthoritiyDataSemaphore.Release();
+                            InvalidateClockPanel();
                         }
                     }));
                 }
@@ -126,14 +126,24 @@ namespace DriverETCSApp.Forms.BForms
             }
         }
 
-        private async void clockPanel_Paint(object sender, PaintEventArgs e)
+        public async void InvalidateClockPanel()
+        {
+            await TrainData.TrainDataSemaphofe.WaitAsync();
+            instance.clockPanel.Invalidate();
+            TrainData.TrainDataSemaphofe.Release();
+        }
+
+        public static SpeedmeterForm GetInstance()
+        {
+            return instance;
+        }
+
+        private void clockPanel_Paint(object sender, PaintEventArgs e)
         {
             try
             {
-                await TrainData.TrainDataSemaphofe.WaitAsync();
                 Color needleColor = GetColorForNeedle();
                 bool tmp = !TrainData.ActiveMode.Equals(ETCSModes.FS);
-                TrainData.TrainDataSemaphofe.Release();
 
                 var g = e.Graphics;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -323,7 +333,6 @@ namespace DriverETCSApp.Forms.BForms
                 return;
 
             instance.speed = newSpeed;
-            instance.clockPanel.Invalidate();
         }
 
         public (int, int) GetSpeedWarning()
@@ -335,13 +344,11 @@ namespace DriverETCSApp.Forms.BForms
         {
             instance.speedWarning = (min, max);
             instance.isWarningYellow = isYellow;
-            instance.clockPanel.Invalidate();
         }
 
         public static void SetSpeedLimit(int newSpeed)
         {
             instance.speedLimit = newSpeed;
-            instance.clockPanel.Invalidate();
         }
 
         public (int, int) GetSpeedCap()
@@ -352,7 +359,6 @@ namespace DriverETCSApp.Forms.BForms
         public static void SetSpeedCap(int min, int max)
         {
             instance.speedCap = (min, max);
-            instance.clockPanel.Invalidate();
         }
 
         public void ChangeMode(Bitmap newImage)
@@ -363,7 +369,7 @@ namespace DriverETCSApp.Forms.BForms
             }
         }
 
-        private async void btnTest1_Click(object sender, EventArgs e)
+        private void btnTest1_Click(object sender, EventArgs e)
         {
             UnityReceiver receiver = new UnityReceiver();
             SpeedData speedData = new SpeedData();

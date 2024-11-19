@@ -28,8 +28,11 @@ namespace DriverETCSApp.Communication.Server
             DataEncryptDecrypt = new DataEncryptDecrypt(EncryptionData.Key, EncryptionData.IV);
         }
 
-        public async void Proccess(string message)
+        public async void Proccess(string basicMessage)
         {
+            dynamic decodedBasicMessage = JsonConvert.DeserializeObject(basicMessage);
+            string message = decodedBasicMessage.Content.ToString();
+
             if (string.IsNullOrEmpty(message))
             {
                 return;

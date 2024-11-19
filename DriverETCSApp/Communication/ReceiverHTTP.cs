@@ -24,15 +24,17 @@ namespace DriverETCSApp.Communication {
             unityReceiver = new UnityReceiver();
         }
 
-        private bool IsServerSource(HttpListenerRequest request)
+        private bool IsServerSource(string message)
         {
-            return request.RemoteEndPoint.Port == (int)Port.Server;
+            //return request.RemoteEndPoint.Port == (int)Port.Server;
+            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            return decodedMessage.source.ToString() == "SERVER";
         }
 
         private bool ToDebug(string message)
         {
             dynamic decodedMessage = JsonConvert.DeserializeObject(message);
-            return decodedMessage.from.ToString() == "server";
+            return decodedMessage.source.ToString() == "SERVER";
         }
 
         protected override void HandleIncomingConnection() {
@@ -47,7 +49,7 @@ namespace DriverETCSApp.Communication {
                         using (var reader = new System.IO.StreamReader(request.InputStream, request.ContentEncoding)) {
                             string receivedMessage = reader.ReadToEnd();
                             Console.WriteLine("Message received from client: " + receivedMessage);
-                            if (IsServerSource(request))
+                            if (IsServerSource(receivedMessage))
                             //if (ToDebug(receivedMessage))
                             {
                                 TrainData.TrainDataSemaphofe.Wait();
