@@ -31,7 +31,7 @@ namespace DriverETCSApp.Logic.Data
             List<int> lines = decodedMessage.Lines.ToObject<List<int>>();
             List<double> linesDistances = decodedMessage.LinesDistances.ToObject<List<double>>();
 
-            if(!ValidateData(speeds, speeddistances, gradients, gradientsDistances, lines, linesDistances, messagesDistances))
+            if(!ValidateData(speeds, speeddistances, gradients, gradientsDistances, lines, linesDistances, messagesDistances, messages))
             {
                 Console.WriteLine("Wrong MA! Ignoring!");
                 return false;
@@ -206,7 +206,7 @@ namespace DriverETCSApp.Logic.Data
             return true;
         }
 
-        private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances, List<double> messages)
+        private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances, List<string> messages)
         {
             if (speeds.Count < 2 || speeddistances.Count < 2 || gradients.Count < 1 
                 || gradientsDistances.Count < 1 || lines.Count < 1 || linesDistances.Count < 1)
