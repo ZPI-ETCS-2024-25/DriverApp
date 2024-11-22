@@ -51,11 +51,10 @@ namespace DriverETCSApp.Forms
                 ServerIsAliveTimer = new ServerIsAliveTimer(ServerSender, this);
                 EmergencyBrakeManager.SetUp();
                 DrawDefaulFormsInPanels();
-                SetNotVisible();
             }
         }
 
-        private async void CheckIfAlive()
+        private async Task CheckIfAlive()
         {
             bool isAlive = false;
             while(!isAlive)
@@ -372,9 +371,10 @@ namespace DriverETCSApp.Forms
             Dispose();
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
-            CheckIfAlive();
+            SetNotVisible();
+            await CheckIfAlive();
             ServerIsAliveTimer?.Start();
             SetVisible();
         }
