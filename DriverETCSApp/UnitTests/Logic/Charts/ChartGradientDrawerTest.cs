@@ -21,7 +21,10 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
 
         public ChartGradientDrawerTest()
         {
-
+            if(AuthorityData.AuthoritiyDataSemaphore.CurrentCount == 0)
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
+            }
         }
 
         private void SetUp()
@@ -37,7 +40,6 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         public void TestMultipleIterations()
         {
             SetUp();
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.GradientsDistances = new List<double> { 0, 150, 500, 800, 1000 };
             AuthorityData.Gradients = new List<int> { 5, 0, -2, 0 };
 
@@ -71,15 +73,12 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
                     Assert.Equal(DMIColors.DarkGrey, series.Color);
                 }
             }
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestZeroIteration()
         {
             SetUp();
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.GradientsDistances = new List<double> { };
             AuthorityData.Gradients = new List<int> { };
 
@@ -91,15 +90,12 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             };
 
             Assert.Single(Chart.Series);
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestSingleIterations()
         {
             SetUp();
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.GradientsDistances = new List<double> { 0, 150 };
             AuthorityData.Gradients = new List<int> { 5 };
 
@@ -130,15 +126,12 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
                     Assert.Equal(DMIColors.DarkGrey, series.Color);
                 }
             }
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void TestSeriesClear()
         {
             SetUp();
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.GradientsDistances = new List<double> { 0, 150 };
             AuthorityData.Gradients = new List<int> { 5 };
             ChartGradientDrawer.Draw();
@@ -148,8 +141,6 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             ChartGradientDrawer.Draw();
 
             Assert.Single(Chart.Series);
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         public void Dispose()
