@@ -66,34 +66,34 @@ namespace DriverETCSApp.Communication.Server
                     UnregisterRBC(decodedMessage);
                     break;
             }
-}
+        }
 
-private async void LoadNewAuthorityData(dynamic decodedMessage)
-{
-    await LoadNewDataFromServer.LoadNewData(decodedMessage);
-}
-private void ConnectionWithRBC(dynamic decodedMessage)
-{
+        private async void LoadNewAuthorityData(dynamic decodedMessage)
+        {
+            await LoadNewDataFromServer.LoadNewData(decodedMessage);
+        }
+        private void ConnectionWithRBC(dynamic decodedMessage)
+        {
 
-    if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
-    {
-        TrainData.IsTrainRegisterOnServer = true;
-        TrainData.IsConnectionWorking = true;
-        ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
-    }
-    else
-    {
-        TrainData.IsTrainRegisterOnServer = false;
-        TrainData.IsConnectionWorking = false;
-        ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
-    }
-}
+            if (Convert.ToBoolean(decodedMessage.RegisterSuccess))
+            {
+                TrainData.IsTrainRegisterOnServer = true;
+                TrainData.IsConnectionWorking = true;
+                ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(Resources.ConnectionSet));
+            }
+            else
+            {
+                TrainData.IsTrainRegisterOnServer = false;
+                TrainData.IsConnectionWorking = false;
+                ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
+            }
+        }
 
-private void UnregisterRBC(dynamic decodedMessage)
-{
-    TrainData.IsTrainRegisterOnServer = false;
-    TrainData.IsConnectionWorking = false;
-    ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
-}
+        private void UnregisterRBC(dynamic decodedMessage)
+        {
+            TrainData.IsTrainRegisterOnServer = false;
+            TrainData.IsConnectionWorking = false;
+            ETCSEvents.OnConnectionChanged(new Events.ETCSEventArgs.ConnectionInfo(null));
+        }
     }
 }

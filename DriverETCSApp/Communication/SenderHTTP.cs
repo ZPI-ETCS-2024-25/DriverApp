@@ -55,7 +55,7 @@ namespace DriverETCSApp.Communication
                 try
                 {
                     //var content = new StringContent(msg, Encoding.UTF8, "application/json");
-                    var contentObj = new { Content = msg };
+                    var contentObj = new { Content = msg, source = "DRIVER" };
                     var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(contentObj), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(url, content);
 

@@ -23,6 +23,7 @@ namespace DriverETCSApp.Communication.Unity
 
         public async Task SendBrakeSignal(bool brakeCommand) {
             var data = new {
+                source = "DRIVER",
                 messageType = "brake",
                 BreakCommand = brakeCommand
             };
@@ -34,6 +35,7 @@ namespace DriverETCSApp.Communication.Unity
         {
             var data = new
             {
+                source = "DRIVER",
                 messageType = "alive"
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
