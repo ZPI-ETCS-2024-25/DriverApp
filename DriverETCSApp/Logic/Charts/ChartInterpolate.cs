@@ -72,11 +72,11 @@ namespace DriverETCSApp.Logic.Charts
             {
                 return 100;
             }
-            else if (value <= 0.99 && value >= 0.75)
+            else if (value < 1 && value >= 0.75)
             {
                 return 75;
             }
-            else if (value <= 0.74 && value >= 0.5)
+            else if (value < 0.75 && value >= 0.5)
             {
                 return 50;
             }
