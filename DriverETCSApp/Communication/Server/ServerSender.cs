@@ -124,7 +124,7 @@ namespace DriverETCSApp.Communication.Server
 
             string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(isAlive));
             dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
-            bool value = decodedMessage.IsAlive.ToBoolean();
+            bool value = decodedMessage.IsAlive;
             return value;
         }
 

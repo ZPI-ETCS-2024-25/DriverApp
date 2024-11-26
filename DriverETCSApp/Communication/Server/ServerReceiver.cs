@@ -32,6 +32,7 @@ namespace DriverETCSApp.Communication.Server
         {
             dynamic decodedBasicMessage = JsonConvert.DeserializeObject(basicMessage);
             string message = decodedBasicMessage.Content.ToString();
+            //string message = basicMessage;
 
             if (string.IsNullOrEmpty(message))
             {
