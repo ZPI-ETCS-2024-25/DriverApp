@@ -122,7 +122,8 @@ namespace DriverETCSApp.Communication.Server
                 return false;
             }
 
-            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(isAlive));
+            dynamic decodedMessage1 = JsonConvert.DeserializeObject<JsonObject>(isAlive);
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(decodedMessage1.Content));
             dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
             bool value = decodedMessage.IsAlive;
             return value;
@@ -136,6 +137,11 @@ namespace DriverETCSApp.Communication.Server
             }
 
             ServerReceiver.Proccess(responce);
+        }
+
+        private class JsonObject
+        {
+            public string Content { get; set; }
         }
     }
 }
