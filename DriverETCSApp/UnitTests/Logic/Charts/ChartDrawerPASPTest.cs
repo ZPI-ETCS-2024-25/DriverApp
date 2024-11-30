@@ -38,7 +38,6 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
         [Fact]
         public void PASPTest()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.SpeedDistances = new List<double> { 0, 150, 500, 800 };
             AuthorityData.Speeds = new List<double> { 100, 50, 40, 0 };
 
@@ -60,13 +59,11 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
                 Assert.Equal(expectedPoints[i].XValue, Chart.Series["SeriesZoneSpeed"].Points[i].XValue);
                 Assert.Equal(expectedPoints[i].YValues[0], Chart.Series["SeriesZoneSpeed"].Points[i].YValues[0]);
             }
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void PASPEmptyTest()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.SpeedDistances = new List<double> { 0 };
             AuthorityData.Speeds = new List<double> { 0 };
 
@@ -78,14 +75,11 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             };
 
             Assert.Equal(expectedPoints.Count, Chart.Series["SeriesZoneSpeed"].Points.Count);
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void PASPEmptyTest2()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.SpeedDistances = new List<double> { };
             AuthorityData.Speeds = new List<double> { };
 
@@ -97,18 +91,14 @@ namespace DriverETCSApp.UnitTests.Logic.Charts
             };
 
             Assert.Equal(expectedPoints.Count, Chart.Series["SeriesZoneSpeed"].Points.Count);
-
-            AuthorityData.AuthoritiyDataSemaphore.Release();
         }
 
         [Fact]
         public void ZeroIndicationLineTest()
         {
-            AuthorityData.AuthoritiyDataSemaphore.Wait();
             AuthorityData.MaxSpeedsDistances = new List<double> { };
 
             bool b = ChartDrawerPASP.DrawIndication(null);
-            AuthorityData.AuthoritiyDataSemaphore.Release();
             Assert.False(b);
         }
 

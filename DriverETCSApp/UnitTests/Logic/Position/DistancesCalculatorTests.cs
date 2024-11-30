@@ -18,6 +18,11 @@ namespace DriverETCSApp.UnitTests.Logic.Position
         {
             Calculator = new DistancesCalculator();
             Calculator.TurnOffClock();
+
+            if (AuthorityData.AuthoritiyDataSemaphore.CurrentCount == 0)
+            {
+                AuthorityData.AuthoritiyDataSemaphore.Release();
+            }
         }
 
         private void SetData()
