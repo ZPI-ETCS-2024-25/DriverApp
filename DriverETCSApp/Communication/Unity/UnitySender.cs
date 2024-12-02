@@ -28,7 +28,7 @@ namespace DriverETCSApp.Communication.Unity
                 BreakCommand = brakeCommand
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
-            var response = await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            var response = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
         }
 
         public async Task<bool> SendIsAliveRequest()
@@ -39,7 +39,7 @@ namespace DriverETCSApp.Communication.Unity
                 messageType = "alive"
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
-            string isAlive = await SenderHTTP.SendMessage(dataSerialized, Port.Server);
+            string isAlive = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
 
             if (string.IsNullOrEmpty(isAlive))
             {
