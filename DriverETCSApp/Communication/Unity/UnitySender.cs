@@ -31,7 +31,7 @@ namespace DriverETCSApp.Communication.Unity
             var response = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
         }
 
-        public async Task<bool> SendIsAliveRequest()
+        public async Task SendIsAliveRequest()
         {
             var data = new
             {
@@ -39,16 +39,7 @@ namespace DriverETCSApp.Communication.Unity
                 messageType = "alive"
             };
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
-            string isAlive = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
-
-            if (string.IsNullOrEmpty(isAlive))
-            {
-                return false;
-            }
-
-            dynamic decodedMessage = JsonConvert.DeserializeObject(isAlive);
-            bool value = decodedMessage.IsAlive.ToBoolean();
-            return value;
+            var response = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
         }
     }
 }
