@@ -42,7 +42,7 @@ namespace DriverETCSApp.Communication.Server
             string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
             dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
             //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
-
+            Console.WriteLine(decodedMessage);
             await Semaphore.WaitAsync();
             var s = decodedMessage["Timestamp"].ToString(Formatting.None).Trim('"');
             DateTime messageTime = DateTime.ParseExact(s, "yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);

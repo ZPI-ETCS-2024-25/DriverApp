@@ -37,17 +37,20 @@ namespace DriverETCSApp.Communication.Server
                     SpeedChanged(message);
                     break;
                 default: //From Balise
-                    SetDistanceFromBalise(message);
+                    SetDistanceFromBalise(decodedMessage);
                     break;
             }
         }
 
         private void SetDistanceFromBalise(dynamic message) {
-            MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message);
+            string tmp = message.kilometer.ToString();
+            tmp = tmp.Replace(",", ".");
+            message.kilometer = tmp;
+            MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message.ToString());
             BalisesManager.Manage(decodedMessage);
         }
 
-        public async void SpeedChanged(dynamic message) {
+        public async void SpeedChanged(string message) {
             await TrainData.TrainDataSemaphofe.WaitAsync();
             try
             {

@@ -68,7 +68,7 @@ namespace DriverETCSApp.Forms
             }
 
             isAlive = false;
-            while (!isAlive)
+            /*while (!isAlive)
             {
                 isAlive = await UnitySender.SendIsAliveRequest();
                 if(!isAlive)
@@ -76,7 +76,7 @@ namespace DriverETCSApp.Forms
                     MessageBox.Show("Sprawdź czy środowisko z Unity jest uruchomione oraz działa poprawnie!", "Błąd połączenia z UNITY!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //isAlive = true;
                 }
-            }
+            }*/
         }
 
         public void ShowMessage()
