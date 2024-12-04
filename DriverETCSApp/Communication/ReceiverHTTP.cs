@@ -52,6 +52,7 @@ namespace DriverETCSApp.Communication {
                             if (IsServerSource(receivedMessage))
                             //if (ToDebug(receivedMessage))
                             {
+                                AuthorityData.AuthoritiyDataSemaphore.Wait();
                                 TrainData.TrainDataSemaphofe.Wait();
                                 try
                                 {
@@ -60,6 +61,7 @@ namespace DriverETCSApp.Communication {
                                 finally
                                 {
                                     TrainData.TrainDataSemaphofe.Release();
+                                    AuthorityData.AuthoritiyDataSemaphore.Release();
                                 }
                             }
                             else

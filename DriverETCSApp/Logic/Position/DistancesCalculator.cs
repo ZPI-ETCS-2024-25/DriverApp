@@ -190,15 +190,30 @@ namespace DriverETCSApp.Logic.Position
         {
             if(TrainData.ActiveMode.Equals(ETCSModes.FS))
             {
-                if (AuthorityData.Speeds.Count > 0)
+                if (AuthorityData.Speeds.Count == 1)
                 {
                     if (AuthorityData.Speeds[0] == 0)
                     {
+                        PrintLists();
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.Trip, ETCSModes.TR));
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Nieautoryzowane pominięcie EoA/LoA"));
                     }
                 }
             }
+        }
+
+        private void PrintLists()
+        {
+            foreach(var i in AuthorityData.Speeds)
+            {
+                Console.Write(i.ToString());
+            }
+            Console.WriteLine();
+            foreach (var i in AuthorityData.SpeedDistances)
+            {
+                Console.Write(i.ToString());
+            }
+            Console.WriteLine();
         }
     }
 }

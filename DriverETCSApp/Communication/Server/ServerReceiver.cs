@@ -69,9 +69,9 @@ namespace DriverETCSApp.Communication.Server
             }
         }
 
-        private async void LoadNewAuthorityData(dynamic decodedMessage)
+        private void LoadNewAuthorityData(dynamic decodedMessage)
         {
-            await LoadNewDataFromServer.LoadNewData(decodedMessage);
+            LoadNewDataFromServer.LoadNewData(decodedMessage);
         }
         private void ConnectionWithRBC(dynamic decodedMessage)
         {

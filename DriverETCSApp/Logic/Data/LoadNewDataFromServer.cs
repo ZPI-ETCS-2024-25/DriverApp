@@ -20,7 +20,7 @@ namespace DriverETCSApp.Logic.Data
             SpeedSegragation = new SpeedSegragation();
         }
 
-        public async Task<bool> LoadNewData(dynamic decodedMessage)
+        public bool LoadNewData(dynamic decodedMessage)
         {
             List<double> speeds = decodedMessage.Speeds.ToObject<List<double>>();
             List<double> speeddistances = decodedMessage.SpeedDistances.ToObject<List<double>>();
@@ -31,13 +31,13 @@ namespace DriverETCSApp.Logic.Data
             List<int> lines = decodedMessage.Lines.ToObject<List<int>>();
             List<double> linesDistances = decodedMessage.LinesDistances.ToObject<List<double>>();
 
-            if(!ValidateData(speeds, speeddistances, gradients, gradientsDistances, lines, linesDistances, messagesDistances, messages))
+            if (!ValidateData(speeds, speeddistances, gradients, gradientsDistances, lines, linesDistances, messagesDistances, messages))
             {
                 Console.WriteLine("Wrong MA! Ignoring!");
                 return false;
             }
 
-            if(string.IsNullOrEmpty(TrainData.VMax) || string.IsNullOrEmpty(TrainData.BrakingMass) || string.IsNullOrEmpty(TrainData.TrainNumber) || string.IsNullOrEmpty(TrainData.Length))
+            if (string.IsNullOrEmpty(TrainData.VMax) || string.IsNullOrEmpty(TrainData.BrakingMass) || string.IsNullOrEmpty(TrainData.TrainNumber) || string.IsNullOrEmpty(TrainData.Length))
             {
                 Console.WriteLine("Get MA when data EMPTY! Ignoring!");
                 return false;
@@ -87,7 +87,7 @@ namespace DriverETCSApp.Logic.Data
 
             for (int i = 1; i < speeddistances.Count - 1; i++)
             {
-                if (speeds[i] < vmax)
+                if (speeds[i] <= vmax)
                 {
                     tmpSpeed.Add(speeds[i]);
                     tmpSpeedDist.Add(speeddistances[i + 1]);
@@ -102,7 +102,7 @@ namespace DriverETCSApp.Logic.Data
                     else
                     {
                         tmpSpeed.Add(vmax);
-                        tmpSpeedDist.Add(speeddistances[i]);
+                        tmpSpeedDist.Add(speeddistances[i + 1]);
                         actualTmpIndex++;
                     }
                 }
@@ -183,24 +183,16 @@ namespace DriverETCSApp.Logic.Data
             }
             #endregion
 
-            await AuthorityData.AuthoritiyDataSemaphore.WaitAsync();
-            try
-            {
-                AuthorityData.Speeds = speeds;
-                AuthorityData.SpeedDistances = speeddistances;
-                AuthorityData.Gradients = gradients;
-                AuthorityData.GradientsDistances = gradientsDistances;
-                AuthorityData.Messages = messages;
-                AuthorityData.MessagesDistances = messagesDistances;
-                AuthorityData.Lines = lines;
-                AuthorityData.LinesDistances = linesDistances;
+            AuthorityData.Speeds = speeds;
+            AuthorityData.SpeedDistances = speeddistances;
+            AuthorityData.Gradients = gradients;
+            AuthorityData.GradientsDistances = gradientsDistances;
+            AuthorityData.Messages = messages;
+            AuthorityData.MessagesDistances = messagesDistances;
+            AuthorityData.Lines = lines;
+            AuthorityData.LinesDistances = linesDistances;
 
-                MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            }
-            finally 
-            { 
-                AuthorityData.AuthoritiyDataSemaphore.Release(); 
-            }
+            MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
             TrainData.LastCalculated = TrainData.CalculatedPosition;
             SpeedSegragation.CalculateSpeeds();
             return true;
@@ -208,13 +200,13 @@ namespace DriverETCSApp.Logic.Data
 
         private bool ValidateData(List<double> speeds, List<double> speeddistances, List<int> gradients, List<double> gradientsDistances, List<int> lines, List<double> linesDistances, List<double> messagesDistances, List<string> messages)
         {
-            if (speeds.Count < 2 || speeddistances.Count < 2 || gradients.Count < 1 
+            if (speeds.Count < 2 || speeddistances.Count < 2 || gradients.Count < 1
                 || gradientsDistances.Count < 1 || lines.Count < 1 || linesDistances.Count < 1)
             {
                 return false;
             }
 
-            if(messagesDistances.Count != messages.Count)
+            if (messagesDistances.Count != messages.Count)
             {
                 return false;
             }
