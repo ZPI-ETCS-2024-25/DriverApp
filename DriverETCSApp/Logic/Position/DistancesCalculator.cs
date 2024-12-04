@@ -206,12 +206,12 @@ namespace DriverETCSApp.Logic.Position
         {
             foreach(var i in AuthorityData.Speeds)
             {
-                Console.Write(i.ToString());
+                Console.Write(i.ToString() + " ");
             }
             Console.WriteLine();
             foreach (var i in AuthorityData.SpeedDistances)
             {
-                Console.Write(i.ToString());
+                Console.Write(i.ToString() + " ");
             }
             Console.WriteLine();
         }
