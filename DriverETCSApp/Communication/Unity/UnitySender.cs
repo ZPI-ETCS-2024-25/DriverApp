@@ -47,7 +47,7 @@ namespace DriverETCSApp.Communication.Unity
             }
 
             dynamic decodedMessage = JsonConvert.DeserializeObject(isAlive);
-            bool value = decodedMessage.IsAlive.ToBoolean();
+            bool value = decodedMessage.isAlive;
             return value;
         }
     }
