@@ -30,18 +30,18 @@ namespace DriverETCSApp.Communication.Server
 
         public async void Proccess(string basicMessage)
         {
-            /*dynamic decodedBasicMessage = JsonConvert.DeserializeObject(basicMessage);
-            string message = decodedBasicMessage.Content.ToString();*/
-            string message = basicMessage;
+            dynamic decodedBasicMessage = JsonConvert.DeserializeObject(basicMessage);
+            string message = decodedBasicMessage.Content.ToString();
+            //string message = basicMessage;
 
             if (string.IsNullOrEmpty(message))
             {
                 return;
             }
 
-            /*string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
-            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);*/
-            dynamic decodedMessage = JsonConvert.DeserializeObject(message);
+            string decryptedMessage = DataEncryptDecrypt.Decrypt(Convert.FromBase64String(message));
+            dynamic decodedMessage = JsonConvert.DeserializeObject(decryptedMessage);
+            //dynamic decodedMessage = JsonConvert.DeserializeObject(message);
             Console.WriteLine(decodedMessage);
             await Semaphore.WaitAsync();
             var s = decodedMessage["Timestamp"].ToString(Formatting.None).Trim('"');
