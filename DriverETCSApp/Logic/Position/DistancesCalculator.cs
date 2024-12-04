@@ -176,6 +176,7 @@ namespace DriverETCSApp.Logic.Position
             #endregion
 
             #region check for pass EoA and PostTrip
+            PrintLists();
             CheckEoA();
             CheckEndOfTripMode.CheckEndOfTrip();
             #endregion
@@ -194,7 +195,6 @@ namespace DriverETCSApp.Logic.Position
                 {
                     if (AuthorityData.Speeds[0] == 0)
                     {
-                        PrintLists();
                         ETCSEvents.OnModeChanged(new ModeInfo(Resources.Trip, ETCSModes.TR));
                         ETCSEvents.OnNewSystemMessage(new MessageInfo(DateTime.Now.ToString("HH:mm"), "Nieautoryzowane pominięcie EoA/LoA"));
                     }

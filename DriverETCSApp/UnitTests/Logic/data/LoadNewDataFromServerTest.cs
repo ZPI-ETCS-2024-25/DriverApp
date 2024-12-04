@@ -359,7 +359,7 @@ namespace DriverETCSApp.UnitTests.Logic.Data
                     ""ServerPosition"" : 0.500
             }");
 
-            var b = LoadNewDataFromServer.LoadNewData(msg).Result;
+            var b = LoadNewDataFromServer.LoadNewData(msg);
             Assert.False(b);
         }
 

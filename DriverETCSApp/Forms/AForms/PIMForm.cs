@@ -73,10 +73,19 @@ namespace DriverETCSApp.Forms.AForms
 
                             if (AuthorityData.MaxSpeedsDistances.Count > 0 
                             && AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
-                            && AuthorityData.SpeedDistances.Count > 1) {
-                                panelPIM.Visible = true;
-                                double distance = AuthorityData.MaxSpeedsDistancesPoints[0];
-                                SetDistanceLeft((int)distance);
+                            && AuthorityData.SpeedDistances.Count > 1
+                            && AuthorityData.Speeds.Count > 1) {
+                                if (AuthorityData.Speeds[0] > AuthorityData.MaxSpeeds[0])
+                                {
+                                    panelPIM.Visible = true;
+                                    double distance = AuthorityData.MaxSpeedsDistancesPoints[0];
+                                    SetDistanceLeft((int)distance);
+                                }
+                                else
+                                {
+                                    panelPIM.Visible = false;
+                                    SetDistanceLeft(0);
+                                }
                             }
                             else {
                                 panelPIM.Visible = false;
