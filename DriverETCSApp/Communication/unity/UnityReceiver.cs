@@ -36,9 +36,6 @@ namespace DriverETCSApp.Communication.Server
                 case "NS": //New speed
                     SpeedChanged(message);
                     break;
-                case "isAlive":
-                    isAlive(decodedMessage);
-                    break;
                 default: //From Balise
                     SetDistanceFromBalise(decodedMessage);
                     break;
@@ -51,11 +48,6 @@ namespace DriverETCSApp.Communication.Server
             message.kilometer = tmp;
             MessageFromBalise decodedMessage = JsonConvert.DeserializeObject<MessageFromBalise>(message.ToString());
             BalisesManager.Manage(decodedMessage);
-        }
-
-        private void isAlive(dynamic message)
-        {
-            TrainData.isUnityAlive = message.isAlive;
         }
 
         public async void SpeedChanged(string message) {

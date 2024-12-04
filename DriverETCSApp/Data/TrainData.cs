@@ -4,7 +4,6 @@ namespace DriverETCSApp.Data
 {
     public static class TrainData
     {
-        public static bool isUnityAlive = false;
         //train data
         public static string IDDriver = "";
         public static string TrainNumber = "";
