@@ -27,6 +27,7 @@ namespace DriverETCSApp.Communication.Unity
                 messageType = "brake",
                 BreakCommand = brakeCommand
             };
+            Console.WriteLine("BRAKE" + brakeCommand);
             string dataSerialized = System.Text.Json.JsonSerializer.Serialize(data);
             var response = await SenderHTTP.SendMessage(dataSerialized, Port.Unity);
         }

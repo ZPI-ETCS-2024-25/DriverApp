@@ -42,8 +42,8 @@ namespace DriverETCSApp.Logic.Calculations {
                     AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
                 else {
-                    AuthorityData.MaxSpeedsDistances.Add(speedDistances[i]);
-                    AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
+                    //AuthorityData.MaxSpeedsDistances.Add(speedDistances[i]);
+                    //AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
             }
 

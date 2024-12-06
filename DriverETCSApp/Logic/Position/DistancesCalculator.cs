@@ -204,12 +204,26 @@ namespace DriverETCSApp.Logic.Position
 
         private void PrintLists()
         {
+            Console.Write("Speeds:");
             foreach(var i in AuthorityData.Speeds)
             {
                 Console.Write(i.ToString() + " ");
             }
             Console.WriteLine();
+            Console.Write("SpeedDistances:");
             foreach (var i in AuthorityData.SpeedDistances)
+            {
+                Console.Write(i.ToString() + " ");
+            }
+            Console.WriteLine();
+            Console.Write("MaxSpeedsDistances:");
+            foreach (var i in AuthorityData.MaxSpeedsDistances)
+            {
+                Console.Write(i.ToString() + " ");
+            }
+            Console.WriteLine();
+            Console.Write("MaxSpeeds:");
+            foreach (var i in AuthorityData.MaxSpeeds)
             {
                 Console.Write(i.ToString() + " ");
             }

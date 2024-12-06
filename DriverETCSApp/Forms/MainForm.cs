@@ -374,8 +374,8 @@ namespace DriverETCSApp.Forms
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             SetNotVisible();
-            //await CheckIfAlive();
-            //ServerIsAliveTimer?.Start();
+            await CheckIfAlive();
+            ServerIsAliveTimer?.Start();
             SetVisible();
         }
     }
