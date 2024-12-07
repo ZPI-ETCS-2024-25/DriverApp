@@ -35,7 +35,7 @@ namespace DriverETCSApp.UnitTests.Calculations {
             MaxSpeedsCalculation.SetBrakingAccelerationByValue(-3);
 
             MaxSpeedsCalculation.Calculate(AuthorityData.Speeds, AuthorityData.SpeedDistances);
-            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { 283.33333333333331 });
+            Assert.Equal(AuthorityData.MaxSpeedsDistances, new List<double> { -295.37037037037032 });
         }
 
         [Fact]

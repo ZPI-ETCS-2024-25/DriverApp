@@ -42,6 +42,7 @@ namespace DriverETCSApp.Logic.Calculations {
                     AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
                 else {
+                    AuthorityData.MaxSpeeds.RemoveRange(0, 1);
                     //AuthorityData.MaxSpeedsDistances.Add(speedDistances[i]);
                     //AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
@@ -78,6 +79,11 @@ namespace DriverETCSApp.Logic.Calculations {
             else
             {
                 previousLimit = nextSpeedLimit;
+            }
+            
+            if(nextSpeedLimit > AuthorityData.Speeds[0])
+            {
+                nextSpeedLimit = AuthorityData.Speeds[0];
             }
 
             //Console.WriteLine(distancePassed.ToString() + " " + distanceFromLimit.ToString() + " " + nextSpeedLimit.ToString());

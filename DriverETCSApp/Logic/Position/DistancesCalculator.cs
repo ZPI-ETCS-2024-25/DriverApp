@@ -109,6 +109,19 @@ namespace DriverETCSApp.Logic.Position
                         AuthorityData.CalculatedSpeedLimit = AuthorityData.Speeds[0];
                         AuthorityData.FallTo = AuthorityData.MaxSpeeds[0];
                         AuthorityData.FallFrom = AuthorityData.Speeds[0];
+                        for (int i = 1; i < AuthorityData.Speeds.Count; i++)
+                        {
+                            if (AuthorityData.FallFrom < AuthorityData.Speeds[i])
+                            {
+                                AuthorityData.FallFrom = AuthorityData.Speeds[i];
+                                AuthorityData.CalculatedSpeedLimit = AuthorityData.FallFrom;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
                         if (AuthorityData.MaxSpeedsDistances[0] < 0)
                         {
                             MaxSpeedsCalculation.distanceFromLimit = Math.Abs(AuthorityData.MaxSpeedsDistances[lastIndex]);
@@ -127,6 +140,11 @@ namespace DriverETCSApp.Logic.Position
                 AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(0, lastIndex + 1);
                 AuthorityData.MaxSpeedsDistances.RemoveRange(0, lastIndex + 1);
                 AuthorityData.MaxSpeeds.RemoveRange(0, lastIndex + 1);
+            }
+            else
+            {
+                MaxSpeedsCalculation.distanceFromLimit = 0;
+                AuthorityData.FallFrom = 0;
             }
             //Console.WriteLine(string.Join(", ", AuthorityData.MaxSpeedsDistancesPoints) + "|" + string.Join(", ", AuthorityData.MaxSpeedsDistances) + "|" + string.Join(", ", AuthorityData.MaxSpeeds) + "||" + AuthorityData.CalculatedSpeedLimit);
             if (AuthorityData.CalculatedSpeedLimit > 0)

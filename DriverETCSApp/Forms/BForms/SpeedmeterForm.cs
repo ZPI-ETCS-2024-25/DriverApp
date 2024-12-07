@@ -96,7 +96,7 @@ namespace DriverETCSApp.Forms.BForms
 
                                 if (AuthorityData.Speeds.Count > 1 && AuthorityData.MaxSpeedsDistances.Count > 0 &&
                                 AuthorityData.MaxSpeedsDistances[0] <= AuthorityData.NOTICE_DISTANCE
-                                && AuthorityData.MaxSpeeds[0] < AuthorityData.Speeds[0])
+                                /*&& AuthorityData.MaxSpeeds[0] < AuthorityData.Speeds[0]*/)
                                 {
                                     double nextSpeedlimit = AuthorityData.MaxSpeeds[0];
                                     SetSpeedWarning((int)nextSpeedlimit, (int)speedlimit, false);
