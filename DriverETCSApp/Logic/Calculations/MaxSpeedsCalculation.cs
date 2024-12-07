@@ -16,6 +16,7 @@ namespace DriverETCSApp.Logic.Calculations {
         public static void Calculate(List<double> _speeds, List<double> _speedDistances) {
             List<double> speeds = new List<double>(_speeds);
             List<double> speedDistances = new List<double>(_speedDistances);
+            int ID = 0;
             AuthorityData.MaxSpeedsDistancesPoints.Clear();
             AuthorityData.MaxSpeedsDistances.Clear();
             AuthorityData.MaxSpeeds.Clear();
@@ -28,21 +29,25 @@ namespace DriverETCSApp.Logic.Calculations {
                 if (nextMaxSpeed < previousMaxSpeed) {
                     double distance = (Math.Pow(nextMaxSpeed, 2) - Math.Pow(previousMaxSpeed, 2)) / (2 * brakingAcceleration * 3600);
                     double nextPosition = (speedDistances[i] / 1000 - distance) * 1000;
-                    if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < speedDistances[i - 1] /*+ AuthorityData.NOTICE_DISTANCE*/) {
+                    if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < speedDistances[i - 1] /*+ AuthorityData.NOTICE_DISTANCE*/)
+                    {
                         speeds.RemoveRange(i - 1, 1);
                         speedDistances.RemoveRange(i - 1, 1);
-                        AuthorityData.MaxSpeeds.RemoveRange(i - 2, 1);
-                        AuthorityData.MaxSpeedsDistances.RemoveRange(i - 2, 1);
-                        AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(i - 2, 1);
+                        AuthorityData.MaxSpeeds.RemoveRange(ID - 1, 1);
+                        AuthorityData.MaxSpeedsDistances.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistances.Count - 1), 1);
+                        AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistancesPoints.Count - 1), 1);
                         i -= 2;
-                        
-                        continue;
+                        ID--;
                     }
-                    AuthorityData.MaxSpeedsDistances.Add(nextPosition);
-                    AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
+                    else
+                    {
+                        AuthorityData.MaxSpeedsDistances.Add(nextPosition);
+                        AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
+                        ID++;
+                    }
                 }
                 else {
-                    AuthorityData.MaxSpeeds.RemoveRange(0, 1);
+                    AuthorityData.MaxSpeeds.RemoveRange(ID, 1);
                     //AuthorityData.MaxSpeedsDistances.Add(speedDistances[i]);
                     //AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
                 }
