@@ -299,7 +299,7 @@ namespace DriverETCSApp.Forms.CForms
                 {
                     levelAnnouncementPicture.Image = Resources.OSAck;
                     LastModeInfo = new ModeInfo(Resources.OS, ETCSModes.OS);
-                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("Ignore_OFF"));
+                    ETCSEvents.OnForceToChangeBaliseType(new BaliseInfo("ON"));
                 }
                 else
                 {
