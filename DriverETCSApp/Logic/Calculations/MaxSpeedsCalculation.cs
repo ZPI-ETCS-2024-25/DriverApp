@@ -31,13 +31,32 @@ namespace DriverETCSApp.Logic.Calculations {
                     double nextPosition = (speedDistances[i] / 1000 - distance) * 1000;
                     if (AuthorityData.MaxSpeedsDistances.Count > 0 && nextPosition < speedDistances[i - 1] /*+ AuthorityData.NOTICE_DISTANCE*/)
                     {
-                        speeds.RemoveRange(i - 1, 1);
-                        speedDistances.RemoveRange(i - 1, 1);
-                        AuthorityData.MaxSpeeds.RemoveRange(ID - 1, 1);
-                        AuthorityData.MaxSpeedsDistances.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistances.Count - 1), 1);
-                        AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistancesPoints.Count - 1), 1);
-                        i -= 2;
-                        ID--;
+                        if (i < 1)
+                        {
+                            speeds.RemoveRange(i - 1, 1);
+                            speedDistances.RemoveRange(i - 1, 1);
+                            AuthorityData.MaxSpeeds.RemoveRange(ID - 1, 1);
+                            AuthorityData.MaxSpeedsDistances.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistances.Count - 1), 1);
+                            AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistancesPoints.Count - 1), 1);
+                            i -= 2;
+                            ID--;
+                        }
+                        else if(previousMaxSpeed < speeds[i - 2])
+                        {
+                            speeds.RemoveRange(i - 1, 1);
+                            speedDistances.RemoveRange(i - 1, 1);
+                            AuthorityData.MaxSpeeds.RemoveRange(ID - 1, 1);
+                            AuthorityData.MaxSpeedsDistances.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistances.Count - 1), 1);
+                            AuthorityData.MaxSpeedsDistancesPoints.RemoveRange(Math.Min(i - 2, AuthorityData.MaxSpeedsDistancesPoints.Count - 1), 1);
+                            i -= 2;
+                            ID--;
+                        }
+                        else
+                        {
+                            AuthorityData.MaxSpeedsDistances.Add(nextPosition);
+                            AuthorityData.MaxSpeedsDistancesPoints.Add(speedDistances[i]);
+                            ID++;
+                        }
                     }
                     else
                     {
